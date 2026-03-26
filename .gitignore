@@ -17,25 +17,25 @@ hs_err_pid*.log
 **/target/
 
 # --- JARs generados por Ant (se regeneran con build.xml) ---
-OsmoCore/jar/osmocommons.jar
-DataSuiteCore/jar/datasuite.jar
+osmo-core/jar/osmocommons.jar
+datasuite-core/jar/datasuite.jar
 
 # --- Build properties locales (rutas de cada máquina) ---
-Webdata/build.properties
-Modelatos/build.properties
+web-data/build.properties
+modelatos/build.properties
 
-# --- OsmoSkin_Datasuite ---
-OsmoSkin_Datasuite/release.properties
-OsmoSkin_Datasuite/pom.xml.releaseBackup
-OsmoSkin_Datasuite/pom.pom.xml.next
-OsmoSkin_Datasuite/pom.pom.xml.tag
+# --- osmo-skin ---
+osmo-skin/release.properties
+osmo-skin/pom.xml.releaseBackup
+osmo-skin/pom.pom.xml.next
+osmo-skin/pom.pom.xml.tag
 
-# --- OsmoAutenticador ---
-OsmoAutenticador/.env
-OsmoAutenticador/target/
+# --- osmo-auth ---
+osmo-auth/.env
+osmo-auth/target/
 
-# --- Webdata ---
-Webdata/logs/
+# --- web-data ---
+web-data/logs/
 
 # --- Monorepo anterior (no necesario) ---
 soc-mi-monorepo/

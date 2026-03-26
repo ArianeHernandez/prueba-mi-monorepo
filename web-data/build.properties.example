@@ -3,7 +3,7 @@
 # -------------------------------------------------------------------
 
 TOMCAT          /ruta/a/tu/tomcat
-MODELATOS       /ruta/a/Modelatos
+MODELATOS       /ruta/a/modelatos
 production      true
 
 # -------------------------------------------------------------------

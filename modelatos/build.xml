@@ -8,20 +8,20 @@
 	<property prefix="env" file="build.properties" />
 	
 	<property name="skin.name" value="${env.CLIENTE}" />
-	<property name="cskin.dir" location="../OsmoSkin_Datasuite/${skin.name}" />
+	<property name="cskin.dir" location="../osmo-skin/${skin.name}" />
 	
 	<property name="src.dir" location="src" />
 	<property name="web.dir" location="WebContent" />
 	<property name="lib.dir" location="${web.dir}/WEB-INF/lib" />
 	<property name="bin.dir" location="${web.dir}/WEB-INF/classes" />
 
-	<property name="cweb.dir" location="../OsmoCore/WebContent" />
+	<property name="cweb.dir" location="../osmo-core/WebContent" />
 	<property name="clib.dir" location="${cweb.dir}/WEB-INF/lib" />
-	<property name="cjar.dir" location="../OsmoCore/jar" />
+	<property name="cjar.dir" location="../osmo-core/jar" />
 
-	<property name="dweb.dir" location="../DataSuiteCore/WebContent" />
+	<property name="dweb.dir" location="../datasuite-core/WebContent" />
 	<property name="dlib.dir" location="${dweb.dir}/WEB-INF/lib" />
-	<property name="djar.dir" location="../DataSuiteCore/jar" />
+	<property name="djar.dir" location="../datasuite-core/jar" />
 
 
 	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->

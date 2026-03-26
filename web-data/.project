@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>HTSCompressor</name>
+	<name>web-data</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,11 +12,12 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1771344111392</id>
+			<id>1771344112008</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

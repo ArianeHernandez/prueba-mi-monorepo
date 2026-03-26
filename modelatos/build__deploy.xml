@@ -12,7 +12,7 @@
 	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 	<property name="minify.dir" location="minified" />
 	<property name="minify.sourcedir" location="${env.TOMCAT}/webapps/${project.name}/resources/" />
-	<property name="osmlibs.dir" location="../OsmoCore/librerias" />
+	<property name="osmlibs.dir" location="../osmo-core/librerias" />
 	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 
 	<target name="_war" description="permite generar un war compatible con weblogic app server 11g (10.3.3) (requiere que se hayan ejecutado las tareas para generar el war en modo deflated)" depends="subirCompleto">

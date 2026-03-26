@@ -8,7 +8,7 @@
 	<property prefix="env" file="build.properties" />
 		
 	<property name="skin.name" value="${env.CLIENTE}" />
-	<property name="cskin.dir" location="../OsmoSkin_Datasuite/${skin.name}" />
+	<property name="cskin.dir" location="../osmo-skin/${skin.name}" />
 
 	<property name="wd_src.dir" location="src" />
 	<property name="wd_web.dir" location="WebContent" />
@@ -17,13 +17,13 @@
 	<property name="wd_clweb.dir" location="pagos/WebContent" />
 	<property name="wd_mein.dir" location="mein/WebContent" />
 
-	<property name="cweb.dir" location="../OsmoCore/WebContent" />
-	<property name="clib.dir" location="../OsmoCore/WebContent/WEB-INF/lib" />
-	<property name="cjar.dir" location="../OsmoCore/jar" />
+	<property name="cweb.dir" location="../osmo-core/WebContent" />
+	<property name="clib.dir" location="../osmo-core/WebContent/WEB-INF/lib" />
+	<property name="cjar.dir" location="../osmo-core/jar" />
 
-	<property name="dweb.dir" location="../DataSuiteCore/WebContent" />
-	<property name="dlib.dir" location="../DataSuiteCore/WebContent/WEB-INF/lib" />
-	<property name="djar.dir" location="../DataSuiteCore/jar" />
+	<property name="dweb.dir" location="../datasuite-core/WebContent" />
+	<property name="dlib.dir" location="../datasuite-core/WebContent/WEB-INF/lib" />
+	<property name="djar.dir" location="../datasuite-core/jar" />
 	
 	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 	
@@ -180,13 +180,13 @@
 		
 		<java
            dir="${env.TOMCAT}/../"
-           jar="../HTSCompressor/dist/HTSCompressor.jar"
+           jar="../hts-compressor/dist/HTSCompressor.jar"
            fork="true"
            failonerror="true"
            >
          <arg value="${env.TOMCAT}/webapps/${wd_project.name}.war"/>
          <classpath>
-           <pathelement location="../HTSCompressor/dist/HTSCompressor.jar"/>
+           <pathelement location="../hts-compressor/dist/HTSCompressor.jar"/>
          </classpath>
        </java>
 		
