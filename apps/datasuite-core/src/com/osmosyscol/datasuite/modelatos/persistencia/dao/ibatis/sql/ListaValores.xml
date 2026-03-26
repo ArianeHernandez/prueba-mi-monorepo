@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ListaValores">
+
+	<typeAlias alias="listavalores"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ListaValores"/>
+	<typeAlias alias="valorLista"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ValorLista"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<sql id="sqlListaValores">
+	select distinct df.* from (
+			(
+				select distinct dd.*
+	   			from dst_lista_valores dd
+	   			where (dd.id_modelo is null and dd.estado = 'A')
+	   		)
+	   		union
+	   		(
+	   			select distinct dd.*
+		   			from dst_lista_valores dd
+		   			where ( dd.id_modelo = #id_modelo# 
+		   				and dd.estado = 'A') 
+	   		)
+	   	) df  order by nombre
+	</sql>
+	<select id="obtenerListaValoresPorPersona" resultClass="listavalores" parameterClass="java.util.Map">
+		<include refid="sqlListaValores"/>
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<select id="totalListaValoresPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+   		from (<include refid="sqlListaValores"/>) DD
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerListaValores" resultClass="listavalores" parameterClass="java.lang.Integer">
+		select dd.*
+   		from dst_lista_valores dd
+   		where dd.id_lista_valores = #id_lista_valores#
+   		and dd.estado = 'A'
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<select id="obtenerValoresLV" resultClass="valorLista" parameterClass="java.util.Map">
+		select lis.*
+		from L$id_listavalores$ lis
+		where estado != 'E'
+	</select>
+	
+	<select id="obtenerValoresLVTodos" resultClass="valorLista" parameterClass="java.util.Map">
+		select lis.*
+		from L$id_listavalores$ lis
+	</select>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<delete id="borrarValoresLV" parameterClass="java.util.Map">
+		update L$id_listavalores$ set estado = #estado# where (id || '') = (#id_valor# || '')
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="insertarValoresLV" parameterClass="java.util.Map">
+		insert into L$id_listavalores$ (id, nombre, colorletra, colorfondo, estado)
+		values (#id_valor#, #nombre_valor#, #colorletra#, #colorfondo#, #estado#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarValoresLV" parameterClass="java.util.Map">
+		update L$id_listavalores$ set nombre = #nombre_valor#, colorletra = #colorletra#, colorfondo = #colorfondo#, estado = #estado#
+		where (id || '') = (#id_valor# || '')
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="siguienteId" resultClass="java.lang.Integer" >
+		select nextvalue('DSS_LISTA_VALORES') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="insertarListaValores" parameterClass="listavalores">
+		insert into dst_lista_valores(id_lista_valores, nombre, descripcion, id_modelo, id_tipocampo, estado, criterio_orden, tipo_orden,
+		c_id, c_nombre, consulta, base_datos, intervalo_actualizacion) 
+    	values(#id_lista_valores#, #nombre#, #descripcion#, #id_modelo#, #id_tipocampo#, #estado# , #criterio_orden#, #tipo_orden#,
+    	#c_id#, #c_nombre#, #consulta#, #base_datos#, #intervalo_actualizacion#)
+    	
+    		
+	</insert>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarListaValores" parameterClass="listavalores">
+		update dst_lista_valores 
+	    set nombre=#nombre#, descripcion=#descripcion#, id_modelo=#id_modelo#, id_tipocampo=#id_tipocampo#,
+	    criterio_orden=#criterio_orden#, tipo_orden=#tipo_orden#,
+	    c_id = #c_id#, c_nombre = #c_nombre#, consulta = #consulta#, base_datos = #base_datos#, intervalo_actualizacion = #intervalo_actualizacion#
+	    where id_lista_valores=#id_lista_valores#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="eliminarListaValores" parameterClass="java.lang.Integer">
+		update dst_lista_valores lvl  set estado ='E'
+		where lvl.id_lista_valores = #id_listavalores# 
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerListaValoresPorNombre" resultClass="listavalores" parameterClass="java.lang.String">
+		select * from dst_lista_valores lis
+  		where lis.nombre = #nombre#
+	</select>
+
+	<select id="obtenerValoresBD" resultClass="valorLista" parameterClass="string">
+		$sql$
+	</select>
+	
+</sqlMap>
+

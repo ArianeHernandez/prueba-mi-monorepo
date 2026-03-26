@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HistorialSobreflex">
+
+	<typeAlias alias="historialSobreflex" type="com.osmosyscol.datasuite.logica.dto.HistorialSobreflex"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_historial_sobreflex') from dual
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarHistorialSobreflex" parameterClass="historialSobreflex">
+		INSERT INTO dst_historial_sobreflex(id, login, hash, activo)
+    	VALUES (#id#, #login#, #hash#, #activo#)
+	</insert>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerHistorialSobreflex" parameterClass="java.lang.String" resultClass="historialSobreflex">
+		SELECT * FROM dst_historial_sobreflex WHERE hash = #hash# and activo = 'S'
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<update id="desactivarHistorialSobreflex" parameterClass="java.lang.String">
+		UPDATE dst_historial_sobreflex SET activo = 'N' WHERE hash = #hash# 
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		
+</sqlMap>

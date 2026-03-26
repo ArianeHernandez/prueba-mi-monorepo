@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccionFila">
+
+	<typeAlias alias="accionFila"      type="com.osmosyscol.datasuite.reportedim.dto.AccionFila" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerAccionFila" resultClass="accionFila" parameterClass="java.lang.String">
+		select *
+		from dst_rep_accion
+		where id_reporte = #id_reporte#
+	</select>
+	
+	<select id="totalAccionesFila" resultClass="java.lang.Integer" >
+		select count(*) from dst_rep_accion
+	</select>
+	
+	<insert id="crearAccionFila" parameterClass="java.util.Map">
+		insert into dst_rep_accion (id_reporte,subreporte,destino)
+		values (#id_reporte#, #subreporte#, #destino#)
+	</insert>
+	
+	<update id="actualizarAccionFila" parameterClass="accionFila">
+		update dst_rep_accion
+		set subreporte=#subreporte#, destino=#destino#
+		where id_reporte = #id_reporte#
+	</update>
+	
+	<delete id="eliminarAccionFila" parameterClass="java.lang.String">
+		delete from dst_rep_accion
+		where id_reporte = #id_reporte#
+	</delete>	
+	
+	<select id="obtenerAccionBySubReporteDestino" parameterClass="accionFila" resultClass="accionFila" >
+		select *
+		from dst_rep_accion
+		where subreporte = #subreporte#
+		and destino = #destino#	
+	</select>
+	
+	
+</sqlMap>

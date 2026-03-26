@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Instancia">
+
+	<typeAlias alias="instancia" type="com.osmosyscol.datasuite.logica.dto.Instancia" />
+	<typeAlias alias="rol" type="com.osmosyscol.datasuite.logica.dto.Rol" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="insertarInstancia" parameterClass="java.util.Map">
+		insert into dst_instancia (id_instancia,nombre,aprobar,rechazar,tiempo,posicion_x,posicion_y,id_proceso_admin, inicial, id_formato_salida, id_horario, aprobar_automaticamente, rechazar_automaticamente, solicitar_otp)
+		values (#id_instancia#,#nombre#,#aprobar#,#rechazar#,#tiempo#,#posicion_x#,#posicion_y#,#id_proceso_admin#, #inicial#, #id_formato_salida#, #id_horario#, #aprobar_automaticamente#, #rechazar_automaticamente#, #solicitar_otp#)
+	</insert>
+	
+	<update id="actualizarInstancia" parameterClass="instancia">
+		update dst_instancia set
+			nombre = #nombre#,
+			aprobar = #aprobar#,
+			rechazar = #rechazar#,
+			tiempo = #tiempo#,
+			posicion_x = #posicion_x#,
+			posicion_y = #posicion_y#,
+			id_proceso_admin = #id_proceso_admin#,
+			id_formato_salida = #id_formato_salida#,
+			id_horario = #id_horario#,
+			inicial = #inicial#,
+			adicionar_documentos = #adicionar_documentos#,
+			gestionar_documentos = #gestionar_documentos#,
+			aprobar_automaticamente = #aprobar_automaticamente#,
+			rechazar_automaticamente = #rechazar_automaticamente#,
+			solicitar_otp = #solicitar_otp#,
+			ocultar_sin_filtro = #ocultar_sin_filtro#
+		where id_instancia = #id_instancia#
+	</update>
+	
+	<select id="obtenerInstancia" parameterClass="java.lang.Integer" resultClass="instancia">
+		select * from dst_instancia where id_instancia=#id_instancia#
+	</select>
+	
+	<select id="obtenerInstanciasPorProceso" parameterClass="java.lang.Integer" resultClass="instancia">
+		select * from dst_instancia where id_proceso_admin=#id_proceso_admin# order by id_instancia
+	</select>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		 select nextvalue('dss_instancia') as id from dual
+	</select>
+	
+	<delete id="borrarInstancia" parameterClass="java.lang.Integer">
+		delete from dst_instancia where id_instancia=#id_instancia#
+	</delete>
+	
+	<delete id="borrarCargaInstancia" parameterClass="java.lang.Integer">
+		delete from dst_carga_instancia where id_instancia = #id_instancia#
+	</delete>
+	
+	<delete id="borrarAccionNotificacionesInstancia" parameterClass="java.lang.Integer">
+		delete from dst_notificacion_accion
+		where id_accion in ( select a.id_accion from dst_accion a where a.id_instancia = #id_instancia# )
+	</delete>
+	
+	<delete id="borrarAccionDestinoInstancia" parameterClass="java.lang.Integer">
+		delete from dst_accion_instancia
+		where id_accion in ( select a.id_accion from dst_accion a where a.id_instancia = #id_instancia# )
+	</delete>
+	
+	<delete id="borrarAccionesInstancia" parameterClass="java.lang.Integer">
+		delete from dst_accion where id_instancia = #id_instancia#
+	</delete>
+	
+	<delete id="borrarRolesInstancia" parameterClass="java.lang.Integer">
+		delete from dst_rol_instancia where id_instancia = #id_instancia#
+	</delete>
+	
+	<update id="actualizarPosicionInstancia" parameterClass="java.util.Map">
+		update dst_instancia set posicion_x=#posicion_x#, posicion_y=#posicion_y# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarPermisosInstancia" parameterClass="java.util.Map">
+		update dst_instancia set aprobar=#aprobar#, rechazar=#rechazar#, inicial=#inicial#, aprobar_automaticamente=#aprobar_automaticamente#,
+			rechazar_automaticamente = #rechazar_automaticamente#, solicitar_otp=#solicitar_otp#, ocultar_sin_filtro=#ocultar_sin_filtro# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarTiempo" parameterClass="java.util.Map">
+		update dst_instancia set tiempo=#tiempo# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarNombre" parameterClass="java.util.Map">
+		update dst_instancia set nombre=#nombre# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarFormatoSalida" parameterClass="java.util.Map">
+		update dst_instancia set id_formato_salida=#id_formato_salida# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarHorario" parameterClass="java.util.Map">
+		update dst_instancia set id_horario=#id_horario# where id_instancia=#id_instancia#
+	</update>
+	
+	<!-- Roles -->
+	
+	<insert id="insertarRolInstancia" parameterClass="java.util.Map">
+		insert into dst_rol_instancia (id_rol, id_instancia)
+		values (#id_rol#, #id_instancia#)
+	</insert>
+	
+	<select id="obtenerRolInstancia" parameterClass="java.util.Map" resultClass="rol">
+	
+		select rol.* from dst_rol rol, dst_rol_instancia rolins
+		where rol.id_rol=rolins.id_rol
+		and rolins.id_rol=#id_rol#
+		and rolins.id_instancia=#id_instancia#
+		
+	</select>
+	
+	<select id="obtenerRolesInstancia" parameterClass="java.lang.Integer" resultClass="rol">
+		
+		select rol.* from dst_rol rol, dst_rol_instancia rolins
+		where rol.id_rol=rolins.id_rol
+		and rolins.id_instancia=#id_instancia#
+		
+	</select>
+	
+	<delete id="borrarRolInstancia" parameterClass="java.util.Map">
+		delete from dst_rol_instancia where id_rol=#id_rol# and id_instancia=#id_instancia#
+	</delete>
+	
+	<select id="obtenerRolesDispParaAsignar" parameterClass="java.lang.Integer" resultClass="rol">
+		select rol.* from dst_rol rol where activo='S'
+			and rol.id_rol not in (
+			select rolins.id_rol from dst_rol_instancia rolins
+			where rolins.id_instancia=#id_instancia#
+		)
+		order by rol.nombre_rol
+	</select>
+	
+	<select id="obtenerInstanciaDelProcesoPorCarga" parameterClass="java.util.Map" resultClass="instancia">
+		select instancia.* from dst_instancia instancia, dst_carga_instancia carga_instancia
+		where instancia.id_instancia = carga_instancia.id_instancia
+        and carga_instancia.id_instancia = #id_instancia#
+        and carga_instancia.id_carga=#id_carga#
+		and carga_instancia.fecha_salida is null
+	</select>
+	
+	
+	<select id="obtenerInstanciasDelProcesoPorAdministrativo" parameterClass="java.util.Map" resultClass="instancia">
+        select distinct * from ( ( select distinct instancia.* from dst_instancia instancia, dst_rol_instancia rol_instancia
+		where instancia.id_instancia = rol_instancia.id_instancia
+        and rol_instancia.id_rol in (select id_rol from dst_administrativo_rol where id_administrativo = #id_administrativo#)
+        and instancia.id_proceso_admin = #id_proceso_admin# )
+        union 
+        ( select distinct instancia.* from dst_instancia instancia, dst_carga_responsable carga_responsable
+		where carga_responsable.id_instancia = instancia.id_instancia
+        and carga_responsable.id_persona in (select id_persona from dst_administrativo where id_administrativo = #id_administrativo#)
+        and instancia.id_proceso_admin = #id_proceso_admin# )
+        )
+	</select>
+
+	<select id="obtenerInstanciasInicialesPorProceso" parameterClass="java.lang.Integer" resultClass="instancia">
+		select * from dst_instancia instancia
+		where instancia.id_proceso_admin = #id_proceso_admin#
+		and instancia.inicial = 'S'
+	</select>
+	
+	<select id="obtenerInstanciasDelProcesoParaRolesHijo" parameterClass="java.util.Map" resultClass="instancia">
+		select distinct instancia.* from dst_instancia instancia, dst_rol_instancia rol_instancia
+		where rol_instancia.id_rol in ( select id_rol from dst_rol
+		                                where id_rol_padre in (select id_rol from dst_administrativo_rol
+		                                where id_administrativo = #id_administrativo_padre# ) )
+		and rol_instancia.id_instancia = instancia.id_instancia
+		and instancia.id_proceso_admin = #id_proceso_admin#
+	</select>
+	
+	
+	<select id="obtenerInstanciasPreviasConCargaActualPendiente" parameterClass="java.util.Map" resultClass="instancia">
+		select distinct instancia.* from dst_carga_instancia carga_instancia, dst_instancia instancia
+		where carga_instancia.id_carga =  #id_carga#
+		and carga_instancia.id_instancia in ( select id_instancia from dst_accion
+                                      		  where id_accion in (   select id_accion from dst_accion_instancia
+                                                             		 where id_instancia_destino = #id_instancia_actual#  ) ) 
+		and carga_instancia.fecha_salida is null
+		and carga_instancia.id_instancia = instancia.id_instancia
+		and carga_instancia.id_instancia not in(#id_instancia_actual#)
+	</select>
+	
+	<update id="actualizarAdicionarDocs" parameterClass="java.util.Map">
+		update dst_instancia set adicionar_documentos=#adiciona_docs# where id_instancia=#id_instancia#
+	</update>
+	
+	<update id="actualizarGestionarDocs" parameterClass="java.util.Map">
+		update dst_instancia set gestionar_documentos=#gestiona_docs# where id_instancia=#id_instancia#
+	</update>
+	
+		<select id="obtenerInstanciaActual" parameterClass="java.lang.Integer" resultClass="instancia">
+		select distinct instancia.* from dst_instancia instancia, dst_rol_instancia rol_instancia
+		where rol_instancia.id_rol in ( select id_rol from dst_rol
+		                                where id_rol_padre in (select id_rol from dst_administrativo_rol
+		                                where id_administrativo = #id_administrativo_padre# ) )
+		and rol_instancia.id_instancia = instancia.id_instancia
+		and instancia.id_proceso_admin = #id_proceso_admin#
+	</select>
+	
+
+</sqlMap>

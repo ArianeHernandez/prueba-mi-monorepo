@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+	<!--
+		Servlet Configuration ==========================================
+	-->
+	
+	<filter>
+		<filter-name>AuditoriaFilter</filter-name>
+		<filter-class>com.osmosyscol.datasuite.servlet.AuditoriaFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>AuditoriaFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>AuditoriaFilter</filter-name>
+		<url-pattern>*.pub</url-pattern>
+	</filter-mapping>
+
+	<!-- WEBDATA  -->
+	<!-- Listener para finalizar cron de webdata -->
+	<listener>
+		<listener-class>com.osmosyscol.datasuite.servlet.ListenerServlet</listener-class>
+	</listener>
+	<!--  Listener para guardar informacion de sesiones iniciadas -->
+	<listener>
+		<listener-class>com.osmosyscol.commons.servlet.SessionListener</listener-class>
+	</listener>	
+
+	<!-- loading context information for services -->
+	<servlet>
+		<servlet-name>loadContextInfo</servlet-name>
+		<servlet-class>com.osmosyscol.commons.servlet.LoadContextInfoServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet> 
+
+	<!-- DATASUITE  -->
+	
+	<servlet>
+		<servlet-name>ProxyPasante</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ProxyPasante</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProxyPasante</servlet-name>
+		<url-pattern>/api/pasante</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProxyService</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ProxyService</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ExcelServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ExcelServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DownloadLogService</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.DownloadLogService</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>InitReporteServices</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.InitReporteServices</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>initApp_datasuite</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.InitApp</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- WEBDATA  -->
+	<!-- Listener para finalizar cron de webdata -->
+	<servlet>
+		<servlet-name>initApp_cron</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ListenerServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReportePagosServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.ReportePagosServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReportePagosGeneralServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.ReportePagoGeneralServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReportePagosClienteServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.ReportePagosClienteServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReporteTrasladosServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.ReporteTrasladosServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReportedimExcel</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.ReporteExcelServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Uploadservlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.UploadServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Downloadservlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.DownloadServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DownloadservletExcel</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.DownloadServletExcel</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SubirArchAdjuntoServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.SubirArchAdjuntoServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>BajarArchAdjuntoServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.BajarArchAdjuntoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ArchivoRespuestaBanco</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.bancos.entrada.servlet.CargarArchivoRespuestaBancoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>SoportePago</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.bancos.entrada.servlet.SoportePagoServlet</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>OrdenPago</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.pagos.services.OrdenPagoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>RetiroConsulta</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.bancos.entrada.servlet.RetiroConsultaServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ArchivoCargaListaValores</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.CargaArchivoListaValoresServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ArchivoSalidaSIFORION</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.siforion.salida.servlet.DescargaArchivoSIFORIONServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ArchivoSalidaListaValores</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.DescargaArchivoListaValoresServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>initWebServices_datasuite</servlet-name>
+		<servlet-class>com.osmosyscol.datapi.logica.builder.ServicioDataPiBuilder</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CSVServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.CSVServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CSVGeneralServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.servlet.CSVGeneralServlet</servlet-class>
+	</servlet>
+
+	<!-- MODELATOS -->
+	<servlet>
+		<servlet-name>ExportEstructuraServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.ExportEstructuraServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ImportEstructuraServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.ImportEstructuraServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ExportGrupoServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.ExportGrupoServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ImportGrupoServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.ImportGrupoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DescargarExcelEstructuraServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.DescargarExcelEstructuraServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>CargarExcelEstructuraServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.CargarExcelEstructuraServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DescargarERMServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.modelatos.servlet.DescargarERMServlet</servlet-class>
+	</servlet>
+	
+	
+	
+	<!-- ============================================================================ -->
+
+	<servlet>
+		<servlet-name>GenerarClaveP12Servlet</servlet-name>
+		<servlet-class>com.itosmosys.firmadigital.servlet.GenerarClaveP12Servlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>RecibirDocumentoServlet</servlet-name>
+		<servlet-class>com.itosmosys.firmadigital.servlet.RecibirDocumentoServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>RecibirFormXMLServlet</servlet-name>
+		<servlet-class>com.itosmosys.firmadigital.servlet.RecibirFormXMLServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ValidarIP</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ValidarIP</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ArchivoBanco</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.bancos.salida.servlet.DescargarArchivoBancoServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CargueMasivo</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.cargaexcel.servlet.CargaMasivoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>CarguePlano</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.webdata.correval.cargueplano.servlet.CargaPlanoServlet</servlet-class>
+	</servlet>	
+	
+	<servlet>
+		<servlet-name>UploadDocumentSigned</servlet-name>
+		<servlet-class>com.itosmosys.firmadigital.servlet.UploadDocumentSignedServlet</servlet-class>
+	</servlet>	
+	
+	<servlet>
+		<servlet-name>RegenerarVistas</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.ServletRegenerarVistas</servlet-class>
+		<load-on-startup>4</load-on-startup>
+	</servlet>	
+	<!-- SERVLETS DE FIDUOCCIDENTE -->
+	
+	<servlet>
+		<servlet-name>CargaArchivoXml</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.occidente.servlets.carga.xml.CargarArchivoXmlServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CargaArchivoPlano</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.occidente.servlets.carga.plano.CargarArchivoPlanoServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>CargaArchivoPlanoAnywhere</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.occidente.servlets.carga.plano.CargarArchivoPlanoAnywhereServlet</servlet-class>
+	</servlet>		
+	
+	<servlet>
+		<servlet-name>MXBeanServlet</servlet-name>
+		<servlet-class>com.osmosyscol.datasuite.servlet.MXBeanServlet</servlet-class>
+	</servlet>		
+	
+	
+	<!-- GENERAL  -->
+
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class> org.apache.axis.transport.http.AxisServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class> org.apache.axis.transport.http.AdminServlet</servlet-class>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>CWJSONServlet</servlet-name>
+		<servlet-class>com.osmosyscol.commons.rpc.jsonrpc.JSONRPCServlet</servlet-class>
+		<init-param>
+			<param-name>auto-session-bridge</param-name>
+			<param-value>0</param-value>
+		</init-param>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>Cocoon</servlet-name>
+		<display-name>Cocoon</display-name>
+		<description>Cocoon</description>
+
+		<!--
+			The regular servlet class (trusts the servlet container classloader)
+		-->
+		<servlet-class>org.apache.cocoon.servlet.CocoonServlet</servlet-class>
+
+		<!--
+			This parameter tells cocoon to set the thread's context classloader
+			to its own classloader. If you experience strange classloader issues,
+			try setting this parameter to "true" or using ParanoidCocoonServlet.
+		-->
+		<init-param>
+			<param-name>init-classloader</param-name>
+			<param-value>false</param-value>
+		</init-param>
+
+		<init-param>
+			<param-name>configurations</param-name>
+			<param-value>/WEB-INF/cocoon.xconf</param-value>
+		</init-param>
+
+		<!--
+			This parameter indicates the configuration file of the LogKit
+			management
+		-->
+		<init-param>
+			<param-name>logkit-config</param-name>
+			<param-value>/WEB-INF/logkit.xconf</param-value>
+		</init-param>
+
+		<!--
+			This parameter indicates the category id of the logger from the
+			LogKit configuration used by the CocoonServlet.
+		-->
+		<init-param>
+			<param-name>servlet-logger</param-name>
+			<param-value>access</param-value>
+		</init-param>
+
+		<!--
+			This parameter indicates the category id of the logger from the
+			LogKit management configuration for the Cocoon engine. This logger is
+			used for all components described in the cocoon.xconf and
+			sitemap.xmap file not having specified a logger with the logger="..."
+			attribute in the component configuration file.
+		-->
+		<init-param>
+			<param-name>cocoon-logger</param-name>
+			<param-value>core</param-value>
+		</init-param>
+
+		<!--
+			This parameter indicates the log level to use throughout startup of
+			the system. As soon as the logkit.xconf the setting of the
+			logkit.xconf configuration is used instead! Only for startup and if
+			the logkit.xconf is not readable/available this log level is of
+			importance. Available levels are: DEBUG: prints all level of log
+			messages. INFO: prints all level of log messages except DEBUG ones.
+			WARN: prints all level of log messages except DEBUG and INFO ones.
+			ERROR: prints all level of log messages except DEBUG, INFO and WARN
+			ones. FATAL_ERROR: prints only log messages of this level
+		-->
+		<init-param>
+			<param-name>log-level</param-name>
+			<param-value>WARN</param-value>
+		</init-param>
+
+		<!--
+			The forbidden level for deprectation messages. DEBUG forbids all
+			deprecations (strict mode) and FATAL_ERROR allows all (tolerant
+			mode). Default is ERROR, allowing up to WARN. See
+			org.apache.util.Deprecation for more details.
+		-->
+		<init-param>
+			<param-name>forbidden-deprecation-level</param-name>
+			<param-value>ERROR</param-value>
+		</init-param>
+
+		<!--
+			This parameter switches the logging system from LogKit to Log4J for
+			Cocoon. Log4J has to be configured already. <init-param>
+			<param-name>logger-class</param-name>
+			<param-value>org.apache.avalon.excalibur.logger.Log4JLoggerManager</param-value>
+			</init-param>
+		-->
+
+		<!--
+			If you want to configure log4j using Cocoon, then you can define an
+			XML configuration file here. You can use the usual log4j property
+			substituation mechanism, e.g. ${context-root} is replaced by the
+			context root of this web application etc. You can configure the log4j
+			configuration even if you use LogKit for Cocoon logging. You can use
+			this to configure third party code for example. <init-param>
+			<param-name>log4j-config</param-name>
+			<param-value>/WEB-INF/log4j.xconf</param-value> </init-param>
+		-->
+
+		<!--
+			Allow reinstantiating (reloading) of the cocoon instance. If this is
+			set to "yes" or "true", a new cocoon instance can be created using
+			the request parameter "cocoon-reload". It also enables that Cocoon is
+			reloaded when cocoon.xconf changes. Default is no for security
+			reasons.
+		-->
+		<init-param>
+			<param-name>allow-reload</param-name>
+			<param-value>no</param-value>
+		</init-param>
+
+		<!--
+			This parameter is used to list classes that should be loaded at
+			initialization time of the servlet. For example, JDBC Drivers used
+			need to be named here. Additional entries may be inserted here during
+			build depending on your build properties.
+		-->
+		<init-param>
+			<param-name>load-class</param-name>
+			<param-value>
+				<!--
+					For parent ComponentManager sample:
+					org.apache.cocoon.samples.parentcm.Configurator
+				-->
+				<!-- For IBM WebSphere:
+        com.ibm.servlet.classloader.Handler -->
+			</param-value>
+		</init-param>
+
+		<!--
+			Causes all files in multipart requests to be processed. Default is
+			true but the maximum allowed size is kept small for security reasons.
+			Unsupported values will be interpreted as false.
+		-->
+		<init-param>
+			<param-name>enable-uploads</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<!--
+			This parameter allows to specify where Cocoon should put uploaded
+			files. The path specified can be either absolute or relative to the
+			context path of the servlet. On windows platform, absolute directory
+			must start with volume: C:\Path\To\Upload\Directory The default
+			directory is "upload-dir" in the work-directory <init-param>
+			<param-name>upload-directory</param-name>
+			<param-value>WEB-INF/work/upload-dir</param-value> </init-param>
+		-->
+
+		<!--
+			Causes all files in multipart requests to be saved to upload-dir.
+			Default is true for security reasons. Unsupported values will be
+			interpreted as false.
+		-->
+		<init-param>
+			<param-name>autosave-uploads</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<!--
+			Specify handling of name conflicts when saving uploaded files to
+			disk. Acceptable values are deny, allow, rename (default). Files are
+			renamed x_filename where x is an integer value incremented to make
+			the new filename unique.
+		-->
+		<init-param>
+			<param-name>overwrite-uploads</param-name>
+			<param-value>rename</param-value>
+		</init-param>
+
+		<!--
+			Specify maximum allowed size of the upload. Defaults to 10 Mb. Set
+			here to a very low 100 kb to allow samples to run.
+		-->
+		<init-param>
+			<param-name>upload-max-size</param-name>
+			<param-value>102400000</param-value>
+		</init-param>
+
+		<!--
+			This parameter allows to specify where Cocoon should create its page
+			and other objects cache. The path specified can be either absolute or
+			relative to the context path of the servlet. On windows platform,
+			absolute directory must start with volume: C:\Path\To\Cache\Directory
+
+			The default directory is "cache-dir" in the work-directory
+
+			<init-param> <param-name>cache-directory</param-name>
+			<param-value>WEB-INF/work/cache-dir</param-value> </init-param>
+		-->
+
+		<!--
+			This parameter allows to specify where Cocoon should put it's working
+			files. The path specified is either absolute or relative to the
+			context path of the Cocoon servlet. On windows platform, absolute
+			directory must start with volume: C:\Path\To\Work\Directory The
+			default directory is "cocoon-files" directory in the servlet
+			context's temp directory (context property
+			javax.servlet.context.tempdir). <init-param>
+			<param-name>work-directory</param-name>
+			<param-value>WEB-INF/work</param-value> </init-param>
+		-->
+
+		<!--
+			This parameter allows to specify additional directories or jars which
+			Cocoon should put into it's own classpath. Note that you must
+			separate them using the platforms path.separator (":" for *nix and
+			";" for Windows systems). Also note that absolute pathes are taken as
+			such but relative pathes are rooted at the context root of the Cocoon
+			servlet. <init-param> <param-name>extra-classpath</param-name>
+			<param-value>WEB-INF/extra-classes1:/[YOU-ABSOLUTE-PATH-TO]/own.jar</param-value>
+			</init-param>
+		-->
+
+		<!--
+			This parameter allows you to select the parent component manager. The
+			class will be instantiated via the constructor that takes a single
+			String as a parameter. That String will be equal to the text after
+			the '/'. Cocoon honors the LogEnabled, Initializable and Disposable
+			interfaces for this class, if it implements them. If you uncomment
+			the following lines the parent CM is set to the Parent CM sample,
+			which will look up a configuration via JNDI at
+			org/apache/cocoon/samples/parentcm/ParentCMConfiguration and use it.
+			<init-param> <param-name>parent-component-manager</param-name>
+			<param-value>org.apache.cocoon.samples.parentcm.ParentComponentManager/org/apache/cocoon/samples/parentcm/ParentCMConfiguration</param-value>
+			</init-param>
+		-->
+
+		<!--
+			If you set this parameter to 'true' or 'yes', Cocoon will add
+			processing time to the end of each response. Value 'hide' adds
+			processing time as an HTML comment. By default, processing time is
+			not added (corresponds to value 'no'). NOTE: If you use this feature,
+			Cocoon might generated a wrong content length header in the response.
+			This is due to the internal processing of Readers and the Caching.
+			So, this might be the reason if you get a warning about a wrong
+			content length. See
+			http://issues.apache.org/bugzilla/show_bug.cgi?id=17370. <init-param>
+			<param-name>show-time</param-name> <param-value>hide</param-value>
+			</init-param>
+		-->
+
+		<!--
+			Whether or not the X-Cocoon-Version response header will be included.
+			This is true by default, but there may be some circumstances when it
+			is not desired (e.g. "information hiding" for added security, or if
+			using jsp:include with Cocoon-generated pages produces a "response is
+			already committed" error).
+		-->
+		<init-param>
+			<param-name>show-cocoon-version</param-name>
+			<param-value>false</param-value>
+		</init-param>
+
+		<!--
+			If true or not set, this class will try to catch and handle all
+			Cocoon exceptions. If false, it will rethrow them to the servlet
+			container.
+		-->
+		<init-param>
+			<param-name>manage-exceptions</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
+		<!--
+			If true, Avalon Excalibur instrumentation will be enabled on all
+			Instrumentable components with Cocoon and your Cocoon application.
+		-->
+		<init-param>
+			<param-name>enable-instrumentation</param-name>
+			<param-value>false</param-value>
+		</init-param>
+
+		<!--
+			This defines the location of the instrument manager configuration,
+			only used if the init-param enable-instrumentation is enabled.
+		-->
+		<init-param>
+			<param-name>instrumentation-config</param-name>
+			<param-value>/WEB-INF/instrumentation.xconf</param-value>
+		</init-param>
+
+		<!--
+			Set encoding used by the container. If not set the ISO-8859-1
+			encoding will be assumed. Since the servlet specification requires
+			that the ISO-8859-1 encoding is used (by default), you should never
+			change this value unless you have a buggy servlet container.
+		-->
+		<init-param>
+			<param-name>container-encoding</param-name>
+			<param-value>ISO-8859-1</param-value>
+		</init-param>
+
+		<!--
+			Set form encoding. This will be the character set used to decode
+			request parameters. If not set the ISO-8859-1 encoding will be
+			assumed.
+		-->
+		<init-param>
+			<param-name>form-encoding</param-name>
+			<param-value>ISO-8859-1</param-value>
+		</init-param>
+
+		<!--
+			This parameter allows you to startup Cocoon2 immediately after
+			startup of your servlet engine.
+		-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!--
+		URL space mappings =============================================
+	-->
+
+	<!-- DATASUITE  -->
+
+	<servlet-mapping>
+		<servlet-name>ProxyService</servlet-name>
+		<url-pattern>/CldXmn/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ExcelServlet</servlet-name>
+		<url-pattern>/EXCEL</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DownloadLogService</servlet-name>
+		<url-pattern>*.downloadLog</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>InitReporteServices</servlet-name>
+		<url-pattern>/InitReporteServices</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReportedimExcel</servlet-name>
+		<url-pattern>/ReporteDim</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReportePagosServlet</servlet-name>
+		<url-pattern>/ReportePagos</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReportePagosGeneralServlet</servlet-name>
+		<url-pattern>/ReportePagosGeneral</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReportePagosClienteServlet</servlet-name>
+		<url-pattern>/ReportePagosCliente</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReporteTrasladosServlet</servlet-name>
+		<url-pattern>/ReporteTraslados</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>initApp_datasuite</servlet-name>
+		<url-pattern>/init/app_596516.156516</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Uploadservlet</servlet-name>
+		<url-pattern>*.upload</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Downloadservlet</servlet-name>
+		<url-pattern>*.download</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DownloadservletExcel</servlet-name>
+		<url-pattern>*.downloadexcel</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SubirArchAdjuntoServlet</servlet-name>
+		<url-pattern>*.subirarchivo</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>BajarArchAdjuntoServlet</servlet-name>
+		<url-pattern>*.bajararchivo</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ArchivoRespuestaBanco</servlet-name>
+		<url-pattern>*.archivorespuestabanco</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SoportePago</servlet-name>
+		<url-pattern>*.soportepago</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>OrdenPago</servlet-name>
+		<url-pattern>*.ordenpago</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RetiroConsulta</servlet-name>
+		<url-pattern>*.retiroconsulta</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ArchivoSalidaSIFORION</servlet-name>
+		<url-pattern>*.siforion</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ArchivoSalidaListaValores</servlet-name>
+		<url-pattern>*.salidaListaValores</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>ArchivoCargaListaValores</servlet-name>
+		<url-pattern>*.cargaListaValores</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>initWebServices_datasuite</servlet-name>
+		<url-pattern>/CONFIGUREWS_DATASUITE</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CSVServlet</servlet-name>
+		<url-pattern>/pagosSifi.csv</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CSVGeneralServlet</servlet-name>
+		<url-pattern>*.csvgen</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ExportEstructuraServlet</servlet-name>
+		<url-pattern>*.exportEst</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ImportEstructuraServlet</servlet-name>
+		<url-pattern>*.importEst</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ExportGrupoServlet</servlet-name>
+		<url-pattern>*.exportgrp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ImportGrupoServlet</servlet-name>
+		<url-pattern>*.importgrp</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GenerarClaveP12Servlet</servlet-name>
+		<url-pattern>*.pkcs12</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RecibirDocumentoServlet</servlet-name>
+		<url-pattern>*.signature</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RecibirFormXMLServlet</servlet-name>
+		<url-pattern>*.signaturexml</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ValidarIP</servlet-name>
+		<url-pattern>/valida_ip</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>UploadDocumentSigned</servlet-name>
+		<url-pattern>*.uploadDocumentSigned</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>RegenerarVistas</servlet-name>
+		<url-pattern>/RegenerarVistas</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Servlets Fiduoccidente -->
+	<servlet-mapping>
+		<servlet-name>CargaArchivoXml</servlet-name>
+		<url-pattern>*.cargaarchivoxml</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CargaArchivoPlano</servlet-name>
+		<url-pattern>*.cargaarchivoplano</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CargaArchivoPlanoAnywhere</servlet-name>
+		<url-pattern>*.cargaarchivoplanoanywhere</url-pattern>
+	</servlet-mapping>	
+		
+	<!-- WebData -->
+	
+	<servlet-mapping>
+		<servlet-name>ArchivoBanco</servlet-name>
+		<url-pattern>/ArchivoBanco</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CargueMasivo</servlet-name>
+		<url-pattern>/CargueMasivo</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CarguePlano</servlet-name>
+		<url-pattern>/CarguePlano</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>MXBeanServlet</servlet-name>
+		<url-pattern>/MXBeanServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- MODELATOS -->
+	<servlet-mapping>
+		<servlet-name>DescargarExcelEstructuraServlet</servlet-name>
+		<url-pattern>/DescargarExcelEstructura</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>CargarExcelEstructuraServlet</servlet-name>
+		<url-pattern>/CargarExcelEstructura</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DescargarERMServlet</servlet-name>
+		<url-pattern>/DescargarERM</url-pattern>
+	</servlet-mapping>
+
+	<!-- GENERAL -->
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/servlet/AdminServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>CWJSONServlet</servlet-name>
+		<url-pattern>/JSON-RPC</url-pattern>
+	</servlet-mapping>
+
+	<!--
+		Cocoon handles all the URL space assigned to the webapp using its
+		sitemap. It is recommended to leave it unchanged. Under some
+		circumstances though (like integration with proprietary webapps or
+		servlets) you might have to change this parameter.
+	-->
+	<servlet-mapping>
+		<servlet-name>Cocoon</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!--
+		Some servlet engines (Tomcat) have defaults which are not overriden by
+		'/' mapping, but must be overriden explicitly.
+	-->
+	<servlet-mapping>
+		<servlet-name>Cocoon</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+	</servlet-mapping>
+	<!--
+		Some servlet engines (WebLogic) have defaults which are not overriden
+		by '/' mapping, but must be overriden explicitly.
+	-->
+	<servlet-mapping>
+		<servlet-name>Cocoon</servlet-name>
+		<url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+	
+
+	<session-config>
+      <session-timeout>720</session-timeout> 
+    </session-config>
+
+	<!--
+		various MIME type mappings ======================================
+	-->
+
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xml</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xsl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xconf</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xmap</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>ent</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>grm</extension>
+		<mime-type>text/plain</mime-type>
+	</mime-mapping>
+
+	<!-- RESOURCE-REF ============================================= -->
+
+	<resource-ref>
+		<description>Datasuite 01</description>
+		<res-ref-name>datasuite_1</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>CONTAINER</res-auth>
+	</resource-ref>
+
+	<resource-ref>
+		<description>Datasuite 02 (creadatos)</description>
+		<res-ref-name>datasuite_2</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>CONTAINER</res-auth>
+	</resource-ref>
+
+</web-app>

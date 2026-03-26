@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarProcesoRol>
+   		
+   		<osm-utils:servicio-java>
+   			<name>eliminarProcesoRol</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.PersonaServicio</service>
+   			<operation>eliminarProcesoRol</operation>
+   			<parameters>
+   				<parameter>TipoProcesoRol</parameter>
+   				<parameter>id_usuario</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarProcesoRol>
+
+
+</xsp:page>

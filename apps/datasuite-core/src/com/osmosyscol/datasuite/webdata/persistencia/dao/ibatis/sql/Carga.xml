@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Carga">
+
+	<typeAlias alias="carga" type="com.osmosyscol.datasuite.webdata.logica.dto.Carga"/>
+	<typeAlias alias="elementocarga" type="com.osmosyscol.datasuite.webdata.logica.dto.ElementoCarga"/>
+	<typeAlias alias="formatodato" type="com.osmosyscol.datasuite.webdata.logica.dto.FormatoDato"/>
+	<typeAlias alias="parametros" type="com.osmosyscol.datasuite.webdata.logica.dto.ParametrosBusqCargas"/>
+	<typeAlias alias="formatofiltro" type="com.osmosyscol.datasuite.webdata.logica.dto.FormatoFiltro"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerSiguienteElementoCarga" resultClass="java.lang.Integer">
+		select nextvalue('dss_elementocarga') as id from dual
+	</select>
+	
+	<select id="obtenerSiguienteFormatoDato" resultClass="java.lang.Integer">
+		select nextvalue('dss_formatodato') as id from dual
+	</select>
+
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_carga') as id from dual
+	</select>
+	
+	<insert id="insertar" parameterClass="carga">
+	INSERT INTO DST_CARGA(ID_CARGA, NOMBRE, EXTENSION, RUTA, ID_FORMATO, ID_PERSONA, ESTADO, FECHA_CARGA, FECHA_SUBIDA, 
+	ID_TIPOCARGA, ID_PROCESO, ID_USUARIO, ID_NEGOCIO, IP_USUARIO, ID_TIPO_PROCESO) 
+    VALUES(#id_carga#, #nombre#, #extension#, #ruta#, #id_formato#, #id_persona#, #estado#, #fecha_carga#, #fecha_subida#, 
+    #id_tipocarga#, #id_proceso#, #id_usuario#, #id_negocio#, #ip_usuario#, #id_tipo_proceso#)
+	</insert>
+	
+	<select id="obtener" parameterClass="java.lang.Integer" resultClass="carga">
+	SELECT * FROM DSV_CARGA where ID_CARGA = #id_carga#
+	</select>
+	
+	<select id="obtenerListaPorEstado" resultClass="carga" parameterClass="java.util.HashMap">
+		SELECT * FROM dsv_carga 
+		WHERE id_formato = #id_formato# 
+		and id_persona = #id_persona# 
+		and estado = #id_estado# 
+		and id_tipocarga = #id_tipocarga#
+		order by id_carga desc
+	</select>
+	
+	<select id="listarCargasDuplicadas" resultClass="carga" parameterClass="java.util.HashMap">
+	   select * from dsv_carga 
+       where numero_registros = #numero_registros#
+       and valor_total = #valor_total#
+       and estado in ('V', 'L', 'S', 'C')
+       and TO_CHAR(sysdate, 'MM/DD/YYYY') = TO_CHAR(fecha_carga, 'MM/DD/YYYY')
+       <isNotNull property="id_carga">
+				and id_carga != #id_carga#
+		</isNotNull>
+	</select>
+	
+	
+	<select id="obtenerCargaPorFormatoEntrada" resultClass="carga" parameterClass="java.util.HashMap">
+	
+	select distinct c.* from dsv_carga c, dst_formato fe, dst_formato fs, dst_usuario usu
+		where usu.id_persona = #id_persona#
+		and fs.id_formato=#id_formato#
+		and usu.id_usuario = c.id_usuario
+		and c.id_formato = fe.id_formato
+		and (fs.id_estructura = fe.id_estructura 
+    	or fs.id_estructura in (select id_estructura from dst_formato_campo fc where fc.id_formato = fe.id_formato))
+		<isPropertyAvailable property="in">
+			and c.estado in ($in$)
+		</isPropertyAvailable>
+	</select>
+	
+	<select id="obtenerListadoCargasPorFormatoEntrada" resultClass="carga" parameterClass="java.lang.Integer">
+		select distinct c.* from dsv_carga c, dst_formato fe, dst_formato fs
+		where c.id_formato = fe.id_formato
+		and (fs.id_estructura = fe.id_estructura 
+    	or fs.id_estructura in (select id_estructura from dst_formato_campo fc where fc.id_formato = fe.id_formato))
+		and fs.id_formato=#id_formato#
+		and c.estado in ( 'C', 'A', 'R' )
+	</select>
+	
+	<select id="obtenerElementosCarga" resultClass="elementocarga" parameterClass="java.util.HashMap">
+		select * from dst_elementocarga
+		where id_carga = #id_carga# and estado = 'A'
+		order by id_elementocarga
+	</select>
+	
+	<select id="obtenerCargasRelacionadasPorCliente" resultClass="carga" parameterClass="java.util.HashMap">
+		select * from dst_carga
+		where id_formato = #id_formato#
+		and id_usuario = #id_cliente#
+		and fecha_carga between add_days($SYSDATE$,-#diasvigencia#) and $SYSDATE$
+		and estado in ('S','C', 'A')
+		order by id_carga
+	</select>
+	
+	<select id="obtenerTotalElementosCarga" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		select count(*) cantidad
+		from dst_elementocarga
+		where id_carga = #id_carga# and estado = 'A'
+	</select>
+	
+	<update id="cambiarEstado" parameterClass="java.util.HashMap">
+		UPDATE dst_carga SET estado = #id_estado#
+		WHERE id_carga = #id_carga#
+	</update>
+	
+	<update id="cambiarMotivo" parameterClass="java.util.HashMap">
+		UPDATE dst_carga SET motivo_estado = #motivo#
+		WHERE id_carga = #id_carga#
+	</update>
+	
+	<update id="eliminarCargasInteractivasSinEnviar" parameterClass="java.lang.Integer">
+		UPDATE dst_carga SET estado = 'E'
+		WHERE estado='B' and id_usuario=#id_usuario#
+		and id_tipocarga=1
+	</update>
+	
+	<update id="cambiarEstadoCrea" parameterClass="java.util.HashMap">
+		UPDATE TS01 SET estado = #id_estado#, fecha = $SYSDATE$
+		WHERE id_carga = #id_carga#
+	</update>
+	
+	<update id="setFechaCarga" parameterClass="carga">
+		UPDATE dst_carga SET fecha_carga = #fecha_carga#
+		WHERE id_carga = #id_carga#
+	</update>
+	
+	<select id="obtenerListaCargaPorUsuario" resultClass="carga" parameterClass="java.util.HashMap">
+		SELECT * FROM dsv_carga 
+		WHERE id_persona = #id_persona# 
+		and estado in($in$) 
+		and id_formato=#id_formato#
+		order by id_carga asc
+	</select>
+	
+	<sql id="sqlObtenerCargas">
+		SELECT  *  FROM dsv_carga
+			where #estados# LIKE '%'||ESTADO||'%'
+			<isNotNull property="id_revision">
+				AND ID_REVISION=#id_revision# 
+			</isNotNull>
+			<isNotNull property="id_proceso">
+				AND ID_PROCESO=#id_proceso#
+			</isNotNull>
+			<isNotNull property="id_usuario">
+				AND id_usuario= #id_usuario# 
+			</isNotNull>
+	</sql>
+	<select id="obtenerCargas" resultClass="carga" parameterClass="java.util.HashMap">
+		<include refid="sqlObtenerCargas"/>
+			order by id_carga desc
+	</select>
+	
+	<sql id="sqlObtenerCargasBorradorUltimo">
+		SELECT  *  FROM dsv_carga
+			where #estados# LIKE '%'||ESTADO||'%'
+			<isNotNull property="id_usuario">
+				AND id_usuario= #id_usuario# 
+			</isNotNull>
+			AND ID_CARGA = ( select max(ID_CARGA) from dsv_carga )
+	</sql>
+	<select id="obtenerCargasBorradorUltimo" resultClass="carga" parameterClass="java.util.HashMap">
+		<include refid="sqlObtenerCargas"/>
+			order by id_carga desc
+	</select>
+	
+    <select id="contarCargas" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		SELECT count(1) FROM (<include refid="sqlObtenerCargas"/>) t
+	</select>
+	
+	<select id="totalCargasPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.HashMap">
+		SELECT count(*) FROM dsv_carga 
+		WHERE id_persona = #id_persona# 
+		and estado in($in$) 
+		and id_formato=#id_formato#
+		order by id_carga asc
+	</select>
+	
+	<insert id="guardarTablaOperacion" parameterClass="java.util.HashMap">
+		insert into dst_tablaoperacion (id_campo, id_carga, id_operacion, valor) values (#id_campo#, #id_carga#, #id_operacion#, #valor#)
+	</insert>
+	
+	<!-- .......................................................................... -->
+	
+	<insert id="crearElementosCarga" parameterClass="elementocarga">
+		insert into dst_elementocarga (id_elementocarga, id_carga, fecha, estado) 
+		values( #id_elementocarga#, #id_carga#, #fecha#, #estado# )
+	</insert>
+	
+	<update id="actualizarElementosCarga" parameterClass="elementocarga">
+		update dst_elementocarga
+		set fecha = #fecha#, estado=#estado#
+		where id_elementocarga = #id_elementocarga#
+	</update>
+	
+	<delete id="eliminarElementoCarga" parameterClass="java.lang.Integer">
+		delete from dst_elementocarga where id_elementocarga = #id_elementocarga# 
+	</delete>
+
+	<!-- .......................................................................... -->
+		
+	<delete id="eliminarFormatoDatoPorElementoCarga" parameterClass="java.lang.Integer">
+		delete from dst_formatodato where id_elementocarga = #id_elementocarga# 
+	</delete>
+	
+	<insert id="insertarFormatoDato" parameterClass="formatodato">
+		insert into dst_formatodato
+		  (id_elementocarga, id_formato_campo, valor, id_estructura, id_campo, id_formatodato, id_padre)
+		values
+		  (#id_elementocarga#, #id_formato_campo#, #valor#, #id_estructura#, #id_campo#, #id_formatodato#, #id_padre#)
+	</insert>
+	
+	<!-- .......................................................................... -->
+	
+	<select id="obtenerSiguienteCreadatos" resultClass="java.lang.Integer">
+		select nextvalue('SST') as id from dual
+	</select>
+	
+	<insert id="insertSQL" parameterClass="java.lang.String">
+		$sql$
+	</insert>
+	
+	<select id="selectSQL" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true">
+		$sql$
+	</select>
+	
+	<select id="totalSelectSQL" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(1) as total from ($sql$) t
+	</select>
+	<!-- .......................................................................... -->
+	
+	<select id="obtenerPrimerFormatoDato" parameterClass="java.lang.Integer" resultClass="formatodato">
+		select * from dst_formatodato where id_elementocarga = #id_elementocarga# and id_padre is null
+	</select>
+	
+	<select id="obtenerFormatoDatosPorIdPadre" parameterClass="java.lang.Integer" resultClass="formatodato">
+		select * from dst_formatodato where id_padre = #id_formatodatopadre#
+	</select>
+	
+	<delete id="removerCarga" parameterClass="java.lang.Integer">
+		delete from dst_carga where id_carga = #id_carga# 
+	</delete>
+	
+	<select id="obtenerSiguienteRevision" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select rev1.id_revision from dst_revision rev1, dst_carga car 
+			where car.id_carga = #idCarga# and
+			rev1.id_proceso = car.id_proceso and
+			(
+				(
+				car.id_revision is null and
+				rev1.id_revision not in (select rev2.id_revision_siguiente from dst_revision rev2 where rev2.id_proceso = car.id_proceso and  rev2.id_revision_siguiente  is not null)
+				)
+				or 
+				(
+				car.id_revision is not null and
+				rev1.id_revision = (select rev2.id_revision_siguiente from  dst_revision rev2 WHERE rev2.id_revision = car.id_revision)
+				)
+			)
+	</select>
+
+	<update id="actualizarEstadoCarga" parameterClass="carga">
+		UPDATE dst_carga
+		  	SET estado=#estado#
+		  	<isNotEmpty property="id_revision">
+		  		, id_revision=#id_revision#
+		  	</isNotEmpty>
+		  	<isNotEmpty property="fecha_liberacion">
+		  		, fecha_liberacion = #fecha_liberacion#
+		  	</isNotEmpty>
+		  	WHERE id_carga=#id_carga#
+	</update>
+	
+	
+	<select id="obtenerCargasLiberacion" parameterClass="java.util.HashMap" resultClass="carga">
+		SELECT  *  FROM dsv_carga where estado = #estado#
+		and #fecha_actual# >= fecha_liberacion
+	</select>
+	
+	<select id="obtenerTipoDatoPorIdFormatoCampo" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		select tc.tipo_dato from dst_formato_campo fc, dst_campo cc, dst_tipocampo tc
+		where fc.id_formato_campo = #id_formato_campo#
+		and fc.id_campo = cc.id_campo
+		and tc.id_tipocampo = cc.id_tipocampo
+	</select>
+	
+	<update id="updateSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<select id="obtenerValoresRelacionMultiple" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		select id_v from $tabla$ where id_p = #id_valor#
+	</select>
+	
+	<!-- CARGAS POR PROCESO PARA TODAS LAS INSTANCIAS A LAS QUE ESTE ASOCIADO UN ADMINISTRATIVO -->
+	<select id="obtenerCargasPorProcesoAdmin" resultClass="carga" parameterClass="java.util.HashMap">
+		select distinct * from (select carga.*, 
+        ( instancia.tiempo - minutes_horario( decode(carga.estado, 'W', sysdate, carga_instancia.fecha_llegada), sysdate, instancia.id_horario) ) tiemporestante, 
+		( round( (minutes_horario( decode(carga.estado, 'W', sysdate, carga_instancia.fecha_llegada ), sysdate, instancia.id_horario )/instancia.tiempo )* 100)  ) porcentajeTiempoTranscurrido, 
+        instancia.nombre nombre_instancia, instancia.id_instancia, instancia.ocultar_sin_filtro 
+		from dsv_carga carga, dst_carga_instancia carga_instancia, dst_instancia instancia, dst_rol_instancia rol_instancia, dst_carga_responsable carga_responsable
+		where carga.id_carga = carga_instancia.id_carga
+		and carga_instancia.id_instancia = instancia.id_instancia
+		and instancia.id_proceso_admin = #id_proceso_admin#
+        and rol_instancia.id_instancia= carga_instancia.id_instancia
+        and rol_instancia.id_rol  in (select id_rol from dst_administrativo_rol where id_administrativo = #id_administrativo#)
+		and carga_instancia.fecha_salida is null
+        and carga_responsable.id_carga (+)= carga.id_carga
+        and carga_responsable.id_instancia (+)= instancia.id_instancia
+        and (carga_responsable.id_carga is null or carga_responsable.id_persona in (select id_persona from dst_administrativo where id_administrativo = #id_administrativo#))
+        ) cargas
+		where cargas.estado in ('W', 'S')
+		<isNotNull property="id_tipocarga">
+			and cargas.id_tipocarga = #id_tipocarga#
+		</isNotNull>
+		<isNotNull property="id_instancia">
+			and cargas.id_instancia = #id_instancia#
+		</isNotNull>
+		<isNotNull property="id_usuario">
+			and cargas.id_usuario = #id_usuario#
+		</isNotNull>
+		<isNotNull property="porcentajeTiempoTranscurrido_desde">
+			and cargas.porcentajeTiempoTranscurrido >= #porcentajeTiempoTranscurrido_desde#
+		</isNotNull>
+		<isNotNull property="porcentajeTiempoTranscurrido_hasta">
+			and #porcentajeTiempoTranscurrido_hasta#>cargas.porcentajeTiempoTranscurrido  
+		</isNotNull>
+		<isNotNull property="estado">
+			and cargas.estado = #estado#  
+		</isNotNull>
+		<isNotNull property="fecha_carga">
+			and trunc(cargas.fecha_carga) = #fecha_carga#  
+		</isNotNull>
+		<isNotNull property="fecha_liberacion">
+			and trunc(cargas.fecha_liberacion) = #fecha_liberacion#  
+		</isNotNull>
+		<isNotNull property="ocultar_sin_filtro">
+			and cargas.ocultar_sin_filtro != 'S'
+		</isNotNull>
+		<isNotNull property="filtrosBandejaEntrada">
+			and cargas.id_carga in ( $filtrosBandejaEntrada$ )  
+		</isNotNull>
+		order by cargas.$parametro_ordenamiento$ $tipo_ordenamiento$
+	</select>
+	
+	
+	<!-- CARGAS POR PROCESO PARA UNA INSTANCIA PARTICULAR DE UN ADMINISTRATIVO HIJO DE UN ROL PADRE-->
+	<select id="obtenerCargasPorInstanciaParaAdminHijo" resultClass="carga" parameterClass="java.util.HashMap">
+		select * from (select carga.*, 
+		
+		( instancia.tiempo - minutes_horario( decode(carga.estado, 'W', sysdate, carga_instancia.fecha_llegada), sysdate, instancia.id_horario ) ) tiemporestante, 
+		( round( (minutes_horario( decode(carga.estado, 'W', sysdate, carga_instancia.fecha_llegada, instancia.id_horario), sysdate, instancia.id_horario )/instancia.tiempo )* 100)  ) porcentajeTiempoTranscurrido, 
+		
+		instancia.nombre nombre_instancia, instancia.id_instancia
+		from dsv_carga carga, dst_carga_instancia carga_instancia, dst_instancia instancia, dst_rol_instancia rol_instancia, dst_administrativo_rol admin_rol
+		where carga.id_carga = carga_instancia.id_carga
+		and carga_instancia.id_instancia = instancia.id_instancia
+		and instancia.id_proceso_admin = #id_proceso_admin#
+        and instancia.id_instancia = #id_instancia#
+        and rol_instancia.id_instancia= carga_instancia.id_instancia
+        and rol_instancia.id_rol  in (  select id_rol from dst_rol
+                                        where id_rol_padre in (select id_rol from dst_administrativo_rol
+                                        where id_administrativo = #id_administrativo_padre# ))
+        and admin_rol.id_rol = rol_instancia.id_rol
+        and admin_rol.id_administrativo = #id_administrativo_hijo#
+		and carga_instancia.fecha_salida is null) cargas
+		order by cargas.porcentajeTiempoTranscurrido desc
+	</select>
+	
+	<!-- CARGAS QUE FUERON SUBIDAS PERO NO TIENEN INSTANCIA ASOCIADA -->
+	<sql id="sqlObtenerCargasSubidasSinInstancia">
+		select carga.* from dst_carga carga
+		where carga.estado in ('S', 'W')
+		and carga.id_carga not in (select id_carga from dst_carga_instancia)
+		and sysdate >= fecha_liberacion
+	</sql>
+	
+	<select id="obtenerCargasSubidasSinInstancia" resultClass="carga">
+		<include refid="sqlObtenerCargasSubidasSinInstancia"/>		
+	</select>
+	
+	<select id="obtenerCargasSubidasSinInstanciaPorTipoProceso" resultClass="carga" parameterClass="java.util.HashMap">
+		<include refid="sqlObtenerCargasSubidasSinInstancia"/>
+		<isNotNull property="id_tipo_proceso" prepend="and">
+			carga.id_tipo_proceso = #id_tipo_proceso#
+		</isNotNull>
+		<isNull property="id_tipo_proceso" prepend="and">
+			carga.id_tipo_proceso is null
+		</isNull>
+	</select>
+	
+	<update id="actualizarNegocio" parameterClass="java.util.HashMap">
+		UPDATE dst_carga
+   		SET id_negocio=#id_negocio#
+ 		WHERE id_carga=#id_carga#
+	</update>
+	
+	<select id="obtenerIDsRegistrosPorCarga" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select id from t$tabla$ where idcarga = #id_carga#
+	</select>	
+
+	<sql id="selectBuscarCargas">
+		select c.*, f.nombre nombre_formato 
+        from dsv_carga c
+        inner join dst_formato f on c.id_formato = f.id_formato
+        
+      	where
+			(exists (select 1 from dst_tipo_proceso tp
+						where c.id_tipo_proceso = tp.id_tipo_proceso
+        		  and tp.proceso_por_defecto = 'S')
+        		  or c.id_tipo_proceso is null )
+			<isNotEmpty property="id_usuario" prepend="and">
+				c.id_usuario = #id_usuario#
+			</isNotEmpty>
+			<isNotEmpty property="estados" prepend="and">
+				#estados# like '%' || c.estado || '%'
+			</isNotEmpty>
+			<isNotEmpty property="fecha_inicial" prepend="and">
+				c.fecha_subida >= #fecha_inicial# 
+			</isNotEmpty>
+			<isNotEmpty property="fecha_final" prepend="and">
+				#fecha_final# >= c.fecha_subida
+		    </isNotEmpty>
+		    <isNotEmpty property="fecha_inicial_lib" prepend="and">
+				c.fecha_liberacion >= #fecha_inicial_lib# 
+			</isNotEmpty>
+			<isNotEmpty property="fecha_final_lib" prepend="and">
+				#fecha_final_lib# >= c.fecha_liberacion
+		    </isNotEmpty>
+		    <isNotEmpty property="id_carga" prepend="and">
+				c.id_carga = #id_carga#
+			</isNotEmpty>
+			<isNotEmpty property="id_formato" prepend="and">
+				c.id_formato = #id_formato#
+			</isNotEmpty>
+			<isNotEmpty property="id_tipocarga" prepend="and">
+				c.id_tipocarga  = #id_tipocarga#
+			</isNotEmpty>
+			<isNotEmpty property="id_negocio" prepend="and">
+				c.id_negocio = #id_negocio#
+			</isNotEmpty>
+			<isNotEmpty property="id_usuarioSesion" prepend="and">
+			
+				(
+					c.id_usuario = #id_usuarioSesion#
+					and (c.id_carga in (select id_carga from dst_carga_historia where id_persona = #id_persona#)
+					
+					<isEqual property="revisor_consulta" compareValue="S"> 
+					or 
+					( 
+						( select count(*)
+						from dst_revisor revisor,
+						 dst_revision_revisor revision_revisor,
+						  dst_revision revision,
+						   dst_proceso proceso
+						where revisor.id_revisor = revision_revisor.id_revisor
+						and revision_revisor.id_revision = revision.id_revision
+						and revision.id_proceso = proceso.id_proceso
+						and revisor.id_persona = #id_persona#
+						and proceso.id_usuario = #id_usuarioSesion# 
+						and proceso.estado = 'A' 
+						 )=0
+						 and exists(select 1 from dst_revisor where id_persona = #id_persona#) 
+					)
+					</isEqual>
+					
+					
+					)
+				)
+			</isNotEmpty>
+			<isNotEmpty property="id_administrativo" prepend="and">
+				c.id_carga in (select id_carga from dst_carga_instancia)
+			</isNotEmpty>
+			
+			<isNotEmpty property="id_administrativo" prepend="and">
+				(
+					(
+						select count(1) from dst_restriccion_administrativo t, dst_administrativo_rol ar
+						where t.id_rol = ar.id_rol
+						and ar.id_administrativo = #id_administrativo#
+						and (t.id_administrativo is null or t.id_administrativo = ar.id_administrativo)
+					) = 0 or
+					(
+						  select count(1) from dst_restriccion_administrativo t, dst_administrativo_rol ar
+				          where t.id_rol = ar.id_rol
+				          and ar.id_administrativo = #id_administrativo#
+				          and (t.id_administrativo is null or t.id_administrativo = ar.id_administrativo)
+				          and (t.id_usuario is null or c.id_usuario = t.id_usuario)
+				          and (t.id_negocio is null or c.id_negocio = t.id_negocio)
+					) > 0
+				)
+			</isNotEmpty>
+			
+			<isNotEmpty property="id_administrador" prepend="and">
+				c.id_carga in (select id_carga from dst_carga c1, dst_administrador_negocio an1 where an1.id_administrador = #id_administrador# and c1.id_negocio = an1.id_negocio)
+			</isNotEmpty>
+			
+			<isNotEmpty property="ordenarPor">
+				order by $campoOrden$
+			</isNotEmpty>
+	</sql>
+	
+	<sql id="selectBuscarCargasHistorico">
+		select c.* 
+        from V_HISTORICO_CLIENTE@TO_CREADATOS c
+        
+      	where
+			(exists (select 1 from dst_tipo_proceso tp
+						where c.id_tipo_proceso = tp.id_tipo_proceso
+        		  and tp.proceso_por_defecto = 'S')
+        		  or c.id_tipo_proceso is null )
+			<isNotEmpty property="id_usuario" prepend="and">
+				c.id_usuario = #id_usuario#
+			</isNotEmpty>
+			<isNotEmpty property="estados" prepend="and">
+				#estados# like '%' || c.estado || '%'
+			</isNotEmpty>
+			<isNotEmpty property="fecha_inicial" prepend="and">
+				c.fecha_subida >= #fecha_inicial# 
+			</isNotEmpty>
+			<isNotEmpty property="fecha_final" prepend="and">
+				#fecha_final# >= c.fecha_subida
+		    </isNotEmpty>
+		    <isNotEmpty property="fecha_inicial_lib" prepend="and">
+				c.fecha_liberacion >= #fecha_inicial_lib# 
+			</isNotEmpty>
+			<isNotEmpty property="fecha_final_lib" prepend="and">
+				#fecha_final_lib# >= c.fecha_liberacion
+		    </isNotEmpty>
+		    <isNotEmpty property="id_carga" prepend="and">
+				c.id_carga = #id_carga#
+			</isNotEmpty>
+			<isNotEmpty property="id_formato" prepend="and">
+				c.id_formato = #id_formato#
+			</isNotEmpty>
+			<isNotEmpty property="id_tipocarga" prepend="and">
+				c.id_tipocarga  = #id_tipocarga#
+			</isNotEmpty>
+			<isNotEmpty property="id_negocio" prepend="and">
+				c.id_negocio = #id_negocio#
+			</isNotEmpty>
+			<isNotEmpty property="id_usuarioSesion" prepend="and">
+			
+				(
+					c.id_usuario = #id_usuarioSesion#
+					and (c.id_carga in (select id_carga from dst_carga_historia where id_persona = #id_persona#)
+					
+					<isEqual property="revisor_consulta" compareValue="S"> 
+					or 
+					( 
+						( select count(*)
+						from dst_revisor revisor,
+						 dst_revision_revisor revision_revisor,
+						  dst_revision revision,
+						   dst_proceso proceso
+						where revisor.id_revisor = revision_revisor.id_revisor
+						and revision_revisor.id_revision = revision.id_revision
+						and revision.id_proceso = proceso.id_proceso
+						and revisor.id_persona = #id_persona#
+						and proceso.id_usuario = #id_usuarioSesion# 
+						and proceso.estado = 'A' 
+						 )=0
+						 and exists(select 1 from dst_revisor where id_persona = #id_persona#) 
+					)
+					</isEqual>
+					
+					
+					)
+				)
+			</isNotEmpty>
+			<isNotEmpty property="id_administrativo" prepend="and">
+				c.id_carga in (select id_carga from dst_carga_instancia)
+			</isNotEmpty>
+			
+			<isNotEmpty property="id_administrativo" prepend="and">
+				(
+					(
+						select count(1) from dst_restriccion_administrativo t, dst_administrativo_rol ar
+						where t.id_rol = ar.id_rol
+						and ar.id_administrativo = #id_administrativo#
+						and (t.id_administrativo is null or t.id_administrativo = ar.id_administrativo)
+					) = 0 or
+					(
+						  select count(1) from dst_restriccion_administrativo t, dst_administrativo_rol ar
+				          where t.id_rol = ar.id_rol
+				          and ar.id_administrativo = #id_administrativo#
+				          and (t.id_administrativo is null or t.id_administrativo = ar.id_administrativo)
+				          and (t.id_usuario is null or c.id_usuario = t.id_usuario)
+				          and (t.id_negocio is null or c.id_negocio = t.id_negocio)
+					) > 0
+				)
+			</isNotEmpty>
+			
+			<isNotEmpty property="id_administrador" prepend="and">
+				c.id_carga in (select id_carga from dst_carga c1, dst_administrador_negocio an1 where an1.id_administrador = #id_administrador# and c1.id_negocio = an1.id_negocio)
+			</isNotEmpty>
+			
+			<isNotEmpty property="ordenarPor">
+				order by $campoOrden$
+			</isNotEmpty>
+	</sql>
+	
+	<select id="buscarCargas" parameterClass="parametros" resultClass="carga">
+		<include refid="selectBuscarCargasHistorico"/>
+	</select>
+	
+	<select id="contarBusqCargas" parameterClass="parametros" resultClass="java.lang.Integer">
+		select count(1) from (
+			<include refid="selectBuscarCargasHistorico"/>
+		) t
+	</select>	
+	
+	
+	<select id="obtenerCargasQueRequierenAdjuntosPorPersona" parameterClass="java.lang.Integer" resultClass="carga">
+		select * from dst_carga_historia historia , dst_carga carga
+		where historia.id_carga = carga.id_carga
+		and carga.estado = 'W'
+		and historia.estado_inicial = 'B'
+		and historia.id_persona = #id_persona#
+	</select>	
+	
+	
+	
+	<select id="obtenerDatosCargaParaCampoTotalizador" parameterClass="java.util.HashMap" resultClass="java.util.HashMap" remapResults="true">
+		select c$id_campo_totalizador$ from t$id_estructura$
+		where idcarga = #id_carga#
+	</select>
+	
+	<update id="actualizarValorTotalCarga" parameterClass="java.util.HashMap" >
+		update dst_carga
+		set valor_total = #vtotal#, numero_registros = #nregistros# 
+		where id_carga = #id_carga#
+	</update>
+	
+	<update id="actualizarFechaLiberacion" parameterClass="carga" >
+		update dst_carga
+		set fecha_liberacion = #fecha_liberacion# 
+		where id_carga = #id_carga#
+	</update>
+	
+	<update id="actualizarFechaLiberacionCreadatos" parameterClass="carga" >
+		update ts01
+		set fecha_liberacion = #fecha_liberacion# 
+		where id_carga = #id_carga#
+	</update>
+	
+	<select id="obtenerTotalRegistros" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select count(*) from t$id_estructura$ where idcarga = #id_carga#
+	</select>
+	
+	<delete id="eliminarSQL" parameterClass="java.lang.String">
+		$sql$
+	</delete>
+	
+	<select id="obtenerCargasSimilaresCliente" parameterClass="java.util.HashMap" resultClass="carga">
+		select c2.*
+		from dst_carga c1, dst_carga c2, dst_formato f
+		where c1.id_carga = #id_carga#
+		and c2.id_carga != #id_carga#
+		and c1.id_usuario = #id_usuario#
+		and c1.id_usuario = c2.id_usuario
+		and c2.valor_total = c1.valor_total
+		and c2.estado in ('V','L', 'S', 'N', 'C', 'A', 'W', 'T')
+		and c2.numero_registros = c1.numero_registros
+		and f.id_formato = #id_formato_salida#
+		and c1.fecha_carga > c2.fecha_carga
+		and f.tiempo_validacion_preparacion >= minutes(c1.fecha_carga, c2.fecha_carga) 
+	</select>
+	
+	<select id="obtenerCargasSimilaresLiberadas" parameterClass="java.util.HashMap" resultClass="carga">
+		select c2.*
+		from dst_carga c1, dst_carga c2, dst_formato f
+		where c1.id_carga = #id_carga#
+		and c2.id_carga != #id_carga#
+		and c1.id_usuario = #id_usuario#
+		and c1.id_usuario = c2.id_usuario
+		and c2.valor_total = c1.valor_total
+		and c2.estado in ('S', 'N', 'C', 'A', 'W', 'R')
+		and c2.numero_registros = c1.numero_registros
+		and f.id_formato = #id_formato_salida#
+		and c1.fecha_liberacion > c2.fecha_liberacion
+		and f.tiempo_validacion_liberacion >= minutes(c1.fecha_liberacion, c2.fecha_liberacion) 
+	</select>
+	
+	<update id="cambiarTipocarga" parameterClass="java.util.HashMap">
+		update dst_carga set id_tipocarga =#tipocarga# where id_carga=#id_carga#
+	</update>
+	
+	<select id="obtenerIdFormatoSalidaCliente" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select p.id_formato_salida
+		from dst_carga c, dst_proceso p
+		where c.id_proceso = p.id_proceso
+		and c.id_carga = #id_cliente#
+	</select>
+	
+	<select id="obtenerIdFormatoSalidaAdmin" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+		select ins.id_formato_salida
+		from dst_carga ca, dst_carga_instancia ch, dst_administrativo ad, dst_instancia ins
+		where ca.id_carga = ch.id_carga
+		and ad.id_persona = ch.id_persona
+		and ins.id_instancia = ch.id_instancia
+		and ca.id_carga = #id_carga#
+		and ad.id_administrativo = #id_administrativo#
+	</select>
+	
+	<select id="obtenerFormatosFiltro" resultClass="formatofiltro" parameterClass="java.lang.Integer">
+		select * from dst_formato_filtro where id_formato = #id_formato#	
+	</select>
+	
+	<select id="obtenerCargasSinFinalizar" resultClass="carga">
+		select * from dst_carga d 
+		where
+		(d.numero_registros is null or d.valor_total is null) 
+		and d.estado in ('V', 'L', 'N', 'S', 'C', 'W')
+		and d.id_formato is not null
+	</select>
+	
+	<select id="consultarCambioEstado" parameterClass="java.util.Map" resultClass="java.util.Date">
+		select min(fecha) fecha from dst_carga_historia where estado = #estado# and id_carga = #id_carga#
+	</select>
+	
+	<update id="marcarNotificacion" parameterClass="java.lang.Integer">
+		update dst_carga set fecha_notificacion = sysdate where id_carga = #id_carga#
+	</update>
+
+</sqlMap>

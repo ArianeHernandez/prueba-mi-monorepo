@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" xmlns:cinclude="http://apache.org/cocoon/include/1.0" xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0" xmlns:xscript="http://apache.org/xsp/xscript/1.0" xmlns:xsp="http://apache.org/xsp" xmlns:xsp-request="http://apache.org/xsp/request/2.0" xmlns:xsp-session="http://apache.org/xsp/session/2.0">
+    <OSM-ACCION>
+        <osm-utils:osm-session-request name="id_carga"/>
+        <id_carga>
+            <xsp-session:get-attribute name="var.id_carga"/>
+        </id_carga>
+        <id_destino>
+            <xsp-session:get-attribute name="var.id_destino"/>
+        </id_destino>
+        <osm-utils:includexml>
+            <osm-utils:src>cocoon:/carga/sincEstOrdenOperacion.ws</osm-utils:src>
+            <osm-utils:parameters>
+                <osm-utils:parameter>
+                    <osm-utils:name>"endpoint"</osm-utils:name>
+                    <osm-utils:value>getXPathFromXScript("INFO_URI","obtenerUri/Uri/endPoint")</osm-utils:value>
+                </osm-utils:parameter>
+                <osm-utils:parameter>
+                    <osm-utils:name>"id_carga"</osm-utils:name>
+                    <osm-utils:value>
+                        <xsp-session:get-attribute name="var.id_carga"/>
+                    </osm-utils:value>
+                </osm-utils:parameter>
+            </osm-utils:parameters>
+        </osm-utils:includexml>
+    	
+    	<osm-utils:includexml>
+            <osm-utils:src>cocoon:/carga/sincInstPago.ws</osm-utils:src>
+            <osm-utils:parameters>
+                <osm-utils:parameter>
+                    <osm-utils:name>"endpoint"</osm-utils:name>
+                    <osm-utils:value>getXPathFromXScript("INFO_URI","obtenerUri/Uri/endPoint")</osm-utils:value>
+                </osm-utils:parameter>
+                <osm-utils:parameter>
+                    <osm-utils:name>"id_carga"</osm-utils:name>
+                    <osm-utils:value>
+                        <xsp-session:get-attribute name="var.id_carga"/>
+                    </osm-utils:value>
+                </osm-utils:parameter>
+            </osm-utils:parameters>
+        </osm-utils:includexml>
+    </OSM-ACCION>
+</xsp:page>

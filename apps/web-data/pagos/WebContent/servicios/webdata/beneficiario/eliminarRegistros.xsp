@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<eliminarRegistros>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Boolean</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.beneficiarios.BeneficiarioServicio</service>
+   			<operation>eliminarRegistros</operation>
+   			<parameters>
+   				<parameter>registros</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</eliminarRegistros>
+
+
+</xsp:page>

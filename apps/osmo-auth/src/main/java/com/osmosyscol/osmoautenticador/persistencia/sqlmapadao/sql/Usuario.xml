@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Usuario">
+
+	<typeAlias alias="usuario" type="com.osmosyscol.osmoautenticador.dominio.Usuario" />
+	<typeAlias alias="tipoAutenticacion" type="com.osmosyscol.osmoautenticador.dominio.TipoAutenticacion" />
+	<typeAlias alias="grupoAutenticacion" type="com.osmosyscol.osmoautenticador.dominio.GrupoAutenticacion" />
+
+	<select id="obtenerUsuario" parameterClass="java.util.Map" resultClass="usuario">
+		select distinct usu.* 
+		from oat_usuario usu, oat_aplicacion app, oat_rol rol, oat_usuario_rol usr
+		where usu.id_usuario = usr.id_usuario
+		and usr.id_rol = rol.id_rol
+		and app.id_aplicacion = rol.id_aplicacion
+		and upper(usu.login) = upper(#login#)
+		and 
+		( 
+			( ( <iterate conjunction="or" property="clave" > usu.clave = #clave[]# </iterate> ) and #tipoclave# = '1') 
+			or 
+			( (<iterate conjunction="or" property="clave" > usu.clave2 = #clave[]# </iterate>) and #tipoclave# = '2')  
+		)
+		and upper(app.nombre) = upper(#aplicacion#)
+	</select>
+
+	<select id="autorizarUsuario" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(usu.ID_USUARIO) as valido
+		from OAT_USUARIO usu, OAT_USUARIO_ROL urol, OAT_ROL rol, OAT_APLICACION app, OAT_SERVICIO_ROL srol, OAT_SERVICIO ser, OAT_URL_SERVICIO urls
+		where upper(usu.LOGIN) = upper(#login#)
+		and urol.ID_USUARIO = usu.ID_USUARIO
+		and urol.ID_ROL = rol.ID_ROL
+		and rol.ID_APLICACION = app.ID_APLICACION
+		and upper(app.NOMBRE) = upper(#aplicacion#)
+		and rol.ID_ROL = srol.ID_ROL
+		and srol.ID_SERVICIO = ser.ID_SERVICIO
+		and ser.ID_SERVICIO = urls.ID_SERVICIO
+		and urls.URL = #url#
+		and ser.activo='S'
+	</select>
+
+	<update id="cambiarClave1" parameterClass="java.util.Map">
+		update oat_usuario set clave = #clave_nueva#, ult_act_clave1 = GETDATE() 
+		where upper(login) = upper(#login#)
+	</update>
+	
+	<update id="cambiarClave2" parameterClass="java.util.Map">
+		update oat_usuario set clave2 = #clave_nueva#, ult_act_clave2 = GETDATE() 
+		where upper(login) = upper(#login#)
+	</update>
+	
+	<select id="obtenerGrupoAutenticacion" parameterClass="java.lang.String" resultClass="grupoAutenticacion">
+		select oat_grupo_autenticacion.*
+		from oat_aplicacion , oat_grupo_autenticacion 
+		where oat_aplicacion.grupo_autenticacion = oat_grupo_autenticacion.id_grupo_autenticacion
+		and upper(oat_aplicacion.nombre)  = upper(#aplicacion#)
+	</select>
+	
+	<select id="obtenerTiposAutenticacionGrupo" parameterClass="java.lang.Integer" resultClass="tipoAutenticacion">
+
+		select oat_tipo_autenticacion.* from oat_tipo_autenticacion , (
+         
+		select oat_tipoauto_grupoauto.id_t_autenticacion as id
+		from oat_tipoauto_grupoauto 
+		where oat_tipoauto_grupoauto.id_g_autenticacion =  #idGrupo#
+
+	    ) tipos
+
+	    where tipos.id=oat_tipo_autenticacion.id_tipo_autenticacion
+	</select>
+	
+	<select id="loginExiste" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select count(*) from oat_usuario
+		where upper(login) = upper(#login#)
+	</select>
+	
+	<insert id="guardarUsuario" parameterClass="usuario">
+		insert into oat_usuario (id_usuario, login, clave, clave2) values (#id_usuario#, upper(#login#), #clave#, #clave2#)
+	</insert>
+
+	<!-- ****************************************************************** -->
+	<insert id="agregarRol" parameterClass="java.util.Map">
+		insert into oat_usuario_rol (id_usuario,id_rol) values (#id_usuario#,#id_rol#)
+	</insert>
+	
+	<select id="obtenerIdRoles" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select id_rol from oat_usuario_rol
+		where id_usuario = #id_usuario#
+	</select>
+	
+	<delete id="eliminarRol" parameterClass="java.util.Map">
+		delete from oat_usuario_rol where id_usuario=#id_usuario# and id_rol=#id_rol#
+	</delete>
+	
+	<delete id="eliminarRolLogin" parameterClass="java.util.Map">
+		delete from oat_usuario_rol 
+			where id_rol=#id_rol#
+			and id_usuario=(select id_usuario from oat_usuario 
+				where upper(login) = upper(#login#))
+	</delete>
+	
+	<!-- ****************************************************************** -->
+	
+	<select id="obtenerUsuarioPorLogin" parameterClass="java.lang.String" resultClass="usuario">
+		select id_usuario, login, clave from oat_usuario usu
+		where upper(login) = upper(#login#)
+	</select>
+	<delete id="eliminarUsuario">
+		DELETE FROM oat_usuario
+ 			WHERE id_usuario = #login#
+	</delete>
+	<select id="listarUsuarios" resultClass="usuario">
+		select id_usuario, login, clave, clave2 from oat_usuario usu
+	</select>
+</sqlMap>

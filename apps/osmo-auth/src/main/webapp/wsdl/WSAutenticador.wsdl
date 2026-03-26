@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:intf="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="autenticar">
+    <complexType>
+     <sequence>
+      <element name="solicitudAutenticar" type="impl:SolicitudAutenticar"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="SolicitudAutenticar">
+    <sequence>
+     <element name="aplicacion" nillable="true" type="xsd:string"/>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="configuracion" nillable="true" type="xsd:string"/>
+     <element name="login" nillable="true" type="xsd:string"/>
+     <element name="tipoclave" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="autenticarResponse">
+    <complexType>
+     <sequence>
+      <element name="autenticarReturn" type="impl:RespuestaAutenticar"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="RespuestaAutenticar">
+    <sequence>
+     <element name="autenticado" nillable="true" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <element name="autorizar">
+    <complexType>
+     <sequence>
+      <element name="solicitudAutorizar" type="impl:SolicitudAutorizar"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="SolicitudAutorizar">
+    <sequence>
+     <element name="aplicacion" nillable="true" type="xsd:string"/>
+     <element name="login" nillable="true" type="xsd:string"/>
+     <element name="url" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="autorizarResponse">
+    <complexType>
+     <sequence>
+      <element name="autorizarReturn" type="impl:RespuestaAutorizar"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="RespuestaAutorizar">
+    <sequence>
+     <element name="autorizado" nillable="true" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="autenticarResponse">
+
+      <wsdl:part element="impl:autenticarResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="autorizarResponse">
+
+      <wsdl:part element="impl:autorizarResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="autorizarRequest">
+
+      <wsdl:part element="impl:autorizar" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="autenticarRequest">
+
+      <wsdl:part element="impl:autenticar" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSAutenticador">
+
+      <wsdl:operation name="autenticar">
+
+         <wsdl:input message="impl:autenticarRequest" name="autenticarRequest"/>
+
+         <wsdl:output message="impl:autenticarResponse" name="autenticarResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="autorizar">
+
+         <wsdl:input message="impl:autorizarRequest" name="autorizarRequest"/>
+
+         <wsdl:output message="impl:autorizarResponse" name="autorizarResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSAutenticadorSoapBinding" type="impl:WSAutenticador">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="autenticar">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="autenticarRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="autenticarResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="autorizar">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="autorizarRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="autorizarResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSAutenticadorService">
+
+      <wsdl:port binding="impl:WSAutenticadorSoapBinding" name="WSAutenticador">
+
+         <wsdlsoap:address location="http://localhost:8080/OsmoAutenticador/services/WSAutenticador"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

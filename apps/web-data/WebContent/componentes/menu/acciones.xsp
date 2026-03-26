@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+        xmlns:xsp="http://apache.org/xsp"
+		xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+		xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+>
+     
+	<acciones>
+		
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/menus/obtenerMenusPorAplicacion.ser</cinclude:src>
+    		 <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>aplicacion</cinclude:name>
+                    <cinclude:value>WebData</cinclude:value>
+                </cinclude:parameter>
+             </cinclude:parameters>
+        </cinclude:includexml>
+        
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/menus/obtenerSeccionesMenu.ser</cinclude:src>
+        </cinclude:includexml>
+		
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		
+		<plugin name="Procesos">
+			<osm-utils:autorizado url="/administracion_carga/proceso/22.do"/>
+		</plugin>
+		
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/plugins/obtenerPluginsAutorizados.ser</cinclude:src>
+    		 <cinclude:parameters />
+        </cinclude:includexml>
+		
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/plugins/obtenerCarpetasPlugins.ser</cinclude:src>
+    		 <cinclude:parameters />
+        </cinclude:includexml>
+		
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		
+		<plugin name="Notificaciones">
+			<osm-utils:autorizado url="/administracion_carga/proceso/22.do"/>
+		</plugin>
+		
+		<menuPreparador>
+			<osm-utils:autorizado url="/carga_informacion/1a.do"/>
+		</menuPreparador>
+		
+		<menuReportes>
+			<osm-utils:autorizado url="/reportedim/reporte.do"/>
+		</menuReportes>
+		
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+		
+	</acciones>
+</xsp:page>

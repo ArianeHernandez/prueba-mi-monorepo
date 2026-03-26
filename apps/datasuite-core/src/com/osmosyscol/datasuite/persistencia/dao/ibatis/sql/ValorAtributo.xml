@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ValorAtributo">
+
+	<typeAlias alias="ValorAtributo" type="com.osmosyscol.datasuite.logica.dto.ValorAtributo" />
+	
+	<insert id="crearValorAtributo" parameterClass="java.util.Map">
+		insert into dst_administrativo_atributo (id_administrativo,id_atributo,valor) 
+			values (#id_administrativo#,#id_atributo#,#valor#)
+	</insert>
+	
+	<update id="actualizarValorAtributo" parameterClass="java.util.Map">
+		update dst_administrativo_atributo set 
+			valor = #valor#
+			where id_administrativo = #id_administrativo#
+			and id_atributo = #id_atributo#
+	</update>
+	
+	<delete id="eliminarValorAtributo" parameterClass="java.util.Map">
+		delete from dst_administrativo_atributo
+		where id_administrativo = #id_administrativo#
+		and id_atributo = #id_atributo#
+		and valor = #valor#
+	</delete>
+	
+	<delete id="eliminarValorAtributosAdministrativo" parameterClass="java.lang.Integer">
+		delete from dst_administrativo_atributo
+		where id_administrativo = #id_administrativo#
+	</delete>
+	
+	<delete id="eliminarTodoValoresAtributo" parameterClass="java.lang.Integer">
+		delete from dst_administrativo_atributo
+		where id_atributo = #id_atributo#
+	</delete>
+	
+	<select id="obtenerValorAtributo" parameterClass="java.util.Map" resultClass="ValorAtributo">
+		SELECT *
+		    FROM dst_administrativo_atributo
+			where 1=1
+			<isNotNull property="id_administrativo">
+			<isNotEmpty property="id_administrativo">	   		   		  
+				and id_administrativo = #id_administrativo# 
+			</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="id_atributo">
+			<isNotEmpty property="id_atributo">	   		   		  
+				and id_atributo = #id_atributo# 
+			</isNotEmpty>
+			</isNotNull>
+			<isNotNull property="valor">
+			<isNotEmpty property="valor">	   		   		  
+				and valor = #valor# 
+			</isNotEmpty>
+			</isNotNull>
+	</select>
+	
+	<select id="obtenerIdSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_administrativo_atributo') as id from dual
+	</select>
+	
+</sqlMap>

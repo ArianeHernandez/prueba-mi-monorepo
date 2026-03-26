@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Proceso">
+
+	<typeAlias alias="proceso" type="com.osmosyscol.datasuite.logica.dto.Proceso" />
+	<typeAlias alias="tipoProceso" type="com.osmosyscol.datasuite.logica.dto.TipoProceso" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="listarProcesos" parameterClass="java.util.Map" resultClass="proceso">
+		select * from dst_proceso 
+		where 
+		<isNull property="id_usuario">
+			id_usuario is null
+		</isNull>
+		<isNotNull property="id_usuario">
+			(id_usuario = #id_usuario# or id_usuario is null)
+		</isNotNull>
+		<isNull property="id_negocio">
+			and id_negocio is null
+		</isNull>
+		<isNotNull property="id_negocio">
+			and id_negocio = #id_negocio#
+		</isNotNull>
+		<isNotNull property="id_tipo_proceso">
+			and id_tipo_proceso = #id_tipo_proceso#
+		</isNotNull>
+		and estado not in ('X')
+		order by nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="listarProcesosDefectoTipoSolicitante" parameterClass="java.util.Map" resultClass="proceso">
+		select p.* from dst_proceso p, dst_proceso_tipo_solicitante pts
+		where
+			p.id_proceso = pts.id_proceso and 
+			p.id_usuario is null and
+			p.estado not in ('X') and
+			pts.id_tipo_solicitante = #tipo_solicitante#
+		order by p.nombre
+	</select>
+	
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="listarProcesosPorTipoProceso" parameterClass="java.util.Map" resultClass="proceso">
+		select * from dst_proceso 
+		where 
+		<isNull property="id_usuario">
+			id_usuario is null
+		</isNull>
+		<isNotNull property="id_usuario">
+			id_usuario = #id_usuario#
+		</isNotNull>
+		<isNotNull property="id_tipo_proceso">
+			and id_tipo_proceso = #id_tipo_proceso#
+		</isNotNull>
+		and estado not in ('X')
+		order by nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<update id="cambiarEstado" parameterClass="java.util.Map">
+		update dst_proceso set estado=#estado# where id_proceso=#id_proceso#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="siguienteId" resultClass="java.lang.Integer">
+		select nextvalue('DSS_PROCESO') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="crearProceso" parameterClass="proceso">
+		INSERT INTO dst_proceso(id_proceso, nombre, estado, id_usuario, id_negocio, id_grupoformato, id_tipo_proceso) 
+    	VALUES(#id_proceso#, #nombre#, 'A', #id_usuario#, #id_negocio#, #id_grupoformato#, #id_tipo_proceso#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarProceso" parameterClass="proceso">
+		UPDATE dst_proceso 
+	    SET nombre=#nombre#, estado=#estado#, id_formato_salida=#id_formato_salida#, id_grupoformato = #id_grupoformato#, peso=#peso#
+	    WHERE id_proceso = #id_proceso#
+	</update>
+	
+	<select id="obtenerProceso" parameterClass="java.lang.Integer" resultClass="proceso">
+		select * from dst_proceso where id_proceso=#id_proceso#
+	</select>
+	
+	<select id="obtenerProcesosPorLiberador" parameterClass="java.lang.Integer" resultClass="proceso">
+		select p.* from dst_proceso p, dst_proceso_liberador pl,
+		 dst_tipo_proceso tp 
+		where pl.id_liberador=#id_liberador#
+		and pl.id_proceso=p.id_proceso
+		and p.id_tipo_proceso = tp.id_tipo_proceso
+		and tp.proceso_por_defecto = 'S'
+	</select>
+	
+	<sql id="sqlProcesosPreparador">
+	select * from (
+		select pro.* from dst_proceso_prepadador pp, dst_proceso pro, dst_preparador pre,
+			dst_tipo_proceso tp 
+			where 
+      pre.id_persona = #id_persona#
+			and pro.id_usuario = #id_usuario# 
+			and id_negocio = #id_negocio# 
+			and pre.id_preparador = pp.id_preparador
+			and pp.id_proceso = pro.id_proceso
+			and pro.estado not in ('I', 'X')
+			and pro.id_tipo_proceso = tp.id_tipo_proceso
+			and tp.proceso_por_defecto = 'S'
+      union
+      select pro.* from dst_proceso pro
+      where pro.id_usuario is null
+      	and pro.estado not in ('I', 'X') 
+      	) t order by t.nombre
+	</sql>
+	
+	<sql id="sqlProcesosPreparadorConteo">
+	select * from (
+		select pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato,
+			count(c.id_carga) total_cargas 
+		from dst_proceso_prepadador pp, dst_proceso pro, dst_preparador pre, dst_carga c
+			where 
+       pro.estado not in ('I', 'X')
+       and pro.id_proceso = c.id_proceso
+       and pre.id_persona = #id_persona#
+	   and pro.id_usuario = #id_usuario# 
+		and pro.id_negocio = #id_negocio# 
+		and pre.id_preparador = pp.id_preparador
+				and pp.id_proceso = pro.id_proceso
+        and c.id_usuario = pro.id_usuario
+	  group by pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato
+  union 
+  
+      select pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato,
+      count(c.id_carga)
+      from dst_proceso pro, dst_carga c
+      where pro.estado not in ('I', 'X')
+      and pro.id_proceso = c.id_proceso
+      and pro.id_usuario is null
+      and c.id_usuario = #id_usuario#
+      and c.id_negocio = #id_negocio#
+		group by pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato
+		) t
+		order by t.nombre
+	</sql>
+	
+	<select id="listarProcesosPreparador" parameterClass="java.util.Map" resultClass="proceso">
+		<include refid="sqlProcesosPreparador"/>
+	</select>	
+	
+	<select id="listarProcesosPreparadorContar" parameterClass="java.util.Map" resultClass="proceso">
+		<include refid="sqlProcesosPreparadorConteo"/>
+	</select>	
+	
+	<select id="contarProcesosPreparador" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlProcesosPreparador"/>) t
+	</select>	
+	
+	<!--                       -->
+	
+	<sql id="sqlProcesosLiberador">
+	select * from (
+		select pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato,
+			count(c.id_carga) total_cargas 
+		from dst_proceso_liberador pl, dst_proceso pro, dst_liberador lib, dst_carga c
+			where 
+       pro.estado not in ('I', 'X')
+       and pro.id_proceso = c.id_proceso
+       and c.estado = 'L'
+       and lib.id_persona = #id_persona#
+	   and pro.id_usuario = #id_usuario# 
+		and pro.id_negocio = #id_negocio# 
+		and lib.id_liberador = pl.id_liberador
+				and pl.id_proceso = pro.id_proceso
+        and c.id_usuario = pro.id_usuario
+	  group by pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato
+  union 
+  
+      select pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato,
+      count(c.id_carga)
+      from dst_proceso pro, dst_carga c
+      where c.estado = 'L'
+      and pro.estado not in ('I', 'X')
+      and pro.id_proceso = c.id_proceso
+      and pro.id_usuario is null
+      and c.id_usuario = #id_usuario#
+      and c.id_negocio = #id_negocio#
+		group by pro.id_proceso, pro.nombre, pro.estado, pro.id_formato_salida, pro.id_usuario, pro.id_negocio, pro.id_grupoformato
+		) t
+		order by t.nombre
+	</sql>
+	<select id="listarProcesosLiberador" parameterClass="java.util.Map" resultClass="proceso">
+		<include refid="sqlProcesosLiberador"/>
+	</select>	
+	
+	<select id="contarProcesosLiberador" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlProcesosLiberador"/>) t
+	</select>	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="agregarFormato" parameterClass="java.util.Map">
+		INSERT INTO dst_proceso_formato(id_proceso, id_formato) 
+    		VALUES(#id_proceso#, #id_formato#)
+	</insert>
+	
+	<delete id="eliminarFormato" parameterClass="java.util.Map">
+		DELETE FROM dst_proceso_formato 
+		WHERE id_formato  = #id_formato#
+		<isNotNull property="id_proceso">
+			and id_proceso = #id_proceso#
+		</isNotNull>
+	</delete>
+	
+	<select id="obtenerProcesosPorCliente" parameterClass="java.lang.Integer" resultClass="proceso">
+		select * from dst_proceso
+		where id_usuario = #id_usuario#
+		order by nombre
+	</select>
+	
+	<select id="obtenerCargasPorProcesoClienteEnTransito" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from dst_carga
+		where estado in ('L', 'V' )
+		and id_proceso = #id_proceso#
+	</select>
+	
+	<update id="eliminarProceso" parameterClass="java.lang.Integer">
+		update dst_proceso
+		set estado = 'X'
+		where id_proceso = #id_proceso#
+	</update>
+	
+	<select id="numeroProcesosPermitidosTipoProceso" parameterClass="java.util.Map" resultClass="java.lang.Integer"> 
+		select tpr.numero_procesos_por_cliente - (
+		  select count(tp.id_tipo_proceso)
+		  from dst_proceso tp
+		  where tp.id_usuario = #id_usuario#
+		  and tp.id_tipo_proceso = tpr.id_tipo_proceso
+		  and tp.estado = 'A')
+		from dst_tipo_proceso tpr where tpr.id_tipo_proceso = #id_tipo_proceso#
+	</select>
+	
+	<select id="obtenerTipoProcesoPorIdTipoProceso" parameterClass="java.lang.Integer" resultClass="tipoProceso">
+		select tp.* from dst_tipo_proceso tp
+		where tp.id_tipo_proceso = #id_tipo_proceso# 
+	</select>
+	
+	<select id="permiteRevisorMultiplesInstancias" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		select tp.revisor_multiples_instancias 
+		from dst_tipo_proceso tp 
+		where tp.id_tipo_proceso = #id_tipo_proceso#
+	</select>
+	
+</sqlMap>

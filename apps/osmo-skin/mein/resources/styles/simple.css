@@ -1,0 +1,599 @@
+.lft {
+	text-align: left;
+}
+
+.rgh {
+	text-align: right;
+}
+
+.ctr {
+	text-align: center;
+}
+
+/* anchos */
+.5p {
+	width: 5%;
+}
+
+.10p {
+	width: 10%;
+}
+
+.15p {
+	width: 15%;
+}
+
+.20p {
+	width: 20%;
+}
+
+.25p {
+	width: 25%;
+}
+
+.30p {
+	width: 30%;
+}
+
+.35p {
+	width: 35%;
+}
+
+.40p {
+	width: 40%;
+}
+
+.45p {
+	width: 45%;
+}
+
+.50p {
+	width: 50%;
+}
+
+.55p {
+	width: 55%;
+}
+
+.60p {
+	width: 60%;
+}
+
+.65p {
+	width: 65%;
+}
+
+.70p {
+	width: 70%;
+}
+
+.75p {
+	width: 75%;
+}
+
+.80p {
+	width: 80%;
+}
+
+.85p {
+	width: 85%;
+}
+
+.90p {
+	width: 90%;
+}
+
+.95p {
+	width: 95%;
+}
+
+.100p {
+	width: 100%;
+}
+
+.w010,.w020,.w030,.w040,.w050,.w060,.w070,.w080,.w090,.w100,.w110,.w120,.w130,.w140,.w150,.w160,.w170,.w180,.w190,.w200,.w210,.w220,.w230,.w240,.w250,.w260,.w270,.w280,.w290,.w300,.w310,.w320,.w330,.w340,.w350,.w360,.w370,.w380,.w390,.w400,.w410,.w420,.w430,.w440,.w450,.w460,.w470,.w480,
+	,.w490,.w500,.w510,.w520,.w530,.w540,.w550,.w560,.w570,.w580,.w590,.w60,.w610,.w620,.w630,.w640,.w650,.w660,.w670,.w680,.w690,.w700
+	{
+	
+}
+
+.w010 {
+	width: 10px;
+}
+
+.w020 {
+	width: 20px;
+}
+
+.w030 {
+	width: 30px;
+}
+
+.w040 {
+	width: 40px;
+}
+
+.w050 {
+	width: 50px;
+}
+
+.w060 {
+	width: 60px;
+}
+
+.w070 {
+	width: 70px;
+}
+
+.w080 {
+	width: 80px;
+}
+
+.w090 {
+	width: 90px;
+}
+
+.w100 {
+	width: 100px;
+}
+
+.w110 {
+	width: 110px;
+}
+
+.w120 {
+	width: 120px;
+}
+
+.w130 {
+	width: 130px;
+}
+
+.w140 {
+	width: 140px;
+}
+
+.w150 {
+	width: 150px;
+}
+
+.w160 {
+	width: 160px;
+}
+
+.w170 {
+	width: 170px;
+}
+
+.w180 {
+	width: 180px;
+}
+
+.w190 {
+	width: 190px;
+}
+
+.w200 {
+	width: 200px;
+}
+
+.w210 {
+	width: 210px;
+}
+
+.w220 {
+	width: 220px;
+}
+
+.w230 {
+	width: 230px;
+}
+
+.w240 {
+	width: 240px;
+}
+
+.w250 {
+	width: 250px;
+}
+
+.w260 {
+	width: 260px;
+}
+
+.w270 {
+	width: 270px;
+}
+
+.w280 {
+	width: 280px;
+}
+
+.w290 {
+	width: 290px;
+}
+
+.w300 {
+	width: 300px;
+}
+
+.w310 {
+	width: 310px;
+}
+
+.w320 {
+	width: 320px;
+}
+
+.w330 {
+	width: 330px;
+}
+
+.w340 {
+	width: 340px;
+}
+
+.w350 {
+	width: 350px;
+}
+
+.w360 {
+	width: 360px;
+}
+
+.w370 {
+	width: 370px;
+}
+
+.w380 {
+	width: 380px;
+}
+
+.w390 {
+	width: 390px;
+}
+
+.w400 {
+	width: 400px;
+}
+
+.w410 {
+	width: 410px;
+}
+
+.w420 {
+	width: 420px;
+}
+
+.w430 {
+	width: 430px;
+}
+
+.w440 {
+	width: 440px;
+}
+
+.w450 {
+	width: 450px;
+}
+
+.w460 {
+	width: 460px;
+}
+
+.w470 {
+	width: 470px;
+}
+
+.w480 {
+	width: 480px;
+}
+
+.w490 {
+	width: 490px;
+}
+
+.w500 {
+	width: 500px;
+}
+
+.w510 {
+	width: 510px;
+}
+
+.w520 {
+	width: 520px;
+}
+
+.w530 {
+	width: 530px;
+}
+
+.w540 {
+	width: 540px;
+}
+
+.w550 {
+	width: 550px;
+}
+
+.w560 {
+	width: 560px;
+}
+
+.w570 {
+	width: 570px;
+}
+
+.w580 {
+	width: 580px;
+}
+
+.w590 {
+	width: 590px;
+}
+
+.w600 {
+	width: 600px;
+}
+
+.w610 {
+	width: 610px;
+}
+
+.w620 {
+	width: 620px;
+}
+
+.w630 {
+	width: 630px;
+}
+
+.w640 {
+	width: 640px;
+}
+
+.w650 {
+	width: 650px;
+}
+
+.w660 {
+	width: 660px;
+}
+
+.w670 {
+	width: 670px;
+}
+
+.w680 {
+	width: 680px;
+}
+
+.w690 {
+	width: 690px;
+}
+
+.w700 {
+	width: 700px;
+}
+
+/* tabla control */
+.tbcontrol1 {
+	width: 100%;
+	margin: 0 auto;
+	font-size:11px;
+	font-weight:normal;
+	line-height: 1.3em;
+	font-family: inherit;
+	border: solid 1px #ccc;
+	border-collapse: collapse;
+	background: #fff;
+	/*background:#color16#;*/
+}
+
+.tbcontrol1 h1 {
+	font-size:18px;
+	line-height: 1.3em;
+	font-weight:normal;
+	font-family: inherit;
+	padding: 5px 0;
+	margin: 0;
+	color: #color35#;
+	text-align:center;
+}
+
+.tbcontrol1 h2 {
+	font-size:14px;
+	line-height: 1.3em;
+	font-family: inherit;
+	padding: 0;
+	margin: 0;
+}
+
+.tbcontrol1 h3 {
+	font-size:12px;
+	font-weight:bold;
+	line-height: 1.3em;
+	font-family: inherit;	
+	padding: 3px 0;
+	margin: 0;
+}
+
+.tbcontrol1 b {
+	float: left;
+	font-size:11px;
+	font-weight:bold;
+	line-height: 1.3em;
+	font-family: inherit;
+	color: #color01#;
+}
+
+.tbcontrol1 td {
+	padding: 5px 2px;
+	color: #color01#;
+	vertical-align: middle;
+	border: solid 1px #ccc;
+}
+
+.tbcontrol1 th {	
+	font-size:10px;
+	font-weight:bold;
+	line-height: 1.3em;
+	font-family: inherit;
+	text-transform: uppercase;
+	padding: 5px 2px;
+	border: solid 1px #ccc;
+}
+
+.tbcontrol1 .tittle {
+	/*background: #7F9E1F url(../images/general/bg-tbcontrol.jpg) 0 0px repeat-x;*/
+	background: #036;
+}
+
+.tbcontrol1 thead {
+	
+}
+
+.tbcontrol1 tbody th {
+	color: #color01#;
+	font-weight: normal;
+	border: solid 1px #ccc;
+}
+
+.tbcontrol1 tfoot {
+	
+}
+
+.tbcontrol1 tfooot th {
+	margin: 4px 0;
+}
+
+/* colores */
+.bgc0,td.bgc0 {
+	background: #color35#;
+}
+
+.bgc1,th.bgc1 {
+	background: #color32# url(../images/general/bgc1.jpg) 0 0 repeat-x;
+}
+
+.bgc2 {
+	background: #BCDBEB url(../images/general/bgc2.jpg) 0 0 repeat-x;
+}
+
+.bgc3 {
+	background: #CCE3C4 url(../images/general/bgc3.jpg) 0 0 repeat-x;
+}
+
+.bgc4 {
+	background: #F5F3C2 url(../images/general/bgc4.jpg) 0 0 repeat-x;
+}
+
+.bgc5,.bgc5 td {
+	background: #CC0000 url(../images/general/bgc5.jpg) 0 0 repeat-x;
+	color: #color35#;
+}
+
+.tf1 .bgc5, .tf1 .bgc5 b, .tf2 .bgc5, .tf2 .bgc5 b{
+	color: #color35# !important;
+}
+
+.bgc6 {
+	background: #e7e7e7 url(../images/general/bgc6.jpg) 0 0 repeat-x;
+}
+
+.tr1 td {
+	background: #color35#
+}
+
+.tr2 td {
+	background: #color32#
+}
+
+.tr1,.tr2 { /*filter: alpha(opacity = 90);
+opacity: .90;*/
+	
+}
+
+/* imagenes */
+.pic {
+	display: block;
+	width: 70px;
+	height: 31px;
+	margin: 0 auto;
+	background-color: #color35#;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.bnc_bogota {
+	background-image: url(../images/general/bancos/bogota.jpg);
+}
+
+.bnc_abn_amro {
+	background-image: url(../images/general/bancos/abn-amro.jpg);
+}
+
+.bnc_av_villas {
+	background-image: url(../images/general/bancos/avvillas.jpg);
+}
+
+.bnc_agrario {
+	background-image: url(../images/general/bancos/banagrario.jpg);
+}
+
+.bnc_bancafe {
+	background-image: url(../images/general/bancos/bancafe.jpg);
+}
+
+.bnc_bancolombia {
+	background-image: url(../images/general/bancos/bancolombia.jpg);
+}
+
+.bnc_bbva {
+	background-image: url(../images/general/bancos/bbva.jpg);
+}
+
+.bnc_bcsc {
+	background-image: url(../images/general/bancos/bcsc.jpg);
+}
+
+.bnc_citibank {
+	background-image: url(../images/general/bancos/citi.jpg);
+}
+
+.bnc_colpatria {
+	background-image: url(../images/general/bancos/colpatria.jpg);
+}
+
+.bnc_davivienda {
+	background-image: url(../images/general/bancos/davivienda.jpg);
+}
+
+.bnc_ganadero {
+	background-image: url(../images/general/bancos/ganadero.jpg);
+}
+
+.bnc_hsbc {
+	background-image: url(../images/general/bancos/hsbc.jpg);
+}
+
+.bnc_occidente {
+	background-image: url(../images/general/bancos/occidente.jpg);
+}
+
+.bnc_banco_falabella {
+	background-image: url(../images/general/bancos/falabella.jpg);
+}
+
+.bnc_santander {
+	background-image: url(../images/general/bancos/santander.jpg);
+}
+
+.bnc_sudameris {
+	background-image: url(../images/general/bancos/sudameris.jpg);
+}
+
+.bnc_z_indefinido {
+	background-image: url(../images/general/bancos/indefinido.jpg);
+}

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SoportePago" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.2745232708414278"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="178"/>
+	<parameter name="ruta_imagen" class="java.lang.String"/>
+	<field name="Nombre_cliente" class="java.lang.String"/>
+	<field name="TotalPagos" class="java.lang.Integer"/>
+	<field name="Fecha" class="java.util.Date"/>
+	<field name="EnProceso" class="java.lang.Integer"/>
+	<field name="Autorizadas" class="java.lang.Integer"/>
+	<field name="AplicadasBanco" class="java.lang.Integer"/>
+	<field name="RechazadasBanco" class="java.lang.Integer"/>
+	<field name="PendientesBanco" class="java.lang.Integer"/>
+	<field name="Rechazadas" class="java.lang.Integer"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="77">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="0" width="555" height="77"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{ruta_imagen}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="44">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="44" forecolor="#666666"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Resumen Diario de Órdenes de Pago]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16"/>
+	</columnHeader>
+	<detail>
+		<band height="359">
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="30" width="72" height="20" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="90" width="462" height="20" forecolor="#666666" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Órdenes de pago creadas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="129" width="256" height="20" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Detalle de las órdenes de pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="194" width="462" height="20" forecolor="#000000" backcolor="#E3E3E3"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ En proceso]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="174" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Rechazadas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="202" y="90" width="75" height="20" forecolor="#666666" backcolor="#CCCCCC"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{TotalPagos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="277" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{RechazadasBanco}]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<staticText>
+					<reportElement mode="Opaque" x="50" y="257" width="462" height="20" forecolor="#000000" backcolor="#E3E3E3"/>
+					<textElement verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="Arial" size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[ Autorizadas]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="416" y="257" width="86" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+						<font fontName="Arial" size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{AplicadasBanco}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<staticText>
+				<reportElement x="50" y="277" width="366" height="20"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Rechazadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="297" width="462" height="20" forecolor="#000000" backcolor="#E3E3E3"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Pendientes de respuesta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="234" width="462" height="20" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Resultado Bancos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="122" y="10" width="276" height="20" forecolor="#666666"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Nombre_cliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="122" y="30" width="276" height="20" forecolor="#666666"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{Fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="50" y="10" width="72" height="20" forecolor="#666666" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="194" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{EnProceso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="154" width="462" height="20" forecolor="#000000" backcolor="#E3E3E3"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Autorizadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="174" width="376" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Rechazadas]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="154" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{Autorizadas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="416" y="297" width="86" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{PendientesBanco}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="50" y="154" width="462" height="1"/>
+			</line>
+			<line>
+				<reportElement x="50" y="214" width="462" height="1"/>
+			</line>
+			<line>
+				<reportElement x="50" y="257" width="462" height="1"/>
+			</line>
+			<line>
+				<reportElement x="50" y="317" width="462" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54"/>
+	</pageFooter>
+	<summary>
+		<band height="4"/>
+	</summary>
+</jasperReport>

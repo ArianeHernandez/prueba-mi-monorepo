@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Rol">
+
+	<typeAlias alias="rolDto" type="com.osmosyscol.osmoautenticador.persistencia.dto.RolDto" />
+	<typeAlias alias="rolExDto" type="com.osmosyscol.osmoautenticador.persistencia.dto.RolExDto" />
+		
+	<insert id="insertarRol" parameterClass="rolDto" >
+		INSERT INTO oat_rol(id_rol, id_aplicacion, nombre, naturaleza) VALUES (#idRol#,#idAplicacion#,#nombre#, #naturaleza#)
+	</insert>
+	
+	<delete id="eliminarRol" parameterClass="java.lang.Integer">
+		delete from oat_rol where id_rol=#idRol#
+	</delete>
+	
+	<!-- - - - - - -  Roles Excluyentes - - - - - - - -->
+	
+	<select id="obtenerRolesEx" parameterClass="rolExDto" resultClass="rolExDto">
+		select *
+		from oat_rol_excluyente
+		where id_rol=#idRol#
+	</select>
+	
+</sqlMap>

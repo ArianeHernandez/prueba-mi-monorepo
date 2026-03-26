@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ListaDinamicaCampo">
+
+	<typeAlias alias="listaDinamicaCampo" type="com.osmosyscol.datasuite.logica.dto.ListaDinamicaCampo" />
+
+	<select id="obtenerListasPorFormato" parameterClass="java.lang.Integer" resultClass="listaDinamicaCampo">
+	
+		SELECT ldc.*, ld.nombre nombre_lista_dinamica, c.nombre nombre_campo
+			FROM dst_lista_dinamica_campo ldc, dst_formato f, dst_lista_dinamica ld, dst_campo c
+			WHERE ldc.id_formato = #id_formato#
+			AND f.id_formato = ldc.id_formato
+			AND ldc.id_campo = c.id_campo
+			AND ldc.id_lista_dinamica = ld.id_lista_dinamica
+			
+	</select>
+	
+	
+	<insert id="guardarListasDinamicaCampo" parameterClass="listaDinamicaCampo">
+		INSERT INTO dst_lista_dinamica_campo(id_lista_dinamica, id_campo, id_formato, id_campo_padre, obligatorio) 
+   			 VALUES( #id_lista_dinamica#, #id_campo#, #id_formato#, #id_campo_padre#, #obligatorio#)
+	</insert>
+	
+	<delete id="eliminarListasDinamicaCampo" parameterClass="java.lang.Integer">
+		DELETE FROM dst_lista_dinamica_campo WHERE id_formato = #id_formato#
+	</delete>
+		
+</sqlMap>

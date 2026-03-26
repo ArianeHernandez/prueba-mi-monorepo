@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Campo">
+
+	<typeAlias alias="campo"      type="com.osmosyscol.datasuite.modelatos.logica.dto.Campo" />
+	<typeAlias alias="estructura" type="com.osmosyscol.datasuite.modelatos.logica.dto.Estructura" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerCampos" resultClass="campo">
+		select * from dst_campo
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerCamposPorEstructura" resultClass="campo" parameterClass="estructura">
+		select * from dst_campo
+		where id_estructura = #id_estructura#
+		order by orden
+	</select>
+	
+	<select id="obtenerCamposPorEstructuraOrdenId" resultClass="campo" parameterClass="estructura">
+		select * from dst_campo
+		where id_estructura = #id_estructura#
+		order by id_campo
+	</select>
+
+	<select id="obtenerCampo" resultClass="campo" parameterClass="java.lang.Integer">
+		select * from dst_campo	where id_campo = #id_campo#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="siguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_campo') as id from dual
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="campoTieneListaValores" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(*) from DST_CAMPO where ID_CAMPO = #id_campo# and ID_TIPOCAMPO = -1
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="guardarCampo" parameterClass="campo">
+		insert into dst_campo(id_campo, id_estructura, id_tipocampo, obligatorio, patronvalidacion, llaveprimaria, visualizacion, multiplicidad, unico, id_estructurarelacionada, nombre, id_lista_valores, orden, actualizable, descripcion, endpoint, info_adicional, id_tipo_archivo) 
+    	values(#id_campo#, #id_estructura#, #id_tipocampo#, #obligatorio#, #patronvalidacion#, #llaveprimaria#, #visualizacion#, #multiplicidad#, #unico#, #id_estructurarelacionada#, #nombre#, #id_lista_valores#, #orden#, #actualizable#, #descripcion#, #endpoint#, #info_adicional#, #id_tipo_archivo#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<update id="actualizarCampo" parameterClass="campo">
+		update dst_campo set 
+   		id_estructura = #id_estructura#, 
+   		id_tipocampo = #id_tipocampo#,
+   		obligatorio = #obligatorio#,
+   		patronvalidacion = #patronvalidacion#, 
+   		llaveprimaria = #llaveprimaria#, 
+   		visualizacion = #visualizacion#, 
+   		multiplicidad = #multiplicidad#, 
+   		unico = #unico#, 
+   		id_estructurarelacionada = #id_estructurarelacionada#,
+   		nombre =  #nombre#,
+   		id_lista_valores = #id_lista_valores#,
+   		actualizable = #actualizable#,
+   		descripcion = #descripcion#,
+   		endpoint = #endpoint#,
+   		info_adicional = #info_adicional#,
+   		id_tipo_archivo = #id_tipo_archivo#
+    	where id_campo = #id_campo#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<delete id="eliminarCampo" parameterClass="campo">
+		delete from dst_campo where id_campo = #id_campo#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarOrdenCampo" parameterClass="campo">
+		UPDATE dst_campo 
+		    SET  orden=#orden#
+		    WHERE id_campo = #id_campo# 
+	</update>
+	
+	<select id="obtenerCamposLlavePrimaria" resultClass="campo" parameterClass="int">
+		select * from dst_campo 
+			where llaveprimaria = 'S'
+			and id_estructura = #id_estructura#
+			order by orden
+	</select>
+	
+	<select id="obtenerCamposInfoAdicionalDisponiblesPorAccion" parameterClass="java.lang.Integer" resultClass="campo">
+		select c.* from dst_campo c inner join dst_estructura e on e.id_estructura = c.id_estructura 
+		inner join dst_formato f on f.id_estructura = e.id_estructura 
+		inner join dst_proceso_admin p on p.id_formato_entrada = f.id_formato
+		inner join dst_instancia i on i.id_proceso_admin = p.id_proceso_admin
+		inner join dst_accion a on i.id_instancia = a.id_instancia 
+		where a.id_accion = #id_accion# 
+		and c.info_adicional = 'S'
+		and c.id_campo not in ( select aci.id_campo from DST_ACCION_CAMPO_INFO aci where aci.id_accion = #id_accion# )
+	</select>
+	
+	<select id="obtenerCamposInfoAdicionalPorAccion" parameterClass="java.lang.Integer" resultClass="campo">
+		select c.* from dst_campo c left join
+		DST_ACCION_CAMPO_INFO a on c.id_campo =
+		a.id_campo where a.ID_ACCION = #id_accion#
+	</select>
+	
+	<delete id="borrarAccionCampoInfoAdicional" parameterClass="java.util.Map">
+		delete from DST_ACCION_CAMPO_INFO where id_accion=#id_accion# and id_campo = #id_campo#
+	</delete>
+	
+	<insert id="insertarAccionCampoInfoAdicional" parameterClass="java.util.Map">
+		insert into DST_ACCION_CAMPO_INFO (id_accion, id_campo)
+		values (#id_accion#, #id_campo#)
+	</insert>
+	
+</sqlMap>

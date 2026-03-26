@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+	        
+    	<osm-utils:exist-parameter name="editar">
+    		<editar>SI</editar>
+    		<CREDENCIAL>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerCredencialPersonaUsuario.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>id_persona</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="id_persona"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>id_usuario</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="id_usuario"/></cinclude:value>
+			            </cinclude:parameter>
+		            </cinclude:parameters>
+	            </cinclude:includexml>
+    		</CREDENCIAL>
+    
+    		<cinclude:includexml>
+				<cinclude:src>cocoon:/datasuite/negocio/obtenerNegociosPorUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>id_usuario</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="id_usuario"/></cinclude:value>
+		        	</cinclude:parameter>
+	        	</cinclude:parameters>
+	    	</cinclude:includexml>
+	    	
+    		<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/usuario/obtenerUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>id_usuario</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="id_usuario"/></cinclude:value>
+		        	</cinclude:parameter>
+	        	</cinclude:parameters>
+	        </cinclude:includexml>
+    		
+    		<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/ftpusuario/obtenerFtpUsuarioPorUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>id_usuario</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="id_usuario"/></cinclude:value>
+		        	</cinclude:parameter>
+	        	</cinclude:parameters>
+	        </cinclude:includexml>
+    		
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="identificacion">
+    		<INFOPERSONA>
+				<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerPersonaPorIdentificacion.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_persona"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+		                    <cinclude:name>tipo_documento</cinclude:name>
+		                    <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+		                </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+		    </INFOPERSONA>
+    		<INFOUSUARIO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/usuario/obtenerUsuarioPorIdentificacionNegocio.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_persona"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>id_negocio</cinclude:name>
+			                <cinclude:value></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+    		</INFOUSUARIO>
+    		<VARIABLES>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/variable/obtenerVariablesPorModeloId.ser</cinclude:src>
+			        <cinclude:parameters>
+			        	<cinclude:parameter>
+			                <cinclude:name>id_modelo</cinclude:name>
+			                <cinclude:value>1</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_persona"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+    		</VARIABLES>
+    		
+		 </osm-utils:exist-parameter>
+		<id_negocio_actual><xsp-session:get-attribute name="var.id_negocio"/></id_negocio_actual>
+    	<DATOS>
+	    	<IDENTIFICACION><xsp-request:get-parameter name="identificacion"/></IDENTIFICACION>
+	    	<TIPOPERSONA><xsp-request:get-parameter name="tipo_persona"/></TIPOPERSONA>
+    		<TIPODOCUMENTO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerTipoDocumento.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>id_tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+		    </TIPODOCUMENTO>
+    	</DATOS>
+    	<LOGIN>
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/esLoginPorIdentificacion.ser</cinclude:src>
+		    </cinclude:includexml>
+    	</LOGIN>
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/negocio/obtenerListadoNegociosActivos.ser</cinclude:src>
+        </cinclude:includexml> 
+    	
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

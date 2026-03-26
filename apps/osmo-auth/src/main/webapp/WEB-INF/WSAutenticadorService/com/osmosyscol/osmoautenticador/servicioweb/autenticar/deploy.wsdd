@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WSAutenticadorService WSDL service -->
+
+  <service name="WSAutenticador" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServiceElement" value="WSAutenticadorService"/>
+      <parameter name="schemaQualified" value="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServicePort" value="WSAutenticador"/>
+      <parameter name="className" value="com.osmosyscol.osmoautenticador.servicioweb.autenticar.WSAutenticador"/>
+      <parameter name="wsdlPortType" value="WSAutenticador"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:retNS="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:rtns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" name="autenticar" qname="operNS:autenticar" returnQName="retNS:autenticarReturn" returnType="rtns:RespuestaAutenticar" soapAction="">
+        <parameter xmlns:pns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:tns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="pns:solicitudAutenticar" type="tns:SolicitudAutenticar"/>
+      </operation>
+      <operation xmlns:operNS="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:retNS="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:rtns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" name="autorizar" qname="operNS:autorizar" returnQName="retNS:autorizarReturn" returnType="rtns:RespuestaAutorizar" soapAction="">
+        <parameter xmlns:pns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" xmlns:tns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="pns:solicitudAutorizar" type="tns:SolicitudAutorizar"/>
+      </operation>
+      <parameter name="allowedMethods" value="autorizar autenticar"/>
+
+      <typeMapping xmlns:ns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:SolicitudAutorizar" type="java:com.osmosyscol.osmoautenticador.servicioweb.autenticar.SolicitudAutorizar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:SolicitudAutenticar" type="java:com.osmosyscol.osmoautenticador.servicioweb.autenticar.SolicitudAutenticar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:RespuestaAutenticar" type="java:com.osmosyscol.osmoautenticador.servicioweb.autenticar.RespuestaAutenticar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:RespuestaAutorizar" type="java:com.osmosyscol.osmoautenticador.servicioweb.autenticar.RespuestaAutorizar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

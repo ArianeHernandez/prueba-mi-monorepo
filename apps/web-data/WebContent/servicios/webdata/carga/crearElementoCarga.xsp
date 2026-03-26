@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearElementoCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>crearElementoCarga</operation>
+   			<parameters>
+   				<parameter>id_elemento_carga</parameter>
+   				<parameter>id_carga</parameter>
+   				<parameter>FormatoDato</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</crearElementoCarga>
+
+</xsp:page>

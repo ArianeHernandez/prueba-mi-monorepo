@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Horario">
+
+	<typeAlias alias="horario" type="com.osmosyscol.datasuite.logica.dto.Horario" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerSiguienteIDHorario" resultClass="java.lang.Integer" >
+		select nextvalue('dss_horario') from dual
+	</select>
+	
+	<select id="obtenerHorario" parameterClass="java.lang.Integer" resultClass="horario">
+		select * from dst_horario where id_horario=#id_horario#
+	</select>
+	
+	<insert id="crearHorario" parameterClass="horario">
+		INSERT INTO dst_horario(
+            id_horario, descripcion)
+    		VALUES (
+    		#id_horario#, #descripcion#)
+		
+	</insert>
+	
+	<select id="obtenerHoraActual" resultClass="java.util.Date" parameterClass="java.util.Map" >
+		select $SYSDATE$ from dual
+	</select>
+	
+	
+	
+</sqlMap>

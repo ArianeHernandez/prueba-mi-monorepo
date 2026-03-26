@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerUsuariosSinCredenciales>
+   		
+   		<osm-utils:servicio-java>
+   			<name>lista</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.UsuarioServicio</service>
+   			<operation>obtenerUsuariosSinCredenciales</operation>
+   			<parameters>
+   				<parameter>numPag</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+
+	</obtenerUsuariosSinCredenciales>
+
+
+</xsp:page>

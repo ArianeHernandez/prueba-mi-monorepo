@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	
+    <OSM-ACCION>
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/reportedim/crearReporte.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id</cinclude:name>
+                    <cinclude:value>archivos_salida</cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    </OSM-ACCION>
+	
+</xsp:page>

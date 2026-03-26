@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-INFO>
+
+    	<NOMBRE_APLICACION><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.NOMBRE_APLICACION</xsp:expr></NOMBRE_APLICACION>
+    	<VERSION_APLICACION><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.VERSION_APLICACION</xsp:expr></VERSION_APLICACION>	
+    	
+    	<SYSTEM>
+    		<property name="ito.sys"><xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.SYSVAR</xsp:expr></property>
+    		<property name="ito.sys.value"><xsp:expr>(com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.SYSVAR==null?null:System.getenv(com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.SYSVAR))</xsp:expr></property>
+    		<property name="ito.osmocore.version"><xsp:expr>com.osmosyscol.commons.servicio.VersionServicio.get()</xsp:expr></property>
+    		<property name="ito.debug"><xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.ISDEBUG</xsp:expr></property>
+    		
+    		<xsp:logic>
+    			java.util.Set keys = System.getProperties().keySet();
+
+				for (Object key_sysparam : keys) {
+					<property>
+						<xsp:attribute name="name"><xsp:expr>key_sysparam.toString()</xsp:expr></xsp:attribute>
+						<xsp:expr>System.getProperty(key_sysparam.toString())</xsp:expr>
+					</property>
+				}
+			</xsp:logic>
+    		
+    		<xsp:logic>
+	    		java.util.Set keys_parametro = com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.propiedades.keySet();
+			
+				for (Object key : keys_parametro) {
+					<property2>
+						<xsp:attribute name="name"><xsp:expr>key</xsp:expr></xsp:attribute>
+						<xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.propiedades.get(key)</xsp:expr>
+					</property2>
+				}
+			</xsp:logic>
+    		
+		</SYSTEM>
+    	
+    	<MAIL_STATUS><xsp:expr>com.osmosyscol.commons.mensajeria.EnviaMails.toSring()</xsp:expr></MAIL_STATUS>
+    	
+    	<xsp:logic>
+    	
+    		if(request.getParameter("memoria")!=null){
+    			com.osmosyscol.commons.utils.SystemUtils.liberarMemoria();
+    		}
+    	
+    		if(request.getParameter("clear")!=null){
+    			com.osmosyscol.commons.servicio.AutenticacionServicio.clearLog();
+    			com.osmosyscol.commons.log.SimpleLogger.contenidoLog = new StringBuffer("- - - - - - - - - - - - - - - - - - - - -\n");
+    		}
+    		    		
+    		if(request.getParameter("correo")!=null){
+						
+				try {
+				
+				Map archivos = new HashMap();
+				com.osmosyscol.commons.mensajeria.EnviaMails.enviar(request.getParameter("correo"), "Nombre", "Asunto", "plano: Prueba de Mensajeria", archivos);
+		
+				} catch (Exception e) {
+					<MAIL_ERROR><xsp:expr>(" " + e)</xsp:expr></MAIL_ERROR>
+				}
+			} 
+    	
+    		Object data = com.osmosyscol.commons.servicio.AutenticacionServicio.getPageLog();
+    		JavaToXML.include("TESTPAGE", data, this.manager, this.contentHandler);
+    		
+    		JavaToXML.include("POOLS", com.osmosyscol.persistencia.dao.ibatis.core.DaoConfig.getManagerDTOs() , this.manager, this.contentHandler);
+    		JavaToXML.include("SERVICIOS", com.osmosyscol.datapi.constantes.VariablesAplicacion.getInstance().getListadoServicios() , this.manager, this.contentHandler);
+    		
+    	</xsp:logic>
+    	
+    	<SYSTEM_MEMORY>
+    		<USED><xsp:expr>com.osmosyscol.commons.utils.SystemUtils.memoriaUtilizada()</xsp:expr></USED>
+    		<VM><xsp:expr>com.osmosyscol.commons.utils.SystemUtils.memoriaMaquinaVirtual()</xsp:expr></VM>
+    		<MAX><xsp:expr>com.osmosyscol.commons.utils.SystemUtils.memoriaTotal()</xsp:expr></MAX>
+    	</SYSTEM_MEMORY>
+    	
+    	<INFO_SESION>
+    		<total><xsp:expr>com.osmosyscol.commons.servicio.GraficoSystemInfoServicio.getInstance().getMaximoSesiones()</xsp:expr></total>
+    		<xsp:logic>
+    			JavaToXML.include("DATOS", com.osmosyscol.commons.servicio.GraficoSystemInfoServicio.getInstance().getDatos() , this.manager, this.contentHandler);
+    		</xsp:logic>
+    	</INFO_SESION>
+    	
+    	<SYSTEM_LOG><xsp:expr>com.osmosyscol.commons.log.SimpleLogger.contenidoLog</xsp:expr></SYSTEM_LOG>
+    	
+    </OSM-INFO>
+	
+</xsp:page>

@@ -1,0 +1,9 @@
+.DS_Store
+.idea
+*.iml
+target
+bin
+/release.properties
+pom.xml.releaseBackup
+pom.pom.xml.next
+pom.pom.xml.tag

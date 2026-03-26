@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerRol>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Rol</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.RolServicio</service>
+   			<operation>obtenerRol</operation>
+   			<parameters>
+   				<parameter>id_rol</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerRol>
+
+
+</xsp:page>

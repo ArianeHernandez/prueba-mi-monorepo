@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Variable">
+
+	<typeAlias alias="persona"     type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	<typeAlias alias="variable"    type="com.osmosyscol.datasuite.modelatos.logica.dto.Variable"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerVariablesPorPersona" resultClass="variable" parameterClass="java.util.Map">
+		select distinct vr.* 
+       	from dst_variable vr, dst_negocio em, dsv_persona_negocio pn, dst_persona per
+	    where vr.id_modelo = em.id_modelo
+	 	   and pn.id_negocio = em.id_negocio
+	 	   and per.id_persona = pn.id_persona
+	 	   and per.id_persona = #id_persona#
+	 	   and vr.id_modelo = #id_modelo#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<select id="totalVariablesPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+   		from (
+   			select distinct vr.* 
+        	from dst_variable vr, dst_negocio em, dsv_persona_negocio pn, dst_persona per
+		    where vr.id_modelo = em.id_modelo
+		 	   and pn.id_negocio = em.id_negocio
+		 	   and per.id_persona = pn.id_persona
+		 	   and per.id_persona = #id_persona#
+		 	   and vr.id_modelo = #id_modelo#
+   		) DD
+   		
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerVariable" resultClass="variable" parameterClass="variable">
+		select var.*
+		from dst_variable var
+		where var.id_variable = #id_variable#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarVariableUsuario" parameterClass="java.util.Map">
+		insert into dst_variable_usuario (id_usuario, id_variable, valor)
+		values (#id_usuario#, #id_variable#, 'S')
+	</insert>
+	
+	<delete id="eliminarVariableUsuario" parameterClass="java.util.Map">
+		delete from dst_variable_usuario 
+		where id_usuario=#id_usuario#
+		and id_variable=#id_variable#
+	</delete>
+	
+	<select id="obtenerVariablePorNombre" resultClass="variable" parameterClass="java.lang.String">
+		select var.*
+		from dst_variable var
+		where var.nombre_variable = #nombre_variable#
+	</select>
+	
+	<select id="obtenerVariableUsuarioPorIdUsuarioIdVariable" resultClass="variable" parameterClass="java.util.Map">
+		select var.*
+		from dst_variable_usuario var
+		where var.id_usuario = #id_usuario# 
+		and var.id_variable = #id_variable#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerVariablesPorModelo" parameterClass="java.lang.Integer" resultClass="variable">
+		select * from dst_variable where id_modelo=#id_modelo#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarVariable" parameterClass="variable">
+		insert into dst_variable (id_variable, nombre_variable, valor_variable, visibilidad, editable, id_modelo, descripcion)
+		values ( nextvalue('dss_variable') , #nombre_variable#, #valor_variable#, #visibilidad#, #editable#, #id_modelo#, #descripcion#)
+	</insert>
+	
+	<update id="actualizarVariable" parameterClass="variable">
+		update dst_variable set nombre_variable = #nombre_variable#, valor_variable = #valor_variable#, visibilidad = #visibilidad#, editable = #editable#, descripcion = #descripcion#
+		where id_variable = #id_variable#
+	</update>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerVariablesPorModeloId" parameterClass="java.util.Map" resultClass="variable">
+	
+		select vv.id_variable, vv.nombre_variable,
+		 (
+		   select vu.valor 
+		    from dst_variable_usuario vu, dst_usuario uu, dst_persona pp
+		    where vu.id_variable = vv.id_variable and vu.id_usuario = uu.id_usuario and uu.id_persona = pp.id_persona
+		    and pp.id_persona = #id_persona#
+		  ) as valor_variable,
+		
+		vv.visibilidad, vv.editable, vv.id_modelo, vv.descripcion
+		
+		from dst_variable vv where vv.id_modelo = #id_modelo#
+	
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<delete id="eliminarValoresVariables" parameterClass="java.util.Map">
+		delete from dst_variable_usuario where id_usuario=#id_usuario# 
+	</delete>
+	
+	<delete id="eliminarVariableValor" parameterClass="java.util.Map">
+		delete from dst_variable_usuario where id_usuario=#id_usuario# and id_variable = #id_variable#
+	</delete>
+	
+	<insert id="guardarVariableValor" parameterClass="java.util.Map">
+		insert into dst_variable_usuario ( id_variable, id_usuario, valor ) values (#id_variable#, #id_usuario#, #valor#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="contarObtenerValorVariable" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from dst_variable_usuario vu
+		where vu.id_variable = #id_variable#
+		and vu.id_usuario = (select usu.id_usuario from dst_usuario usu where usu.id_persona = #id_persona#) 
+	</select>
+	
+	<select id="obtenerValorVariable" parameterClass="java.util.Map" resultClass="java.lang.String">
+		select vu.valor from dst_variable_usuario vu
+		where vu.id_variable = #id_variable#
+		and vu.id_usuario = (select usu.id_usuario from dst_usuario usu where usu.id_persona = #id_persona#) 
+	</select>
+	
+	<select id="obtenerValorVariableDefecto" parameterClass="java.util.Map" resultClass="java.lang.String">
+		select valor_variable from dst_variable where id_variable = #id_variable#
+	</select>
+	
+</sqlMap>

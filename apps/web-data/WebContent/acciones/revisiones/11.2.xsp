@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:remove-parameter name="_numeropagina" />
+		
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina"/></numeroPagina>
+    	
+    	<osm-utils:osm-session-request name="id_revision"/>
+    	<osm-utils:osm-session-request name="id_proceso"/>
+    	
+    	<revision><xsp-session:get-attribute name="var.id_revision"/></revision>
+    	<proceso><xsp-session:get-attribute name="var.id_proceso"/></proceso>
+    	<usuario><xsp-session:get-attribute name="id_usuario"/></usuario>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/revision/obtenerCargasRevision.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>estados</cinclude:name>
+                    <cinclude:value>V</cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_revision</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_revision"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_proceso</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_proceso"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>pagina</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var._numeropagina"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/revision/contarCargasRevision.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>estados</cinclude:name>
+                    <cinclude:value>V</cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_revision</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_revision"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_proceso</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_proceso"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/revision/obtenerRevisionPorId.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>idRevision</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_revision"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso/obtenerProceso.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_proceso</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_proceso"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+        
+       
+    </OSM-ACCION>
+	
+</xsp:page>

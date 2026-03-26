@@ -1,0 +1,10 @@
+package com.osmosyscol.persistencia.dao.ibatis.core;
+
+public interface IConfigKeys {
+
+	String ACCESSTOUNDERLYINGCONNECTIONALLOWED_INTERNAL = "accessToUnderlyingConnectionAllowed";
+	String ACCESSTOUNDERLYINGCONNECTIONALLOWED_EXTERNAL = "database." +ACCESSTOUNDERLYINGCONNECTIONALLOWED_INTERNAL; 
+	Boolean ACCESSTOUNDERLYINGCONNECTIONALLOWED_DEFAULT = Boolean.FALSE; 
+	
+
+}

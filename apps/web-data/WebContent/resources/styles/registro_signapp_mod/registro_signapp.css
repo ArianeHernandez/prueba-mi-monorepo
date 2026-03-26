@@ -1,0 +1,7 @@
+#nombres, #apellidos {
+	text-transform: uppercase;
+}
+
+#nombres::placeholder, #apellidos::placeholder {
+	text-transform: none;
+}

@@ -1,0 +1,7 @@
+Para generar el jar sobre.jar
+
+Incluir unicamente las siguientes clases:
+* AppletSobreflex.java
+* ClaveRSA.java
+* PrintText.java
+* RSA.java

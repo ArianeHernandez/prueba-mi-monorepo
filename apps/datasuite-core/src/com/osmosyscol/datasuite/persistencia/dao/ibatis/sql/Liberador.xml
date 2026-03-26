@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Liberador">
+
+	<typeAlias alias="liberador" type="com.osmosyscol.datasuite.logica.dto.Liberador" />
+	<typeAlias alias="liberadorTipoProceso" type="com.osmosyscol.datasuite.logica.dto.LiberadorTipoProceso" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="asociarLiberador" parameterClass="java.util.Map">
+		INSERT INTO dst_proceso_liberador(id_proceso, id_liberador) 
+    	VALUES(#id_proceso#, #id_liberador#)
+	</insert>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerLiberadores" parameterClass="java.util.Map" resultClass="liberador">
+		select * from dsv_liberador p where p.id_usuario = #id_usuario#
+			<isNotNull>
+				and exists ( select 1 from DST_LIBERADOR_TIPO_PROCESO q where q.id_tipo_proceso = #id_tipo_proceso# and q.id_liberador = p.id_liberador)
+				order by nombre asc 
+			</isNotNull>
+	</select>
+		
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<delete id="desasociarLiberador" parameterClass="java.lang.Integer">
+		delete from dst_proceso_liberador where id_liberador = #id_liberador# 
+	</delete>
+	
+	
+	<delete id="desasociarLiberadorPorProceso" parameterClass="java.util.Map">
+		delete from dst_proceso_liberador 
+		where id_liberador = #id_liberador# 
+		 and  id_proceso=#id_proceso# 
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerLiberadoresPorProceso" parameterClass="java.lang.Integer" resultClass="liberador">
+		select l.* from dsv_liberador l, dst_proceso_liberador pl
+		where l.id_liberador=pl.id_liberador
+		and pl.id_proceso=#id_proceso#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerLiberadorPorIdentificacion" parameterClass="java.util.Map" resultClass="liberador">
+		select dd.* from dsv_liberador dd, dst_persona p
+		where 
+		dd.id_persona = p.id_persona
+		
+		and dd.id_usuario = #id_usuario#
+		and p.tipo_persona = #tipo_persona#
+		and p.tipo_documento = #tipoDocumento#
+		and p.identificacion = #identificacion#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerLiberadorPorId" parameterClass="java.lang.Integer" resultClass="liberador">
+		select l.* from dsv_liberador l
+		where l.id_liberador=#id_liberador#		
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerLiberadorPorPersonaUsuario" parameterClass="java.util.Map" resultClass="liberador">
+		select l.* from dsv_liberador l
+		where l.id_persona=#id_persona#
+		and l.id_usuario=#id_usuario#		
+	</select>
+	
+	<select id="obtenerLiberadorTipoProceso" parameterClass="java.util.Map" resultClass="liberadorTipoProceso">
+		select l.* from DST_LIBERADOR_TIPO_PROCESO l
+		where l.id_liberador=#id_liberador#
+		and l.id_tipo_proceso=#id_tipo_proceso#		
+	</select>
+	
+	<select id="obtenerListadoLiberadorTipoProceso" parameterClass="java.lang.Integer" resultClass="liberadorTipoProceso">
+		select l.* from DST_LIBERADOR_TIPO_PROCESO l
+		where l.id_liberador=#id_liberador#
+	</select>
+	
+	<update id="actualizarLiberadorTipoProceso" parameterClass="liberadorTipoProceso">
+		update DST_LIBERADOR_TIPO_PROCESO set valor_max_individual = #valor_max_individual#, valor_max_carga = #valor_max_carga#, peso = #peso#
+		where id_liberador = #id_liberador# and id_tipo_proceso = #id_tipo_proceso#
+	</update>
+
+</sqlMap>

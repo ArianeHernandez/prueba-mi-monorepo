@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TipoCarga">
+
+	<typeAlias alias="tipoCarga" type="com.osmosyscol.datasuite.webdata.logica.dto.TipoCarga"/>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerTiposCarga" resultClass="tipoCarga">
+		SELECT id_tipocarga, nombre
+	  		FROM dst_tipocarga
+	</select>
+	
+</sqlMap>

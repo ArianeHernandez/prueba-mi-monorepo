@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" />
+
+	<transactionManager type="JDBC">
+		<dataSource type="DBCP">
+			<property name="JDBC.Driver" value="${database.driver}" />
+			<property name="JDBC.ConnectionURL" value="${database.url}" />
+			<property name="JDBC.Username" value="${database.user}" />
+			<property name="JDBC.Password" value="${database.password}" />
+			<!-- OPTIONAL FROM HERE -->
+			<property name="maxActive" value="${database.maxActive}" />
+			<property name="maxIdle" value="${database.maxIdle}" />
+			<property name="maxWait" value="${database.maxWait}" />
+			<property name="initialSize" value="${database.initialSize}" />
+			
+			<property value="${database.validationQuery}" name="validationQuery"/>
+			<property value="${database.testWhileIdle}" name="testWhileIdle"/>
+			<property value="${database.testOnBorrow}" name="testOnBorrow"/>
+			<property value="${database.timeBetweenEvictionRunsMillis}" name="timeBetweenEvictionRunsMillis"/>
+		</dataSource>
+	</transactionManager>
+
+
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/SQL.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Persona.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Negocio.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Usuario.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Administrador.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Conexion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/CreaDatos.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Franja.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Contenido.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Horario.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/FormatoOperacion.xml" />
+	
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Proceso.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Liberador.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Preparador.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Revisor.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Revision.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Notificacion.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Ip.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ArchivoAdjunto.xml" />
+		
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Componente.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Administrativo.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Rol.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ProcesoAdmin.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Instancia.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Accion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/OperacionInterna.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/NotificacionAccion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/CargaInstancia.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/DatosEstructura.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Formato.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/ListaValores.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/ListaDinamica.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Modelo.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Campo.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Estructura.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Grupo.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/TipoCampo.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Variable.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Uri.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Destino.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/Ejecucion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/ParametroCarga.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/ValidacionEstructura.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/TipoEstilo.xml" />
+	
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ListaDinamicaCampo.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/TipoDocumento.xml" />
+	
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Configuracion.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/AccionFila.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ParametroAccion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ParametroReporte.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Reporte.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Resultado.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Navegacion.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/AsignacionReporte.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Auditoria.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Menu.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Aplicacion.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/AuditoriaSql.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/FtpUsuario.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/FtpUsuarioCorreo.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/FtpUsuarioArchivo.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Plugin.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/FormatoConfiguracion.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/Carga.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/Historial.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/AccesoRol.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/Estado.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/FirmaDigital.xml" />
+
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/Atributo.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/ValorAtributo.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/TipoArchivo.xml" />
+	
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/AccionResponsable.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/persistencia/dao/ibatis/sql/AccionRedireccion.xml" />
+		
+	<!-- - - - - - Webdata - - - - - -->
+
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/Nota.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/ParametrizacionCliente.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/HistorialSobreflex.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/SalidaCoreCorreval.xml" />
+	<sqlMap resource="com/osmosyscol/datasuite/webdata/persistencia/dao/ibatis/sql/TipoCarga.xml" />
+
+	<!-- - - - - - - MEIN - - - - - -->
+	<sqlMap resource="com/osmosyscol/datasuite/mein/persistencia/dao/ibatis/sql/ProcesoPasante.xml" />
+	
+	<sqlMap resource="com/osmosyscol/datasuite/modelatos/persistencia/dao/ibatis/sql/HistorialConsulta.xml" />
+	
+</sqlMapConfig>
+

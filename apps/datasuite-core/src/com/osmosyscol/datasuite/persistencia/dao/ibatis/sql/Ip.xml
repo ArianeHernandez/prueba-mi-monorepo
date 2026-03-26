@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Ip">
+
+	<typeAlias alias="ipprivada" type="com.osmosyscol.datasuite.logica.dto.Ipprivada" />
+	<typeAlias alias="ippublica" type="com.osmosyscol.datasuite.logica.dto.Ippublica" />
+
+	<select id="obtenerIPPublicas" resultClass="ippublica" parameterClass="java.lang.Integer" >
+		select * from dst_ippublica where id_usuario=#id_usuario#
+		order by id_ippublica
+	</select>
+	
+	<select id="obtenerIPPublicasPorEstado" resultClass="ippublica" parameterClass="java.util.Map">
+		select * from dst_ippublica where id_usuario=#id_usuario# and estado=#estado#
+	</select>
+	
+	<select id="obtenerIPPrivadas" resultClass="ipprivada" parameterClass="java.lang.Integer" >
+		select * from dst_ipprivada where id_ippublica=#id_ippublica#
+		order by id_ipprivada
+	</select>
+	
+	<delete id="eliminarIPPrivada" parameterClass="java.lang.Integer">
+		delete from dst_ipprivada where id_ipprivada = #id_ipprivada#
+	</delete>
+	
+	<delete id="eliminarIPsPrivadas" parameterClass="java.lang.Integer">
+		DELETE FROM dst_ipprivada
+ 			WHERE id_ippublica = #id_ippublica#
+	</delete>
+	
+	
+	<delete id="eliminarIPPublica" parameterClass="java.lang.Integer">
+		delete from dst_ippublica where id_ippublica = #id_ippublica#
+	</delete>
+	
+	<insert id="insertarIPPrivada" parameterClass="ipprivada">
+		INSERT INTO dst_ipprivada(id_ipprivada, desde, hasta, id_ippublica)
+   			VALUES (#id_ipprivada#, #desde#, #hasta#, #id_ippublica#)
+	</insert>
+	
+	<update id="actualizarIPPrivada" parameterClass="ipprivada">
+		UPDATE dst_ipprivada
+		   	SET desde=#desde#, hasta=#hasta#, id_ippublica=#id_ippublica#
+			WHERE id_ipprivada=#id_ipprivada#
+	</update>
+	
+	<insert id="insertarIPPublica" parameterClass="ippublica">
+		INSERT INTO dst_ippublica(id_ippublica, desde, hasta, id_usuario, estado)
+    		VALUES ( #id_ippublica#, #desde#, #hasta#, #id_usuario#, #estado#)
+	</insert>
+	
+	<update id="actualizarIPPublica" parameterClass="ippublica">
+		UPDATE dst_ippublica
+		  	SET desde=#desde#, hasta=#hasta#, id_usuario=#id_usuario#, estado=#estado#
+		 	WHERE id_ippublica=#id_ippublica#
+	</update>
+	
+	<select id="obtenerSiguienteIdIPPrivada" resultClass="java.lang.Integer">
+		select nextvalue('dss_ipprivada') from dual
+	</select>
+	
+	<select id="obtenerSiguienteIdIPPublica" resultClass="java.lang.Integer">
+		select nextvalue('dss_ippublica') from dual
+	</select>
+	
+	<select id="obtenerIPPrivPorUsuario" resultClass="ipprivada" parameterClass="java.lang.Integer" >
+		select priv.* from dst_ipprivada priv , dst_ippublica pub
+		where pub.id_usuario = #id_usuario#
+		and pub.id_ippublica=priv.id_ippublica
+	</select>
+	
+</sqlMap>

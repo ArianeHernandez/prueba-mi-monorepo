@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Administracion">
+
+	<typeAlias alias="aplicacion" type="com.osmosyscol.osmoautenticador.dominio.Aplicacion" />
+	<typeAlias alias="rol" type="com.osmosyscol.osmoautenticador.dominio.Rol" />
+	<typeAlias alias="rolus" type="com.osmosyscol.osmoautenticador.dominio.RolUs" />
+	<typeAlias alias="servicio" type="com.osmosyscol.osmoautenticador.dominio.Servicio" />
+	<typeAlias alias="urlservicio" type="com.osmosyscol.osmoautenticador.dominio.UrlServicio" />
+	<typeAlias alias="usuario" type="com.osmosyscol.osmoautenticador.dominio.Usuario" />
+		
+	<select id="numeroUsuariosRolCliente" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(usu.id_usuario) from oat_usuario_rol usu , oat_usuario u,(
+				select app.id_aplicacion from oat_aplicacion app,(
+			
+					select rol.id_aplicacion from oat_rol rol
+						where rol.id_rol=#id_rol#) roles
+			
+				    where roles.id_aplicacion=app.id_aplicacion
+				    and upper(app.nombre) = upper(#nombre_aplicacion#)) appl
+			
+			where usu.id_rol=#id_rol#
+			and usu.id_usuario=u.id_usuario
+			and upper(u.login) like #id_cliente#
+	</select>
+		
+	<select id="contarUsuariosRolAplicacion" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(usu.*) from oat_usuario_rol usu ,(
+				select * from oat_aplicacion app,(
+			
+					select rol.id_aplicacion from oat_rol rol
+						where rol.id_rol=#id_rol#) roles
+			
+				    where roles.id_aplicacion=app.id_aplicacion
+				    and upper(app.nombre) = upper(#nombre_aplicacion#)) appl
+			
+			where usu.id_rol=#id_rol#
+	</select>
+	
+	<select id="obtenerAplicaciones" resultClass="aplicacion">
+		select * from oat_aplicacion
+		order by id_aplicacion
+	</select>
+	
+	<select id="obtenerRoles" parameterClass="int" resultClass="rol">
+		select * from oat_rol where id_aplicacion = #id_aplicacion#
+		order by id_rol
+	</select>
+	
+	<select id="obtenerUsuarios" parameterClass="int" resultClass="usuario">
+		select u.* from oat_usuario u, oat_usuario_rol r
+			where u.id_usuario = r.id_usuario
+			and r.id_rol = #id_rol#
+			order by login
+	</select>
+	
+	<select id="contarUsuariosRol" parameterClass="int" resultClass="int">
+		select count(1) from (
+			select u.* from oat_usuario u, oat_usuario_rol r
+				where u.id_usuario = r.id_usuario
+				and r.id_rol = #id_rol#
+		) t
+	</select>
+	
+	<select id="obtenerServicios" parameterClass="int" resultClass="servicio">
+		select * from oat_servicio where activo='S' and id_servicio in (select id_servicio from oat_servicio_rol where id_rol = #id_rol# )
+	</select>
+	
+	<select id="obtenerUrls" parameterClass="int" resultClass="urlservicio">
+		select * from oat_url_servicio where id_servicio = #id_servicio#
+	</select>
+	
+	<select id="obtenerRolesUsuario" parameterClass="java.lang.Integer" resultClass="rol">
+		SELECT  oat_rol.id_rol, oat_rol.nombre
+  			FROM oat_rol inner join oat_usuario_rol on oat_rol.id_rol = oat_usuario_rol.id_rol
+  			and oat_usuario_rol.id_usuario = #idUsuario#
+		
+	</select>
+	
+	<select id="obtenerRolesUsuarioLogin" parameterClass="java.lang.String" resultClass="rolus">
+	
+	SELECT  oat_rol.id_rol, oat_rol.nombre
+  			FROM oat_rol inner join oat_usuario_rol on oat_rol.id_rol = oat_usuario_rol.id_rol
+  			and oat_usuario_rol.id_usuario = (select oat_usuario.id_usuario 
+  			from oat_usuario 
+  			where upper(oat_usuario.login)= upper(#login#))
+		
+	</select>
+	
+</sqlMap>

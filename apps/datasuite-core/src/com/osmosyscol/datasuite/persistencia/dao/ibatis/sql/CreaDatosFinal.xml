@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CreaDatosFinal">
+
+	<select id="existeTablaDatos" resultClass="java.lang.Integer" parameterClass="java.lang.String" >
+		select count(*) as existe from ALL_TABLES where 
+		TABLE_NAME = upper(#idtabla#)
+	</select>
+	
+	
+	<update id="crearTablaDatos" parameterClass="java.util.Map">
+		create table $nombre_tabla$ (ID $NUMBER_TYPE$)
+	</update>
+	
+	<update id="crearIdTablaDatos" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+  		add constraint pk_$nombre_tabla$ primary key (ID)
+	</update>
+	
+	<update id="crearTablaListaDatos" parameterClass="java.util.Map">
+		create table $nombre_tabla$ ( ID $tipocampo$, NOMBRE $VARCHAR2_TYPE$(200), COLORLETRA $CHAR_TYPE$(7), COLORFONDO $CHAR_TYPE$(7)  ) 
+	</update>
+	
+	<update id="crearIdTablaListaDatos" parameterClass="java.lang.String">
+		alter table $nombre_tabla$
+  		add constraint pk_$nombre_tabla$ primary key (ID)
+	</update>
+
+	<select id="existeCampo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) as existe from ALL_TAB_COLUMNS where 
+		TABLE_NAME = upper(#idTabla#)
+		and COLUMN_NAME = upper(#idCampo#)
+	</select>
+	
+
+	<update id="crearCampo" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+		add $id_campo$ $tipo$	
+	</update>
+	
+	<!--  -->
+	<update id="actualizarCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		$MODIFY$ $id_campo$ $SET$ $tipo$
+	</update>
+
+	<update id="modificarNotNullCampo" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+		$MODIFY$ $id_campo$ $SET$ not null
+	</update>
+	
+	<update id="modificarNullCampo" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+		$MODIFY$ $id_campo$ $SET$ null
+	</update>
+	
+	<update id="modificarIsUnico" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+  		add constraint UK_D$id_campo$ unique ($id_campo$)
+	</update>
+	
+	<update id="modificarIsUnicoMultiple" parameterClass="java.util.Map">
+		alter table $tablaRelacion$
+  		add constraint UK_ID_V unique (ID_V)
+	</update>
+	
+	<update id="modificarsNotUnico" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+  		drop constraint UK_$id_campo$ cascade
+	</update>
+
+	<update id="eliminarCampo" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+		drop column $id_campo$
+	</update>
+	
+	<update id="crearLlaveForaneaDatos" parameterClass="java.util.Map">
+		alter table $nombre_tabla$
+  		add constraint FK_$nombre_tabla$$id_campo$ foreign key ($id_campo$)
+  		references $llave_foranea_datos$ (ID)
+	</update>
+	
+	<update id="crearTablaRelacionDatos" parameterClass="java.util.Map">
+		create table $tablaRelacion$
+		(
+		  id   $NUMBER_TYPE$,
+		  id_p $NUMBER_TYPE$,
+		  id_v $tipo$
+		)
+	</update>
+		
+	<update id="crearLlaveForaneaRelacionP1Datos" parameterClass="java.util.Map">
+		alter table $tablaRelacion$
+  		add constraint FK_$tablaRelacion$Cid_p foreign key (id_p)
+  		references $nombre_tabla$ (ID)
+	</update>
+	
+	
+	<update id="crearLlaveForaneaRelacionP2Datos" parameterClass="java.util.Map">
+		alter table $tablaRelacion$
+  		add constraint FK_$tablaRelacion$Cid_v foreign key (id_v)
+  		references $llave_foranea_datos$ (ID)
+	</update>
+	
+		
+	<select id="campoisnull" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		Select count(*) from all_tab_columns
+		where COLUMN_NAME = upper(#id_campo#)
+		and TABLE_NAME = upper(#nombre_tabla#)
+		and nullable = 'Y'
+	</select>
+	
+	<select id="campoisunique" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT count(*)
+		FROM user_constraints WHERE TABLE_NAME = upper(#nombre_tabla#)
+		and constraint_name = upper(#constraint#)
+	</select>	
+	
+		
+	<!--********************************************************* -->
+	<update id="createSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<update id="dropSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+
+</sqlMap>

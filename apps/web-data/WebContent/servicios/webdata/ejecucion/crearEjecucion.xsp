@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearEjecucion>
+   		
+   		<osm-utils:servicio-java>
+   			<name>value</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.EjecucionServicio</service>
+   			<operation>crearEjecucion</operation>
+   			<parameters>
+   				<parameter>id_ejecucion</parameter>
+   				<parameter>id_carga</parameter>
+   				<parameter>id_destino</parameter>
+   				<parameter>estado</parameter>
+   				<parameter>fecha_inicio</parameter>
+   				<parameter>fecha_final</parameter>
+   				<parameter>login</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</crearEjecucion>
+
+
+</xsp:page>

@@ -1,0 +1,59 @@
+DocumentoIdentificacion TipoDocumentoIdentificacion Descripcion                                                                                          NombreCliente                                                                    
+----------------------- --------------------------- ---------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------- 
+85021332610             196                         TARJETA DE IDENTIDAD                                                                                 FERNANDEZ G. YAMILE           
+82042600330             196                         TARJETA DE IDENTIDAD                                                                                 FERRO A. ADRIANA C.           
+52064954                196                         TARJETA DE IDENTIDAD                                                                                 FETECUA M. LUZ F.             
+21160517                196                         TARJETA DE IDENTIDAD                                                                                 FORERO DE BRICEÑO AURA N      
+41351016                196                         TARJETA DE IDENTIDAD                                                                                 FRANCO C. NANCY               
+82040201749             196                         TARJETA DE IDENTIDAD                                                                                 FRESNEDA R. DIEGO F.          
+79543060                196                         TARJETA DE IDENTIDAD                                                                                 FUENTES VEGA JOSE F.          
+5333                    196                         TARJETA DE IDENTIDAD                                                                                 FUQUEN P. LIZETH              
+84012250672             196                         TARJETA DE IDENTIDAD                                                                                 GALEANO R. XIOMARA            
+89052565619             196                         TARJETA DE IDENTIDAD                                                                                 GALVEZ C. GISEL A.            
+51764019                196                         TARJETA DE IDENTIDAD                                                                                 GAMBOA G. MARIA I.            
+75082807876             196                         TARJETA DE IDENTIDAD                                                                                 GARCIA C. ANGELA              
+20224285                196                         TARJETA DE IDENTIDAD                                                                                 GARCIA E. MAGDALENA           
+83030508125             196                         TARJETA DE IDENTIDAD                                                                                 GARCIA L. NESTOR F.           
+81111903409             196                         TARJETA DE IDENTIDAD                                                                                 GARCIA V. CARLOS A.           
+38251498                196                         TARJETA DE IDENTIDAD                                                                                 GIL P. GUADALUPE              
+76101401045             196                         TARJETA DE IDENTIDAD                                                                                 GOMEZ JORGE A.                
+77062652320             196                         TARJETA DE IDENTIDAD                                                                                 GOMEZ P. CARMEN J.            
+76052108876             196                         TARJETA DE IDENTIDAD                                                                                 GONZALEZ A. NILSA N.          
+930412                  196                         TARJETA DE IDENTIDAD                                                                                 GUTIERREZ LAURA P.            
+80428315                196                         TARJETA DE IDENTIDAD                                                                                 GUTIERREZ T. CARLOS A.        
+84080104072             196                         TARJETA DE IDENTIDAD                                                                                 GUZMAN O. ZULMA L.            
+7407050132              196                         TARJETA DE IDENTIDAD                                                                                 HERNANDEZ A. SERGIO           
+90041966350             196                         TARJETA DE IDENTIDAD                                                                                 HERNANDEZ B. YENSY M.         
+79050806214             196                         TARJETA DE IDENTIDAD                                                                                 HERNANDEZ G. FRANCY           
+82112310475             196                         TARJETA DE IDENTIDAD                                                                                 HERNANDEZ LUZ A.              
+35493852                196                         TARJETA DE IDENTIDAD                                                                                 HERNANDEZ R. MARIA R.         
+51943245                196                         TARJETA DE IDENTIDAD                                                                                 HERRAN V. GLORIA I.           
+82091111876             196                         TARJETA DE IDENTIDAD                                                                                 HERRERA M. EYDA L.            
+86030634057             196                         TARJETA DE IDENTIDAD                                                                                 HERRERA P. CAROLINA           
+79479000                196                         TARJETA DE IDENTIDAD                                                                                 HORTUA S. PEDRO N.            
+41575756                196                         TARJETA DE IDENTIDAD                                                                                 INFANTE S. MARIA A.           
+131124                  196                         TARJETA DE IDENTIDAD                                                                                 JOSE GONZALES H               
+74042800728             196                         TARJETA DE IDENTIDAD                                                                                 KURMEN F. RODRIGO             
+86101765085             196                         TARJETA DE IDENTIDAD                                                                                 LADINO S. ANDRES              
+88110660574             196                         TARJETA DE IDENTIDAD                                                                                 LAVAO JENNIFER                
+82052507991             196                         TARJETA DE IDENTIDAD                                                                                 LEMUS Q. LADY A.              
+82051369986             196                         TARJETA DE IDENTIDAD                                                                                 LEON S. MARCO A.              
+79010814605             196                         TARJETA DE IDENTIDAD                                                                                 LINERO M. RAFAEL G.           
+85010562239             196                         TARJETA DE IDENTIDAD                                                                                 LISARROL V. ANA M.            
+51691369                196                         TARJETA DE IDENTIDAD                                                                                 LOPEZ M. BLANCA L.            
+84031612062             196                         TARJETA DE IDENTIDAD                                                                                 MANCIPE G. IVAN M.            
+84030706724             196                         TARJETA DE IDENTIDAD                                                                                 MARIN E. PABLO J.             
+2867869                 196                         TARJETA DE IDENTIDAD                                                                                 MARTINEZ E. ANGEL MARIA       
+41750428                196                         TARJETA DE IDENTIDAD                                                                                 MARTINEZ R. MARIA G.          
+81072507452             196                         TARJETA DE IDENTIDAD                                                                                 MERCHAN R. LEIDY D.           
+1144                    196                         TARJETA DE IDENTIDAD                                                                                 MESA D. JHON                  
+85010856480             196                         TARJETA DE IDENTIDAD                                                                                 MESA R. ROBINSON D.           
+84092002054             196                         TARJETA DE IDENTIDAD                                                                                 MIGUEZ S. LAURA X.            
+800326                  196                         TARJETA DE IDENTIDAD                                                                                 MIRANDA L. ERIKA P.           
+800132767               196                         TARJETA DE IDENTIDAD                                                                                 MONDRAGON L. LTDA             
+87072764429             196                         TARJETA DE IDENTIDAD                                                                                 MONTA¥A A. CARLOS A.          
+83031504794             196                         TARJETA DE IDENTIDAD                                                                                 MONTOYA A. SANDRA P.          
+84031400901             196                         TARJETA DE IDENTIDAD                                                                                 MORA AQUILINO                 
+83090504463             196                         TARJETA DE IDENTIDAD                                                                                 MORA P. HERNAN                
+89070150019             196                         TARJETA DE IDENTIDAD                                                                                 MORALES R. LAURA              
+84062102593             196                         TARJETA DE IDENTIDAD                                                                                 MORENO C. DIANA M.            

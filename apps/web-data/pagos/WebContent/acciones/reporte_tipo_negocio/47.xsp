@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/negocio/obtenerListadoNegociosActivos.ser</cinclude:src>
+        </cinclude:includexml>  
+    	
+    	<id_negocio_actual><xsp-session:get-attribute name="var.id_negocio"/></id_negocio_actual>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

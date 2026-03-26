@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Menu">
+
+	<typeAlias alias="menu" type="com.osmosyscol.datasuite.logica.dto.Menu" />
+	<typeAlias alias="seccionmenu" type="com.osmosyscol.datasuite.logica.dto.SeccionMenu" />
+	
+	<select id="obtenerMenusPorAplicacion" resultClass="menu">
+		select * from dst_menu
+		where aplicacion = #aplicacion#
+	</select>
+	
+	<select id="obtenerSeccionesMenu" resultClass="seccionmenu">
+		select * from dst_seccion order by orden
+	</select>
+		
+</sqlMap>

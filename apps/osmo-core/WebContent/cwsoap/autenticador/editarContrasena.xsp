@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:soap="http://apache.org/xsp/soap/3.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+
+<service>
+
+
+		
+		<osm-utils:servicio-java>
+			<name>Respuesta</name>
+			<service>com.osmosyscol.osmoautenticador.servicioweb.cambiarclave.ClaveServicio</service>
+			<operation>cambiarClave</operation>
+			<parameters>
+				<parameter>aplicacion</parameter>
+				<parameter>clave</parameter>
+				<parameter>claveNueva</parameter>
+				<parameter>login</parameter>
+			</parameters>
+		</osm-utils:servicio-java>
+		
+
+</service>
+	
+</xsp:page>

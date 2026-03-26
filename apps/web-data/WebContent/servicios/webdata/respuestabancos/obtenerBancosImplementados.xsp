@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerBancosImplementados>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.bancos.entrada.ManejadorDeInterpretesRespuestaBanco</service>
+   			<operation>obtenerBancosImplementados</operation>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerBancosImplementados>
+
+
+</xsp:page>
+

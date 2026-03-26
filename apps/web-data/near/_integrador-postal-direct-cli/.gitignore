@@ -1,0 +1,4 @@
+# ignore files in folder foo
+generated-dir/*
+# but keep the folder
+!generated-dir/.keep

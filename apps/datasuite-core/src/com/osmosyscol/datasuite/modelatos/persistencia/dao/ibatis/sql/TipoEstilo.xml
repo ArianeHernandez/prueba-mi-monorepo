@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TipoEstilo">
+
+	<typeAlias alias="tipoestilo" type="com.osmosyscol.datasuite.modelatos.logica.dto.TipoEstilo" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerTipoEstilos" resultClass="tipoestilo">
+		select * from dst_tipo_estilo
+	</select>
+	
+	<select id="obtenerTipoEstiloPorId" resultClass="tipoestilo" parameterClass="java.lang.Integer">
+		select * from dst_tipo_estilo
+		where id_tipo_estilo = #id_tipo_estilo#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</sqlMap>

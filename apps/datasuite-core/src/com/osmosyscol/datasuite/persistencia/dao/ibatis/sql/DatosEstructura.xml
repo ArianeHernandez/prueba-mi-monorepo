@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DatosEstructura">
+	
+	<select id="obtenerDatosEstructura" parameterClass="java.lang.String" remapResults="true" resultClass="java.util.HashMap">
+		$sql$
+	</select>
+
+	<insert id="insertSQL" parameterClass="java.lang.String">
+		$sql$
+	</insert>
+	
+	<update id="updateSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<delete id="deleteSQL" parameterClass="java.lang.String">
+		$sql$
+	</delete>
+
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('SST') as id from dual
+	</select>
+		
+</sqlMap>

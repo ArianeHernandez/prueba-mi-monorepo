@@ -1,0 +1,36 @@
+.encabezado{
+	/*background:url("images/general/down.gif") no-repeat scroll 5px 2px #E6E5E6;*/
+    background-color: #E6E6E6;
+    color: #000;
+    padding: 10px 0 10px 20px;
+    margin: 13px 0;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.encabezado::before {
+    font-family: fontawesome;
+    content: "\f13a";
+    font-size: 20px;
+    color: #00467D;
+}
+.encabezado a{
+	padding: 5px 0 5px 35px;
+	font: 14px Verdana,Tahoma,Geneva,sans-serif;
+}
+.encabezado a{
+	text-decoration:none;
+}
+
+.encabezado:hover a{
+	text-decoration: underline;
+}
+
+.loading_encabezado{
+	background:url(../images/cmp/ajax-loader.gif) no-repeat scroll 5px 3px #E6E5E6;
+}
+
+.listado{
+	max-height: 300px;
+	overflow: auto !important;
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<json-services>
+		<service urn="administracionServicio" class="com.osmosyscol.osmoautenticador.servicio.json.AdministracionServicioJson"/>
+</json-services>

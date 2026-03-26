@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<recaptchaSecret><xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.getProperty("recaptcha.siteKey")</xsp:expr></recaptchaSecret>
+    	
+    	<osm-utils:exist-parameter name="error">
+    		<error_inesperado/>
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="invalido">
+    		<usuario_invalido/>
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="failed">
+    		<acceso_denegado/>
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="logout">
+    		<cerrar_sesion/>
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="expira">
+    		<expira/>
+    	</osm-utils:exist-parameter>
+    	
+    	<osm-utils:no-session/>
+    	
+    </OSM-ACCION>
+	
+	
+</xsp:page>

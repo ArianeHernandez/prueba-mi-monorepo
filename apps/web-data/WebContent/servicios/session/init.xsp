@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+		  xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	<OSM-INIT-SESSION>
+   	
+   		<osm-utils:servicio-java>
+            <name>Info</name>
+            <service>com.osmosyscol.datasuite.logica.servicios.Init</service>
+            <operation>inicializarInformacionUsuario</operation>
+            <parameters>
+                <parameter>request</parameter>
+            	<parameter>resolver</parameter>
+            </parameters>
+        </osm-utils:servicio-java>
+		
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/menu/acciones.cpt</cinclude:src>
+        </cinclude:includexml>
+
+   		<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/oat_rol/obtenerOsmoAutenticadorRol.ser</cinclude:src>
+    		 <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>login</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+                </cinclude:parameter>
+             </cinclude:parameters>
+        </cinclude:includexml>
+		   		
+   		<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/accesorol/obtenerServiciosAdministrativo.ser</cinclude:src>
+    		 <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_administrativo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_administrativo"/></cinclude:value>
+                </cinclude:parameter>
+             </cinclude:parameters>
+        </cinclude:includexml>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/tipocarga/obtenerTiposCarga.ser</cinclude:src>
+        </cinclude:includexml>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/estado/obtenerEstados.ser</cinclude:src>
+        </cinclude:includexml>
+        
+        <usosobreflex><xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.getProperty("UsoSobreflex")</xsp:expr></usosobreflex>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/aplicaciones/obtenerAplicaciones.ser</cinclude:src>
+    		 <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>login</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+                </cinclude:parameter>
+             </cinclude:parameters>
+        </cinclude:includexml>
+        
+        <G3A-ID><xsp:expr>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio.getProperty("g3a.filial.G3A")</xsp:expr></G3A-ID>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/configuracion/obtenerValorByEtiqueta.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>detalle_error</cinclude:name>
+                    <cinclude:value>DETALLE_ERROR</cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+        
+		<osm-utils:servicio-java>
+            <name>SESSIONTIME</name>
+            <service>com.osmosyscol.g3a.servicios.AutenticacionServicioG3A</service>
+            <operation>obtenerTiempoMaximoSesion</operation>
+        </osm-utils:servicio-java>
+        
+        <PESO_LIBERADOR>
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/datasuite/configuracion/obtenerValorByEtiqueta.ser</cinclude:src>
+	            <cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>etiqueta</cinclude:name>
+	                    <cinclude:value>PESO_LIBERADOR</cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+        </PESO_LIBERADOR>
+        		
+	</OSM-INIT-SESSION>
+
+</xsp:page>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerDatosCargaPorEstructura>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>obtenerDatosCargaPorEstructura</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>id_formato_salida</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerDatosCargaPorEstructura>
+
+</xsp:page>

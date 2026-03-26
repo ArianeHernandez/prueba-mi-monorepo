@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearArchivoPorComandos>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Boolean</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.grupogiro.GrupoGiroServicio</service>
+   			<operation>crearArchivoPorComandos</operation>
+   			<parameters>
+   				<parameter>comandos</parameter>
+   				<parameter>session</parameter>
+   				<parameter>persona</parameter>
+   				<parameter>nombreArchivo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</crearArchivoPorComandos>
+
+
+</xsp:page>

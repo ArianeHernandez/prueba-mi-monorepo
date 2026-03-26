@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Administrativo">
+
+	<typeAlias alias="RestriccionAdministrativo" type="com.osmosyscol.datasuite.logica.dto.RestriccionAdministrativo" />
+	<typeAlias alias="Administrativo" type="com.osmosyscol.datasuite.logica.dto.Administrativo" />
+	<typeAlias alias="Attributo" type="com.osmosyscol.datasuite.logica.dto.Atributo" />
+	<typeAlias alias="ValorAtributo" type="com.osmosyscol.datasuite.logica.dto.ValorAtributo" />
+	
+	<sql id="sqlRestriccionesAdministrativos">
+		select d.*, u.nombre nombres_usuario from dst_restriccion_administrativo d left join dsv_usuario u
+		on d.id_usuario = u.id_usuario 
+		
+		order by d.id_restriccion_administrativo
+	</sql>
+	
+	<select id="obtenerRestriccionesAdministrativos" resultClass="RestriccionAdministrativo">
+		<include refid="sqlRestriccionesAdministrativos"/>
+	</select>
+	
+	<select id="obtenerIdSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_restriccion_administrativo') as id from dual
+	</select>
+	
+	<select id="obtenerRestriccionAdministrativo" resultClass="RestriccionAdministrativo" parameterClass="java.lang.Integer">
+		select * from dst_restriccion_administrativo where id_restriccion_administrativo=#id_restriccion_administrativo#
+	</select>
+	
+	
+	<select id="obtenerRestriccionesPorAdministrativo" resultClass="RestriccionAdministrativo" parameterClass="java.lang.Integer">
+		select * from dst_restriccion_administrativo 
+		where id_rol in (select id_rol from dst_administrativo_rol where id_administrativo = #id_administrativo#)
+		and (id_administrativo = #id_administrativo# or id_administrativo is null)
+		
+		order by id_rol
+
+	</select>
+	
+	
+	<insert id="crearRestriccionAdministrativo" parameterClass="java.util.Map">
+		insert into dst_restriccion_administrativo (id_rol,id_administrativo,id_usuario,id_negocio,id_restriccion_administrativo)
+		values (#id_rol#,#id_administrativo#,#id_usuario#,#id_negocio#,#id_restriccion_administrativo#)
+	</insert>
+	
+	<delete id="eliminarRestriccionAdministrativo" parameterClass="java.lang.Integer">
+		delete from dst_restriccion_administrativo where id_restriccion_administrativo=#id_restriccion_administrativo#
+	</delete>
+	
+	<update id="actualizarRol" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_rol=#id_rol# 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+	</update>
+	
+	<select id="obtenerAdministrativosPorRol" parameterClass="java.lang.Integer" resultClass="Administrativo">
+		select adminv.id_administrativo, adminv.id_persona, adminv.activo, 
+		per.nombre, per.apellido, per.identificacion
+		from dst_administrativo adminv, dst_persona per, dst_administrativo_rol adminv_rol
+		where adminv.id_administrativo = adminv_rol.id_administrativo
+		and adminv_rol.id_rol=#id_rol#
+		and adminv.id_persona = per.id_persona
+		and adminv.activo='S'
+	</select>
+	
+	<update id="actualizarAdministrativo" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_administrativo=#id_administrativo# 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+	</update>
+	
+	<update id="actualizarAdminvPorRol" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_administrativo=null 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+		and  (	
+			(select id_administrativo from dst_restriccion_administrativo
+			where id_restriccion_administrativo = #id_restriccion_administrativo#
+			and id_administrativo is not null) 
+
+			not in
+	
+			(select adminv.id_administrativo
+			from dst_administrativo adminv, dst_administrativo_rol adminv_rol
+			where adminv.id_administrativo = adminv_rol.id_administrativo
+			and adminv.activo='S'
+			and adminv_rol.id_rol=#id_rol#)
+			)
+			
+	</update>
+	
+	<update id="actualizarCliente" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_usuario=#id_usuario# 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+	</update>
+	
+	<update id="actualizarNegocio" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_negocio=#id_negocio# 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+	</update>
+	
+	<update id="actualizarNegPorUsu" parameterClass="java.util.Map">
+		update dst_restriccion_administrativo set id_negocio=null 
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+		and  (
+		(select id_negocio from dst_restriccion_administrativo
+		where id_restriccion_administrativo = #id_restriccion_administrativo#
+		and id_negocio is not null) 
+			not in
+		(select neg.id_negocio from dst_negocio neg, dst_usuario_negocio usu_neg
+		where neg.id_negocio=usu_neg.id_negocio
+		and usu_neg.id_usuario=#id_usuario#)
+		)
+	</update>
+	
+	<select id="obtenerAdministrativosActivos" resultClass="Administrativo">
+		select adm.*, per.nombre, per.apellido, per.identificacion 
+		from dst_administrativo adm, dst_persona per
+		where adm.id_persona = per.id_persona
+		and adm.activo='S'
+	</select>
+	
+	<select id="obtenerIdAdministrativoPersona" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT id_administrativo
+		    FROM dst_administrativo
+			where id_persona = #id_persona#
+			and ( (id_usuario is null and #id_usuario# is null) or id_usuario = #id_usuario#)
+	</select>
+	
+	<select id="obtenerAdministrativosParaNotificacion" parameterClass="java.lang.Integer" resultClass="Administrativo" >
+		select administrativo.* , persona.nombre, persona.apellido, persona.identificacion
+		from dst_instancia instancia_destino, 
+			 dst_rol_instancia rol_instancia, 
+			 dst_administrativo_rol administrativo_rol, 
+			 dst_administrativo administrativo,
+			 dst_persona persona
+		where instancia_destino.id_instancia in (select id_instancia_destino from dst_accion_instancia
+		                            where id_accion = #id_accion#)
+		and rol_instancia.id_instancia = instancia_destino.id_instancia
+		and rol_instancia.id_rol = administrativo_rol.id_rol
+		and administrativo.id_administrativo = administrativo_rol.id_administrativo
+		and administrativo.activo='S'
+		and administrativo.id_persona = persona.id_persona
+	</select>
+	
+	
+	<select id="obtenerAdministrativoPorID" parameterClass="java.lang.Integer" resultClass="Administrativo" >
+		select adm.*, per.nombre, per.apellido, per.identificacion 
+		from dst_administrativo adm, dst_persona per
+		where adm.id_persona = per.id_persona
+		and adm.activo='S'
+		and adm.id_administrativo = #id_administrativo#
+	</select>
+	
+	
+	<select id="obtenerAdminsHijoPorInstanciaParaAdminPadre" parameterClass="java.util.Map" resultClass="Administrativo" >
+		select distinct administrativo.*, persona.nombre, persona.apellido, persona.identificacion
+		from dst_administrativo administrativo, 
+		dst_administrativo_rol admin_rol, 
+		dst_rol_instancia rol_instancia,
+		dst_persona persona
+		where rol_instancia.id_instancia = #id_instancia#
+		and rol_instancia.id_rol = admin_rol.id_rol
+		and rol_instancia.id_rol in (select id_rol from dst_rol
+			                         where id_rol_padre in (select id_rol from dst_administrativo_rol
+			                         where id_administrativo = #id_administrativo_padre# ))
+		and admin_rol.id_administrativo = administrativo.id_administrativo
+		and administrativo.activo='S'
+		and administrativo.id_persona = persona.id_persona
+		order by persona.nombre
+	</select>
+
+	<insert id="insertAdministrativo" parameterClass="Administrativo">
+		insert into dst_administrativo (id_administrativo,id_persona,activo,codigo, id_usuario) 
+			values (#id_administrativo#,#id_persona#,'S',#codigo#, #id_usuario#)
+	</insert>
+	
+	<update id="updateAdministrativo" parameterClass="Administrativo">
+		update dst_administrativo set 
+			id_persona = #id_persona#,
+			codigo = #codigo#
+			where id_administrativo = #id_administrativo#
+	</update>
+	
+	<select id="obtenerSiguiente" resultClass="int">
+		select nextvalue('dss_administrativo') from dual
+	</select>
+	
+	<select id="obtenerAtributos" resultClass="Attributo" parameterClass="java.lang.Integer">
+		select * from dst_atributo t where (#id_usuario# is null and id_usuario is null) or (id_usuario = #id_usuario#)
+	</select>
+	
+	<select id="obtenerValoresAtributo" resultClass="ValorAtributo" parameterClass="java.util.Map">
+		select t.* from dst_administrativo_atributo t where id_atributo = #id_atributo# and id_administrativo=#id_administrativo#
+	</select>
+	
+	<select id="obtenerAdministrativosPor" parameterClass="java.lang.Integer" resultClass="Administrativo" >
+		select adm.*, per.nombre, per.apellido, per.identificacion 
+		from dst_administrativo adm, dst_persona per
+		where adm.id_persona = per.id_persona
+		and adm.activo='S'
+		and adm.id_usuario = #id_usuario#
+	</select>
+	
+	<select id="obtenerAdministrativoPorCodigo" parameterClass="java.lang.String" resultClass="Administrativo">
+		select * from DST_ADMINISTRATIVO where CODIGO = #codigo#
+	</select>
+	
+	
+</sqlMap>

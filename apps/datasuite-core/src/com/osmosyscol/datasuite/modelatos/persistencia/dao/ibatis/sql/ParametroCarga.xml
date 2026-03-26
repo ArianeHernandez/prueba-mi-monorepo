@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ParametroCarga">
+
+	<typeAlias alias="parametrocarga"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ParametroCarga"/>
+	<typeAlias alias="valorparametrocarga" type="com.osmosyscol.datasuite.modelatos.logica.dto.ValorParametroCarga"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerParametrosCarga" resultClass="parametrocarga" parameterClass="java.lang.Integer">
+		select * from dst_parametro_carga p where p.id_formato in
+		(
+			select fsalida.id_formato from dst_formato fsalida, dst_formato fentrada
+			where fsalida.id_estructura = fentrada.id_estructura
+			and fsalida.tipoformato = 'S'
+			and fentrada.tipoformato = 'E'
+			and fentrada.id_formato=#id_formato#
+		)
+	</select>
+	
+	<insert id="guardarValorParametroCarga" parameterClass="valorparametrocarga">
+		insert into TPAR (id_carga, id_parametro, valor) values (#id_carga#, #id_parametro#, #valor#)
+	</insert>
+	
+	<insert id="guardarParametroCarga" parameterClass="parametrocarga">
+		insert into DST_PARAMETRO_CARGA(ID_PARAMETRO_CARGA,ID_FORMATO,NOMBRE) values (#id_parametro_carga#,#id_formato#,#nombre#)
+	</insert>
+	
+	<select id="siguienteIdDestino" resultClass="java.lang.Integer" >
+		select nextvalue('DSS_PARAMETRO_CARGA') as id from dual
+	</select>
+	
+	<update id="actualizarParametroCarga" parameterClass="parametrocarga">
+		update dst_parametro_carga 
+	   	set nombre = #nombre#
+	   	where id_parametro_carga=#id_parametro_carga#
+	</update>
+		
+	<select id="obtenerParametrosCargaPorFormatoSalida" resultClass="parametrocarga" parameterClass="java.lang.Integer">
+		select * from dst_parametro_carga where id_formato = #id_formato#
+	</select>
+	
+	<select id="obtenerValoresParametrosCarga" resultClass="valorparametrocarga" parameterClass="java.lang.Integer">
+		select * from tpar
+		where id_carga=#id_carga#
+	</select>
+</sqlMap>
+

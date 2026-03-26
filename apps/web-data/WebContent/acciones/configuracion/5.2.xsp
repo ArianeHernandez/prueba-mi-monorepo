@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	<xsp:structure>
+		<xsp:include>com.osmosyscol.commons.servicio.AutenticacionServicio</xsp:include>
+	</xsp:structure>
+    <OSM-ACCION>
+    	
+    	
+	    <osm-utils:exist-parameter name="Accion">
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/autenticador/editarContrasena.ws</cinclude:src>
+	            <cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>login</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>clave</cinclude:name>
+	                    <cinclude:value><xsp-request:get-parameter name="auth_password"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>claveNueva</cinclude:name>
+	                    <cinclude:value><xsp-request:get-parameter name="new_password"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>aplicacion</cinclude:name>
+	                    <cinclude:value><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.NOMBRE_APLICACION</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+	    	
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/guardarHistorialLoginClave.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>login</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+		            </cinclude:parameter>
+		        	<cinclude:parameter>
+		                <cinclude:name>clave</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="new_password"/></cinclude:value>
+		            </cinclude:parameter>
+		        </cinclude:parameters>
+	   		</cinclude:includexml>
+	    	
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/quitarCambioClave.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>login</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+		            </cinclude:parameter>
+		        </cinclude:parameters>
+	   		</cinclude:includexml>
+	    	
+	    </osm-utils:exist-parameter>
+    	
+    	
+    	<osm-utils:exist-parameter name="AccionI">
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/guardarSimplePersona.ser</cinclude:src>
+		        <cinclude:parameters>
+		            <cinclude:parameter>
+		                <cinclude:name>Persona.id_persona</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="id_persona"/></cinclude:value>
+		            </cinclude:parameter>
+		        	<cinclude:parameter>
+		                <cinclude:name>Persona.tipo_persona</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="tipo_persona"/></cinclude:value>
+		            </cinclude:parameter>
+		        	<cinclude:parameter>
+		                <cinclude:name>Persona.tipo_documento</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="tipo_documento"/></cinclude:value>
+		            </cinclude:parameter>
+		        	<cinclude:parameter>
+		                <cinclude:name>Persona.identificacion</cinclude:name>
+		                <cinclude:value><xsp-session:get-attribute name="identificacion"/></cinclude:value>
+		            </cinclude:parameter>
+		        </cinclude:parameters>
+	   		</cinclude:includexml>
+	    </osm-utils:exist-parameter>	
+    	
+    	
+    	
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

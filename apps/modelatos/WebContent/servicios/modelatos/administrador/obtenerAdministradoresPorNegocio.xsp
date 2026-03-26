@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerAdministradoresPorNegocio>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.AdministradorServicio</service>
+   			<operation>obtenerAdministradoresPorNegocio</operation>
+   			<parameters>
+   				<parameter>id_negocio</parameter>
+   				<parameter>resolver</parameter>
+   				<parameter>request</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerAdministradoresPorNegocio>
+
+
+</xsp:page>

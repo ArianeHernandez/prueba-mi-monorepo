@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:get-all-request-attributes />
+    	
+    	<rol_actual><xsp-session:get-attribute name="var.rol"/></rol_actual>
+    	
+    	<osm-utils:exist-parameter name="Credencial.login">
+    		<Editar>NO</Editar>
+		</osm-utils:exist-parameter>
+		
+    	<osm-utils:no-exist-parameter name="Credencial.login">
+    		<Editar>SI</Editar>
+    		<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/guardarPersona.ser</cinclude:src>
+			</cinclude:includexml>
+    	</osm-utils:no-exist-parameter>
+		
+		<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/guardarPersonaUsuarioRol.ser</cinclude:src>
+			 <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>rol</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="var.rol"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+		</cinclude:includexml>
+
+	    <cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/guardarProcesoRol.ser</cinclude:src>
+	        <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>identificacion</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.identificacion"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>tipoDocumento</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.tipo_documento"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+	    </cinclude:includexml>
+	    
+	    
+	    <cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/asociarRevisorProcesos.ser</cinclude:src>
+	        <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>identificacion</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.identificacion"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>tipoDocumento</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.tipo_documento"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>rol</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="var.rol"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+	    </cinclude:includexml>
+	    
+	    <cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/guardarTipoRevisor.ser</cinclude:src>
+	        <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_tipo_revisor</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="id_tipo_revisor"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>identificacion</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.identificacion"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>tipoDocumento</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.tipo_documento"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>rol</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="var.rol"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+	    </cinclude:includexml>
+	    
+	    <!-- Guarda la informacion adicional del liberador-->
+	    
+		<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/actualizarLiberadorTipoProceso.ser</cinclude:src>
+			<cinclude:parameters>
+				<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>identificacion</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.identificacion"/></cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>tipoDocumento</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona.tipo_documento"/></cinclude:value>
+	            </cinclude:parameter>
+	            
+	        </cinclude:parameters>
+	    </cinclude:includexml>
+		
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

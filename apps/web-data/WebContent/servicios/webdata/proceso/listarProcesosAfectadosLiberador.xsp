@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<listarProcesosAfectadosLiberador>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Total</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.ProcesoServicio</service>
+   			<operation>listarProcesosAfectadosLiberador</operation>
+   			<parameters>
+   				<parameter>id_liberador</parameter>
+   				<parameter>nuevoPesoLiberador</parameter>
+   				<parameter>id_tipo_proceso</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</listarProcesosAfectadosLiberador>
+
+
+</xsp:page>

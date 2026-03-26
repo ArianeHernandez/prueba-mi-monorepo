@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+
+    	<osm-utils:remove-parameter name="_numeropagina_tareas" />   
+    	    	
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina_tareas"/></numeroPagina>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/tareas/contarTareas.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/tareas/obtenerTareas.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>numPagina</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var._numeropagina_tareas"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	   
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/tareas/obtenerTiposIntervalos.ser</cinclude:src>
+        </cinclude:includexml>
+    	 	
+    </OSM-ACCION>
+	
+</xsp:page>

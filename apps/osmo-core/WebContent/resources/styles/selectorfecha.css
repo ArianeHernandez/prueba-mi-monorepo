@@ -1,0 +1,36 @@
+/* located in demo.css and creates a little calendar icon
+ * instead of a text link for "Choose date"
+ */
+a.dp-choose-date {
+	
+	display: block;
+	float: left;
+	margin: 0px 0px 0px -1px;
+	padding: 0px 0px;
+	width: 18px;
+	height: 18px;
+	border: solid 1px #ccc;
+	text-align: center;
+	
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(images/bg-go.png) 50% 40% no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  float: left;
+  height: 26px;
+  line-height: 22px;
+  margin: 0;
+  padding: 5px;
+  width: 81px;
+  cursor: pointer;
+}

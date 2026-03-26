@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:osm-session-request name="id_carga_admin_hijo"/>
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina"/></numeroPagina>
+    	<id_carga_seleccionada><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></id_carga_seleccionada>
+    	
+    	<id_instancia_de_admin_hijo><xsp-session:get-attribute name="id_instancia_para_admins_hijo"/></id_instancia_de_admin_hijo>
+    	 	    	
+    	 	    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerCarga.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/obtenerProcesoAdmin.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_proceso_admin</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_proceso_admin"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>    
+    	
+   	
+    	<xscript:variable scope="request" name="INFO_INSTANCIA">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/webdata/proceso_admin/obtenerInstanciaDelProcesoPorCarga.ser</osm-utils:src>
+	            <osm-utils:parameters>
+	                <osm-utils:parameter>
+	                    <osm-utils:name>"id_carga"</osm-utils:name>
+	                    <osm-utils:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></osm-utils:value>
+	                </osm-utils:parameter>
+	            	<osm-utils:parameter>
+	                    <osm-utils:name>"id_instancia"</osm-utils:name>
+	                    <osm-utils:value><xsp-session:get-attribute name="id_instancia_para_admins_hijo"/></osm-utils:value>
+	                </osm-utils:parameter>
+	          	</osm-utils:parameters>
+	        </osm-utils:includexml>
+        </xscript:variable>
+        
+        <xscript:get scope="request" name="INFO_INSTANCIA"/>
+
+    	<xsp:logic>
+    		session.setAttribute("var.id_carga_simple_detalle", session.getAttribute("var.id_carga_admin_hijo"));
+    		session.setAttribute("var.id_formato_salida_simple_detalle", getXPathFromXScript("INFO_INSTANCIA","obtenerInstanciaDelProcesoPorCarga/instancia/id_formato_salida"));
+    	</xsp:logic>
+    	
+    	<FORMATO_SALIDA_SIMPLE_DETALLE><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></FORMATO_SALIDA_SIMPLE_DETALLE>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerSubFormatosPorFamilia.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato_padre</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerFormato.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato</cinclude:name>
+                    <cinclude:value><osm-utils:get-xpath-from-xscript name="INFO_INSTANCIA" select="obtenerInstanciaDelProcesoPorCarga/instancia/id_formato_salida"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/obtenerAccionesConInstanciaDestinoPorInstanciaOrigen.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_instancia</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_instancia_para_admins_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	 
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/instancias/obtenerInstanciasPreviasConCargaActualPendiente.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_instancia_actual</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_instancia_para_admins_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/obtenerHistorialCargaInstancia.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	
+    	<!-- INFORMACION FIRMA -->
+        
+         <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/firma/tieneDocumentoFirmadoPorFasePreparacion.ser</cinclude:src>
+    		<cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+            
+        </cinclude:includexml>
+        
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/firma/tieneFormularioFirmadoPorFasePreparacion.ser</cinclude:src>
+    		<cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+            
+        </cinclude:includexml>
+      
+        <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/firma/tieneFormularioFirmadoPorFaseLiberacion.ser</cinclude:src>
+    		<cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+            
+        </cinclude:includexml>
+       
+    	
+    	    	
+    	<id_administrativo><xsp-session:get-attribute name="id_administrativo"/></id_administrativo>
+    	<id_carga><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></id_carga>
+    	<id_proceso_admin><xsp-session:get-attribute name="var.id_proceso_admin"/></id_proceso_admin>
+    	<id_instancia><xsp-session:get-attribute name="id_instancia_para_admins_hijo"/></id_instancia>
+    	<id_formato_salida><osm-utils:get-xpath-from-xscript name="INFO_INSTANCIA" select="obtenerInstanciaDelProcesoPorCarga/instancia/id_formato_salida"/></id_formato_salida>
+    	<id_carga_seleccionada><xsp-session:get-attribute name="var.id_carga_admin_hijo"/></id_carga_seleccionada>
+    	
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

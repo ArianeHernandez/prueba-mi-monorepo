@@ -1,0 +1,11 @@
+/bin/
+.DS_Store
+.idea
+target
+bin
+/OsmoAutenticador.iml
+/logs/
+/pom.xml.next
+/pom.xml.releaseBackup
+/pom.xml.tag
+/release.properties

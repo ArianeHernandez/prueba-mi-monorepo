@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<actualizarFechasGruposGiro>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Boolean</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.grupogiro.GrupoGiroServicio</service>
+   			<operation>actualizarFechasGruposGiro</operation>
+   		</osm-utils:servicio-java>
+   		
+	</actualizarFechasGruposGiro>
+
+</xsp:page>

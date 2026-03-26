@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Historial">
+
+	<typeAlias alias="historialCarga" type="com.osmosyscol.datasuite.webdata.logica.dto.HistorialCarga"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="guardarHistorialCarga" parameterClass="historialCarga">
+		INSERT INTO dst_carga_historia(id_carga, id_persona, fecha, estado, id_carga_historia, estado_inicial, peso) 
+		    VALUES(#id_carga#, #id_persona#, #fecha#, #estado#, nextvalue('dss_carga_historia'), #estado_inicial#, #peso#)
+	</insert>
+
+	<sql id="sqlObtenerHistorialCarga">
+		SELECT h.*, p.nombre nombres_persona, p.apellido apellidos_persona
+		    FROM dst_carga_historia h left join dst_persona p
+		    on h.id_persona = p.id_persona
+	</sql>
+
+	<select id="obtenerHistorialCarga" resultClass="historialCarga" parameterClass="java.lang.Integer">
+		<include refid="sqlObtenerHistorialCarga"/>
+	    WHERE id_carga = #id_carga# 
+	    order by fecha
+	</select>
+	
+	<select id="obtenerUltimoHistorialCarga" resultClass="historialCarga" parameterClass="java.lang.Integer">
+		SELECT * FROM (
+			<include refid="sqlObtenerHistorialCarga"/>
+		    WHERE id_carga = #id_carga# 
+		    ORDER BY fecha DESC
+		) WHERE ROWNUM = 1
+	</select>
+	
+	<select id="obtenerPesoHistorialCarga" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select sum(peso)
+		from dst_carga_historia
+		where id_carga=#id_carga#
+		and estado_inicial = #estado_inicial#
+		group by id_carga,id_persona,estado_inicial
+	</select>
+	
+	<select id="obtenerVecesLiberadoHistorialCarga" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+			from dst_carga_historia
+			where id_carga=#id_carga#
+			and id_persona = #id_persona#
+			and estado_inicial = #estado_inicial#
+	</select>
+	
+</sqlMap>

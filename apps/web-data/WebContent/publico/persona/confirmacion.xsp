@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	<xsp:structure>
+		<xsp:include>com.osmosyscol.commons.servicio.AutenticacionServicio</xsp:include>
+	</xsp:structure>
+    <OSM-ACCION>
+		
+    	<id_cliente><xsp-request:get-parameter name="id_cliente"/></id_cliente>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/cuenta/definirClave.ser</cinclude:src>
+			<cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>login</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+                </cinclude:parameter>
+				<cinclude:parameter>
+                    <cinclude:name>clave</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="clave"/></cinclude:value>
+                </cinclude:parameter>
+				<cinclude:parameter>
+                    <cinclude:name>nuevaClave</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="new_password"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>       
+    	
+    	<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/quitarCambioClave.ser</cinclude:src>
+	        <cinclude:parameters>
+	            <cinclude:parameter>
+	                <cinclude:name>login</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+   		</cinclude:includexml>
+	    	 	
+    	   
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/cuenta/confirmarCreacionUsuarios.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/persona/esLoginPorIdentificacion.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

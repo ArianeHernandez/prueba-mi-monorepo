@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:intf="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="guardarUsuario">
+    <complexType>
+     <sequence>
+      <element name="solicitudGuardarUsuario" type="impl:SolicitudGuardarUsuario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_int">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="SolicitudGuardarUsuario">
+    <sequence>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="login" nillable="true" type="xsd:string"/>
+     <element name="roles" nillable="true" type="impl:ArrayOf_xsd_int"/>
+    </sequence>
+   </complexType>
+   <element name="guardarUsuarioResponse">
+    <complexType>
+     <sequence>
+      <element name="guardarUsuarioReturn" type="impl:RespuestaGuardarUsuario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="RespuestaGuardarUsuario">
+    <sequence>
+     <element name="exitoso" nillable="true" type="xsd:boolean"/>
+     <element name="mensaje" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="guardarUsuarioResponse">
+
+      <wsdl:part element="impl:guardarUsuarioResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="guardarUsuarioRequest">
+
+      <wsdl:part element="impl:guardarUsuario" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSGuardarUsuario">
+
+      <wsdl:operation name="guardarUsuario">
+
+         <wsdl:input message="impl:guardarUsuarioRequest" name="guardarUsuarioRequest"/>
+
+         <wsdl:output message="impl:guardarUsuarioResponse" name="guardarUsuarioResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSGuardarUsuarioSoapBinding" type="impl:WSGuardarUsuario">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="guardarUsuario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="guardarUsuarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="guardarUsuarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSGuardarUsuarioService">
+
+      <wsdl:port binding="impl:WSGuardarUsuarioSoapBinding" name="WSGuardarUsuario">
+
+         <wsdlsoap:address location="http://localhost:8080/OsmoAutenticador/services/WSGuardarUsuario"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

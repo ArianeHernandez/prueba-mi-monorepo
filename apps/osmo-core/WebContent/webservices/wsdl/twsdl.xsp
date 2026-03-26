@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:util="http://apache.org/xsp/util/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<HEADERS>
+    		<xsp:logic>
+    			java.util.Enumeration a = request.getHeaderNames();
+		
+				while (a.hasMoreElements()) {
+					String name = (String) a.nextElement();
+					<HEADER>
+						<name><xsp:expr>name.toLowerCase()</xsp:expr></name>
+						<value><xsp:expr>request.getHeader(name)</xsp:expr></value>
+					</HEADER>
+				}
+    		</xsp:logic>
+    	</HEADERS>
+    	
+    	<serviceName><util:get-sitemap-parameter name="serviceName"/></serviceName>
+    	
+    	<cinclude:includexml>
+			<cinclude:src>cocoon:/datapi/obtenerServicioDataPi.ser</cinclude:src>
+    		 <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>nombreservicio</cinclude:name>
+                    <cinclude:value><util:get-sitemap-parameter name="serviceName"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+		</cinclude:includexml>
+    	
+    </OSM-ACCION>
+</xsp:page>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:no-exist-parameter name="Credencial.login">
+    		<Editar>SI</Editar>
+    		<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/guardarPersona.ser</cinclude:src>
+				 <cinclude:parameters>
+				 	<cinclude:parameter>
+		                <cinclude:name>Persona</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="Persona"/></cinclude:value>
+		            </cinclude:parameter>
+		        </cinclude:parameters>
+			</cinclude:includexml>
+    	
+    	
+    	
+    	</osm-utils:no-exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="Credencial.login">
+    		<Editar>NO</Editar>
+    	</osm-utils:exist-parameter>
+    	
+    	<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/persona/guardarPersonaUsuarioRol.ser</cinclude:src>
+			 <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>Persona</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Persona"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>Credencial</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="Credencial"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>id_usuario</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="var.id_usuario"/></cinclude:value>
+	            </cinclude:parameter>
+			 	<cinclude:parameter>
+	                <cinclude:name>rol</cinclude:name>
+	                <cinclude:value>AC</cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+		</cinclude:includexml>
+
+    </OSM-ACCION>
+	
+</xsp:page>

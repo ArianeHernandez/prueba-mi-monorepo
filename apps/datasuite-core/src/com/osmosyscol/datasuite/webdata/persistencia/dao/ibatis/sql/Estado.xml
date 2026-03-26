@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Estado">
+
+	<typeAlias alias="estado" type="com.osmosyscol.datasuite.webdata.logica.dto.Estado" />
+	
+	<select id="obtenerEstados" resultClass="estado">
+		SELECT estado, nombre_cliente, nombre_interno from dst_estado
+	</select>
+	
+	<select id="obtenerEstado" resultClass="estado" parameterClass="java.lang.String">
+		SELECT estado, nombre_cliente, nombre_interno from dst_estado
+		where estado = #estado#
+	</select>
+	
+</sqlMap>

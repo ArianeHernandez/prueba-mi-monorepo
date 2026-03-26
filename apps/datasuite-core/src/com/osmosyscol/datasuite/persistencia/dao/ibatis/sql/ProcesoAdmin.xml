@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ProcesoAdmin">
+
+	<typeAlias alias="procesoAdmin" type="com.osmosyscol.datasuite.logica.dto.ProcesoAdmin" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="insertarProcesoAdmin" parameterClass="java.util.Map">
+		insert into dst_proceso_admin (id_proceso_admin,id_negocio,id_formato_entrada,nombre,id_tipo_proceso)
+		values (#id_proceso_admin#,#id_negocio#,#id_formato_entrada#,#nombre#,#id_tipo_proceso#)
+	</insert>
+	
+	<select id="obtenerProcesosAdminPorNegocio" parameterClass="java.lang.Integer" resultClass="procesoAdmin">
+		select proceso.*, negocio.nombre nombre_negocio from dst_proceso_admin proceso, dst_negocio negocio 
+		where proceso.id_negocio=negocio.id_negocio
+		and negocio.id_negocio=#id_negocio#
+		order by proceso.nombre
+	</select>
+	
+	<select id="obtenerProcesoAdmin" parameterClass="java.lang.Integer" resultClass="procesoAdmin">
+		select * from dst_proceso_admin where id_proceso_admin=#id_proceso_admin#
+	</select>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_proceso_admin') as id from dual
+	</select>
+	
+	<delete id="borrarProcesoAdmin" parameterClass="java.lang.Integer">
+		delete from dst_proceso_admin where id_proceso_admin=#id_proceso_admin#
+	</delete>
+	
+	<update id="actualizarProcesoAdmin" parameterClass="java.util.Map">
+		update dst_proceso_admin set id_negocio=#id_negocio#, id_formato_entrada=#id_formato_entrada#, nombre=#nombre#,
+		id_tipo_proceso=#id_tipo_proceso#
+		where id_proceso_admin=#id_proceso_admin#
+	</update>
+	
+	<select id="obtenerProcesosAdmin" resultClass="procesoAdmin">
+		select proadm.* from dst_proceso_admin proadm, dst_negocio neg
+		where proadm.id_negocio = neg.id_negocio
+		and neg.activo='S'
+		and proadm.id_tipo_proceso is null
+	</select>
+	
+	<select id="verificarExistencia" resultClass="java.lang.Integer">
+		select count(*) from dst_proceso_admin 
+		where id_negocio=#id_negocio# 
+		and ($SQL_ID_FORMATO_ENTRADA$)
+		and ($SQL_ID_PROCESO_ADMIN$)
+	</select>
+	
+	<select id="obtenerProcesosPorAdministrativo" resultClass="procesoAdmin" parameterClass="java.lang.Integer">
+		select distinct * from ( (select distinct proceso.*, negocio.nombre nombre_negocio from dst_proceso_admin proceso, dst_instancia instancia, dst_rol_instancia rol_instancia, dst_administrativo_rol admin_rol, dst_negocio negocio 
+		where proceso.id_proceso_admin= instancia.id_proceso_admin
+		and instancia.id_instancia = rol_instancia.id_instancia
+		and rol_instancia.id_rol = admin_rol.id_rol
+		and admin_rol.id_administrativo = #id_administrativo#
+		and proceso.id_negocio = negocio.id_negocio
+		and proceso.id_tipo_proceso is null )
+		union 
+		( select distinct proceso.*, negocio.nombre nombre_negocio from dst_proceso_admin proceso, dst_instancia instancia, dst_carga_responsable carga_responsable, dst_administrativo administrativo, dst_negocio negocio , dst_carga_instancia carga_instancia
+		where proceso.id_proceso_admin= instancia.id_proceso_admin
+		and carga_responsable.id_instancia = instancia.id_instancia
+		and carga_responsable.id_persona = administrativo.id_persona
+		and administrativo.id_administrativo = #id_administrativo#
+		and proceso.id_negocio = negocio.id_negocio
+        and carga_instancia.id_carga = carga_responsable.id_carga 
+        and carga_instancia.id_instancia = instancia.id_instancia
+        and carga_instancia.fecha_salida is null
+		and proceso.id_tipo_proceso is null )
+		)
+	</select>
+	
+	<!-- PROCESO PARA ASOCIAR CARGA -->
+	<select id="obtenerProcesoParaAsociarCarga" resultClass="procesoAdmin" parameterClass="java.lang.Integer">
+		select distinct proceso.* 
+		from dst_carga carga, dst_proceso_admin proceso
+		where 
+		carga.id_carga = #id_carga#
+		and proceso.id_negocio = carga.id_negocio
+		and (proceso.id_formato_entrada = carga.id_formato or proceso.id_formato_entrada is null)
+		order by proceso.id_formato_entrada
+	</select>
+	
+	<select id="obtenerProcesosAdminPorTipoProceso" resultClass="procesoAdmin" parameterClass="java.lang.Integer">
+		select proadm.* from dst_proceso_admin proadm
+		where proadm.id_tipo_proceso = #id_tipo_proceso#
+		order by proadm.nombre
+	</select>
+	
+	<select id="obtenerProcesosAdminPorTipoProcesoAdministrativo" resultClass="procesoAdmin" parameterClass="java.util.Map">
+		select distinct proceso.* from dst_proceso_admin proceso, dst_instancia instancia, dst_rol_instancia rol_instancia, dst_administrativo_rol admin_rol
+		where proceso.id_proceso_admin= instancia.id_proceso_admin
+		and instancia.id_instancia = rol_instancia.id_instancia
+		and rol_instancia.id_rol = admin_rol.id_rol
+		and admin_rol.id_administrativo = #id_administrativo#
+		and proceso.id_tipo_proceso = #id_tipo_proceso#
+	</select>
+	
+
+</sqlMap>

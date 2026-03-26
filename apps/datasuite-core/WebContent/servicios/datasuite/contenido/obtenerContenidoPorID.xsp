@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerContenidoPorID>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Contenido</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.ContenidoServicio</service>
+   			<operation>obtenerContenidoPorID</operation>
+   			<parameters>
+   				<parameter>id_contenido</parameter>
+   			</parameters>
+   			
+   		</osm-utils:servicio-java>
+   		
+	</obtenerContenidoPorID>
+
+
+</xsp:page>

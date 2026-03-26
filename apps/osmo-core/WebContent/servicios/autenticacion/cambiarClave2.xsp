@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+ 
+    <cambiarClave2>
+        <osm-utils:servicio-java>
+            <name>Mensaje</name>
+            <service>com.osmosyscol.commons.servicio.AutenticacionServicio</service>
+            <operation>cambiarClave2</operation>
+            <parameters>
+            	<parameter>login</parameter>
+            	<parameter>clave</parameter>
+            	<parameter>clave_nueva</parameter>
+            </parameters>
+        </osm-utils:servicio-java>
+    </cambiarClave2>
+	
+</xsp:page>

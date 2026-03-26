@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://cambiarclave.servicioweb.osmoautenticador.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://cambiarclave.servicioweb.osmoautenticador.osmosyscol.com" xmlns:intf="http://cambiarclave.servicioweb.osmoautenticador.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://cambiarclave.servicioweb.osmoautenticador.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="cambiarclave">
+    <complexType>
+     <sequence>
+      <element name="solicitudCambiarClave" type="impl:SolicitudCambiarClave"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="SolicitudCambiarClave">
+    <sequence>
+     <element name="aplicacion" nillable="true" type="xsd:string"/>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="clave_nueva" nillable="true" type="xsd:string"/>
+     <element name="login" nillable="true" type="xsd:string"/>
+     <element name="tipoclave" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="cambiarclaveResponse">
+    <complexType>
+     <sequence>
+      <element name="cambiarclaveReturn" type="impl:RespuestaCambiarClave"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="RespuestaCambiarClave">
+    <sequence>
+     <element name="exitoso" nillable="true" type="xsd:boolean"/>
+     <element name="mensaje" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="cambiarclaveResponse">
+
+      <wsdl:part element="impl:cambiarclaveResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="cambiarclaveRequest">
+
+      <wsdl:part element="impl:cambiarclave" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSCambiarClave">
+
+      <wsdl:operation name="cambiarclave">
+
+         <wsdl:input message="impl:cambiarclaveRequest" name="cambiarclaveRequest"/>
+
+         <wsdl:output message="impl:cambiarclaveResponse" name="cambiarclaveResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSCambiarClaveSoapBinding" type="impl:WSCambiarClave">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="cambiarclave">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="cambiarclaveRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="cambiarclaveResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSCambiarClaveService">
+
+      <wsdl:port binding="impl:WSCambiarClaveSoapBinding" name="WSCambiarClave">
+
+         <wsdlsoap:address location="http://localhost:8080/OsmoAutenticador/services/WSCambiarClave"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

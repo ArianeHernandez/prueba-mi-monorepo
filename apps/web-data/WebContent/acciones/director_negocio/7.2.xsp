@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:exist-parameter name="editar">
+    		<editar>SI</editar>
+    	</osm-utils:exist-parameter>
+		<CREDENCIAL>
+			<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/obtenerCredencialPersonaID.ser</cinclude:src>
+		        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+            </cinclude:includexml>
+		</CREDENCIAL>
+    	
+    	<osm-utils:exist-parameter name="identificacion">
+    		
+    		<INFOPERSONA>
+				<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerPersonaPorIdentificacion.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+		                    <cinclude:name>tipo_documento</cinclude:name>
+		                    <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+		                </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+		    </INFOPERSONA>
+    		<DIRECTOR>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerDirectorNegocioIdentificacionNegocio.ser</cinclude:src>
+			        <cinclude:parameters>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	 <cinclude:parameter>
+		                    <cinclude:name>id_negocio</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="var.id_negocio"/></cinclude:value>
+		                </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+    		</DIRECTOR>
+    		
+	    </osm-utils:exist-parameter>
+    	<DATOS>
+	    	<IDENTIFICACION><xsp-request:get-parameter name="identificacion"/></IDENTIFICACION>
+	    	<TIPOPERSONA>N</TIPOPERSONA>
+    		<TIPODOCUMENTO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerTipoDocumento.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>id_tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+		    </TIPODOCUMENTO>
+    	</DATOS>
+    	<LOGIN>
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/esLoginPorIdentificacion.ser</cinclude:src>
+		    </cinclude:includexml>
+    	</LOGIN>
+    </OSM-ACCION>
+	
+</xsp:page>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CargaInstancia">
+
+	<typeAlias alias="cargaInstancia" type="com.osmosyscol.datasuite.logica.dto.CargaInstancia" />
+	
+	<insert id="insertarRelacionCargaInstancia" parameterClass="java.util.Map">
+		insert into dst_carga_instancia (id_carga_instancia, id_carga, id_instancia, fecha_llegada)
+		values (nextvalue('dss_carga_instancia'), #id_carga#, #id_instancia#, #fecha_llegada#)
+	</insert>
+	
+	
+	<update id="actualizarFechaSalidaRelacionCargaInstancia" parameterClass="java.util.Map">
+		
+		update dst_carga_instancia set fecha_salida=$SYSDATE$,
+		id_persona = #id_persona# 
+		where id_instancia=#id_instancia#
+		and id_carga = #id_carga#
+		and fecha_salida is null
+	
+	</update>
+	
+	<update id="actualizarFechaLlegadaRelacionCargaInstancia" parameterClass="java.util.Map">
+		
+		update dst_carga_instancia set fecha_llegada=#fecha_llegada#
+		where id_instancia=#id_instancia#
+		and id_carga = #id_carga#
+		and fecha_salida is null
+		and fecha_llegada is not null
+	
+	</update>
+	
+	<update id="inicializarFechaLlegadaRelacionCargaInstancia" parameterClass="java.util.Map">
+		
+		update dst_carga_instancia set fecha_llegada=#fecha_llegada#
+		where id_carga = #id_carga#
+		and fecha_salida is null
+		and fecha_llegada is null
+	
+	</update>
+	
+	<select id="existeRelacionCargaInstanciaSinFechaSalida" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) 
+		from dst_carga_instancia 
+		where id_instancia=#id_instancia#
+		and id_carga = #id_carga#
+		and fecha_salida is null
+		and fecha_llegada is not null
+
+	</select>
+	
+	
+	<select id="obtenerIDUsuarioDeRelacionCargaInstancia" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select distinct carga.id_usuario 
+		from dst_carga carga, dst_carga_instancia carga_instancia, dst_instancia instancia 
+		where  carga_instancia.id_carga = carga.id_carga
+		and carga_instancia.id_carga = #id_carga#
+		and carga_instancia.id_instancia = instancia.id_instancia
+		and carga_instancia.id_instancia = #id_instancia#
+		
+	</select>
+	
+	
+	<select id="obtenerHistorialCargaInstancia" resultClass="cargaInstancia" parameterClass="java.lang.Integer">
+		select carga_instancia.*, instancia.nombre nombre_instancia, persona.nombre nombre_persona, persona.apellido apellido_persona 
+		from dst_carga_instancia carga_instancia left join dst_persona persona 
+		on carga_instancia.id_persona = persona.id_persona inner join 
+		dst_instancia instancia on carga_instancia.id_instancia = instancia.id_instancia
+		where carga_instancia.id_carga=#id_carga#
+		order by fecha_llegada, fecha_salida
+		
+	</select>
+	
+	
+	<delete id="eliminarRelacionesCargaInstanciaSinFechaSalida" parameterClass="java.lang.Integer">
+		delete from dst_carga_instancia
+		where id_carga = #id_carga#
+		and fecha_salida is null
+	
+	</delete>
+	
+	<select id="obtenerCargaInstanciaPorId" resultClass="cargaInstancia" parameterClass="java.util.Map">
+		select *
+		from dst_carga_instancia
+		where dst_carga_instancia.id_carga_instancia = #id_carga_instancia#
+	</select>
+	
+	<select id="obtenerCargaInstanciaActual" resultClass="cargaInstancia" parameterClass="java.lang.Integer">
+		select * 
+		from dst_carga_instancia
+		where id_carga = #id_carga# and fecha_salida is null
+	</select>
+
+	<select id="obtenerCargasInstanciaActualPorInstanciaFecha" resultClass="cargaInstancia" parameterClass="java.util.Map">
+		select ci.* 
+		from dst_carga_instancia ci, dst_instancia i
+		where ci.fecha_salida is null
+			and ci.id_instancia = i.id_instancia
+			and lower(i.nombre) like lower(#nombre_instancia#)
+			and trunc(#fecha#) >= trunc(ci.fecha_llegada) 
+	</select>
+	
+</sqlMap>

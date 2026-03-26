@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerVariablesPorModeloId>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.VariableServicio</service>
+   			<operation>obtenerVariablesPorModeloId</operation>
+   			<parameters>
+   				<parameter>id_modelo</parameter>
+   				<parameter>tipo_persona</parameter>
+   				<parameter>identificacion</parameter>
+   				<parameter>tipo_documento</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerVariablesPorModeloId>
+
+</xsp:page>

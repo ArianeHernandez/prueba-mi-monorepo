@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<actualizarCargaQueRequiereArchivoAdjunto>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>actualizarCargaQueRequiereArchivoAdjunto</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>id_persona</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</actualizarCargaQueRequiereArchivoAdjunto>
+
+</xsp:page>

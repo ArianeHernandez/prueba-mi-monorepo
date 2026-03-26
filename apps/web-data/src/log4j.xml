@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- purpose: Act as configuration template for applications. Application 
+	should be using slf4j+log4j For compatibility, a special appender has been 
+	created. -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="true">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} [WEBDATA] [%X{ip}-%X{host}] [%t] %n %5p %c{1}: %m%n" />
+			<!-- The default pattern: Date Priority [Category] Message\n pattern1: 
+				%d{HH:mm:ss,SSS} %-5p %t %c{6} \- %m%n pattern2: %d{HH:mm:ss,SSS} %-5p %t 
+				%c - %m%n -->
+		</layout>
+	</appender>
+
+	<appender name="SIMPLELOGGER"
+		class="com.osmosyscol.commons.log.log4j.SimpleLoggerAdapterAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="applicationName" value="OSMOCORE" />
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} [WEBDATA] [%X{ip}-%X{host}] [%t] %n %5p %c{1} %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Archivos de log general -->
+	<appender name="ROLLINGFILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="logs/webdata.log" />
+		<param name="MaxFileSize" value="10000KB" />
+		<param name="MaxBackupIndex" value="50" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%n%d{yyyy-MM-dd HH:mm:ss,SSS} %5p [%t] %n %c: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Archivos para log de consultas sql -->	
+	<appender name="ROLLINGFILESQL" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="logs/webdata_sql.log" />
+		<param name="MaxFileSize" value="5000KB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%n%d{yyyy-MM-dd HH:mm:ss,SSS} %5p [%t] %n %c: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ####################### category interop :: synapse ############################# -->
+
+	<!-- Sección para datapi -->
+	<!-- <category name="com.osmosyscol.datapi" additivity="false"> -->
+	<!-- <priority value="DEBUG" /> -->
+	<!-- <appender-ref ref="ROLLINGFILE" /> -->
+	<!-- <appender-ref ref="CONSOLE" /> -->
+	<!-- </category> -->
+
+	<!-- ####################### category datasuite, core ############################# -->
+	<category name="com.osmosyscol" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="ROLLINGFILE" />
+		<appender-ref ref="CONSOLE" />
+	</category>
+	
+	<!-- ####################### sql ############################# -->
+	<category name="java.sql" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="ROLLINGFILESQL" />
+	</category>
+	<category name="javax.sql" additivity="false">
+		<priority value="WARN" />
+		<appender-ref ref="ROLLINGFILESQL" />
+	</category>
+
+	<!-- ####################### category custom :: ########################## -->
+	<category name="com.osmosyscol.datasuite.near" additivity="true">
+		<priority value="DEBUG" />
+		<appender-ref ref="SIMPLELOGGER" />
+	</category>
+
+	<!-- ####################### category root :: ########################## -->
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</log4j:configuration>

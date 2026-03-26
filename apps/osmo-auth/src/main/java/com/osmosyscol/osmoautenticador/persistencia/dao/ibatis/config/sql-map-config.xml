@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" />
+
+	<transactionManager type="JDBC">
+		<dataSource type="DBCP">
+			<property name="JDBC.Driver" value="${database.driver}" />
+			<property name="JDBC.ConnectionURL" value="${database.url}" />
+			<property name="JDBC.Username" value="${database.user}" />
+			<property name="JDBC.Password" value="${database.password}" />
+			<!-- OPTIONAL FROM HERE -->
+			<property name="maxActive" value="${database.maxActive}" />
+			<property name="maxIdle" value="${database.maxIdle}" />
+			<property name="maxWait" value="${database.maxWait}" />
+			<property name="initialSize" value="${database.initialSize}" />
+			
+			<property value="${database.validationQuery}" name="validationQuery"/>
+			<property value="${database.testWhileIdle}" name="testWhileIdle"/>
+			<property value="${database.testOnBorrow}" name="testOnBorrow"/>
+			<property value="${database.timeBetweenEvictionRunsMillis}" name="timeBetweenEvictionRunsMillis"/>
+		</dataSource>
+	</transactionManager>
+
+	<sqlMap resource="com/osmosyscol/osmoautenticador/persistencia/sqlmapadao/sql/Usuario.xml" />
+	<sqlMap resource="com/osmosyscol/osmoautenticador/persistencia/sqlmapadao/sql/Administracion.xml" />
+	<sqlMap resource="com/osmosyscol/osmoautenticador/persistencia/sqlmapadao/sql/Rol.xml" />
+	<sqlMap resource="com/osmosyscol/osmoautenticador/persistencia/sqlmapadao/sql/Servicio.xml" />
+
+</sqlMapConfig>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    
+    	<loginActual><xsp-session:get-attribute name="login"/></loginActual>
+    
+    	<xsp:logic>
+    
+    	String loginAct = (String)session.getAttribute("login");
+    	
+    	if(loginAct == null){
+    	
+    		String logincs = <xsp-request:get-parameter name="login"/>;
+	    	com.osmosyscol.datasuite.logica.dto.Credencial credencial = com.osmosyscol.datasuite.logica.servicios.PersonaServicio.getInstance().obtenerCredencialPorLogin(logincs);
+	    	if (credencial == null) {
+		    	logincs = new String (logincs.getBytes(java.nio.charset.StandardCharsets.ISO_8859_1), java.nio.charset.StandardCharsets.UTF_8);
+		    	<login><xsp:expr>logincs</xsp:expr></login>    	
+	    	} else {
+	    		<login><xsp-request:get-parameter name="login"/></login>
+	    	}
+    	
+			<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/cuenta/validarUsuario.ser</cinclude:src>
+				<cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>login</cinclude:name>
+	                    <cinclude:value><xsp:expr>logincs</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+					<cinclude:parameter>
+	                    <cinclude:name>id_cliente</cinclude:name>
+	                    <cinclude:value><xsp-request:get-parameter name="id_cliente"/></cinclude:value>
+	                </cinclude:parameter>
+					<cinclude:parameter>
+	                    <cinclude:name>clave</cinclude:name>
+	                    <cinclude:value><xsp-request:get-parameter name="id"/></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+	        
+	        
+	                	
+	    	<clave><xsp-request:get-parameter name="id"/></clave>
+	    	<id_cliente><xsp-request:get-parameter name="id_cliente"/></id_cliente>
+    		
+    	}else{
+			com.osmosyscol.commons.servicio.AutenticacionServicio.limpiarSesion(session);
+    	}
+    	
+    	
+    	</xsp:logic>
+    	
+    </OSM-ACCION>
+</xsp:page>

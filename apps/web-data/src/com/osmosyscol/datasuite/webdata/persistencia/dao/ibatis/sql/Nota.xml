@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Nota">
+
+	<typeAlias alias="nota" type="com.osmosyscol.datasuite.webdata.logica.dto.Nota"/>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerNotasPorCarga" parameterClass="java.util.Map" resultClass="nota">
+		select nt.*, per.nombre, per.apellido from dst_nota nt, dst_persona per 
+		where id_carga=#id_carga#
+		<isEqual property="internas" compareValue="N">
+			and interno = 'N'
+		</isEqual>
+		and per.id_persona=nt.id_persona
+	</select>
+	
+	<insert id="guardarNota" parameterClass="java.util.Map">
+		insert into dst_nota (id_nota, nota, fecha, id_persona, id_carga, estado, id_revision, interno, nombre_instancia) 
+		values (#id_nota#,#nota#,#fecha#,#id_persona#,#id_carga#,#estado#,#id_revision#, #interno#, #nombre_instancia#)
+	</insert>
+	
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_nota') as id from dual
+	</select>
+	
+	<select id="obtenerNota" resultClass="nota" parameterClass="java.lang.Integer">
+		select nt.*, per.nombre, per.apellido from dst_nota nt, dst_persona per 
+		where id_nota=#id_nota#
+		and per.id_persona=nt.id_persona
+		
+	</select>
+	
+</sqlMap>

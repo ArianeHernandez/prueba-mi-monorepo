@@ -1,0 +1,302 @@
+
+.area_cargas {
+	margin: 1px;
+	float:left;
+}
+
+
+/*--------- CONTEDOR GENERAL DE TODOS LOS ELEMENTOS DE LA CARGA-------------*/
+
+.carga {
+	position: relative;
+	display: block;
+	width: 300px;
+	height: 100px;
+	margin: 3px;
+	overflow: hidden;
+	float:left;
+}
+
+
+/* -----------------------------HEADER DE LA CARGA ------------------------ */
+
+.header_carga {
+	position: relative;
+	height: 15px;
+}
+
+.tiempo_carga {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: white;
+	font-size: 10px;
+	font-weight: bold;
+	text-indent: 5px;
+	width: 73px;
+	height: 15px;
+}
+.semaforo_verde {
+	background-image: url("../images/carga/estado_verde.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.semaforo_amarillo {
+	background-image: url("../images/carga/estado_amarillo.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.semaforo_rojo {
+	background-image: url("../images/carga/estado_rojo.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.semaforo_gris {
+	background-image: url("../images/carga/estado_gris.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+.fecha_carga {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	height: 15px;
+	text-align: right;
+	color: #006600;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+/*--------------------------------CUERPO DE LA CARGA -----------------------------*/
+
+.body_carga {
+	display: block;
+	position: relative;
+	background-color: #F7F7F7;
+	border: 1px solid #CCCCCC;
+	height: 80px;
+	width: 220px;
+	cursor:pointer;
+	
+}
+
+.body_carga:hover{
+	border: 1px solid #333;
+}
+
+.body_carga .tipo_carga_interactivo {
+	background-image: url("../images/carga/individual.png");
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.body_carga .tipo_carga_lotes {
+	background-image: url("../images/carga/masivo.png");
+	background-repeat: no-repeat;
+	background-position: 5px 5px;
+}
+
+.icono_carga {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+	width: 72px;
+	height: 80px;
+	border-right: 1px solid #CCCCCC;
+	z-index: 1;
+}
+
+.id_carga {
+	position: absolute;
+	top: 62px;
+	left: 0px;
+	height: 15px;
+	width: 72px;
+	text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	color: #999999;
+}
+
+
+/*----- info especifica de la carga */
+
+.cliente_carga {
+	position: absolute;
+	top: 0px;
+	left: 75px;
+	height: 15px;
+	width: 145px;
+	overflow: hidden;
+	font-size: 12px;
+	color: #000;
+	text-indent: 5px;
+}
+
+.valor_carga {
+	position: absolute;
+	top: 15px;
+	left: 75px;
+	height: 15px;
+	width: 145px;
+	overflow: hidden;
+	font-size: 12px;
+	color: #666;
+	text-indent: 5px;
+	font:"Times New Roman";
+}
+
+
+.instancia_carga {
+	position: absolute;
+	top: 35px;
+	left: 75px;
+	text-indent: 5px;
+	width: 145px;
+	text-align: left;
+	font-size: 10px;
+	height:15px;
+	color: #666;
+	overflow:hidden;
+
+	
+}
+
+.instancia_carga b{
+	font-size: 10px;
+	color: #006600;
+	
+	
+}
+
+/*-------- variables de liberacion */
+
+.area_variables_liberacion{
+	position: absolute;
+	top: 50px;
+	left: 75px;
+	width:145px;
+	height: 30px;
+	text-align: right;
+	overflow:auto;
+	overflow:auto;
+	
+}
+
+
+.variable_liberacion{
+	overflow:hidden;
+	width:145px;
+	height:15px;
+	text-indent: 5px;
+	text-align: left;
+	font-size: 10px;
+	color: #666;
+	
+}
+
+.variable_liberacion b{
+	font-size: 10px;
+	color: #006600;
+}
+
+
+
+/*-----------------------------------INFO FIRMA DIGITAL CARGA --------------------------*/
+
+.area_icono_documento_firmado{
+	position: absolute;
+	top: 31px;
+	left: 35px;
+	height: 21px;
+	width: 35px;
+	text-align: center;
+	font-size: 11px;
+	background-color: #F7F7F7;
+	
+}
+
+.area_icono_transaccion_firmada{
+	position: absolute;
+	top: 9px;
+	left: 35px;
+	height: 21px;
+	width: 35px;
+	text-align: center;
+	font-size: 11px;
+	background-color: #F7F7F7;
+	
+}
+
+
+.icono_documento_firmado{
+	background-image: url("../images/firma/doc_lock_mini.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+}
+
+.icono_transaccion_firmada{
+	background-image: url("../images/firma/process_lock_mini.png");
+	background-repeat: no-repeat;
+	background-position: center; center;
+	
+	
+}
+
+
+/*-------------------------------------ACCIONES DE LA CARGA ----------------------------*/
+
+.area_acciones{
+	position: absolute;
+	top: 15px;
+	left: 225px;
+	width:80px;
+	height: 85px;
+	text-align: right;
+	font-size: 6px;
+	overflow:auto;
+	background-color: #ffffff;
+	
+}
+
+.area_acciones *{
+	font: 8px/18px  "Trebuchet MS","Trebuchet MS",Arial,Helvetica,sans-serif !important;
+	
+}
+
+.accion_carga{
+	cursor:pointer;
+	overflow:hidden;
+	color: #000000;
+	border-bottom:dotted 1px #2E822E;
+	width:70px;
+	height:15px;
+	padding-left:4px;
+	
+	
+}
+
+.aprobar_carga{
+	color: #006600 !important;
+	
+}
+
+.rechazar_carga{
+	color: #990000 !important;
+	
+}
+
+.accion_carga:hover {
+	background-color: #BDBDBD;
+	color: #fff;
+}
+
+
+

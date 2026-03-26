@@ -1,0 +1,93 @@
+package com.osmosyscol.datasuite.near.webdata;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import co.htsoft.commons.util.SMessage;
+
+import com.osmosyscol.commons.log.SimpleLogger;
+import com.osmosyscol.datasuite.logica.pagos.AccionCarga;
+import com.osmosyscol.datasuite.mein.dtos.Deudor;
+import com.osmosyscol.datasuite.mein.dtos.RegimenInsolvencia;
+import com.osmosyscol.datasuite.mein.dtos.RepartoIntendencias;
+import com.osmosyscol.datasuite.mein.logica.constantes.Constantes;
+import com.osmosyscol.datasuite.mein.servicios.CalculoCategoriaTamanoServicio;
+import com.osmosyscol.datasuite.mein.servicios.RegimenInsolvenciaServicio;
+import com.osmosyscol.datasuite.utils.DS_SqlUtils;
+
+public class RepartoAutomaticoIntendenciasOtrosProcesos implements AccionCarga{
+	
+	@Override
+	public SMessage ejecutar(Integer id_carga) {
+		RegimenInsolvencia infoRegimenInsolvencia = null;
+		try {
+			infoRegimenInsolvencia = RegimenInsolvenciaServicio.getInstance()
+					.obtenerInfoRegimenInsolvenciaPorIdCarga(id_carga);
+			if (infoRegimenInsolvencia != null) {	
+				//obteniendo la categoria
+				String categoria = null; 
+				if (!Constantes.TIPO_SOLICITANTE_PNNC.equals(infoRegimenInsolvencia.getTipo_de_solicitante())) {
+					Integer tipo_solicitud = infoRegimenInsolvencia.getTipo_solicitud();
+					categoria = CalculoCategoriaTamanoServicio
+						.getInstance().calcularCatEmpresa(infoRegimenInsolvencia.getInfo_financiera_mensual().getActivos_mes_anterior(), tipo_solicitud );
+					// Guardar categoría en deudor
+					
+					DS_SqlUtils
+					.update("update $DEUDOR$ set $DEUDOR.CATEGORIA$ = $S("+categoria+")$ where ID = "
+							+ infoRegimenInsolvencia.getDeudorId());
+					
+				}
+				
+				//obteniendo al deudor
+				Deudor deudor = infoRegimenInsolvencia.getDeudor();
+				//obteniendo codigo dane del departamento
+				Integer codDane = deudor.getDepartamento().getCodigo_departamento();
+				
+				//obtener reparto de intendencias
+				String sql = "";
+				
+				
+				
+				
+				//validar categoria y codigo dane
+				if(categoria != null && !categoria.equals("A")){
+					sql = "SELECT * FROM $REPARTO DE INTENDENCIAS$  WHERE $REPARTO DE INTENDENCIAS.CATEGORIA$ = $S("+categoria+")$ AND $REPARTO DE INTENDENCIAS.CODIGO DANE DEPARTAMENTO$ = $I("+codDane+")$";
+				}else if(categoria != null && categoria.equals("A")){
+					codDane=11;//bogota
+					sql = "SELECT * FROM $REPARTO DE INTENDENCIAS$  WHERE $REPARTO DE INTENDENCIAS.CATEGORIA$ = $S("+categoria+")$ AND $REPARTO DE INTENDENCIAS.CODIGO DANE DEPARTAMENTO$ = $I("+codDane+")$";
+				} else{
+					sql = "SELECT * FROM $REPARTO PNNC$  WHERE $REPARTO PNNC.CODIGO DANE DEPARTAMENTO$ = $I("+codDane+")$";
+				}
+				
+				RepartoIntendencias reparto = DS_SqlUtils.queryForObject(RepartoIntendencias.class, sql);
+				
+				
+				//asignar reparto a estructura
+				DS_SqlUtils
+				.update("update $regimen de insolvencia$ set $regimen de insolvencia.intendencia regional$ = $I("+reparto.getIntendencia_asignada()+")$ where ID = "
+						+ infoRegimenInsolvencia.getId());
+				
+				DS_SqlUtils
+				.update("update $regimen de insolvencia$ set $regimen de insolvencia.dependencia$ = "+reparto.getApvista_dependencias()+" where ID = "
+						+ infoRegimenInsolvencia.getId());
+				
+				return new SMessage(true, "Ok");
+				
+			} else {
+				SimpleLogger.setError("No se encontró informacion de regimen de insolvencia para la carga " + id_carga);
+
+				return new SMessage(false, "");
+			}
+		} catch (Exception e) {
+			SimpleLogger.setError("Error en el reparto de intendencias:", e);
+
+			return new SMessage(false, "");
+		}
+	}
+
+	@Override
+	public Boolean visualizar(Integer id_carga, Integer id_administrativo) {
+		return true;
+	}	
+
+}

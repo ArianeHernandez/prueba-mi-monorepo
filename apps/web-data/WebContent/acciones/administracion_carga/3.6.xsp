@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:osm-session-request name="id_carga"/>
+    	<osm-utils:osm-session-request name="id_destino"/>
+    	
+    	<id_carga><xsp-session:get-attribute name="var.id_carga"/></id_carga>
+    	<id_destino><xsp-session:get-attribute name="var.id_destino"/></id_destino>
+    	
+    	<xscript:variable scope="request" name="INFO_DESTINO">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/webdata/carga/obtenerDestino.ser</osm-utils:src>
+	            <osm-utils:parameters>
+	                <osm-utils:parameter>
+	                    <osm-utils:name>"id_destino"</osm-utils:name>
+	                    <osm-utils:value><xsp-session:get-attribute name="var.id_destino"/></osm-utils:value>
+	                </osm-utils:parameter>
+	          	</osm-utils:parameters>
+	        </osm-utils:includexml>
+        </xscript:variable>
+    	
+    	<xscript:variable scope="request" name="INFO_URI">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/webdata/uri/obtenerUri.ser</osm-utils:src>
+	            <osm-utils:parameters>
+	                <osm-utils:parameter>
+	                    <osm-utils:name>"id_uri"</osm-utils:name>
+	                    <osm-utils:value>getXPathFromXScript("INFO_DESTINO","obtenerDestino/Destino/id_uri")</osm-utils:value>
+	                </osm-utils:parameter>
+	          	</osm-utils:parameters>
+	        </osm-utils:includexml>
+        </xscript:variable>
+    	
+    	<xscript:variable scope="request" name="INFO_IDEJECUCION">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/webdata/ejecucion/obtenerSiguienteID.ser</osm-utils:src>
+	        </osm-utils:includexml>
+        </xscript:variable>
+        
+        <osm-utils:includexml>
+    		<osm-utils:src>cocoon:/webdata/ejecucion/crearEjecucion.ser</osm-utils:src>
+            <osm-utils:parameters>
+            	<osm-utils:parameter>
+                    <osm-utils:name>"id_ejecucion"</osm-utils:name>
+                    <osm-utils:value>getXPathFromXScript("INFO_IDEJECUCION","obtenerSiguienteID/value")</osm-utils:value>
+                </osm-utils:parameter>
+            	<osm-utils:parameter>
+                    <osm-utils:name>"id_carga"</osm-utils:name>
+                    <osm-utils:value><xsp-session:get-attribute name="var.id_carga"/></osm-utils:value>
+                </osm-utils:parameter>
+            	<osm-utils:parameter>
+                    <osm-utils:name>"id_destino"</osm-utils:name>
+                    <osm-utils:value><xsp-session:get-attribute name="var.id_destino"/></osm-utils:value>
+                </osm-utils:parameter>
+                <osm-utils:parameter>
+                    <osm-utils:name>"estado"</osm-utils:name>
+                    <osm-utils:value>"NO INICIADO"</osm-utils:value>
+                </osm-utils:parameter>
+                <osm-utils:parameter>
+                    <osm-utils:name>"fecha_inicio"</osm-utils:name>
+                    <osm-utils:value>System.currentTimeMillis()</osm-utils:value>
+                </osm-utils:parameter>
+            	<osm-utils:parameter>
+                    <osm-utils:name>"fecha_final"</osm-utils:name>
+                    <osm-utils:value>System.currentTimeMillis()</osm-utils:value>
+                </osm-utils:parameter>
+                <osm-utils:parameter>
+                    <osm-utils:name>"login"</osm-utils:name>
+                    <osm-utils:value><xsp-session:get-attribute name="login"/></osm-utils:value>
+                </osm-utils:parameter>
+            </osm-utils:parameters>
+        </osm-utils:includexml>
+    	
+    	
+    	<xscript:variable scope="request" name="INFO_ENVIOCARGA">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/datasuite/ejecucion/enviarCargaSifi.ser</osm-utils:src>
+	            <osm-utils:parameters>
+	                <osm-utils:parameter>
+	                    <osm-utils:name>"endpoint"</osm-utils:name>
+	                    <osm-utils:value>getXPathFromXScript("INFO_URI","obtenerUri/Uri/endPoint")</osm-utils:value>
+	                </osm-utils:parameter>
+	            	<osm-utils:parameter>
+	                    <osm-utils:name>"id_carga"</osm-utils:name>
+	                    <osm-utils:value><xsp-session:get-attribute name="var.id_carga"/></osm-utils:value>
+	                </osm-utils:parameter>
+	            	<osm-utils:parameter>
+	                    <osm-utils:name>"id_ejecucion"</osm-utils:name>
+	                    <osm-utils:value>getXPathFromXScript("INFO_IDEJECUCION","obtenerSiguienteID/value")</osm-utils:value>
+	                </osm-utils:parameter>
+	          	</osm-utils:parameters>
+	        </osm-utils:includexml>
+       </xscript:variable>
+    	
+    	<xscript:get scope="request" name="INFO_ENVIOCARGA"/>
+    	
+    	<osm-utils:if-xscript name="INFO_ENVIOCARGA" test="enviarCarga/exito='true'">
+    		
+    		<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/ejecucion/crearEjecucion.ser</cinclude:src>
+	            <cinclude:parameters>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_ejecucion</cinclude:name>
+	                    <cinclude:value><xsp:expr>getXPathFromXScript("INFO_IDEJECUCION","obtenerSiguienteID/value")</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_carga</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_destino</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_destino"/></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>estado</cinclude:name>
+	                    <cinclude:value>EN PROCESO</cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>fecha_inicio</cinclude:name>
+	                    <cinclude:value><xsp:expr>System.currentTimeMillis()</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>login</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+	        
+	        <cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/estado/cambiarEstadoCargaEjecutada.ser</cinclude:src>
+	            <cinclude:parameters>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_carga</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+	                </cinclude:parameter>
+                </cinclude:parameters>
+            </cinclude:includexml>
+    		
+    	</osm-utils:if-xscript>
+    	
+    	<osm-utils:if-xscript name="INFO_ENVIOCARGA" test="not(enviarCarga/exito='true')">
+    		
+    		<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/ejecucion/crearEjecucion.ser</cinclude:src>
+	            <cinclude:parameters>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_ejecucion</cinclude:name>
+	                    <cinclude:value><xsp:expr>getXPathFromXScript("INFO_IDEJECUCION","obtenerSiguienteID/value")</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_carga</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_destino</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_destino"/></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>estado</cinclude:name>
+	                    <cinclude:value>NO INICIADO</cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>fecha_inicio</cinclude:name>
+	                    <cinclude:value><xsp:expr>System.currentTimeMillis()</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>fecha_final</cinclude:name>
+	                    <cinclude:value><xsp:expr>System.currentTimeMillis()</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>login</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="login"/></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+    	</osm-utils:if-xscript>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

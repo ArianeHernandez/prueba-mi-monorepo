@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsp:page 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+    xmlns:action="http://apache.org/cocoon/action/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+    xmlns:util="http://apache.org/xsp/util/2.0"
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"	
+>
+	
+<xsp:structure>
+	<xsp:include>com.osmosyscol.datapi.constantes.VariablesAplicacion</xsp:include>
+</xsp:structure>  
+
+<page>
+	
+    <xsp:logic>
+        if( VariablesAplicacion.getInstance().getListadoServicios() == null || VariablesAplicacion.getInstance().getListadoServicios().size() == 0 ) {
+            this.actionRedirector.redirect(false, request.getContextPath() + "/no-disponible");
+        }else{
+        	<action:set-success/>            
+        }
+        
+    </xsp:logic>
+</page>
+</xsp:page>

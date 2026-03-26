@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<!-- tiene archivo de validacion -->
+    	<osm-utils:get-request-attribute name="cargas"/>
+    	<osm-utils:get-request-attribute name="clientesPorCarga"/>
+    	<osm-utils:get-request-attribute name="instanciasPorAdministrativo"/>
+    	<osm-utils:get-request-attribute name="camposBandejaEntrada"/>
+    	<osm-utils:get-request-attribute name="formatoCamposCompletos"/>
+    	<osm-utils:get-request-attribute name="camposFiltroBandejaEntrada"/>
+    	<osm-utils:get-request-attribute name="mostrarPendientesAdministrativo"/>
+    	
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina"/></numeroPagina>
+    	<id_proceso_admin><xsp-session:get-attribute name="var.id_proceso_admin"/></id_proceso_admin>
+    	<id_administrativo><xsp-session:get-attribute name="id_administrativo"/></id_administrativo>
+    	
+    	
+    	<!-- parametros para ordenamiento y filtros para el listado de cargas-->
+    	<orden><xsp-session:get-attribute name="var.orden"/></orden>
+    	<tipo_orden><xsp-session:get-attribute name="var.tipo_orden"/></tipo_orden>
+    	<filtro_tipo_carga><xsp-session:get-attribute name="var.filtro_tipo_carga"/></filtro_tipo_carga>  
+		<filtro_instancia_carga><xsp-session:get-attribute name="var.filtro_instancia_carga"/></filtro_instancia_carga>
+    	<filtro_semaforo><xsp-session:get-attribute name="var.filtro_semaforo"/></filtro_semaforo>
+    	<filtro_cliente><xsp-session:get-attribute name="var.filtro_cliente"/></filtro_cliente>
+    	<filtro_orden_activo><xsp-session:get-attribute name="var.filtro_orden_activo"/></filtro_orden_activo>
+    	 
+    	 
+    	 <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/obtenerProcesoAdmin.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_proceso_admin</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_proceso_admin"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>    
+
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

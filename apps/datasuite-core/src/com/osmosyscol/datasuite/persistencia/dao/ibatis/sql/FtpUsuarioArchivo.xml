@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FtpUsuarioArchivo">
+
+	<typeAlias alias="ftpUsuarioArchivo" type="com.osmosyscol.datasuite.logica.dto.FtpUsuarioArchivo" />
+
+	
+	<insert id="insertarFtpUsuarioArchivo" parameterClass="ftpUsuarioArchivo">
+		insert into dst_ftp_usuario_archivo
+  			(id_ftp_usuario_archivo, fecha_cargue, estado, id_ftp_usuario, md5, duplicado, formato_invalido, datos_invalidos, nombre, id_carga, id_formato)
+		values
+  			(#id_ftp_usuario_archivo#, #fecha_cargue#, #estado#, #id_ftp_usuario#, #md5#, #duplicado#, #formato_invalido#, #datos_invalidos#, #nombre#, #id_carga#, #id_formato#)
+	</insert>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		 select nextvalue('dss_ftp_usuario_archivo') as id from dual
+	</select>	
+	
+	<select id="obtenerFtpUsuarioArchivo" parameterClass="java.lang.Integer" resultClass="ftpUsuarioArchivo">
+		select * from dst_ftp_usuario_archivo where id_ftp_usuario_archivo = #id_ftp_usuario_archivo#
+	</select>
+	
+	<select id="obtenerFtpUsuarioArchivoPorFtpUsuario" parameterClass="java.lang.Integer" resultClass="ftpUsuarioArchivo">
+		select * from dst_ftp_usuario_archivo where id_ftp_usuario = #id_ftp_usuario#
+	</select>
+	
+	<delete id="borrarFtpUsuarioArchivo" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario_archivo where id_ftp_usuario_archivo = #id_ftp_usuario_archivo#
+	</delete>
+	
+	<delete id="borrarFtpUsuarioPorFtpUsuarioArchivo" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario where id_ftp_usuario = #id_ftp_usuario#
+	</delete>
+	
+	<update id="actualizarFtpUsuarioArchivo" parameterClass="ftpUsuarioArchivo">
+		update dst_ftp_usuario_archivo set
+       		fecha_cargue = #fecha_cargue#,
+	       	estado = #estado#,
+	       	id_ftp_usuario = #id_ftp_usuario#,
+	       	md5 = #md5#,
+	       	duplicado = #duplicado#,
+	       	formato_invalido = #formato_invalido#,
+	       	datos_invalidos = #datos_invalidos#,
+	       	nombre = #nombre#,
+	       	id_carga = #id_carga#,
+	       	id_formato = #id_formato#
+ 		where id_ftp_usuario_archivo = #id_ftp_usuario_archivo#
+	</update>
+	
+	<update id="actualizarEstado" parameterClass="java.util.Map">
+		update dst_ftp_usuario_archivo set
+	       	estado = #estado#
+ 		where id_ftp_usuario_archivo = #id_ftp_usuario_archivo#
+	</update>
+	
+	<select id="obtenerDuplicados" parameterClass="java.util.Map" resultClass="ftpUsuarioArchivo">
+		select * from dst_ftp_usuario_archivo
+		where md5 = #md5#
+		and fecha_cargue > #fecha_cargue#
+	</select>
+	
+	<sql id="selectBuscarArchivos">
+		select * from dst_ftp_usuario_archivo fua
+		<isNotEmpty property="estado_carga">
+			join dst_carga c on fua.id_carga = c.id_carga
+		</isNotEmpty>
+			<dynamic prepend="where">
+				<isNotEmpty property="id_ftp_usuario_archivo" prepend="and">
+					fua.id_ftp_usuario_archivo = #id_ftp_usuario_archivo#
+				</isNotEmpty>
+				<isNotEmpty property="id_formato" prepend="and">
+					fua.id_formato = #id_formato#
+				</isNotEmpty>
+				<isNotEmpty property="fecha_inicial" prepend="and">
+					fua.fecha_cargue >= #fecha_inicial# 
+				</isNotEmpty>
+				<isNotEmpty property="fecha_final" prepend="and">
+					#fecha_final# >= fua.fecha_cargue
+			    </isNotEmpty>
+				<isNotEmpty property="id_carga" prepend="and">
+					fua.id_carga = #id_carga#
+				</isNotEmpty>
+				<isNotEmpty property="estado" prepend="and">
+					fua.estado  = #estado#
+				</isNotEmpty>
+				<isNotEmpty property="nombre" prepend="and">
+					fua.nombre = #nombre#
+				</isNotEmpty>
+				<isNotEmpty property="id_usuario" prepend="and">
+					fua.id_ftp_usuario IN
+						(select id_ftp_usuario from dst_ftp_usuario where id_usuario = #id_usuario#)
+				</isNotEmpty>
+				<isNotEmpty property="estado_carga" prepend="and">
+					c.estado = #estado_carga#
+				</isNotEmpty>
+			</dynamic>
+		order by fua.fecha_cargue desc
+	</sql>
+	
+	<select id="contarBusqArchivos" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (
+			<include refid="selectBuscarArchivos"/>
+		) t
+	</select>
+	
+	<select id="buscarArchivos" parameterClass="java.util.Map" resultClass="ftpUsuarioArchivo">
+		<include refid="selectBuscarArchivos"/>
+	</select>
+	
+</sqlMap>

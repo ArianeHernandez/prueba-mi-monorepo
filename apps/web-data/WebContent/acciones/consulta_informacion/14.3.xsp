@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+>
+    <OSM-ACCION>
+    	
+    	
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina"/></numeroPagina>
+    	
+    	<osm-utils:osm-session-request name="id_carga"/>
+    	
+    	<id_carga_seleccionada><xsp-session:get-attribute name="var.id_carga"/></id_carga_seleccionada>
+    	<ID_CARGA><xsp-session:get-attribute name="var.id_carga"/></ID_CARGA>
+    	
+    	<!---->
+    	
+    	<xscript:variable scope="request" name="INFO_FORMATO">
+    		<osm-utils:includexml>
+	    		<osm-utils:src>cocoon:/webdata/formato/obtenerFormato.ser</osm-utils:src>
+	            <osm-utils:parameters>
+	                <osm-utils:parameter>
+	                    <osm-utils:name>"id_formato"</osm-utils:name>
+	                    <osm-utils:value><xsp-session:get-attribute name="var.id_formato_salida"/></osm-utils:value>
+	                </osm-utils:parameter>
+	          	</osm-utils:parameters>
+	        </osm-utils:includexml>
+        </xscript:variable>
+    	
+    	<xscript:get scope="request" name="INFO_FORMATO"/>
+    	
+    	<xsp:logic>
+	    	session.setAttribute("var.id_carga_simple_detalle", session.getAttribute("var.id_carga"));
+    		session.setAttribute("var.id_formato_salida_simple_detalle",  session.getAttribute("var.id_formato_salida") );
+    	</xsp:logic>
+    	
+    	<FORMATO_SALIDA_SIMPLE_DETALLE><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></FORMATO_SALIDA_SIMPLE_DETALLE>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerSubFormatosPorFamilia.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato_padre</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerCarga.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<MEDIO-HTML><osm-utils:get-xpath-from-xscript name="INFO_FORMATO" select="obtenerFormato/Formato/medio_formulario"/></MEDIO-HTML>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerFormatosImpresion.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ParametroReporte">
+
+	<typeAlias alias="ParametroReporte"      type="com.osmosyscol.datasuite.reportedim.dto.ParametroReporte" />
+	
+		<resultMap id="filtro" class="ParametroReporte">
+            <result property="filtro" column="filtro"
+                    typeHandler="com.osmosyscol.datasuite.persistencia.dao.ibatis.typehandlers.StringBooleanTypeHandler" />
+            <result property="id_parametro" column="id_parametro" />
+            <result property="nombre" column="nombre" />
+            <result property="tipo" column="tipo" />
+            <result property="encriptado" column="encriptado" />
+            <result property="titulo" column="titulo" />
+            <result property="orden" column="orden" />
+            <result property="id_reporte" column="id_reporte" />
+      </resultMap>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerParametroReporte" resultClass="ParametroReporte" parameterClass="java.lang.Integer" resultMap="filtro">
+		select *
+		from DST_REP_PARAMETRO_REPORTE
+		where id_parametro=#id_parametro#
+	</select>
+	
+	<select id="totalParametrosReporte" resultClass="java.lang.Integer" >
+		select count(*) from DST_REP_PARAMETRO_REPORTE
+	</select>
+	
+	<select id="obtenerSiguienteParametroReporteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_rep_parametro_reporte')  from dual
+	</select>
+	
+	<insert id="crearParametroReporte" parameterClass="java.util.Map">
+		insert into DST_REP_PARAMETRO_REPORTE (id_parametro,nombre,tipo,encriptado,filtro,titulo,orden,id_reporte)
+		values (#id_parametro#, #nombre#,#tipo#,#encriptado#,#filtro#,#titulo#,#orden#,#id_reporte#)
+	</insert>
+	
+	<update id="actualizarParametroReporte" parameterClass="ParametroReporte">
+		update DST_REP_PARAMETRO_REPORTE
+		set nombre=#nombre#, tipo=#tipo#, encriptado=#encriptado#, filtro=#filtro#, id_reporte=#id_reporte#, titulo=#titulo#, orden=#orden#
+		where id_parametro=#id_parametro#
+	</update>
+	
+	<delete id="eliminarParametroReporte" parameterClass="java.lang.Integer">
+		delete from DST_REP_PARAMETRO_REPORTE
+		where id_parametro = #id_parametro#
+	</delete>	
+	
+	<select id="obtenerParametrosByReporte" parameterClass="java.lang.String" resultClass="ParametroReporte" resultMap="filtro">
+		select *
+		from DST_REP_PARAMETRO_REPORTE
+		where id_reporte=#id_reporte#
+	</select>
+	
+</sqlMap>

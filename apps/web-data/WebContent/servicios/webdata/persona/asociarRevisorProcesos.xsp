@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<asociarRevisorProcesos>
+   		
+   		<osm-utils:servicio-java>
+   			<name>guardarProcesoRol</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.ProcesoServicio</service>
+   			<operation>asociarRevisorProcesos</operation>
+   			<parameters>
+   				<parameter>TipoProcesoRol</parameter>
+   				<parameter>id_usuario</parameter>
+   				<parameter>identificacion</parameter>
+   				<parameter>tipoDocumento</parameter>
+   				<parameter>rol</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</asociarRevisorProcesos>
+
+
+</xsp:page>

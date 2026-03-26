@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Revisor">
+
+	<typeAlias alias="revisor" type="com.osmosyscol.datasuite.logica.dto.Revisor" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+	
+	<select id="obtenerRevisores" parameterClass="java.util.Map" resultClass="revisor">
+		select * from dsv_revisor P where P.id_usuario = #id_usuario#
+			<isNotNull>
+				and exists( select 1 from DST_REVISOR_TIPO_PROCESO q where q.id_tipo_proceso = #id_tipo_proceso# and q.id_revisor = p.id_revisor) 
+				order by nombre asc	
+			</isNotNull>
+		
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+	
+	<insert id="asociarRevisor" parameterClass="java.util.Map">
+		INSERT INTO dst_revision_revisor(id_revision, id_revisor) 
+   		VALUES(#id_revision#, #id_revisor#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+
+	<delete id="desasociarRevisor" parameterClass="java.util.Map">
+		delete from dst_revision_revisor where id_revisor = #id_revisor# and id_revision = #id_revision#
+	</delete>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+	
+	<select id="obtenerRevisoresPorRevision" parameterClass="java.lang.Integer" resultClass="revisor">
+		select r.* from dsv_revisor r, dst_revision_revisor rr 
+		where r.id_revisor=rr.id_revisor
+		and rr.id_revision=#id_revision#
+	</select>
+	
+	<update id="guardarTipoRevisor" parameterClass="java.util.Map">
+		UPDATE dst_revisor
+		SET id_tipo_revisor = #id_tipo_revisor# 
+		where id_usuario = #id_usuario# 
+		and id_persona = #id_persona#
+	</update>
+
+</sqlMap>

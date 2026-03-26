@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+
+    	<osm-utils:get-all-request-attributes />
+    	<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/formato/obtenerFormatosPorTipo.ser
+			</cinclude:src>
+			<cinclude:parameters>
+				<cinclude:parameter>
+					<cinclude:name>tipo_formato</cinclude:name>
+					<cinclude:value>E</cinclude:value>
+				</cinclude:parameter>
+			</cinclude:parameters>
+		</cinclude:includexml>
+		<cinclude:includexml>
+			<cinclude:src>cocoon:/webdata/rol/obtenerRolesAdministrativo.ser</cinclude:src>
+	        <cinclude:parameters>
+	            <cinclude:parameter>
+	                <cinclude:name>id_administrativo</cinclude:name>
+	                <cinclude:value><xsp-request:get-parameter name="id"/></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+	    </cinclude:includexml>
+		<cinclude:includexml>
+			<cinclude:src>cocoon:/datasuite/negocio/obtenerListadoNegociosActivos.ser
+			</cinclude:src>
+		</cinclude:includexml>
+		
+		<ESTADOS>
+			<estado id="S"/>
+			<estado id="A"/>
+			<estado id="R"/>
+			<estado id="C"/>
+		</ESTADOS>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

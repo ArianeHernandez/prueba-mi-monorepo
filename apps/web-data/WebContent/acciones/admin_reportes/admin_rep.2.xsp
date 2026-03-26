@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<REPORTE_ID><xsp-request:get-parameter name="id_reporte"/></REPORTE_ID>
+    	
+    	<!-- - - - - - - - - - - Pestaña Informacion Básica - - - - - - - - - - - - - -->
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/listavalores/obtenerConexiones.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/reporte/reportesDB.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

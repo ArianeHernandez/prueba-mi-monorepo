@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerFormatosProceso>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.FormatoServicio</service>
+   			<operation>obtenerFormatosProceso</operation>
+   			<parameters>
+   				<parameter>id_proceso</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerFormatosProceso>
+
+
+</xsp:page>

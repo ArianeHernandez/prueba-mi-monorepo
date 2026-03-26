@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:osm-session-request name="id_carga"/>
+    	<id_carga_seleccionada><xsp-session:get-attribute name="var.id_carga"/></id_carga_seleccionada>
+    	<osm-utils:osm-session-request name="id_formato"/>
+    	<osm-utils:osm-session-request name="id_formato_salida"/>
+    	
+    	<osm-utils:osm-session-request name="_numeropagina" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina"/></numeroPagina>
+    	
+    	<osm-utils:exist-parameter name="_numeropagina">
+    		<ver_detalle/>
+    	</osm-utils:exist-parameter>
+    	    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerFormato.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato_salida"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/persona/obtenerPersona.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_persona"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerCarga.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	 <cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerCargasSimilaresCliente.ser</cinclude:src>
+            <cinclude:parameters> 
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato_salida</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato_salida"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<xsp:logic>
+	    	session.setAttribute("var.id_carga_simple_detalle", session.getAttribute("var.id_carga"));
+    		session.setAttribute("var.id_formato_salida_simple_detalle", session.getAttribute("var.id_formato_salida") );
+    	</xsp:logic>
+    	
+    	<FORMATO_SALIDA_SIMPLE_DETALLE><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></FORMATO_SALIDA_SIMPLE_DETALLE>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerSubFormatosPorFamilia.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato_padre</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato_salida_simple_detalle"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+        
+    </OSM-ACCION>
+	
+</xsp:page>

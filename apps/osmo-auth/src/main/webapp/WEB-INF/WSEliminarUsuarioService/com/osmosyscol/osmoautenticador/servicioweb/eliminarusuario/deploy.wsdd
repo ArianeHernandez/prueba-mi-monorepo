@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WSEliminarUsuarioService WSDL service -->
+
+  <service name="WSEliminarUsuario" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServiceElement" value="WSEliminarUsuarioService"/>
+      <parameter name="schemaQualified" value="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServicePort" value="WSEliminarUsuario"/>
+      <parameter name="className" value="com.osmosyscol.osmoautenticador.servicioweb.eliminarusuario.WSEliminarUsuario"/>
+      <parameter name="wsdlPortType" value="WSEliminarUsuario"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:retNS="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:rtns="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com" name="eliminarUsuario" qname="operNS:eliminarUsuario" returnQName="retNS:eliminarUsuarioReturn" returnType="rtns:RespuestaEliminarUsuario" soapAction="">
+        <parameter xmlns:pns="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:login" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="eliminarUsuario"/>
+
+      <typeMapping xmlns:ns="http://eliminarusuario.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:RespuestaEliminarUsuario" type="java:com.osmosyscol.osmoautenticador.servicioweb.eliminarusuario.RespuestaEliminarUsuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

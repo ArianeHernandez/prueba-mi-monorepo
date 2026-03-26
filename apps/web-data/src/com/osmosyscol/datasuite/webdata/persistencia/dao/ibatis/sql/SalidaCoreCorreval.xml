@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SalidaCoreCorreval">
+
+	<typeAlias alias="carga" type="com.osmosyscol.datasuite.webdata.logica.dto.Carga"/>
+	<typeAlias alias="elementocarga" type="com.osmosyscol.datasuite.webdata.logica.dto.ElementoCarga"/>
+	<typeAlias alias="formatodato" type="com.osmosyscol.datasuite.webdata.logica.dto.FormatoDato"/>
+	<typeAlias alias="parametros" type="com.osmosyscol.datasuite.webdata.logica.dto.ParametrosBusqCargas"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="selectSQL" parameterClass="java.lang.String" resultClass="java.util.HashMap" remapResults="true">
+		$sql$
+
+	</select>
+	
+
+	<select id="obtenerSiguienteIDArchivoSalidaCore" resultClass="java.lang.Integer">
+		select nextvalue('sst') from dual
+
+	</select>
+	
+	
+	<select id="obtenerTotalArchivosDescargadosPorTipoArchivo" resultClass="java.lang.Integer">
+		$sql$
+
+	</select>
+	
+	
+	
+	<select id="obtenerTiposArchivoSalidaCorreval" parameterClass="java.lang.String" resultClass="java.lang.String" >
+		select distinct c2140 from t1600 
+		
+	</select>
+	
+	<insert id="insertSQL" parameterClass="java.lang.String">
+		$sql$
+	</insert> 
+	
+	<update id="updateSQL" parameterClass="java.lang.String">
+		$sql$
+	</update> 
+	
+	<select id="selectNumero" resultClass="java.lang.Integer">
+		$sql$
+
+	</select>	
+
+</sqlMap>

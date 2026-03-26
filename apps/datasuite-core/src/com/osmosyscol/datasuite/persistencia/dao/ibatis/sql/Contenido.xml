@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Contenido">
+
+	<typeAlias alias="contenido"      type="com.osmosyscol.datasuite.logica.dto.Contenido" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerContenido" resultClass="contenido" parameterClass="java.util.Map">
+		select * from dst_contenido where url=#url# and etiqueta=#etiqueta#
+	</select>
+	
+	<select id="obtenerContenidosByURL" resultClass="contenido" parameterClass="java.lang.String">
+		select * from dst_contenido where url=#url#
+		order by url, etiqueta
+	</select>
+	
+	<select id="obtenerTodosLosContenidos" resultClass="contenido" >
+		select c.* from dst_contenido c
+		order by url, etiqueta
+	</select>
+	
+	<select id="obtenerTotalTodosLosContenidos" resultClass="java.lang.Integer" >
+		select count(1) from dst_contenido c
+	</select>
+	
+	<select id="obtenerContenidoPorID"  parameterClass="java.lang.Integer" resultClass="contenido" >
+		select * from dst_contenido 
+		where id_contenido = #id_contenido#
+	</select>
+	
+	<update id="actualizarTextoContenido" parameterClass="contenido">
+		update dst_contenido
+		set texto = #texto#
+		where id_contenido = #id_contenido#
+	</update>
+	
+	<select id="obtenerTodosLosNombreServicio" resultClass="java.lang.String" >
+		select distinct nombre_servicio from dst_contenido c
+		order by nombre_servicio
+	</select>
+	
+	<select id="obtenerContenidosPorServicio"  parameterClass="java.lang.String" resultClass="contenido" >
+		select * from dst_contenido c
+		where nombre_servicio = #nombre_servicio#
+		order by url, etiqueta
+	</select>
+	
+	
+</sqlMap>

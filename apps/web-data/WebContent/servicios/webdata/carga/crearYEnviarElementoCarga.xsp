@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearYEnviarElementoCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>crearYEnviarElementoCarga</operation>
+   			<parameters>
+   				<parameter>id_persona</parameter>
+   				<parameter>id_elemento_carga</parameter>
+   				<parameter>id_carga</parameter>
+   				<parameter>FormatoDato</parameter>
+   				<parameter>id_negocio</parameter>
+   				<parameter>session</parameter>
+   				<parameter>listaValoresDinamicos</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</crearYEnviarElementoCarga>
+
+</xsp:page>

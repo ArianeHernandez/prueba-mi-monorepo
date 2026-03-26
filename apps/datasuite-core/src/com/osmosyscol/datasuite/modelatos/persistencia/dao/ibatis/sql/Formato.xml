@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Formato">
+
+	<typeAlias alias="persona"  type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	<typeAlias alias="formato"  type="com.osmosyscol.datasuite.modelatos.logica.dto.Formato"/>
+	<typeAlias alias="formatonegocio"  type="com.osmosyscol.datasuite.modelatos.logica.dto.FormatoNegocio"/>
+	<typeAlias alias="formatocampo"  type="com.osmosyscol.datasuite.modelatos.logica.dto.FormatoCampo"/>
+	<typeAlias alias="operacion"  type="com.osmosyscol.datasuite.modelatos.logica.dto.Operacion"/>
+	<typeAlias alias="excepcionFormato"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ExcepcionFormatoCliente"/>
+	<typeAlias alias="grupoFormato"  type="com.osmosyscol.datasuite.modelatos.logica.dto.GrupoFormato"/>
+	<typeAlias alias="subformatos"  type="com.osmosyscol.datasuite.modelatos.logica.dto.GrupoFormato"/>
+	<typeAlias alias="formatoestilo"  type="com.osmosyscol.datasuite.modelatos.logica.dto.FormatoEstilo"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerFormatoNegocioPorNegocio" resultClass="formatonegocio" parameterClass="java.lang.Integer">
+		select * from dst_formato_negocio where id_negocio = #id_negocio#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerFormatosPorModelo" resultClass="formato" parameterClass="java.util.Map">
+			select distinct ff.* 
+	    	from dst_formato ff
+			where ff.id_modelo = #id_modelo#
+			and ff.estado != 'E'
+			order by ff.nombre
+	</select>
+	
+	
+	<sql id="FormatosPorModeloFiltro">
+	select distinct ff.* 
+	    	from dst_formato ff
+			where ff.id_modelo = #id_modelo#
+			and ff.estado != 'E'
+			<isNotEmpty property="filtro" prepend="and">
+				lower(ff.nombre) like '%' || lower(#filtro#) || '%'
+			</isNotEmpty>
+	</sql>
+	<select id="obtenerFormatosPorModeloFiltro" resultClass="formato" parameterClass="java.util.Map">
+		<include refid="FormatosPorModeloFiltro"/>			
+			order by ff.nombre
+	</select>
+	<select id="totalFormatosPorModeloFiltro" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+		from (<include refid="FormatosPorModeloFiltro"/>) DD
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="totalFormatosPorModelo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) as cantidad  
+    	from (
+    		select distinct ff.* 
+	    	from dst_formato ff
+			where ff.id_modelo = #id_modelo#
+			and ff.estado != 'E'
+    	) DD
+	</select>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerFormato" resultClass="formato" parameterClass="formato">
+		select * from dst_formato
+    	where id_formato = #id_formato#
+    	and estado != 'E'
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="siguienteId" resultClass="java.lang.Integer" >
+		select nextvalue('DSS_FORMATO') as id from dual
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="insertarFormato" parameterClass="formato">
+		insert into dst_formato 
+		(
+			id_formato, id_modelo, id_estructura, nombre, descripcion, tipoformato, registrosporcarga, medio_formulario, 
+			medio_excel, medio_csv, medio_webservice, medio_pdf, control_usuario, activo, endpoint, prog_liberacion, rechaza_registro, 
+			autorizacion_automatica, cargas_relacionadas, idformato_carga_relacionada, diasvigencia_carga_relacionada, id_horario, horario_estricto, 
+			aplicar_automatico, archivos_adjuntos_posteriores, id_campo_totalizador, tiempo_validacion_preparacion, tiempo_validacion_liberacion, 
+			id_grupoformato, mensaje_liberacion, para_liberador, para_director, idformato_salida, id_componente, valortramite, endpoint_validacion, alerta_html, 
+			pie_html, encabezado_html, usa_archivos_adjuntos, usa_adjuntos_formulario, validar_formato_menu, seccion_adjuntos_reporte, info_adjuntos_reporte,
+			extensiones_adjuntos_reporte, limite_adjuntos_reporte, titulo_seccion_adjuntos_reporte, ayuda_adjuntos_reporte
+		) 
+    	values(
+	    	#id_formato#, #id_modelo#, #id_estructura#, #nombre#, #descripcion#, #tipoformato#, #registrosporcarga#, #medio_formulario#,
+	    	 #medio_excel#, #medio_csv#, #medio_webservice#, #medio_pdf#, #control_usuario#, #activo#, #endPoint#, #prog_liberacion# ,
+	    	 #rechaza_registro#, #autorizacion_automatica#, #cargas_relacionadas#, #idformato_carga_relacionada#, #diasvigencia_carga_relacionada#, #id_horario#, #horario_estricto#,
+	    	 #aplicar_automatico#, #archivos_adjuntos_posteriores#, #id_campo_totalizador#, #tiempo_validacion_preparacion#, #tiempo_validacion_liberacion#, #id_grupoformato#, 
+	    	 #mensaje_liberacion#, #para_liberador#, #para_director#, #idformato_salida#, #id_componente#, #valortramite#, #endpoint_validacion#, #alerta_html#, #pie_html#, 
+	    	 #encabezado_html#, #usa_archivos_adjuntos#, #usa_adjuntos_formulario#, #validar_formato_menu#, #seccion_adjuntos_reporte#, #info_adjuntos_reporte#, 
+	    	 #extensiones_adjuntos_reporte#, #limite_adjuntos_reporte#, #titulo_seccion_adjuntos_reporte#, #ayuda_adjuntos_reporte#
+    	 )
+	</insert>
+	
+	
+	<update id="actualizarFormato" parameterClass="formato">
+		update dst_formato 
+    	set 
+    	id_modelo=#id_modelo#, id_estructura=#id_estructura#, nombre=#nombre#, descripcion=#descripcion#, 
+    	tipoformato=#tipoformato#, registrosporcarga=#registrosporcarga#, medio_formulario=#medio_formulario#, 
+    	medio_excel=#medio_excel#, medio_csv=#medio_csv#, medio_webservice=#medio_webservice#, medio_pdf=#medio_pdf#, 
+    	control_usuario=#control_usuario#, activo=#activo# , endPoint=#endPoint#, prog_liberacion=#prog_liberacion#,
+		rechaza_registro = #rechaza_registro#, autorizacion_automatica=#autorizacion_automatica#, cargas_relacionadas=#cargas_relacionadas#,
+		idformato_carga_relacionada=#idformato_carga_relacionada#, diasvigencia_carga_relacionada=#diasvigencia_carga_relacionada#, id_horario = #id_horario#,
+		horario_estricto = #horario_estricto#, aplicar_automatico = #aplicar_automatico# , 
+		archivos_adjuntos_posteriores=#archivos_adjuntos_posteriores#, id_campo_totalizador =#id_campo_totalizador#,
+		tiempo_validacion_preparacion=#tiempo_validacion_preparacion#, tiempo_validacion_liberacion=#tiempo_validacion_liberacion#,
+    	id_grupoformato=#id_grupoformato#, mensaje_liberacion = #mensaje_liberacion#, para_liberador=#para_liberador#, para_director=#para_director#, idformato_salida = #idformato_salida#, 
+    	id_componente = #id_componente#, valortramite = #valortramite#, endpoint_validacion = #endpoint_validacion#, alerta_html = #alerta_html#, pie_html = #pie_html#, 
+    	encabezado_html = #encabezado_html#, usa_archivos_adjuntos = #usa_archivos_adjuntos#, usa_adjuntos_formulario = #usa_adjuntos_formulario#, 
+    	validar_formato_menu = #validar_formato_menu#, seccion_adjuntos_reporte = #seccion_adjuntos_reporte#, info_adjuntos_reporte = #info_adjuntos_reporte#,
+		extensiones_adjuntos_reporte = #extensiones_adjuntos_reporte#, limite_adjuntos_reporte = #limite_adjuntos_reporte#, titulo_seccion_adjuntos_reporte = #titulo_seccion_adjuntos_reporte#, 
+		ayuda_adjuntos_reporte = #ayuda_adjuntos_reporte#
+		where 
+		id_formato=#id_formato#
+    	and estado != 'E'
+	</update>
+	
+	<select id="siguienteIdFormatoCampo" resultClass="java.lang.Integer" >
+		select nextvalue('DSS_FORMATO_CAMPO') as id from dual
+	</select>
+	
+	<delete id="eliminarFormatoDato">
+		delete from dst_formatodato
+	</delete>
+	
+	<delete id="eliminarFormatoDatoPorFormato" parameterClass="formato">
+		delete from dst_formatodato
+		where id_formato_campo in 	
+			(select id_formato_campo from dst_formato_campo fc
+				where fc.id_formato = #id_formato# )
+	</delete>
+	
+	<delete id="eliminarFormatoCampo" parameterClass="formato">
+		delete from DST_FORMATO_CAMPO where id_formato = #id_formato#
+	</delete>
+	
+	<insert id="insertarFormatoCampo" parameterClass="formatocampo">
+		insert into dst_formato_campo(id_formato_campo, id_formato, id_campo, titulo, tipo_ingreso, valor_constante, id_variable, id_formato_campo_padre,
+		 id_operacion, estructura_padre, id_estructura, seleccion_campo, seleccion_visualizacion,
+			 precarga, condicional, valor_condicion, id_lista_dinamica, condicion_precarga, valor_sesion, obligatorio, patron_dependiente,
+			 obligatorio_valor_campo, campo_obligatoriedad, lista_dinamica_obligatoriedad,
+			 ocultable_valor_campo, ocultable_campo, lista_dinamica_ocultable,
+			 validacion_campo_lista, campo_validacion, lista_dinamica_validacion, ayuda, mensaje_validacion,
+			 formato, titulo_html, usa_titulo_html, validacion_servicio, endpoint_validacion, bandeja_entrada, orden_bandeja_entrada, filtro_bandeja_entrada, 
+			 visualizar_valor_sesion, visualizar_valor_constante, lista_dinamica_valor_inicial, mensaje_campo_padre, bloqueado
+			 ) 
+    	values(#id_formato_campo#, #id_formato#, #id_campo#, #titulo#, #tipo_ingreso#, #valor_constante#, #id_variable#, #id_formato_campo_padre#,
+    	 #id_operacion#, #estructura_padre#, #id_estructura#, #seleccion_campo#, #seleccion_visualizacion#, 
+    		#precarga#, #condicional#, #valor_condicion#, #id_lista_dinamica#, #condicion_precarga#, #valor_sesion#, #obligatorio#, #patron_dependiente#,
+    		#obligatorio_valor_campo#, #campo_obligatoriedad#, #lista_dinamica_obligatoriedad#,
+    		#ocultable_valor_campo#, #ocultable_campo#, #lista_dinamica_ocultable#,
+    		#validacion_campo_lista#, #campo_validacion#, #lista_dinamica_validacion#, #ayuda#, #mensaje_validacion#,
+    		#formato#, #titulo_html#, #usa_titulo_html#, #validacion_servicio#, #endpoint_validacion#, #bandeja_entrada#, #orden_bandeja_entrada#, #filtro_bandeja_entrada#, 
+    		#visualizar_valor_sesion#, #visualizar_valor_constante#, #lista_dinamica_valor_inicial#, #mensaje_campo_padre#, #bloqueado#
+    		)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerFormatosCampoPorEstructura" parameterClass="java.util.Map" resultClass="formatocampo">
+	
+		select fc.* from dst_formato_campo fc, dst_campo cc 
+			where fc.id_campo = cc.id_campo
+			and cc.id_estructura = #id_estructura#
+			and fc.id_formato = #id_formato_salida#
+		order by cc.orden
+	
+	</select>
+	
+	<select id="obtenerFormatosCampoPorFormato" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select * 
+		from DST_FORMATO_CAMPO 
+		where ID_FORMATO=#id_formato# and ID_FORMATO_CAMPO_PADRE is null
+	</select>
+	
+	<select id="obtenerFormatosCampoPorPadre" parameterClass="formatocampo" resultClass="formatocampo">
+	    select * from (
+			select distinct fc.* , (select cc.orden from dst_campo cc where cc.id_campo = fc.id_campo) as campo_orden
+			from dst_formato_campo fc 
+			where fc.id_formato=#id_formato#
+			and fc.id_formato_campo_padre=#id_formato_campo#
+		) dd
+		order by dd.campo_orden
+	</select>
+	
+	<select id="obtenerFormatosCampoPorPadreSinVacios" parameterClass="formatocampo" resultClass="formatocampo">
+	    select * from (
+			select distinct fc.* , (select cc.orden from dst_campo cc where cc.id_campo = fc.id_campo) as campo_orden
+			from dst_formato_campo fc 
+			where fc.id_formato=#id_formato#
+			and fc.id_formato_campo_padre=#id_formato_campo#
+			and fc.tipo_ingreso != 10
+		) dd
+		order by dd.campo_orden
+	</select>
+	
+	<select id="obtenerFormatosCampoHojaPorFormato" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select fc.* from DST_FORMATO_CAMPO fc 
+		where fc.ID_FORMATO_CAMPO in (select distinct ffc.ID_FORMATO_CAMPO_PADRE from DST_FORMATO_CAMPO ffc)
+		and fc.ID_FORMATO = #id_formato#
+	</select>
+	
+	<select id="obtenerFormatosCampoRaizPorEstructura" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select fc.* from dst_formato f, dst_formato_campo fc
+		where f.id_estructura = #id_estructura#
+		and fc.id_formato = f.id_formato
+		and fc.id_campo is null
+
+	</select>
+	
+	<select id="obtenerFormatosCampoTipoEstructuraConHijosPorEstructura" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select formato_campo.* from (select padre.id_estructura , padre.id_formato, padre.id_formato_campo, hijo.id_formato_campo_padre, count(hijo.id_formato_campo_padre) hijos   from dst_formato_campo padre, dst_formato_campo hijo
+                                                                    where padre.id_estructura = #id_estructura#
+                                                                    and hijo.id_formato_campo_padre = padre.id_formato_campo 
+                                                                    group by padre.id_estructura, padre.id_formato, padre.id_formato_campo, hijo.id_formato_campo_padre 
+                                                                    having count(hijo.id_formato_campo_padre)>0) n, dst_formato_campo formato_campo 
+		where formato_campo.id_formato_campo = n.id_formato_campo
+	</select>
+	
+	<select id="totalFormatoCampoPorIDCampo" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from dst_formato_campo
+		where id_campo = #id_campo#
+	</select>
+	
+	
+	<select id="obtenerFormatosCampoPorCampo" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select padre.* from dst_formato_campo padre
+		where padre.id_campo = #id_campo#
+	</select> 
+	
+	<select id="obtenerFormatosCampoPorID" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select * from dst_formato_campo
+		where id_formato_campo = #id_formato_campo#
+	</select> 
+	
+	<select id="obtenerFormatosCampoHijoPorFormatoCampoPadre" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select hijo.* from dst_formato_campo padre, dst_formato_campo hijo
+		where padre.id_formato_campo = #id_formato_campo_padre# 
+		and hijo.id_formato_campo_padre = padre.id_formato_campo
+	</select> 
+	
+	
+	<delete id="eliminarFormatoCampoPorID" parameterClass="java.lang.Integer">
+		delete from dst_formato_campo
+		where id_formato_campo = #id_formato_campo#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerOperacionesControl" resultClass="operacion">
+		select * from DST_OPERACION
+		where CONTROL_CARGA_MASIVA = 'S'
+	</select>
+	
+	<select id="obtenerOperacionesCampoAct" resultClass="operacion">
+		select * from DST_OPERACION
+		where CONTROL_CAMPO_ACTUALIZABLE = 'S'
+	</select>
+
+	<select id="obtenerOperacionId" parameterClass="java.lang.Integer" resultClass="operacion">
+		select * from DST_OPERACION 
+		where id_operacion = #id_operacion#
+	</select>
+	
+	<select id="obtenerFormatosCamposOperacion" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select * from DST_FORMATO_CAMPO where ID_FORMATO=#id_formato# and id_operacion is not null
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerFormatosPorEstructura" parameterClass="java.lang.Integer" resultClass="formato">
+		select distinct fto.* 
+		from dst_formato_campo fcm, dst_campo cmp, dst_formato fto
+		where cmp.id_estructura = #id_estructura# and fcm.id_campo = cmp.id_campo and fcm.id_formato = fto.id_formato
+		and fto.estado != 'E'
+	</select>
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="eliminarFormato" parameterClass="java.lang.Integer">
+		update dst_formato set estado = 'E' where id_formato = #id_formato#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<sql id="sqlFormatosClienteActivo">
+		select fm.* from dst_formato fm, dst_negocio neg, dst_formato_negocio fn, dst_usuario_negocio un , dst_usuario us
+			where neg.id_negocio = #id_negocio#
+			and us.id_persona = #id_persona#
+			and un.id_usuario = us.id_usuario
+			and fm.id_modelo = neg.id_modelo
+			and fm.tipoformato = 'E'
+			and fm.id_formato = fn.id_formato
+			and neg.id_negocio = fn.id_negocio
+			and neg.id_negocio = un.id_negocio
+			and fm.estado != 'E'
+	</sql>
+	<select id="obtenerFormatosClienteActivo" resultClass="formato" parameterClass="java.util.Map">
+			<include refid="sqlFormatosClienteActivo"/>
+			order by fm.nombre
+	</select>
+	
+	<select id="totalFormatosClienteActivo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) as cantidad
+    	from (<include refid="sqlFormatosClienteActivo"/>) DD
+	</select>
+	
+	
+	<select id="obtenerFormatosPorNegocio" resultClass="formato" parameterClass="java.lang.Integer">
+			select f.* 
+			from dst_formato f where f.id_formato in 
+			(select ff.id_formato 
+			from dst_formato_negocio fn, dst_formato ff, dst_negocio nn 
+			where fn.id_formato = ff.id_formato 
+			and fn.id_negocio = #id_negocio# 
+			and nn.id_negocio = fn.id_negocio 
+			and nn.activo = 'S' 
+			and ff.estado != 'E' ) 
+			order by f.nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerFormatosPorTipoFormato" resultClass="formato" parameterClass="java.lang.String">
+		select ff.* 
+	        from  dst_formato ff
+	    where ff.tipoformato = #tipoformato#
+	    and activo = 'S'
+	    and estado != 'E'
+	    order by ff.nombre
+	</select>
+	
+	<select id="obtenerFormatosSalidaPorModelo" resultClass="formato" parameterClass="java.lang.Integer">
+		 select ff.* 
+	     from  dst_formato ff
+	     where ff.tipoformato = 'S'
+	     and activo = 'S'
+	     and id_modelo = #id_modelo#
+	     and estado != 'E'
+	     order by ff.nombre
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="activarFormato" parameterClass="java.util.Map">
+		update dst_formato set activo = #activo# where id_formato = #id_formato#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<delete id="eliminarDisponibleTodosFormatoNegocio" parameterClass="java.util.Map">
+		delete from dst_formato_negocio
+		where id_formato=#id_formato#
+	</delete>
+	
+	<insert id="disponibleTodosFormatoNegocio" parameterClass="java.util.Map">
+		insert into dst_formato_negocio 
+		( 
+		 select distinct #id_formato# as id_formato, an.id_negocio  
+		 from  dst_negocio an
+		)
+	</insert>
+	
+	<delete id="eliminarDisponibleFormatoNegocio" parameterClass="java.util.Map">
+		delete from dst_formato_negocio 
+		where id_formato=#id_formato# and id_negocio=#id_negocio#
+	</delete>
+	
+	<insert id="disponibleFormatoNegocio" parameterClass="java.util.Map">
+		insert into dst_formato_negocio (id_formato, id_negocio) 
+		values (#id_formato#, #id_negocio#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<select id="obtenerFormatosListaValores" parameterClass="java.lang.Integer" resultClass="formato">
+		select ff.* from dst_formato_campo fc, dst_formato ff, dst_campo cmp
+		where cmp.id_lista_valores = #id_lista_valores# 
+		and ff.id_formato = fc.id_formato
+		and fc.id_campo = cmp.id_campo
+		and ff.estado != 'E'
+		order by ff.nombre
+	</select>
+	
+	<select id="obtenerFormatosEntradaPorNegocio" parameterClass="java.lang.Integer" resultClass="formato">
+		select distinct ff.* 
+			from dst_formato_negocio fn, dst_formato ff, dst_negocio nn
+			where fn.id_formato = ff.id_formato
+			and fn.id_negocio = #id_negocio#
+			and nn.id_negocio = fn.id_negocio
+			and nn.activo = 'S'
+			and ff.estado != 'E'
+			and ff.tipoformato='E'
+	</select>
+	
+	<select id="obtenerFormatosSalidaPorNegocio" parameterClass="java.lang.Integer" resultClass="formato">
+		select distinct ff.* 
+		from dst_formato_negocio fn, dst_formato ff, dst_negocio nn
+		where fn.id_formato = ff.id_formato
+		and fn.id_negocio = #id_negocio#
+		and nn.id_negocio = fn.id_negocio
+		and nn.activo = 'S'
+		and ff.estado != 'E'
+		and ff.tipoformato='S'
+		order by ff.nombre
+	</select>
+	
+	<select id="obtenerFormatosPorCliente" parameterClass="java.lang.Integer" resultClass="formato">
+		select * from (
+		select distinct ff.* 
+			from dst_formato ff, dst_formato_negocio fn, dst_usuario_negocio un
+			where ff.estado != 'E'
+			and ff.id_formato=fn.id_formato
+			and fn.id_negocio = un.id_negocio
+			and un.id_usuario=#id_usuario#
+		union
+		select ff.* from 
+			dst_formato ff, dst_proceso p
+			where ff.id_formato = p.id_formato_salida
+			and p.id_usuario is null
+			and p.estado = 'A'
+			and p.id_negocio is null
+		union
+		select ff.* from 
+			dst_formato ff, dst_proceso p, dst_proceso_formato pf
+			where ff.id_formato = pf.id_formato
+			and p.id_usuario is null
+			and p.estado = 'A'
+			and p.id_negocio is null
+			and p.id_proceso = pf.id_proceso
+			) t order by t.nombre
+		
+	</select>
+
+	<select id="obtenerFormatosProceso" parameterClass="java.lang.Integer" resultClass="formato">
+		select f.* from dst_proceso_formato pf, dst_formato f 
+			where pf.id_formato = f.id_formato
+			and f.estado != 'E'
+			and pf.id_proceso = #id_proceso# 
+		order by f.nombre
+	</select>
+	
+	<select id="obtenerExepcionesFormatoPorCliente" parameterClass="java.lang.Integer" resultClass="excepcionFormato">
+		select e.*, f.nombre nombre_formato from dst_excepcion_formato_usuario e, dst_formato f
+		where id_usuario = #id_usuario#
+		and f.id_formato = e.id_formato
+	</select>
+	
+	
+	<select id="totalExepcionesFormatoPorCliente" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from dst_excepcion_formato_usuario
+		where id_usuario = #id_usuario#
+	</select>
+	
+	<insert id="crearExcepcionFormatoCliente" parameterClass="excepcionFormato">
+		insert into dst_excepcion_formato_usuario
+		(id_formato, id_usuario, tipo_excepcion, id_negocio) values(#id_formato#, #id_usuario#,#tipo_excepcion#, #id_negocio#)
+	</insert>
+	
+	<delete id="eliminarTodasExcepcionesFormatoCliente" parameterClass="java.lang.Integer">
+		delete from dst_excepcion_formato_usuario
+		where id_usuario = #id_usuario#
+	
+	</delete>
+	
+	<delete id="eliminarEstructurasAplicar" parameterClass="int">
+		delete from dst_formato_estructura_aplica 
+		where id_formato = #id_formato#
+	</delete>
+	
+	<delete id="eliminarFormatoProcesoSinUso">
+		delete from dst_proceso_formato pp
+		where pp.id_proceso  not in 
+		(
+			select p.id_proceso
+				from dst_proceso p, dst_usuario_negocio un, dst_formato_negocio fn
+				where p.id_usuario = un.id_usuario
+				and fn.id_negocio = un.id_negocio
+				and fn.id_formato = pp.id_formato
+		)
+		and pp.id_proceso not in (
+			select  p.id_proceso from dst_proceso p, dst_excepcion_formato_usuario efu
+				where efu.tipo_excepcion = 'A'
+				and pp.id_formato = efu.id_formato
+				and p.id_usuario = efu.id_usuario
+		)
+		and pp.id_proceso not in (
+			select p.id_proceso
+				from dst_proceso p
+				where p.id_usuario is null
+				and p.id_negocio is null
+		)
+	</delete>
+	
+	
+	<insert id="guardarEstructurasAplicar" parameterClass="map">
+		INSERT INTO dst_formato_estructura_aplica
+			(id_formato, id_estructura)
+    		VALUES (#id_formato#, #id_estructura#)
+		
+	</insert>
+	
+	<select id="obtenerEstructurasAplicar" resultClass="int">
+		SELECT id_estructura
+		  FROM dst_formato_estructura_aplica
+		  where id_formato = #id_formato#
+	</select>
+	
+	
+	<!-- grupo de formatos -->
+	<insert id="guardarGrupoformato" parameterClass="grupoFormato">
+		INSERT INTO dst_grupoformato
+		(id_grupoformato, descripcion, orden, nombre)
+		values(#id_grupoformato#, #descripcion#, #orden#, #nombre#)
+	</insert>
+	
+	<select id="obtenerTodosLosGruposformato" resultClass="grupoFormato">
+		select * from dst_grupoformato
+	</select>
+	
+	<update id="actualizarGrupoformato" parameterClass="grupoFormato">
+		update dst_grupoformato
+		set descripcion = #descripcion#, orden = #orden#, nombre = #nombre#
+		where id_grupoformato = #id_grupoformato#
+	</update>
+	
+	<select id="obtenerGrupoFormato" parameterClass="java.lang.Integer" resultClass="grupoFormato">
+		select * from dst_grupoformato
+		where id_grupoformato = #id_grupoformato#
+	</select>
+	
+	<select id="obtenerFormatosPorGrupoFormato" parameterClass="java.lang.Integer" resultClass="formato">
+		select * from dst_formato
+		where id_grupoformato = #id_grupoformato#
+		and estado != 'E'
+		and activo = 'S'
+	</select>
+	
+	<select id="obtenerSiguienteIDGrupoFormato"  resultClass="java.lang.Integer">
+		select nextvalue('dss_grupoformato') from dual
+	</select>
+	
+	<update id="eliminarRelacionesGrupoformatoProcesoPorGrupo" parameterClass="java.lang.Integer" >
+		update dst_proceso
+		set id_grupoformato = null
+		where id_grupoformato = #id_grupoformato#
+	</update>	 
+	
+	<update id="eliminarRelacionesFormatoGrupoformatoGrupo" parameterClass="java.lang.Integer" >
+		update dst_formato
+		set id_grupoformato = null
+		where id_grupoformato = #id_grupoformato#
+	</update>	 
+	
+	<delete id="eliminarGrupoFormato" parameterClass="java.lang.Integer" >
+		delete from dst_grupoformato
+		where id_grupoformato = #id_grupoformato#
+	</delete>
+	
+	<select id="obtenerFormatosPorClienteTodosProcesos" parameterClass="java.lang.Integer" resultClass="formato">
+		select distinct f.* from dst_proceso p, dst_proceso_formato pf, dst_formato f
+		where p.id_usuario = #id_usuario#
+		and f.id_formato = pf.id_formato
+		and pf.id_proceso = p.id_proceso
+	</select>
+	
+	
+	<!-- Se actualiza la informacion del la estructura y el campo totalizar del formato -->
+	<update id="actualizarInfoEstructuraFormato" parameterClass="formato">
+		update  dst_formato
+		set id_campo_totalizador = #id_campo_totalizador#,
+		id_estructura = #id_estructura#
+		where id_formato=#id_formato#
+    	and estado != 'E'
+	</update>
+	
+		<!-- - - - - - - - - - - - - - SUB-FORMATOS- - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="guardarSubFormato" parameterClass="map">
+		insert into dst_formato_subformatos
+		       (id_formato_padre,id_formato_hijo) 
+		values (#id_formato_padre#, #id_formato_hijo#)
+	</insert>
+	
+	<select id="obtenerSubFormatosPorFormatoPadre" parameterClass="java.lang.Integer" resultClass="formato">
+		select f.* 
+		from dst_formato f,dst_formato_subformatos sf
+		where f.id_formato = sf.id_formato_hijo
+			and sf.id_formato_padre=#id_formato_padre#
+	</select>
+	
+	<select id="obtenerSubFormatosPorFamilia" parameterClass="java.lang.Integer" resultClass="formato">
+		select f.* from dst_formato_subformatos sf, dst_formato f
+		where f.id_formato = sf.id_formato_hijo
+		and id_formato_padre = #id_formato_padre#
+	</select>
+	
+	<delete id="eliminarSubFormatos" parameterClass="java.lang.Integer" >
+		delete from dst_formato_subformatos
+		where id_formato_padre = #id_formato_padre#
+	</delete>
+	
+		<!-- - - - - - - - - - - - - - - - -   ESTILOS FORMARTO    - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarFormatoEstilo" parameterClass="formatoestilo">
+		insert into dst_formato_estilo
+        	(id_formato, id_tipo_estilo, estilo) 
+		values (#id_formato#, #id_tipo_estilo#, #estilo#)
+	</insert>
+	
+	<delete id="eliminarFormatoEstilo" parameterClass="java.lang.Integer">
+		delete from DST_FORMATO_ESTILO 
+		 where id_formato = #id_formato#
+	</delete>
+	
+	<select id="obtenerFormatoEstilos" parameterClass="java.lang.Integer" resultClass="formatoestilo">
+		select e.* from dst_formato_estilo e
+		 where e.id_formato = #id_formato#
+	</select>
+	
+	<select id="obtenerFormatoCampoBandejaEntrada" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select fc.* from dst_formato_campo fc 
+		 where fc.id_formato = #id_formato# 
+		 	and fc.bandeja_entrada = 'S' 
+		 order by fc.orden_bandeja_entrada, fc.id_formato_campo
+	</select>
+	
+	<select id="obtenerFormatoCampoPadreBandejaEntrada" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select f.id_formato_campo, f.id_formato_campo_padre, f.id_campo, f.id_estructura
+  			from dst_formato_campo f
+  			where level != 1
+ 			start with f.id_formato = #id_formato# and f.bandeja_entrada = 'S'
+ 			connect by f.id_formato_campo = prior f.id_formato_campo_padre
+ 			group by f.id_formato_campo, f.id_formato_campo_padre, f.id_campo, f.id_estructura
+	     	order by f.id_formato_campo
+	</select>
+	
+	<select id="obtenerFormatoCampoPadreFiltroBandejaEntrada" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select fcp.* from dst_formato_campo fcp 
+		 where fcp.id_formato_campo in 
+	    	(select fc.id_formato_campo_padre from dst_formato_campo fc 
+	    	  where fc.id_formato = #id_formato# and fc.filtro_bandeja_entrada = 'S')
+	     order by fcp.id_formato_campo
+	</select>
+	
+	<select id="obtenerFormatoCampoFiltroBandejaEntrada" parameterClass="java.lang.Integer" resultClass="formatocampo">
+		select fc.* from dst_formato_campo fc 
+		 where fc.id_formato = #id_formato# 
+		 	and fc.filtro_bandeja_entrada = 'S' 
+		 order by fc.id_formato_campo
+	</select>
+	
+	<select id="obtenerFormatoCampoValorSesion" parameterClass="java.util.Map" resultClass="formatocampo">
+		select fc.* from dst_formato_campo fc
+		 where fc.id_formato = #id_formato#
+		 	and fc.tipo_ingreso = #tipo_valor_sesion#
+		 	and fc.valor_sesion is not null
+		 	and fc.visualizar_valor_sesion = 'S'
+	</select>
+		<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+</sqlMap>
+

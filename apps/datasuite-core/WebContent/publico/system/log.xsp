@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:servicio-java>
+   			<name>info</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.InfoServicio</service>
+   			<operation>logs</operation>
+   		</osm-utils:servicio-java>
+    	
+    	<nueva>nueva</nueva>
+    	
+    	<VERSION_APLICACION><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.VERSION_APLICACION</xsp:expr></VERSION_APLICACION>	
+    	
+    </OSM-ACCION>
+	
+	
+</xsp:page>

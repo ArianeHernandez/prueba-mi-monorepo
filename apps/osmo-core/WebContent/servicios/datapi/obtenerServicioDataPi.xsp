@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+ 
+    <obtenerServicioDataPi>
+        <osm-utils:servicio-java isname="false">
+            <name>ServicioDataPi</name>
+            <service>com.osmosyscol.datapi.logica.servicios.AppServicio</service>
+            <operation>obtenerServicioDataPi</operation>
+        	<parameters>
+                <parameter>nombreservicio</parameter>
+            </parameters>
+        </osm-utils:servicio-java>
+    </obtenerServicioDataPi>
+	
+</xsp:page>

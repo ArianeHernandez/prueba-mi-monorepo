@@ -1,0 +1,6 @@
+.item_orden{
+	background-image: url(../images/orden/orden.png);
+	background-position: right center;
+	background-repeat: no-repeat; 
+	cursor: move;
+}

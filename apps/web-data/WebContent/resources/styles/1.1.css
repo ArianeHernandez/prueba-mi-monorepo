@@ -1,0 +1,31 @@
+.con_formato{
+	margin: 0px;
+	width: 90%;
+	font: normal normal normal 11px/ 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	line-height 11px;
+	padding: 5px;
+	background-color: #FFF;
+	
+}
+
+.ui-autocomplete {
+		max-height: 157px;
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+}
+
+.valorlista{
+	background-color: #FFF;
+	
+}
+
+.btn-primary.disabled {
+	background-color: #EEE !important;
+}
+
+.inner_area_ayuda pre {
+    word-break: break-word;
+}

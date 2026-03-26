@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarValoresLista>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>guardarValoresLista</operation>
+   			<parameters>
+   				<parameter>listaValoresDinamicos</parameter>
+   				<parameter>id_formato</parameter>
+   				<parameter>sobreescribirValores</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarValoresLista>
+
+</xsp:page>

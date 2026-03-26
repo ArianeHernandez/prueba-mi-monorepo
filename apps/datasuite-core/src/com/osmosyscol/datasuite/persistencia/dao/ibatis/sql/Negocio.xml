@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Negocio">
+
+	<typeAlias alias="negocio" type="com.osmosyscol.datasuite.logica.dto.Negocio" />
+
+	<select id="obtenerNegocio" parameterClass="java.lang.Integer" resultClass="negocio">
+		select * from dst_negocio
+		where id_negocio = #id_negocio#
+	</select>
+	
+	<select id="obtenerNegocioPorCodigo" parameterClass="java.lang.String" resultClass="negocio">
+		select * from dst_negocio
+		where cod_negocio = #cod_negocio#
+	</select>
+	
+	<select id="obtenerListadoNegocios" resultClass="negocio">
+		select nn.*, 
+			(select count(*) from dsv_persona_negocio pn
+				where pn.rol = 'DN'
+				and pn.id_negocio = nn.id_negocio) as numero_administradores
+		from dst_negocio nn
+	</select>
+	
+	<select id="obtenerListadoNegociosActivos" resultClass="negocio">
+		select nn.* 
+			from dst_negocio nn
+			where nn.activo = 'S'
+			and id_negocio > 0
+	</select>
+	
+	<select id="obtenerListadoNegociosPorLogin" resultClass="negocio" parameterClass="java.lang.String">
+		select distinct nn.* from dst_negocio nn, dsv_persona_negocio pn where 
+		pn.id_negocio = nn.id_negocio and pn.login = upper(#login#)
+		and nn.activo = 'S'
+	</select>
+	
+	<select id="obtenerListadoNegociosPorAdministrador" resultClass="negocio">
+		select distinct nn.* from dst_negocio nn, dst_administrador_negocio an where 
+		an.id_negocio = nn.id_negocio and an.id_administrador = #id_administrador#
+		and nn.activo = 'S'
+	</select>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		select nextvalue('DSS_NEGOCIO') as id from dual
+	</select>
+	
+	<insert id="crearNegocio" parameterClass="negocio">
+		insert into dst_negocio (id_negocio,id_modelo,nombre, descripcion, cod_negocio, activo) values (#id_negocio#, #id_modelo#, #nombre#, #descripcion#, #cod_negocio#, #activo#)
+	</insert>
+
+	<delete id="eliminarNegocio" parameterClass="java.lang.Integer">
+		delete from dst_negocio where id_negocio = #id_negocio#
+	</delete>
+	
+	<update id="actualizarNegocio" parameterClass="negocio">
+		update dst_negocio 
+		set id_modelo=#id_modelo#, nombre=#nombre#, descripcion=#descripcion#, activo=#activo#
+		where cod_negocio = #cod_negocio#
+	</update>
+	
+	<update id="marcarEliminadoNegociosPorModelo" parameterClass="java.lang.Integer">
+		update dst_negocio 
+		set activo='N'
+		where id_modelo=#id_modelo#
+	</update>
+	
+	<insert id="guardarUsuarioNegocio" parameterClass="java.util.Map">
+		insert into dst_usuario_negocio (id_usuario, id_negocio) values (#id_usuario#, #id_negocio#)
+	</insert>
+	
+	<select id="existeUsuarioNegocio" parameterClass="java.util.Map" resultClass="negocio">
+		select * from dst_usuario_negocio where id_usuario = #id_usuario# and id_negocio = #id_negocio#
+	</select>
+	
+	<delete id="eliminarUsuarioNegocio" parameterClass="java.util.Map">
+		delete from dst_usuario_negocio where id_usuario = #id_usuario# and id_negocio = #id_negocio#
+	</delete>
+	
+	<select id="obtenerNegociosPorUsuario" parameterClass="java.lang.Integer" resultClass="negocio">
+		select nn.* from dst_negocio nn
+		where nn.id_negocio in ( select un.id_negocio from dst_usuario_negocio un where un.id_usuario = #id_usuario#)
+	</select>
+	
+	<select id="cantidadAdministradorNegocio" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from
+		(
+			select distinct adm.* from dst_administrador_negocio an, dst_administrador adm, dst_persona per
+			where adm.id_administrador = an.id_administrador
+			and upper(per.login) = upper(adm.login)
+			and per.id_persona = #id_persona#
+			and an.id_negocio = #id_negocio#
+		) dd
+	</select>
+	
+	<select id="cantidadUsuarioNegocio" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from
+		(
+			select distinct un.* from dst_usuario_negocio un, dst_usuario usu, dst_persona per
+			where usu.id_usuario = un.id_usuario
+			and per.id_persona = usu.id_persona
+			and per.id_persona = #id_persona#
+			and un.id_negocio = #id_negocio#
+		) dd
+	</select>
+	
+	<update id="actualizarActivoNegocio" parameterClass="java.util.Map">
+		update dst_negocio set activo=#activo# where id_negocio = #id_negocio#
+	</update>
+	
+		
+	<update id="updateSQLCreadatos" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+		
+	<insert  id="insertSQLCreadatos" parameterClass="java.lang.String">
+		$sql$
+	</insert>
+	
+	
+	<select id="existeNegocioEnCreadatos" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from t1240
+		where id = #id_negocio#
+	</select>
+	
+	<select id="obtenerNegociosPorUsuarioFormato" parameterClass="java.util.Map" resultClass="negocio">
+		
+		select neg.* from dst_negocio neg
+		where 
+		
+		(
+		    neg.id_negocio in (
+		        select fn.id_negocio from dst_formato_negocio fn, dst_usuario_negocio un
+		        where un.id_negocio = fn.id_negocio
+		        and fn.id_formato = #id_formato#
+		        and un.id_negocio = fn.id_negocio
+		        and un.id_usuario = #id_usuario#
+		    )
+		    or neg.id_negocio in ( 
+		        select efu.id_negocio from dst_excepcion_formato_usuario efu
+		        where efu.id_formato = #id_formato#
+		        and efu.id_usuario = #id_usuario#
+		        and efu.tipo_excepcion = 'A'
+		    )
+		)
+		and
+		(
+		    neg.id_negocio not in (
+		        select efu.id_negocio from dst_excepcion_formato_usuario efu
+		        where efu.id_formato = #id_formato#
+		        and efu.id_usuario = #id_usuario#
+		        and efu.tipo_excepcion = 'R'
+		   )
+		)
+
+		
+	</select>
+	
+	<select id="obtenerListadoNegociosPorTipoProceso" parameterClass="java.lang.Integer" resultClass="negocio">
+		select n.* from dst_tipo_proceso_negocio tpn, dst_negocio n
+		where n.id_negocio = tpn.id_negocio
+		and tpn.id_tipo_proceso = #id_tipo_proceso#
+	</select>
+	
+</sqlMap>

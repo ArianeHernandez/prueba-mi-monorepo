@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:soap="http://apache.org/xsp/soap/3.0"
+>
+
+<service>
+	<soap:call>
+        <soap:url><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.getEndpoint() + "/services/WSAutenticador"</xsp:expr></soap:url>
+		<osmaut:autorizar xmlns:osmaut="http://autenticar.servicioweb.osmoautenticador.osmosyscol.com">
+			<osmaut:solicitudAutorizar>
+				<osmaut:login><xsp-request:get-parameter name="login"/></osmaut:login>
+				<osmaut:aplicacion><xsp-request:get-parameter name="aplicacion"/></osmaut:aplicacion>
+				<osmaut:url><xsp-request:get-parameter name="url"/></osmaut:url>
+			</osmaut:solicitudAutorizar>
+		</osmaut:autorizar>
+    </soap:call>
+</service>
+	
+</xsp:page>

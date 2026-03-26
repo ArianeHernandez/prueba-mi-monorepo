@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarValoresParametrosCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exito</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.ParametroCargaServicio</service>
+   			<operation>guardarValoresParametrosCarga</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>ValorParametroCarga</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarValoresParametrosCarga>
+
+
+</xsp:page>

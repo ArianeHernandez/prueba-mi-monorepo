@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerAccionesRedireccionPorInstancia>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.AccionRedireccionServicio</service>
+   			<operation>obtenerAccionesRedireccionPorInstancia</operation>
+   			<parameters>
+   				<parameter>id_instancia</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerAccionesRedireccionPorInstancia>
+
+
+</xsp:page>

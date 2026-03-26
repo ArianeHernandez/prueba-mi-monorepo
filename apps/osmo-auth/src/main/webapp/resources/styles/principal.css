@@ -1,0 +1,111 @@
+*{
+	font-family: sans-serif;
+	font-size: 10px;
+	color: white;
+}
+
+body, html{
+	padding: 0px;
+	margin: 0px;
+	background-color: white;
+}
+
+td, th{
+	vertical-align: top;
+	color: white;
+}
+
+
+.aplicacion{
+	border: 1px solid #0000FF;
+	background-color: #FFFF00;
+	margin: 20px;
+	
+	background-image: url("../images/fondo.png");
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.aplicacion th{
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #B7B700;
+	border: 1px solid #FFFF00;
+	color: #FFFFFF;
+	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.rol{
+	border: 1px solid #000000;
+	background-color: #00FF00;
+	margin: 20px;
+}
+
+.rol th{
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #00B700;
+	border: 1px solid #00FF00;
+	color: #FFFFFF;
+	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.servicio{
+	border: 1px solid #000000;
+	background-color: red;
+	margin: 5px;
+	
+	background-image: url("../images/fondo.png");
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.servicio th{
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #B70000;
+	border: 1px solid #FF0000;
+	color: #FFFFFF;
+	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.usuario{
+	border: 1px solid #000000;
+	background-color: #0000FF;
+	width: 30%;
+	margin-left: 35%;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	
+	background-image: url("../images/fondo.png");
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.usuario th{
+	font-size: 10px;
+	font-weight: bold;
+	background-color: #0000B7;
+	padding: 5px;
+	text-transform: uppercase;
+	text-align: center;
+	border: 1px solid #0000FF; 
+}
+
+.url{
+	width: 150px;
+	background-color: transparent;
+	margin: 0px;
+	padding: 0px;
+}
+
+.url td{
+	padding: 5px;
+	text-align: left;
+}

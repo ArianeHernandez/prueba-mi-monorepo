@@ -1,0 +1,170 @@
+.tabla_edicion thead,.tool_bar{
+	background-color: #EEEEEE;
+	color: #222222;
+	font-size: 9px;
+	overflow: hidden;
+	height: 20px;
+
+}
+.tool_bar{
+	border-bottom: 3px solid #FFF;
+	padding: 5px;
+}
+.tool_bar .item{
+	display: inline;
+	color: #222222;
+	border-color : #EEEEEE;
+	border-style: solid;
+	border-width: 1px 1px;
+	text-align: center;
+	vertical-align: middle;
+	text-align: center;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+
+.mensaje{
+	margin-left: 20px;
+	padding: 1px 5px 4px 20px;
+}
+
+.tool_bar .item:hover{
+	cursor: default;
+	border-color : #3366CC;
+	border-width: 1px 1px;
+}
+.tabla_edicion{
+	background-color: #EEEEEE;
+	border-color: #EEEEEE;
+}
+.tabla_edicion , .tool_bar{
+	width: 100%;
+}
+
+.scroll{
+	
+}
+
+.tabla_edicion td{
+	border-color : #CCCCCC;
+	border-style: solid;
+	border-width: 0 1px 1px 0;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	vertical-align: top;	
+}
+
+.tabla_edicion_encabezado_td{
+	border: 0px !important;
+}
+
+.caja{
+	border-style: solid;
+	border-width:  1px;
+	border-color : #CCCCCC;
+	width: 98%;
+}
+.celda_tabla{
+	overflow: hidden;
+	background-color: #FFFFFF;
+}
+.ctr{
+	margin: 0 40%;
+}
+.w020{
+	width: 20px;
+}
+
+.btn_agregar{
+	background: transparent url(../images/general/add.png) 0 50% no-repeat;
+	padding: 1px 5px 4px 20px;
+}
+.btn_guardar{
+	background: transparent url(../images/save.png) 0 50% no-repeat;
+	padding: 1px 5px 4px 20px;
+}
+
+.btn_cancelar{
+	background: transparent url(../images/general/Eliminar.png) 0 50% no-repeat;
+	padding: 1px 5px 4px 20px;
+}
+
+.btn_excel{
+	background: transparent url('../images/iconos_h24/Icon Excel.jpg') 0 50% no-repeat;
+	padding: 1px 5px 4px 20px;
+}
+
+.btn_limpiar{
+	background: transparent url(../images/delete.png) 0% 50% no-repeat;
+	padding: 1px 5px 4px 20px;
+}
+
+
+
+.btn_eliminar{
+	background: transparent url(../images/general/Eliminar.png) 20% 50% no-repeat;
+	padding: 0 5px;
+}
+
+.actualizado td{
+	border-width: 1px;
+}
+.actualizado, .actualizado td{
+	background-color: #7596B8;
+	border-color: #7596B8;
+}
+
+.nuevo td{
+	border-width: 1px;
+}
+.nuevo, .nuevo td{
+	background-color: #90FF90;
+	border-color: #90FF90;
+}
+
+.eliminado td{
+	border-width: 1px;
+}
+.eliminado, .eliminado td{
+	background-color: #FF6969;
+	border-color: #FF6969;
+}
+
+.scroll_datos{
+	overflow: auto;
+	height: 400px;
+}
+
+.ordenable{
+	color: #000;
+	cursor: pointer;
+	padding-left: 10px;
+	padding-right: 10px; 
+}
+
+.ordenar{
+	background: url("../images/flecha_peq_abajo_gris.gif") no-repeat scroll 100% 55% transparent;
+	padding-right: 20px;
+}
+
+.filtrar{
+	background: url("../images/goto.gif") no-repeat scroll 100% 55% transparent;
+	padding-right: 20px;
+}
+
+.caja_flotante {
+	width: 300px;
+	background-color: #7F7F7F;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+	float: left;
+	z-index: 10;
+	position: absolute;
+	display: none;
+}
+
+.limpiarfiltro{
+	background: url("../images/delete.png") no-repeat scroll 100% 55% transparent;
+	padding-right: 20px;
+}

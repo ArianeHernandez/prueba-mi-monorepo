@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo Iniciando Pre-build OsmoSkin_Datasuite
+  build:
+    on-failure: ABORT
+    commands:
+      - echo Generando tar de OsmoSkin_Datasuite
+      - cd ..
+      - mkdir dist
+      - mv src/*/ dist/
+      - mkdir target
+      - tar -zcvf ./target/OsmoSkin_Datasuite-resources.tar.gz dist
+      - cd src
+      - pwd
+  post_build:
+    on-failure: ABORT
+    commands:
+      - echo Subiendo tar a s3
+      - VERSION=$(cat ./osmoskin-version.txt)
+      - echo $VERSION
+      - aws s3 cp ../target/ s3://nuv-prod-artifacts/library/OsmoSkin_Datasuite/$VERSION/ --recursive

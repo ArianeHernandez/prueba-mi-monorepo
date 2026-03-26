@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Navegacion">
+
+	<typeAlias alias="Navegacion"      type="com.osmosyscol.datasuite.reportedim.dto.Navegacion" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerNavegacion" resultClass="Navegacion" parameterClass="java.lang.Integer">
+		select *
+		from DST_REP_NAVEGACION
+		where id_navegacion=#id_navegacion#
+	</select>
+	
+	<select id="totalNavegaciones" resultClass="java.lang.Integer" >
+		select count(*) from DST_REP_NAVEGACION
+	</select>
+	
+	<select id="obtenerSiguienteNavegacionId" resultClass="java.lang.Integer">
+		select nextvalue('dss_rep_navegacion')  from dual
+	</select>
+	
+	<insert id="crearNavegacion" parameterClass="java.util.Map">
+		insert into DST_REP_NAVEGACION (id_navegacion,nombre,destino, id_reporte)
+		values (#id_navegacion#, #nombre#, #destino#, #id_reporte#)
+	</insert>
+	
+	<update id="actualizarNavegacion" parameterClass="Navegacion">
+		update DST_REP_NAVEGACION
+		 set nombre=#nombre#,destino=#destino#
+		  where id_navegacion=#id_navegacion#
+	</update>
+	
+	<delete id="eliminarNavegacion" parameterClass="java.lang.Integer">
+		delete from DST_REP_NAVEGACION
+		where id_navegacion = #id_navegacion#
+	</delete>	
+	
+	<select id="obtenerNavegacionesByReporte" parameterClass="java.lang.String" resultClass="Navegacion" >
+		select *
+		from DST_REP_NAVEGACION
+		where id_reporte=#id_reporte#
+	</select>	
+	
+	<select id="obtenerNavegacionByNombreReporteDestino" parameterClass="Navegacion" resultClass="Navegacion" >
+		select *
+		from DST_REP_NAVEGACION
+		where id_reporte = #id_reporte#
+		and nombre = #nombre#
+		and destino = #destino#
+		
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarHorarioLiberacion>
+   		
+   		<osm-utils:servicio-java>
+   			<name>guardado</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.ParametrizacionClienteServicio</service>
+   			<operation>guardarHorarioLiberacion</operation>
+   			<parameters>
+   				<parameter>id_usuario</parameter>
+   				<parameter>franjas</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarHorarioLiberacion>
+
+
+</xsp:page>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	
+    	<id_usuario_sel><osm-utils:get-request-parameter name="id_usuario_sel"/></id_usuario_sel>
+    	<id_persona_sel><osm-utils:get-request-parameter name="id_persona_sel"/></id_persona_sel>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/persona/obtenerPersona.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_persona_sel"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/sobreflex/obtenerCredencialPersonaUsuario.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_persona_sel"/></cinclude:value>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_usuario_sel"/></cinclude:value>
+                 </cinclude:parameter>
+			</cinclude:parameters>
+		</cinclude:includexml>
+		
+		<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/sobreflex/generarCryptoSobreflex.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_persona_sel"/></cinclude:value>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_usuario_sel"/></cinclude:value>
+                 </cinclude:parameter>
+			</cinclude:parameters>
+		</cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/usuario/obtenerUsuario.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><osm-utils:get-request-parameter name="id_usuario_sel"/></cinclude:value>
+                 </cinclude:parameter>
+			</cinclude:parameters>
+		</cinclude:includexml>
+    	
+    	
+    	<!-- Parametros del applet sobreflex-->
+        <cinclude:includexml>
+            <cinclude:src>cocoon:/webdata/sobreflex/getParametrosAppletSobreflex.ser</cinclude:src>
+        </cinclude:includexml>
+        
+        
+        
+        
+    </OSM-ACCION>
+</xsp:page>

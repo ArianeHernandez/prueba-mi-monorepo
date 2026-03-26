@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<totalFranjasHorario>
+   		
+   		<osm-utils:servicio-java>
+   			<name>TotalFranjas</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.FormatoServicio</service>
+   			<operation>totalFranjasHorario</operation>
+   			<parameters>
+   				<parameter>id_formato</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</totalFranjasHorario>
+
+
+</xsp:page>

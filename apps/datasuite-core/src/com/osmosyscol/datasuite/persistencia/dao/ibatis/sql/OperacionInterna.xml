@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OperacionInterna">
+
+	<typeAlias alias="Operacion"
+		type="com.osmosyscol.datasuite.logica.dto.OperacionInterna" />
+
+	<select id="listarOperacionesInternas" resultClass="Operacion">
+		select * from
+		dst_operacion_interna order by nombre asc
+	</select>
+
+	<select id="listarOperacionesInternasPorAccion" parameterClass="java.lang.Integer"
+		resultClass="Operacion">
+		select t1.ID_OPERACION_INTERNA, t1.NOMBRE, t1.SINCRONA ,
+		t1.CLASE from dst_operacion_interna t1 left join
+		DST_ACCION_OPERACION_INTERNA t2 on t1.ID_OPERACION_INTERNA =
+		t2.ID_OPERACION_INTERNA where t2.ID_ACCION = #id_accion#
+		order by t1.ID_OPERACION_INTERNA
+	</select>
+	
+	<delete id="eliminarOperacionInternaDeAccion" parameterClass="java.util.Map">
+		delete from dst_accion_operacion_interna where id_accion=#id_accion# and id_operacion_interna = #id_operacion_interna#
+	</delete>
+	
+	<delete id="eliminarTodasOperacionInternaDeAccion" parameterClass="java.lang.Integer">
+		delete from dst_accion_operacion_interna where id_accion=#id_accion#
+	</delete>
+	
+	<insert id="insertarOperacionInternaDeAccion" parameterClass="java.util.Map">
+		insert into dst_accion_operacion_interna (id_accion, id_operacion_interna)
+		values (#id_accion#, #id_operacion_interna#)
+	</insert>
+	
+	<select id="obtenerOperacionInterna" parameterClass="java.lang.Integer" resultClass="Operacion">
+		select * from
+		dst_operacion_interna where id_operacion_interna = #id_operacion_interna#
+	</select>
+	
+	<select id="obtenerOperacionesDisponiblesParaAsignar" parameterClass="java.lang.Integer" resultClass="Operacion">
+		select op.* from dst_operacion_interna op where id_operacion_interna not in 
+			(select id_operacion_interna from dst_accion_operacion_interna where id_accion = #id_accion#)
+		order by nombre
+	</select>
+
+</sqlMap>

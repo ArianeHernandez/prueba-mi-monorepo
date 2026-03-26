@@ -1,0 +1,14 @@
+package com.osmosyscol.datasuite.near.utils;
+
+public class S3Info {
+	
+	public getFile() {
+		 Regions clientRegion = Regions.DEFAULT_REGION;
+	        String bucketName = "*** Bucket name ***";
+	        String key = "*** Object key ***";
+		
+		S3Object s3object = s3client.getObject(bucketName, "picture/pic.png");
+		S3ObjectInputStream inputStream = s3object.getObjectContent();
+	}
+
+}

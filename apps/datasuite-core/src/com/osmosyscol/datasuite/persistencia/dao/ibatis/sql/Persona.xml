@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Persona">
+
+	<typeAlias alias="persona" type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	<typeAlias alias="credencial" type="com.osmosyscol.datasuite.logica.dto.Credencial" />
+	<typeAlias alias="usuario" type="com.osmosyscol.datasuite.logica.dto.Usuario" />
+	<typeAlias alias="tipoProceso" type="com.osmosyscol.datasuite.logica.dto.TipoProceso" />
+	<typeAlias alias="tipoDocumento" type="com.osmosyscol.datasuite.logica.dto.TipoDocumento" />
+	<typeAlias alias="tipoProcesoRol" type="com.osmosyscol.datasuite.logica.dto.TipoProcesoRol" />
+
+	<select id="obtenerPersonaPorLogin" parameterClass="java.lang.String" resultClass="persona">
+		select per.* 
+		from dst_persona per, dst_credencial cre
+		where cre.id_persona = per.id_persona
+		and cre.login = upper(#loginUsuario#)
+	</select>
+	
+	<select id="obtenerPersona" parameterClass="java.lang.Integer" resultClass="persona">
+		select * from dst_persona
+		where id_persona = #id_persona#
+	</select>
+	
+	<select id="obtenerCredencialPorLogin" parameterClass="java.lang.String" resultClass="credencial">
+		select cre.* from dst_credencial cre where cre.login = upper(#loginUsuario#)
+	</select>
+	
+	<select id="obtenerCredencialPersonaUsuario" parameterClass="java.util.Map" resultClass="credencial">
+		select * from dst_credencial
+			where id_persona = #id_persona#
+			<isEmpty prepend="and" property="id_usuario">
+				id_usuario is null
+			</isEmpty>
+			<isNotEmpty prepend="and" property="id_usuario">
+				id_usuario = #id_usuario#
+			</isNotEmpty> 
+	</select>
+	
+	<update id="aceptarTerminosCondiciones" parameterClass="credencial">
+		update dst_credencial
+		set acepta_terminos = 'S'
+		where login = upper(#loginUsuario#)
+	</update>
+	
+	<update id="quitarCambioClave" parameterClass="java.lang.String">
+		update dst_credencial
+		set cambiar_clave = null
+		where login = upper(#loginUsuario#)
+	</update>
+	
+	<update id="colocarCambioClave" parameterClass="java.lang.String">
+		update dst_credencial
+		set cambiar_clave = 'S'
+		where upper(login) = upper(#loginUsuario#)
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerClientesFormato" resultClass="persona" parameterClass="java.util.Map">
+			select distinct pp.* 
+			from dst_persona pp
+			where pp.id_persona in ( select pn.id_persona from dsv_persona_negocio pn where pn.id_negocio = #id_negocio# and pn.rol='C')
+			and pp.id_persona in (select distinct usu.id_persona from dst_carga c, dst_formato fe, dst_formato fs, dst_usuario usu
+					       where usu.id_usuario = c.id_usuario 
+					       AND c.id_formato = fe.id_formato
+					       and fs.id_formato=#id_formato#
+					       and (fe.id_estructura = fs.id_estructura or fs.id_estructura in (select id_estructura from dst_formato_campo fc where fc.id_formato = fe.id_formato))
+       					)
+			order by nombre
+	</select>
+	
+	<select id="totalClientesFormato" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) from
+		(
+			select distinct pp.id_persona 
+	    	from dst_persona pp
+			where pp.id_persona in ( select pn.id_persona from dsv_persona_negocio pn where pn.id_negocio = #id_negocio# and pn.rol='USER')
+			and pp.id_persona in (select distinct c.id_persona from dst_carga c, dst_formato fe, dst_formato fs
+			                      where c.id_formato = fe.id_formato
+			                      and (fe.id_estructura = fs.id_estructura or fs.id_estructura in (select id_estructura from dst_formato_campo fc where fc.id_formato = fe.id_formato))
+			                      and fs.id_formato=#id_formato#)
+		) tt
+	</select>
+	
+	<select id="obtenerPersonasNegocio" parameterClass="java.lang.Integer" resultClass="persona">
+		SELECT  per.*,pn.activo, FROM dst_persona per, dsv_persona_negocio pn
+			WHERE per.id_persona = pn.id_persona
+			and pn.id_negocio = 300
+	</select>
+	
+	<select id="siguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_persona') as id from dual
+	</select>
+	
+	<insert id="guardarPersona" parameterClass="persona">
+		insert into dst_persona(id_persona,nombre,apellido,identificacion,telefono,direccion,correo,genero, tipo_persona, tipo_documento, pais_id, departamento_id, municipio_id) 
+		values(#id_persona#,#nombre#,#apellido#,#identificacion#,#telefono#,#direccion#,#correo#,#genero#, #tipo_persona#, #tipo_documento#, #pais_id#, #departamento_id#, #municipio_id#)
+	</insert>
+	
+	<update id="actualizarPersona" parameterClass="persona">
+		update dst_persona 
+		set 
+			nombre=#nombre#,
+			apellido=#apellido#,
+			identificacion=#identificacion#,
+			telefono=#telefono#,
+			direccion=#direccion#,
+			correo=#correo#,
+			genero=#genero#, 
+			tipo_documento=#tipo_documento#,
+			pais_id= #pais_id#, 
+			departamento_id=#departamento_id#, 
+			municipio_id=#municipio_id#
+    	where
+    		id_persona = #id_persona# 
+	</update>
+	
+	<select id="obtenerPersonaPorIdentificacion" resultClass="persona" parameterClass="java.util.Map">
+		SELECT * FROM dst_persona where identificacion=#identificacion#
+		and tipo_documento = #tipo_documento# 
+	</select>
+	
+	<select id="obtenerUsuario" resultClass="usuario" parameterClass="java.lang.Integer">
+		select * from dst_usuario where id_persona = #id_persona#
+	</select>
+	
+	<select id="obtenerSiguienteIdUsuario" resultClass="java.lang.Integer">
+		select nextvalue('dss_usuario') as id from dual
+	</select>
+	
+	<insert id="guardarUsuario" parameterClass="java.util.Map">
+		insert into dst_usuario
+		( select distinct #id_usuario# as id_usuario, #id_persona# as id_persona, 'S' as activo, 'ninguna' as observacion from dual where not #id_persona# in ( select id_persona from dst_usuario ) )
+	</insert>
+	
+	<sql id="sqlDirectoresNegocio">
+		select distinct p.*, an.activo from dst_administrador adm, dst_administrador_negocio an , dst_persona p
+			where an.id_negocio = #id_negocio#
+			and adm.id_administrador = an.id_administrador
+			and adm.id_persona = p.id_persona
+	</sql>
+	<select id="obtenerDirectoresNegocio" parameterClass="java.lang.Integer" resultClass="persona">
+		<include refid="sqlDirectoresNegocio"/>
+		order by p.nombre
+	</select>	
+	
+	<select id="contarDirectoresNegocio" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlDirectoresNegocio"/>) t
+	</select>	
+	
+	<sql id="sqlPersonaUsuario">
+		SELECT p.*, u.activo FROM dst_persona p, dsv_usuario_rol u
+			where 
+			p.id_persona = u.id_persona
+			and u.id_usuario = #id_usuario#
+			and u.rol = #rol#
+			<isNotEmpty property="tipo_persona" >
+				and p.tipo_persona = #tipo_persona#
+			</isNotEmpty>
+			order by p.nombre
+	</sql>
+	<select id="obtenerPersonasUsuario" parameterClass="java.util.Map" resultClass="persona">
+		<include refid="sqlPersonaUsuario"/>
+	</select>
+	
+	<select id="contarPersonasUsuario" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlPersonaUsuario"/>) t
+	</select>
+
+	<update id="activarPersonaUsuario" parameterClass="java.util.Map" >
+		UPDATE dst_$tabla$
+			SET activo=#activo#
+		 	WHERE id_persona=#id_persona# 
+		 	<isNotPropertyAvailable property="todos">
+		 		<isPropertyAvailable property="id_usuario"  prepend="and">
+					 id_usuario=#id_usuario#
+		 		</isPropertyAvailable>
+			</isNotPropertyAvailable>
+	</update>	
+	
+	<sql id="selectAdminId">
+		SELECT a.id_administrador from dst_administrador a, dst_persona p 
+		where  p.id_persona = #id_persona# 
+		and a.id_persona = p.id_persona
+	</sql>
+	
+	<update id="activarDirectorNegocio" parameterClass="java.util.Map">
+				update dst_administrador_negocio set activo = #activo#
+				where id_administrador in (
+					<include refid="selectAdminId"/>
+										)
+		<isNotPropertyAvailable property="todos" prepend="and">
+				 id_negocio = #id_negocio#
+		</isNotPropertyAvailable>
+	</update>
+
+	
+	<delete id="eliminarDirectorNegocio" parameterClass="java.util.Map">
+		DELETE FROM dst_administrador_negocio
+ 			WHERE id_administrador = (
+ 				<include refid="selectAdminId"/>
+									  )
+			and id_negocio = #id_negocio#
+	</delete>
+	<sql id="eliminar_relacion">
+	(
+		select eliminar_datos_usuario ( #rol#,  
+			(select id_$tabla$ from dst_$tabla$ 
+				where id_persona=#id_persona# 
+				      and id_usuario=#id_usuario# )
+		)  from dual
+	)
+	</sql>
+	
+	<select id="existe_relacion_persona_usuario_rol" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	
+		select count(1)from dst_$tabla$ 
+		where id_persona=#id_persona#
+		<isNotNull property="id_usuario"> 
+			and id_usuario=#id_usuario# 
+		</isNotNull>
+	
+	</select>
+	
+	
+	<delete id="eliminarPersonaUsuario" parameterClass="java.util.Map" >
+		DELETE FROM dst_$tabla$
+			WHERE id_persona=#id_persona# 
+				  and id_usuario=#id_usuario#
+				  and (
+				  	'DESCONOCIDO' != <include refid="eliminar_relacion"/>
+				  )
+	</delete>	
+	<delete id="eliminarCredencial" parameterClass="java.util.Map">
+		DELETE FROM dst_credencial c where  id_persona = #id_persona#
+			<isEmpty prepend="and" property="id_usuario">
+				id_usuario is null
+			</isEmpty>
+			<isNotEmpty prepend="and" property="id_usuario">
+				id_usuario = #id_usuario#
+				and (select count(1) from dsv_usuario_rol t where t.id_persona = c.id_persona and t.id_usuario = c.id_usuario) = 0
+			</isNotEmpty>
+			
+	</delete>
+	
+	<delete id="eliminarCredencialPorLogin" parameterClass="java.lang.String">
+		DELETE FROM dst_credencial where  upper(login) = upper(#login#)
+	</delete>
+	
+	<insert id="guardarPersonaUsuario" parameterClass="java.util.Map">
+		insert into dst_$tabla$ (id_$tabla$, id_persona,
+		<isNotNull property="id_usuario">
+			id_usuario, 
+		</isNotNull> 
+			activo) 
+		values (nextvalue('dss_$tabla$'), #id_persona# ,
+		<isNotNull property="id_usuario"> 
+			#id_usuario#,
+		</isNotNull>
+		'S')
+	</insert>
+		
+	<select id="obtenerPersonaUsuario" parameterClass="java.util.Map" resultClass="persona">
+		SELECT p.*, u.activo FROM dst_persona p, dsv_usuario_rol u
+			where 
+			p.id_persona = u.id_persona
+			and u.id_usuario = #id_usuario#
+			and u.rol = #rol#
+			and p.tipo_persona = #tipo_persona#
+			and p.identificacion = #identificacion#
+			and p.tipo_documento = #tipo_documento#
+	</select>
+	
+	<insert id="guardarCredencial" parameterClass="credencial">
+		INSERT INTO dst_credencial( login, id_usuario, id_persona, estado, cambiar_clave)
+		    VALUES (upper(#loginUsuario#), #id_usuario#, #id_persona#, #estado#, 'S')
+	</insert>	
+	
+	<update id="actualizarFechaIngreso" parameterClass="java.util.Map">
+		update dst_credencial set fecha_ingreso=#fecha_ingreso# where login = upper(#login#)
+	</update>
+	
+	<update id="actualizarEstadoCredencial" parameterClass="java.util.Map">
+		update dst_credencial set estado=#estado# where login = upper(#login#)
+	</update>
+	
+	<update id="actualizarIPIngreso" parameterClass="java.util.Map">
+		update dst_credencial set ip_ingreso=#ip_ingreso# where login=upper(#login#)
+	</update>
+
+	<select id="obtenerTiposDocumento" resultClass="tipoDocumento">
+		select * from dst_tipodocumento
+	</select>
+	
+	<select id="obtenerTipoDocumento" resultClass="tipoDocumento">
+		select * from dst_tipodocumento where id = #id_tipo_documento#
+	</select>
+			
+	<sql id="sqlAdministrativos">
+		select per.*, adm.activo, adm.id_administrativo id from dst_administrativo adm, dst_persona per
+		where adm.id_persona = per.id_persona
+		and nvl(#id_usuario#, -1) = nvl(adm.id_usuario, -1)
+		and per.id_persona not in ( select uu.id_persona from dst_usuario uu where uu.id_usuario = #id_usuario#)
+	</sql>
+	<select id="obtenerAdministrativos" resultClass="persona" parameterClass="java.lang.Integer">
+		<include refid="sqlAdministrativos"/>
+		order by per.nombre, per.apellido
+	</select>
+	<select id="contarAdministrativos" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlAdministrativos"/>) t
+	</select>
+
+	<select id="obtenerSiguienteIdPersonaRol" parameterClass="java.lang.String" resultClass="java.lang.Integer">
+		select nextval('dss_$tabla$') from dual
+	</select>
+
+	<insert id="guardarPersonaRol" parameterClass="java.util.Map">
+		insert into dst_$tabla$ (id_$tabla$, id_persona, activo)
+		 values (#id#, #id_persona#, 'S')
+	</insert>
+
+	<select id="obtenerPersonaRol" parameterClass="java.util.Map" resultClass="persona">
+		SELECT p.*, u.activo FROM dst_persona p, dst_$tabla$ u
+			where 
+			p.id_persona = u.id_persona
+			and p.tipo_persona = #tipo_persona#
+			and p.identificacion = #identificacion#
+			and p.tipo_documento = #tipo_documento#
+			and nvl(u.id_usuario, -1) = nvl(#id_usuario#, -1)
+	</select>
+	
+	<delete id="eliminarPersonaRol" parameterClass="java.util.Map" >
+		DELETE FROM dst_$tabla$
+			WHERE id_persona=#id_persona#
+			and nvl(id_usuario, -1) = nvl(#id_usuario#, -1)
+	</delete>
+	
+	<insert id="guardarHistorialLoginClave" parameterClass="java.util.Map">
+		insert into dst_historial_login_clave (login, clave)
+		 values (upper(#login#), #clave#)
+	</insert>	
+	
+	<select id="existeHistorialLoginClave" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from dst_historial_login_clave
+		where login = upper(#login#)
+		and clave = #clave#
+
+	</select>
+
+	<select id="esPersonaRolActiva" parameterClass="java.util.Map" resultClass="java.lang.String">
+		SELECT activo 
+		    FROM dst_$tabla$
+			where id_persona = #id_persona# 
+	</select>
+	
+	<select id="obtenerTiposProcesosPorIdUsuario" parameterClass="java.lang.Integer" resultClass="tipoProceso">
+		select distinct tpr.* from dst_tipo_proceso tpr, dst_tipo_proceso_negocio tprn, dst_usuario_negocio us
+		where tpr.id_tipo_proceso = tprn.id_tipo_proceso and tprn.id_negocio = us.id_negocio and us.id_usuario = #id_usuario# 
+	</select>
+	
+	<select id="obtenerTipoProcesoRol" parameterClass="java.util.Map" resultClass="tipoProcesoRol">
+		select * from dsv_tipo_proceso
+		where id_persona = #id_persona# and id_usuario = #id_usuario# and rol = #rol# 
+	</select>
+	
+	<delete id="eliminarProcesoRol" parameterClass="java.util.Map">
+		delete from dst_$tabla$_tipo_proceso where id_$tabla$ = #id_rol#
+	</delete>
+	
+	<insert id="guardarProcesoRol" parameterClass="java.util.Map">
+		insert into dst_$tabla$_tipo_proceso(id_$tabla$,id_tipo_proceso)values(#id_rol#,#id_tipo_proceso#) 
+	</insert>
+			
+	<select id="obtenerIdRol" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT id_rol FROM DSV_USUARIO_ROL where id_persona = #id_persona# and id_usuario = #id_usuario# and rol = #rol#  
+	</select>
+	
+	<select id="obtenerRolesPorPersona" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		SELECT rol FROM DSV_USUARIO_ROL where id_persona = #id_persona#
+	</select>
+	
+	<select id="obtenerTiposProcesosPorPersona" parameterClass="java.util.Map" resultClass="tipoProceso">
+		select distinct tp.* from DST_TIPO_PROCESO tp, dsv_tipo_proceso dvtp where tp.id_tipo_proceso = dvtp.id_tipo_proceso
+		and dvtp.id_usuario = #id_usuario# and dvtp.id_persona = #id_persona# 
+	</select>
+	
+	<delete id="ajusteProcesoLiberador">
+		delete from dst_proceso_liberador pl
+		where (select count(*) from dst_liberador_tipo_proceso ltt, dst_proceso p 
+		where ltt.id_liberador = pl.id_liberador and p.id_proceso = pl.id_proceso 
+		and p.id_tipo_proceso = ltt.id_tipo_proceso) = 0
+	</delete>
+	
+	<delete id="ajusteProcesoPreparador">
+		delete from dst_proceso_prepadador pp
+		where(select count(*) from dst_preparador_tipo_proceso ptt, dst_proceso p
+  		where ptt.id_preparador = pp.id_preparador and p.id_proceso = pp.id_proceso
+  		and p.id_tipo_proceso = ptt.id_tipo_proceso) = 0
+	</delete>
+	
+	<delete id="ajusteProcesoRevisor">
+		delete from dst_revision_revisor rr
+		where (select count(*) from dst_revisor_tipo_proceso rtt, dst_proceso p, dst_revision r
+  		where rr.id_revision = r.id_revision and rtt.id_revisor = rr.id_revisor and p.id_tipo_proceso = rtt.id_tipo_proceso
+        and r.id_proceso = p.id_proceso) = 0
+	</delete>
+	
+	<select id="contarProcesosRelacionadosPreparador" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT count(*) FROM dst_Proceso_Prepadador pp, dst_proceso pr, dst_preparador pre 
+		WHERE pr.id_tipo_proceso = #id_tipo_proceso# 
+		and pre.id_preparador = pp.id_preparador 
+		and pp.id_proceso = pr.id_proceso 
+		and pre.id_persona = #id_persona# and pre.id_usuario = #id_usuario#
+	</select>
+	
+	<select id="contarProcesosRelacionadosRevisor" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT count(*) FROM dst_revision pp, dst_revision_revisor rr, dst_proceso pr, dst_revisor rev 
+	    WHERE pr.id_tipo_proceso = #id_tipo_proceso# 
+	    and rev.id_revisor = rr.id_revisor
+	    and rr.id_revision = pp.id_revision 
+	    and pp.id_proceso = pr.id_proceso 
+	    and rev.id_persona = #id_persona# 
+	    and rev.id_usuario = #id_usuario#
+	</select>
+	
+	<select id="contarProcesosRelacionadosLiberador" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT count(*) FROM Dst_Proceso_Liberador pp, dst_proceso pr, dst_liberador lib 
+	    WHERE pr.id_tipo_proceso = #id_tipo_proceso# 
+	    and lib.id_liberador = pp.id_liberador 
+	    and pp.id_proceso = pr.id_proceso 
+	    and lib.id_persona = #id_persona# 
+	    and lib.id_usuario = #id_usuario#
+	</select>
+	
+	<select id="esAdminCliente" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from dst_admincliente
+		where id_usuario = #id_usuario#
+		and id_persona = #id_persona#
+	</select>
+	
+	<select id="obtenerTipoProcesoRolPorProceso" parameterClass="java.util.Map" resultClass="tipoProcesoRol">
+		select * from dsv_tipo_proceso
+		where id_persona = #id_persona# and id_usuario = #id_usuario# and id_tipo_proceso = #id_tipo_proceso# 
+	</select>
+	
+	<select id="obtenerIdLiberadorCarga" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select id_persona from dst_carga_historia where estado = 'S' and id_carga = #id_carga#
+	</select>
+	
+	<select id="obtenerAdministradoresClientePorUsuario" parameterClass="java.lang.Integer" resultClass="persona">
+		SELECT p.* FROM dst_persona p 
+			inner join dst_admincliente r on p.id_persona = r.id_persona
+			where r.id_usuario = #id_usuario#
+	</select>
+	
+	<select id="obtenerRevisoresPorUsuario" parameterClass="java.util.Map" resultClass="persona">
+		SELECT p.* FROM dst_persona p 
+			inner join dst_revisor r on p.id_persona = r.id_persona
+			where r.id_usuario = #id_usuario#
+			and r.id_tipo_revisor = #id_tipo_revisor#
+	</select>
+	
+	<select id="obtenerIdTipoRevisorPorPersona" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT ID_TIPO_REVISOR FROM dst_revisor WHERE ID_PERSONA = #value#
+	</select>
+	
+	<select id="obtenerPreparadoresNoAdminClientePorUsuario" parameterClass="java.lang.Integer" resultClass="persona">
+		SELECT p.* FROM dst_persona p 
+			inner join dst_preparador r on p.id_persona = r.id_persona
+			where r.id_usuario = #id_usuario# 
+			and p.id_persona not in (
+				SELECT p.id_persona FROM dst_persona p inner 
+					join dst_admincliente r on p.id_persona = r.id_persona 
+					and r.id_usuario = #id_usuario#
+									)
+	</select>
+	
+	<select id="obtenerResponsablesAsignados" resultClass="persona">
+		SELECT p.* FROM dst_persona p where p.id_persona in
+        (
+			select cr.id_persona from dst_carga_responsable cr
+            inner join dst_carga c on cr.id_carga = c.id_carga 
+            where c.estado = 'S'
+        )
+	</select>
+		
+	<select id="obtenerPosiblesResponsablesCarga" parameterClass="java.lang.Integer" resultClass="persona">
+        select p.* from dst_carga c 
+        	inner join dst_carga_instancia ci on ci.id_carga = c.id_carga and ci.fecha_salida is null
+	        inner join dst_rol_instancia ri on ri.id_instancia = ci.id_instancia 
+            inner join dst_administrativo_rol ar on ri.id_rol = ar.id_rol
+            inner join dst_administrativo a on a.id_administrativo = ar.id_administrativo
+	        inner join dst_persona p on p.id_persona = a.id_persona
+	        where c.id_carga = #id_carga#
+	</select>
+		
+	<select id="obtenerResponsableActualCarga" parameterClass="java.lang.Integer" resultClass="com.osmosyscol.datasuite.logica.dto.Responsable">
+        select p.*, cr.id_instancia from dst_carga c 
+        	inner join dst_carga_instancia ci on ci.id_carga = c.id_carga and ci.fecha_salida is null
+	        inner join dst_carga_responsable cr on ci.id_instancia = cr.id_instancia and ci.id_carga = cr.id_carga
+	        inner join dst_persona p on p.id_persona = cr.id_persona
+	        where c.id_carga = #id_carga#
+	</select>
+	
+</sqlMap>
