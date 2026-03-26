@@ -181,7 +181,7 @@
 	<classpathentry kind="lib" path="/OsmoCore/WebContent/WEB-INF/lib/jasperreports-6.3.1.jar"/>
 	<classpathentry kind="lib" path="/OsmoCore/WebContent/WEB-INF/lib/jasperreports-fonts-6.3.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/fonts-extension.jar"/>
-	<classpathentry kind="lib" path="/home/ec2-user/programas/eclipse/plugins/javax.wsdl_1.6.2.v201012040545.jar"/>
-	<classpathentry kind="lib" path="/home/ec2-user/programas/eclipse/plugins/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
+	<classpathentry kind="lib" path="librares/javax.wsdl_1.6.2.v201012040545.jar"/>
+	<classpathentry kind="lib" path="librares/org.apache.commons.logging_1.1.1.v201101211721.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
