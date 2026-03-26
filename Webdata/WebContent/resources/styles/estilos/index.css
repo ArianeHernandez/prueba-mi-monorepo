@@ -1,0 +1,8 @@
+.div-center{
+	margin: auto;
+	max-width:  fit-content;
+}
+.alert{
+	left: 0px !important;
+	max-width: fit-content !important;
+}

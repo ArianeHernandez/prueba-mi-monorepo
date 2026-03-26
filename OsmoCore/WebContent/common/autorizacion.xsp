@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsp:page 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+	xmlns:xsp-response="http://apache.org/xsp/response/2.0" 
+    xmlns:action="http://apache.org/cocoon/action/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+    xmlns:util="http://apache.org/xsp/util/2.0"
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"	
+>
+
+<xsp:structure>
+	<xsp:include>com.osmosyscol.commons.servicio.InfoTransaccionServicio</xsp:include>
+</xsp:structure> 
+	
+<page>
+    <xsp:logic>
+    
+    	response.setHeader("Cache-Control", "no-store,must-revalidate,no-cache");
+		response.setDateHeader("Expires", 0);
+    
+    	InfoTransaccionServicio.getInstance().guardarInfoSession(request);
+    
+    	com.osmosyscol.commons.servicio.AutenticacionServicio.getInstance().autorizacionPage(request, response, this.resolver, this.contentHandler, this.actionRedirector, this.objectModel);
+
+    </xsp:logic>
+</page>
+	
+</xsp:page>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Usuario">
+
+	<typeAlias alias="usuarionegocio" type="com.osmosyscol.datasuite.logica.dto.UsuarioNegocio" />
+	<typeAlias alias="usuario" type="com.osmosyscol.datasuite.logica.dto.Usuario" />
+
+	<sql id="sqlUsuariosPorNegocio">
+		SELECT *
+		  FROM dsv_usuario_negocio
+		  where id_negocio = #id_negocio#
+	</sql>
+	
+	<select id="obtenerUsuariosPorNegocio" resultClass="usuarionegocio" parameterClass="java.lang.Integer">
+		<include refid="sqlUsuariosPorNegocio"/>
+		order by nombre
+	</select>
+	
+	<select id="contarUsuariosPorNegocio" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlUsuariosPorNegocio"/>) t
+	</select>
+	
+	<update id="activarUsuario" parameterClass="java.util.Map">
+		update dst_usuario
+			set activo = #activo#
+			where id_usuario = #id_usuario# 
+	</update>
+	
+	<delete id="eliminarUsuarioNegocio" parameterClass="java.util.Map">
+		delete from dst_usuario_negocio
+			where id_usuario = #id_usuario#
+			      and id_negocio = #id_negocio#
+	</delete>
+	<delete id="eliminarTodasRelacionesUsuarioNegocio" parameterClass="java.lang.Integer">
+		delete from dst_usuario_negocio
+		where id_usuario = #id_usuario#
+			     
+	</delete>
+	
+	<select id="obtenerUsuarioPorIdentificacionNegocio" parameterClass="java.util.Map" resultClass="usuarionegocio">
+		SELECT *
+		  FROM dsv_usuario_negocio
+		  where identificacion = #identificacion#
+		  and tipo_persona = #tipo_persona#
+		  <isNotEmpty property="id_negocio">
+		  	and id_negocio = #id_negocio#
+		  </isNotEmpty>
+		  and tipo_documento = #tipo_documento#
+	</select>
+	
+	<insert id="guardarUsuario" parameterClass="usuario">
+		INSERT INTO dst_usuario(
+            id_usuario, activo, observacion, id_persona, uso_firma, uso_firma_preparador, uso_firma_revisor, uso_firma_liberador, uso_ftp_usuario)
+    		VALUES (#id_usuario#, #activo#, #observacion#, #id_persona#, #uso_firma#, #uso_firma_preparador#, #uso_firma_revisor#, #uso_firma_liberador#, #uso_ftp_usuario#)
+	</insert>
+	
+	<update id="actualizarUsuario">
+		UPDATE dst_usuario  SET activo = #activo#, observacion = #observacion#, 
+			uso_firma=#uso_firma#, uso_firma_preparador=#uso_firma_preparador#, 
+			uso_firma_revisor=#uso_firma_revisor#, uso_firma_liberador=#uso_firma_liberador#,
+			uso_ftp_usuario = #uso_ftp_usuario#
+			WHERE id_usuario = #id_usuario#
+			and id_persona=#id_persona#
+	</update>
+	
+	<select id="obtenerUsuarioPorIdPersona" parameterClass="java.util.Map" resultClass="usuario">
+		SELECT *
+		  FROM dsv_usuario
+		  where id_persona = #id_persona#
+	</select>
+
+	<insert id="guardarUsuarioNegocio" parameterClass="java.util.Map">
+	
+		INSERT INTO dst_usuario_negocio(
+	            id_usuario, id_negocio)
+	    VALUES (#id_usuario#, #id_negocio#)
+		
+	</insert>
+	
+	<select id="obtenerSiguienteIdUsuario" resultClass="java.lang.Integer">
+		select nextvalue('dss_usuario') as id from dual
+	</select>
+	
+	
+	
+	<select id="obtenerUsuariosPorAdminCliente" parameterClass="java.util.Map" resultClass="usuario">
+		
+		select usu.* from dsv_usuario usu, dst_admincliente admcli, dst_usuario_negocio usuneg
+		where usu.id_usuario=admcli.id_usuario
+		and admcli.id_persona=#id_persona#
+		and usu.id_usuario=usuneg.id_usuario
+		and usuneg.id_negocio = #id_negocio#
+	
+	</select>
+	
+	<select id="obtenerUsuariosActivos" resultClass="usuario">
+		SELECT *
+  			FROM dsv_usuario where activo = 'S'
+  			order by nombre
+	</select>
+	
+	<select id="obtenerIdUsuariosActivos" resultClass="java.lang.Integer">
+		SELECT id_usuario
+  			FROM dsv_usuario where activo = 'S'
+  			order by nombre
+	</select>
+	
+	<select id="obtenerUsuariosOrden" parameterClass="java.util.Map" resultClass="usuario">
+		SELECT *
+  			FROM dsv_usuario 
+  			order by #orden#
+	</select>
+
+	<select id="obtenerUsuarioPorLogin" parameterClass="java.lang.String" resultClass="usuario">
+		select us.* FROM dsv_usuario us, dst_credencial cre
+			WHERE cre.login = upper(#login#)
+			and us.id_usuario = cre.id_usuario
+	</select>
+	
+	<select id="obtenerUsuario" parameterClass="java.lang.Integer" resultClass="usuario">
+		SELECT *
+		  FROM dsv_usuario
+		  where id_usuario = #id_usuario#
+	</select>
+
+	<select id="buscarUsuarios" resultClass="usuario" parameterClass="java.util.Map">
+		SELECT *
+  			FROM dsv_usuario 
+            where activo = 'S'
+            and (lower(nombre) like lower('%' || #texto# || '%')
+                or lower(apellido) like lower('%' || #texto# || '%')
+                or lower(identificacion) like lower('%' || #texto# || '%')
+            )
+            <isPropertyAvailable property="juridico">
+	            and tipo_persona = 'J'
+            </isPropertyAvailable>
+            
+            <isPropertyAvailable property="natural">
+	            and tipo_persona = 'N'
+            </isPropertyAvailable>
+            
+  			order by nombre
+            
+	</select>	
+
+	<sql id="sqlUsuariosSinCredenciales">
+		SELECT us.*
+	      FROM dsv_usuario us
+	      where id_usuario not in
+	          (select id_usuario from dst_credencial 
+	                where id_usuario is not null 
+	                group by id_usuario)
+	           and activo = 'S'
+	      
+	</sql>
+	<select id="obtenerUsuariosSinCredenciales" resultClass="usuario">
+		<include refid="sqlUsuariosSinCredenciales"/>
+		 order by nombre
+	</select>	
+	
+	<select id="contarUsuariosSinCredenciales" resultClass="java.lang.Integer">
+	select count(1) from (
+		<include refid="sqlUsuariosSinCredenciales"/>
+		) t
+	</select>
+	<update id="desactivarUsuarios">
+		update dst_usuario set activo = 'N'
+			where activo = 'S'
+	</update>
+
+	<select id="obtenerUsuarioPorIdentificacion" parameterClass="java.util.Map" resultClass="usuario">
+		SELECT * 		  
+		FROM dsv_usuario
+		where identificacion = #identificacion#
+		<isNotNull property="tipo_documento">
+			<isNotEmpty property="tipo_documento">	   		   		  
+				and tipo_documento = #tipo_documento#
+			</isNotEmpty>
+		</isNotNull>
+	</select>
+	
+	
+	<select id="buscarUsuariosSinCredenciales" parameterClass="java.util.Map" resultClass="usuario">
+	
+	     SELECT * FROM dsv_usuario dd 
+	     where activo = 'S' and (lower(nombre) like lower('%' || #texto# || '%') 
+	     or lower(identificacion) like lower('%' || #texto# || '%') ) 
+	     and (select count(1) from dst_credencial cc where cc.id_usuario = dd.id_usuario) = 0  
+	     order by nombre
+            
+	</select>
+	
+	
+	<select id="buscarUsuariosConvenio" resultClass="usuario" parameterClass="java.util.Map">
+		SELECT *
+  			FROM dsv_usuario_negocio 
+            where activo = 'S'
+            and (lower(nombre) like lower('%' || #texto# || '%')
+                or lower(apellido) like lower('%' || #texto# || '%')
+                or lower(identificacion) like lower('%' || #texto# || '%')
+            )
+            <isPropertyAvailable property="juridico">
+	            and tipo_persona = 'J'
+            </isPropertyAvailable>
+            
+            <isPropertyAvailable property="natural">
+	            and tipo_persona = 'N'
+            </isPropertyAvailable>
+            
+  			<isPropertyAvailable property="idNegocio">
+	            and id_negocio = #idNegocio#
+            </isPropertyAvailable>
+            
+            order by nombre
+	</select>
+
+	<select id="obtenerUsuarioConvenio" parameterClass="java.util.Map" resultClass="usuario">
+		SELECT *
+		  FROM dsv_usuario_negocio
+		  where id_usuario = #id_usuario#
+		  and id_negocio = #idNegocio#
+	</select>
+			
+</sqlMap>

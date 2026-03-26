@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+        xmlns:xsp="http://apache.org/xsp"
+		xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+		xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+>
+     
+	<achivos_adjuntos>
+		
+	</achivos_adjuntos>
+	
+</xsp:page>

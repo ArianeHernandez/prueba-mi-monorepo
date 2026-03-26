@@ -1,0 +1,12 @@
+.con_formato{
+	
+	margin: 0px;
+	width: 90%;
+	font: normal normal normal 11px/ 11px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border: solid 1px #ccc;
+	line-height 11px;
+	padding: 5px;
+	background-color: #FFF;
+	border: solid 1px #AFE037;
+	
+}

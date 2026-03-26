@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Revision">
+
+	<typeAlias alias="revision" type="com.osmosyscol.datasuite.logica.dto.Revision" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<update id="actualizarNombreRevision" parameterClass="java.util.Map">
+		UPDATE dst_revision 
+    	SET nombre = #nombre#
+    	WHERE id_revision = #id_revision#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerRevision" parameterClass="java.lang.Integer" resultClass="revision">
+		select * from dst_revision where id_revision = #id_revision#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<delete id="eliminarRevisionRevisor">
+		delete from dst_revision_revisor where id_revision = #id_revision#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<delete id="eliminarRevision">
+		delete from dst_revision where id_revision = #id_revision#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="siguienteId" resultClass="java.lang.Integer">
+		select nextvalue('DSS_REVISION') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="agregarRevision" parameterClass="revision">
+		INSERT INTO dst_revision(id_revision, id_proceso, nombre, id_revision_siguiente) 
+   		VALUES(#id_revision#, #id_proceso#, #nombre#, #id_revision_siguiente#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarSiguiente" parameterClass="java.util.Map">
+		update dst_revision
+		set id_revision_siguiente = #id_revision_siguiente#
+		where id_revision = #id_revision#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerIdPrimeraRevision" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select id_revision from dst_revision where id_proceso = #id_proceso#
+		and id_revision not in (select rr.id_revision_siguiente from dst_revision rr where rr.id_proceso = #id_proceso# and rr.id_revision_siguiente is not null)
+	</select>
+	
+	<select id="obtenerIdRevisionAnterior" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select id_revision from dst_revision where id_revision_siguiente = #id_revision#
+	</select>
+	
+	<select id="obtenerIdRevisionSiguiente" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select id_revision_siguiente from dst_revision where id_revision = #id_revision#
+	</select>
+	
+	<select id="obtenerRevisiones" parameterClass="java.lang.Integer" resultClass="revision">
+		select * from dst_revision where id_proceso=#id_revision#
+	</select>
+	
+	<sql id="sqlRevisionesRevisor">
+			select rn.id_proceso, rn.id_revision, rn.id_revision_siguiente, rn.nombre, count(c.id_carga) total_cargas
+			from dst_revision_revisor rr, dst_revision rn, dst_revisor rv, 
+      		dst_proceso pr, dst_carga c
+			where rv.id_usuario = #id_usuario#
+			and rv.id_persona = #id_persona#
+			<isNotNull property="id_proceso">
+				and pr.id_proceso = #id_proceso#
+			</isNotNull>
+			and rn.id_proceso = pr.id_proceso	
+      		and c.id_usuario = rv.id_usuario
+			and c.id_revision = rn.id_revision
+			and c.estado = 'V'
+			and (
+					(pr.id_proceso = c.id_proceso
+					and pr.id_negocio = #id_negocio#
+					and rn.id_revision = rr.id_revision
+					and rr.id_revisor = rv.id_revisor
+					)
+				or
+					(pr.id_usuario is null and pr.id_negocio is null)
+				) 
+			 
+			
+      		group by rn.id_proceso, rn.id_revision, rn.id_revision_siguiente, rn.nombre
+	</sql>
+
+	<select id="obtenerRevisionesRevisor" parameterClass="java.util.Map" resultClass="revision">
+		<include refid="sqlRevisionesRevisor"/>
+	</select>
+		
+	<select id="contarRevisionesRevisor" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="sqlRevisionesRevisor"/>)t
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="avanzarCargasALiberacion" parameterClass="java.lang.Integer">
+
+		update dst_carga
+		set estado = 'L'
+		where estado = 'V' and id_revision = #id_revision#
+		
+	</update>
+	
+	<update id="avanzarCargasARevision" parameterClass="java.util.Map">
+		
+		update dst_carga
+		set id_revision = #id_siguiente_revision#
+		where estado = 'V' and id_revision = #id_revision#
+		
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	
+	
+	
+</sqlMap>

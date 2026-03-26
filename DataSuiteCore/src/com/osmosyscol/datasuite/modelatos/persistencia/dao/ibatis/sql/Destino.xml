@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Destino">
+
+	<typeAlias alias="destino" type="com.osmosyscol.datasuite.modelatos.logica.dto.Destino"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+	<select id="obtenerDestino" resultClass="destino" parameterClass="java.lang.Integer">
+		select * from dst_destino where id_destino = #id_destino#
+	</select>
+	
+	<select id="obtenerTodosDestino" resultClass="destino">
+		select * from dst_destino
+	</select>
+
+	<select id="siguienteIdDestino" resultClass="java.lang.Integer" >
+		select nextvalue('DSS_DESTINO') as id from dual
+	</select>
+	
+	<insert id="insertarDestino" parameterClass="destino">
+		insert into dst_destino (id_destino, id_uri, titulo, id_formato) 
+    	values(#id_destino#, #id_uri#, #titulo#, #id_formato#)
+	</insert>
+	
+	<update id="actualizarDestino" parameterClass="destino">
+		update dst_Destino 
+    	set id_uri=#id_uri# , titulo=#titulo#, id_formato=#id_formato#
+    	where id_destino=#id_destino#
+	</update>
+	
+	<select id="obtenerDestinosPorFormato" parameterClass="java.lang.Integer" resultClass="destino">
+		select * from dst_destino 
+		where id_formato=#id_formato#
+	</select>
+	
+	<delete id="eliminarDestino" parameterClass="java.lang.Integer">
+		delete from dst_destino where id_destino = #id_destino#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</sqlMap>

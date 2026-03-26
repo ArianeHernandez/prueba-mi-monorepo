@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:util="http://apache.org/xsp/util/2.0"
+>
+	
+	<xsp:structure>
+		<xsp:include>com.osmosyscol.commons.servicio.AutenticacionServicio</xsp:include>
+		<xsp:include>com.osmosyscol.commons.servicio.InfoTransaccionServicio</xsp:include>
+		<xsp:include>com.osmosyscol.commons.utils.CocoonUtils</xsp:include>
+		<xsp:include>java.io.File</xsp:include>
+	</xsp:structure> 
+
+    <OSM_PAGE>
+    	
+    	<xsp:logic>
+    	
+    		InfoTransaccionServicio.getInstance().guardarInfoSession(request);
+    	
+    		String noCache = parameters.getParameter("no-cache", null);
+
+			if (noCache != null) {
+				response.setHeader("Cache-Control", "no-store,must-revalidate,no-cache");
+				response.setDateHeader("Expires", 0);
+				response.setHeader("X-Content-Type-Options", "nosniff");
+				response.setHeader("x-xss-protection", "1; mode=block");
+				response.setHeader("Content-Security-Policy", "default-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com *.googleapis.com *.gstatic.com *.youtube.com *.amazonaws.com");
+			}
+    	
+    		long timeservice_osmcoresystem = System.currentTimeMillis();
+    		
+    		String ipHost = CocoonUtils.getRemoteAddr(request);
+			
+			request.setAttribute("OSM_OBJECTMODEL", objectModel);
+			
+    	</xsp:logic>
+    	
+    	<VERSION_APLICACION><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.VERSION_APLICACION</xsp:expr></VERSION_APLICACION>
+    	<CONTEXT_PATH><xsp:expr>request.getContextPath()</xsp:expr></CONTEXT_PATH>
+    	<SYSTEM_TIME><xsp:expr>System.currentTimeMillis()</xsp:expr></SYSTEM_TIME>
+    	
+    	<REQUESTURI><xsp:expr>request.getRequestURI().substring(request.getContextPath().length())</xsp:expr></REQUESTURI>
+
+    	<STRING_TIME><xsp:expr>com.osmosyscol.commons.utils.StringUtils.getStringTime()</xsp:expr></STRING_TIME>
+    	<STRING_DATE_FORMATTED><xsp:expr>com.osmosyscol.commons.utils.StringUtils.getStringTime("dd/MM/yyyy")</xsp:expr></STRING_DATE_FORMATTED>
+    	<STRING_TIME_FORMATTED><xsp:expr>com.osmosyscol.commons.utils.StringUtils.getStringTime("EEEE, dd/MM/yyyy - hh:mm a")</xsp:expr></STRING_TIME_FORMATTED>
+    	
+    	<CLIENT_IP><xsp:expr>ipHost</xsp:expr></CLIENT_IP>
+    	<BASEPATH><xsp:expr>com.osmosyscol.commons.servlet.ContextInfo.getInstance().getDiskPathForResource("")</xsp:expr></BASEPATH>
+    	
+    	<HEADERS>
+    		<xsp:logic>
+    			java.util.Enumeration a = request.getHeaderNames();
+		
+				while (a.hasMoreElements()) {
+					String name = (String) a.nextElement();
+					<HEADER>
+						<name><xsp:expr>name.toLowerCase()</xsp:expr></name>
+						<value><xsp:expr>request.getHeader(name)</xsp:expr></value>
+					</HEADER>
+				}
+    		</xsp:logic>
+    	</HEADERS>
+    	
+		<xsp:logic>
+			
+			try{ 
+				String osm_contentGeneral = XSPUtil.getSourceContents("cocoon:/public/general.ser?page=" + <util:get-sitemap-parameter name="page"/>, this.resolver);
+        	    XSPUtil.includeString(osm_contentGeneral, this.manager, this.contentHandler);
+			}catch(Exception __e){
+				com.osmosyscol.commons.log.SimpleLogger.setError("No se pude incluir: 'cocoon:/public/general.ser'", __e);
+			}
+
+			String serverRequest = ((parameters.getParameter("page", null)));
+
+	        String osm_tmp_type = serverRequest.substring(serverRequest.lastIndexOf("."));
+	        
+	        if(osm_tmp_type.lastIndexOf(".pub")>=0){ osm_tmp_type = ".pub"; }
+	        String type_action = osm_tmp_type + "_action";
+	        
+	        String osm_url_page = "cocoon:" + serverRequest.substring(0,serverRequest.lastIndexOf(".")) + type_action;
+	        
+			String osm_contentpage = XSPUtil.getSourceContents(osm_url_page, this.resolver);
+			
+        	XSPUtil.includeString(osm_contentpage, this.manager, this.contentHandler);
+
+			if(request.getSession(false) != null)
+			{
+				try{ XSPUtil.includeSource("cocoon:/core/mensajes.ser", null, this.resolver, this.contentHandler); }catch(Exception __e){
+					com.osmosyscol.commons.log.SimpleLogger.setError("No se pude incluir: 'cocoon:/core/mensajes.ser'", __e);
+				}
+				
+				if(request.getSession().getAttribute("no-session")!=null){
+				
+					try{ XSPUtil.includeSource("cocoon:/session/invalidate.ser", null, this.resolver, this.contentHandler); }catch(Exception __e){
+						com.osmosyscol.commons.log.SimpleLogger.setError("No se pude incluir: 'cocoon:/session/invalidate.ser'", __e);
+					}
+					com.osmosyscol.commons.log.SimpleLogger.setInfo("Publico: Invalidando");
+					request.getSession().invalidate();
+				}
+			}
+		
+			timeservice_osmcoresystem = System.currentTimeMillis() - timeservice_osmcoresystem;
+			
+			AutenticacionServicio.addLogPage(serverRequest, timeservice_osmcoresystem);
+			
+			InfoTransaccionServicio.getInstance().borrarInfoTransaccion();
+			
+	    </xsp:logic>
+    	
+    </OSM_PAGE>
+
+</xsp:page>

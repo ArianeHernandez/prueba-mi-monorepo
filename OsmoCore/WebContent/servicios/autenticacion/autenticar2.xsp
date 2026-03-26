@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+ 
+    <autenticar2>
+        <osm-utils:servicio-java>
+            <name>exitoso</name>
+            <service>com.osmosyscol.commons.servicio.AutenticacionServicio</service>
+            <operation>autenticar2</operation>
+            <parameters>
+            	<parameter>login</parameter>
+            	<parameter>clave</parameter>
+            	<parameter>configuracion</parameter>
+            </parameters>
+        </osm-utils:servicio-java>
+    </autenticar2>
+	
+</xsp:page>

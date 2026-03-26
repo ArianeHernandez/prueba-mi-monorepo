@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+		  xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	
+<xsp:structure>
+	<xsp:include>java.util.Set</xsp:include>
+	<xsp:include>java.util.Iterator</xsp:include>
+	<xsp:include>com.osmosyscol.commons.validacion.ResultadoValidacion</xsp:include>
+</xsp:structure>
+	
+   <OSM-VALIDACIONMENSAJE>
+   	
+   		<xsp:logic>
+   			ResultadoValidacion resultadovalidacion = (ResultadoValidacion)session.getAttribute("resultadovalidacion");
+   			
+   			Set mensajes = (Set) session.getAttribute("osm_mensaje");
+   			if(mensajes!=null)
+   			{
+   				for (Iterator iterator = mensajes.iterator(); iterator.hasNext();) {
+					String omsg = (String) iterator.next();
+					<MENSAJE_BASE><xsp:expr>omsg</xsp:expr></MENSAJE_BASE>
+				}
+			}
+   			
+   			session.removeAttribute("osm_mensaje");
+   			
+   			if(resultadovalidacion!=null &amp;&amp; resultadovalidacion.getMensaje() !=null)
+   			{
+   				<MENSAJE_BASE><xsp:expr>resultadovalidacion.getMensaje()</xsp:expr></MENSAJE_BASE>
+   			
+   				Set llv = resultadovalidacion.getMensajeCampo().keySet();
+   				if(llv!=null)
+   				{
+	   				for (Iterator iterator = llv.iterator(); iterator.hasNext();) {
+						Object llave = (Object) iterator.next();
+						String msg = (String)resultadovalidacion.getMensajeCampo().get(llave);
+						if(msg!=null){
+							<ITEM>
+								<NOMBRE><xsp:expr>llave</xsp:expr></NOMBRE>
+								<MENSAJE><xsp:expr>msg</xsp:expr></MENSAJE>
+							</ITEM>
+						}
+					}
+				}
+   			}
+   			
+   			session.removeAttribute("resultadovalidacion");
+   			
+   		</xsp:logic>
+	</OSM-VALIDACIONMENSAJE>
+
+</xsp:page>

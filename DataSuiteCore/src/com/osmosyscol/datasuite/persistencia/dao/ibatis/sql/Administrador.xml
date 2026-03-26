@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Administrador">
+
+	<typeAlias alias="administrador" type="com.osmosyscol.datasuite.logica.dto.Administrador" />
+	<typeAlias alias="persona" type="com.osmosyscol.datasuite.logica.dto.Persona" />
+
+	<select id="obtenerAdministradorPorLogin" parameterClass="java.lang.String" resultClass="administrador">
+		SELECT distinct adm.*, cre.login 
+		FROM dst_administrador adm, dst_credencial cre
+		where adm.id_persona = cre.id_persona
+		and cre.login = upper(#login#)
+	</select>
+	
+	<select id="obtenerListadoAdministradoresPorNegocio" parameterClass="java.lang.Integer" resultClass="administrador">
+		select distinct adm.*, cc.login
+		from dst_administrador adm, dst_administrador_negocio an, dst_credencial cc 
+		where adm.id_administrador = an.id_administrador
+		and cc.id_persona = adm.id_persona
+		and an.id_negocio = #id_negocio#
+	</select>
+
+	<delete id="eliminarAdministradorNegocioPorNegocio" parameterClass="java.lang.Integer">
+		delete from dst_administrador_negocio where id_negocio = #id_negocio#
+	</delete>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_administrador') from dual
+	</select>
+	
+	<insert id="crearAdministrador" parameterClass="administrador">
+		insert into dst_administrador (id_administrador, id_persona, activo) values (#id_administrador#, #id_persona#, 'S')
+	</insert>
+	
+	<update id="actualizarAdministrador" parameterClass="administrador">
+		update dst_administrador set activo='S' where id_persona = #id_persona#
+	</update>
+	
+	<insert id="crearPersonaAdministrador" parameterClass="persona">
+		insert into dst_persona(id_persona,nombre,apellido,identificacion,telefono,direccion,correo,genero) 
+		values( nextvalue('dss_persona') ,#nombre#,#apellido#,#identificacion#,#telefono#,#direccion#,#correo#,#genero#)
+	</insert>
+	
+	<update id="actualizarPersonaAdministrador" parameterClass="persona">
+		update dst_persona set nombre=#nombre#,apellido=#apellido#,identificacion=#identificacion#,telefono=#telefono#,direccion=#direccion#,correo=#correo#,genero=#genero# 
+    	where id_persona = #id_persona# 
+	</update>
+	
+	<insert id="agregarAdministradorNegocio" parameterClass="java.util.Map">
+		insert into dst_administrador_negocio (id_administrador, id_negocio, activo)
+		values ( #id_administrador#, #id_negocio# , #activo#) 
+	</insert>
+	
+	<insert id="agregarAdministradorNegocio2" parameterClass="java.util.Map">
+		insert into dst_administrador_negocio (id_administrador, id_negocio, activo)
+		values ( #id_administrador#, ( select id_negocio from dst_negocio where cod_negocio = #cod_negocio# ), 'S' ) 
+	</insert>
+
+	<update id="actualizarActivoAdministrador" parameterClass="java.util.Map">
+		update dst_administrador set activo=#activo# where id_administrador = #id_administrador#
+	</update>
+	
+	<delete id="eliminarAdministradorNegocioPorAdministrador" parameterClass="java.lang.Integer">
+		delete from dst_administrador_negocio where id_administrador = #id_administrador#
+	</delete>
+	
+	<select id="obtenerDirectorNegocioIdentificacionNegocio" parameterClass="java.util.Map" resultClass="administrador">
+		select t.* from dst_administrador t, dst_administrador_negocio an where 
+			t.id_administrador in (
+			SELECT a.id_administrador from dst_administrador a, dst_persona p 
+				where  p.tipo_persona = #tipo_persona#
+				and p.identificacion = #identificacion# 
+				and a.id_persona = p.id_persona
+							)
+			and t.id_administrador = an.id_administrador
+			and an.id_negocio = #id_negocio# 
+	</select>
+	
+</sqlMap>

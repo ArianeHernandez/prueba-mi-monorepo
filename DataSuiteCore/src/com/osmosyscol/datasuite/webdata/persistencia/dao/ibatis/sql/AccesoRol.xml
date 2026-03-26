@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccesoRol">
+
+	<typeAlias alias="servicio" type="com.osmosyscol.datasuite.webdata.logica.dto.Servicio" />
+	<typeAlias alias="rol" type="com.osmosyscol.datasuite.logica.dto.Rol" />
+	
+	<select id="obtenerServicio" parameterClass="java.lang.Integer" resultClass="servicio">
+		SELECT * FROM dst_servicio where id_servicio = #id_servicio#
+	</select>
+	
+	<select id="obtenerServicios" resultClass="servicio">
+		SELECT * FROM dst_servicio	
+	</select>
+		
+	<select id="obtenerRolesPorServicio" resultClass="rol" parameterClass="java.util.Map">
+		SELECT rol.* from dst_rol rol, dst_rol_servicio rs
+			where rs.id_servicio = #id_servicio#
+			and nvl(rol.id_usuario, -1) = nvl(#id_usuario#, -1)
+			AND rs.id_rol = rol.id_rol
+	</select>
+	
+	<insert id="guardarAccesoRol" parameterClass="java.util.Map">
+		INSERT INTO dst_rol_servicio(id_rol, id_servicio) 
+    		VALUES(#id_rol#, #id_servicio#)
+	</insert>
+
+	<delete id="eliminarAccesoRol" parameterClass="java.util.Map">
+		DELETE FROM dst_rol_servicio 
+			WHERE id_rol = #id_rol# and id_servicio = #id_servicio#
+	</delete>
+
+	<select id="obtenerServiciosAdministrativo" resultClass="servicio" parameterClass="java.lang.Integer">
+		select * from dst_servicio ser, dst_rol_servicio rs, dst_administrativo_rol ar
+			where ser.id_servicio = rs.id_servicio
+			and rs.id_rol = ar.id_rol
+			and ar.id_administrativo = #id_administrativo#
+	</select>
+	
+	<select id="obtenerIdServicioPorURL" resultClass="java.lang.Integer" parameterClass="java.lang.String">
+		SELECT id_servicio from dst_url_servicio
+			WHERE url = #url#
+	</select>
+	
+	<select id="validarAccesoAdministrativo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM dst_administrativo_rol ar, dst_rol_servicio rs
+			WHERE ar.id_administrativo = #id_administrativo#
+			AND rs.id_servicio = #id_servicio#
+			AND ar.id_rol = rs.id_rol
+	</select>
+	
+	<select id="validarAccesoAdministrativoPorUrl" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT COUNT(*) FROM dst_administrativo_rol ar, dst_rol_servicio rs, dst_url_servicio us
+			WHERE ar.id_administrativo = #id_administrativo#
+			AND us.url = #url#
+			AND rs.id_servicio = us.id_servicio
+			AND ar.id_rol = rs.id_rol
+	</select>
+	
+</sqlMap>

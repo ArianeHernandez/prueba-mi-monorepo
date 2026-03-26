@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+<!-- Eliminar .backup para que las sentencias sql sean enviadas al log -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- The default pattern: Date Priority [Category] Message\n -->
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %t %c{6} \- %m%n"/>
+        </layout>
+    </appender>
+    
+	 <appender name="ROLLINGFILE" class="org.apache.log4j.RollingFileAppender"> 
+	 <!-- 
+	    <param name="file" value="example.log"/>
+	 -->
+	    <param name="file" value="FiduOccidente.ZonaWeb.Osmoautenticador_logs.log"/>
+	    <param name="MaxFileSize" value="5000KB"/>
+	    <param name="MaxBackupIndex" value="10" />
+	    <layout class="org.apache.log4j.PatternLayout"> 
+	      <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %t %c - %m%n"/> 
+	    </layout> 
+	  </appender> 
+	
+	<!-- ####################### category  data access:: ibatis ############################# -->
+	<category name="com.ibatis" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</category>
+	<category name="java.sql" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</category>
+	<category name="javax.sql" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</category>
+	<category name="org.apache.xml.security" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>	
+	<category name="org.apache.axis2" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>	
+	<category name="org.apache.rampart" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>	
+	<category name="org.bouncycastle" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>	
+	<category name="org.apache.ws.security" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>		
+	<category name="org.apache.ws.security.util.Base64" additivity="false">
+		<priority value="WARN" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="ROLLINGFILE" />
+	</category>		
+	
+	
+    <!-- ####################### category custom ::  ########################## -->
+    
+    <category name="com.it.nzwt" additivity="false">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</category>
+		
+	<!-- ####################### category root ::  ########################## -->	
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="CONSOLE" />
+    </root>
+    
+
+	
+</log4j:configuration>

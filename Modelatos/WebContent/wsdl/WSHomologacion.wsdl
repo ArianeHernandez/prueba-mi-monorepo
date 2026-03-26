@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://homologaciones.modelatos.datasuite.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://homologaciones.modelatos.datasuite.osmosyscol.com" xmlns:intf="http://homologaciones.modelatos.datasuite.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://homologaciones.modelatos.datasuite.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="homologarValor">
+    <complexType>
+     <sequence>
+      <element name="entradaHomologacion" type="impl:WSHomologacionEntrada"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ValorHomologable">
+    <sequence>
+     <element name="nombreCampo" nillable="true" type="xsd:string"/>
+     <element name="valor" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOfValorHomologable">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="impl:ValorHomologable"/>
+    </sequence>
+   </complexType>
+   <complexType name="WSHomologacionEntrada">
+    <sequence>
+     <element name="m_ValorHomologable" nillable="true" type="impl:ArrayOfValorHomologable"/>
+     <element name="tipoHomologacion" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <element name="homologarValorResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="homologarValorReturn" type="impl:ValorHomologado"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ValorHomologado">
+    <sequence>
+     <element name="nombreCampo" nillable="true" type="xsd:string"/>
+     <element name="valor" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="homologarValorResponse">
+
+      <wsdl:part element="impl:homologarValorResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="homologarValorRequest">
+
+      <wsdl:part element="impl:homologarValor" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSHomologacion">
+
+      <wsdl:operation name="homologarValor">
+
+         <wsdl:input message="impl:homologarValorRequest" name="homologarValorRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:homologarValorResponse" name="homologarValorResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSHomologacionSoapBinding" type="impl:WSHomologacion">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="homologarValor">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="homologarValorRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="homologarValorResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSHomologacionService">
+
+      <wsdl:port binding="impl:WSHomologacionSoapBinding" name="WSHomologacion">
+
+         <wsdlsoap:address location="http://localhost:7070/Modelatos/services/WSHomologacion"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

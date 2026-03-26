@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FirmaDigital">
+
+	<typeAlias alias="documentoFirmado" type="com.itosmosys.firmadigital.dto.DocumentoFirmado"/>
+	
+	<insert id="crearAuditoriaDocumento" parameterClass="documentoFirmado">
+	insert into dst_documento_firmado
+	(id_documento_firmado, texto_claro, ruta_documento_firmado, login_usuario_firma, fecha_registro, id_carga, texto_firmado, valido, fase_proceso)
+	values(#id_documento_firmado#, #texto_claro#, #ruta_documento_firmado#, #login_usuario_firma#, #fecha_registro#, #id_carga#, #texto_firmado# , #valido#, #fase_proceso#)
+	</insert>
+	
+	<update id="actualizarIDCargaParaDocumentoAuditoria" parameterClass="java.util.Map">
+		UPDATE dst_documento_firmado SET id_carga = #id_carga#
+		WHERE id_documento_firmado = #id_documento_firmado#
+	</update>
+	
+	<select id="tieneFormularioFirmadoPorFaseProceso" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from dst_documento_firmado  
+		where id_carga = #id_carga#
+		and fase_proceso = #fase#
+		and valido = 'S'
+		and texto_claro is not null
+		and texto_firmado is not null
+	</select>
+	
+	<select id="tieneDocumentoFirmadoPorFaseProceso" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from dst_documento_firmado  
+		where id_carga = #id_carga#
+		and fase_proceso = #fase#
+		and valido = 'S'
+		and ruta_documento_firmado is not null
+		and texto_claro is null
+		and texto_firmado is null
+	</select>
+				
+</sqlMap>

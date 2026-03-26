@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Rol">
+
+	<typeAlias alias="rol"      type="com.osmosyscol.datasuite.logica.dto.Rol" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerRol" resultClass="rol" parameterClass="java.lang.Integer">
+		select hijo.*,padre.nombre_rol nombre_rol_padre from dst_rol hijo left join dst_rol padre on hijo.id_rol_padre = padre.id_rol where hijo.id_rol=#id_rol#
+	</select>
+	
+	<select id="obtenerRolesActivos" resultClass="rol" >
+		select hijo.*,padre.nombre_rol nombre_rol_padre 
+		from 
+		dst_rol hijo 
+		left join dst_rol padre on hijo.id_rol_padre = padre.id_rol
+		where hijo.activo='S' and hijo.id_rol not in (10000) 
+	</select>
+		
+	<select id="obtenerTodosLosRoles" resultClass="rol" parameterClass="java.lang.Integer">
+		select hijo.*,padre.nombre_rol nombre_rol_padre
+		from dst_rol hijo 
+		left join dst_rol padre on hijo.id_rol_padre = padre.id_rol
+		where nvl(hijo.id_usuario, -1) = nvl(#id_usuario#, -1)
+	</select>
+	
+	<select id="totalRolesActivos" resultClass="java.lang.Integer" >
+		select count(*) from dst_rol where activo='S' and hijo.id_rol not in (10000) 
+	</select>
+	
+	<insert id="crearRol" parameterClass="rol">
+		insert into dst_rol (id_rol,nombre_rol,descripcion, id_rol_padre, id_usuario) values (nextvalue('dss_rol'), #nombre_rol#, #descripcion#, #id_rol_padre#, #id_usuario#)
+	</insert>
+	
+	<update id="desactivarRol" parameterClass="java.lang.Integer">
+		update dst_rol set activo='N' where id_rol=#id_rol#
+	</update>
+	
+	<update id="activarRol" parameterClass="java.lang.Integer">
+		update dst_rol set activo='S' where id_rol=#id_rol#
+	</update>
+	
+	<update id="actualizarRol" parameterClass="rol">
+		update dst_rol set nombre_rol=#nombre_rol#, descripcion=#descripcion#, id_rol_padre=#id_rol_padre#, activo=#activo#  where id_rol=#id_rol#
+	</update>
+	
+	<delete id="eliminarRol" parameterClass="java.lang.Integer">
+		delete from dst_rol where id_rol=#id_rol#
+	</delete>
+	
+	<select id="obtenerRolesHijos" resultClass="rol" parameterClass="java.lang.Integer">
+		select hijo.*,padre.nombre_rol nombre_rol_padre from dst_rol hijo left join dst_rol padre on hijo.id_rol_padre = padre.id_rol where hijo.id_rol_padre=#id_rol_padre#
+	</select>
+	
+	<select id="totalPersonasPorRol" resultClass="java.lang.Integer" parameterClass="java.lang.Integer">
+		select count(*) from dst_administrativo_rol 
+		where id_rol = #id_rol#
+	</select>
+		
+	
+	<select id="obtenerRolesPorPersona" resultClass="rol" parameterClass="java.lang.Integer">
+		select rol.* from dst_rol rol ,dst_administrativo_rol ar
+			where ar.id_rol = rol.id_rol
+			and ar.id_administrativo = #id_administrativo#
+	</select>
+		
+	<delete id="eliminarRolesAdministrativo" parameterClass="java.lang.Integer">
+		delete from dst_administrativo_rol 
+			where id_administrativo = #id_administrativo#
+	</delete>
+	
+	<insert id="guardarRolAdministrativo">
+		INSERT INTO dst_administrativo_rol(id_administrativo, id_rol) 
+		    VALUES(#id_administrativo#, #id_rol#)
+	</insert>
+	
+	<delete id="eliminarRelacionesRolAdministrativoPorRol" parameterClass="java.lang.Integer">
+		delete from dst_administrativo_rol 
+			where id_rol = #id_rol#
+	</delete>
+	
+	<delete id="eliminarRelacionesRolServicioPorRol" parameterClass="java.lang.Integer">
+		delete from dst_rol_servicio
+			where id_rol = #id_rol#
+	</delete>
+	
+	<delete id="eliminarRelacionesRolInstanciaPorRol" parameterClass="java.lang.Integer">
+		delete from dst_rol_instancia
+			where id_rol = #id_rol#
+	</delete>
+	
+	<update id="eliminarRelacionesRolHijoPorRolPadre" parameterClass="java.lang.Integer">
+		update dst_rol
+		set id_rol_padre = null
+		where id_rol_padre = #id_rol#
+	</update> 	
+	
+	<select id="obtenerRolesPorAdministrativoInstancia" resultClass="rol" parameterClass="java.util.Map">
+		select rol.* from dst_rol rol ,dst_administrativo_rol ar
+			where ar.id_rol = rol.id_rol
+			and ar.id_administrativo = #id_administrativo#
+			and rol.id_rol in (select id_rol from dst_rol_instancia where id_instancia = #id_instancia#)
+	</select>
+	
+	
+</sqlMap>

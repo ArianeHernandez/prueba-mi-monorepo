@@ -1,0 +1,28 @@
+<div class="row">
+	<h5 class="col-sm-8 col-sm-offset-4" style="font-weight: bold; padding: 20px 0px 5px">Informacion de la cuenta seleccionada</h5>
+</div>
+
+
+<div class="form-horizontal">
+
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-4 control-label">Saldo Disponible</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="inputEmail3" readonly="readonly" value="<%= saldo_disponible %>">
+    </div>
+  </div>
+  
+  <div class="form-group" id="area_saldo_proceso">
+    <label for="inputEmail3" class="col-sm-4 control-label">Pagos en Proceso</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="inputEmail3" readonly="readonly" value="<%= valor_carga %>">
+    </div>
+  </div>
+  
+   <div class="alert alert-warning" role="alert">
+		<i class="fa fa-info-circle" aria-hidden="true"></i>&#160; Los pagos pueden estar sujetos a cobro de GMF, el cual se calculará sobre el valor de los pagos solicitados. Favor tenerlo en cuenta en el valor de su saldo disponible. Lo anterior no aplica para traslados a mismo titular 	
+	</div>
+  
+</div>
+
+  

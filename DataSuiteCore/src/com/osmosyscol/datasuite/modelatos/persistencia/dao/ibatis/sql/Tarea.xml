@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Tarea">
+
+	<typeAlias alias="tarea" type="com.osmosyscol.datasuite.modelatos.logica.dto.Tarea"/>
+	
+	<sql id="select">
+		select * from dst_tarea
+	</sql>
+
+	<insert id="guardarTarea" parameterClass="tarea">
+		INSERT INTO dst_tarea(id_tarea, nombre, intervalo_ejecucion, end_point, tipo_intervalo, fecha_inicio, activar) 
+    		VALUES(#id_tarea#, #nombre#, #intervalo_ejecucion#, #end_point#, #tipo_intervalo#, #fecha_inicio#,#activar#)
+	</insert>
+	
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_tarea') from dual
+	</select>
+	
+	<select id="obtenerTarea" resultClass="tarea" parameterClass="java.lang.Integer">
+		<include refid="select"/>
+		where id_tarea = #id_tarea#
+	</select>
+	
+	<select id="obtenerTareas" resultClass="tarea">
+		<include refid="select"/>
+	</select>
+	
+	<select id="contarTareas" resultClass="java.lang.Integer">
+		select count(1) from (<include refid="select"/>) t
+	</select>
+	
+	<update id="actualizarTarea" parameterClass="tarea">
+		UPDATE dst_tarea 
+		    SET nombre=#nombre#, intervalo_ejecucion=#intervalo_ejecucion#, end_point=#end_point#
+		    , tipo_intervalo = #tipo_intervalo#, fecha_inicio=#fecha_inicio#, activar=#activar#
+		    where id_tarea = #id_tarea# 
+	</update>
+
+	<delete id="eliminarTarea" parameterClass="java.lang.Integer">
+		delete from dst_tarea 
+			where id_tarea = #id_tarea#
+	</delete>
+		
+</sqlMap>

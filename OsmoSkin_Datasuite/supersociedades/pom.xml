@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cc.nuvu.osmoskin</groupId>
+        <artifactId>osmoskin-datasuite-parent</artifactId>
+        <version>6.0.4-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>osmoskin-datasuite-supersociedades</artifactId>
+    <version>6.0.4-SNAPSHOT</version>
+
+    <scm>
+        <connection>scm:git:https://git-codecommit.us-east-1.amazonaws.com/v1/repos/OsmoSkin_Datasuite.git</connection>
+        <developerConnection>scm:git:https://git-codecommit.us-east-1.amazonaws.com/v1/repos/OsmoSkin_Datasuite.git</developerConnection>
+        <url>https://git-codecommit.us-east-1.amazonaws.com/v1/repos/OsmoSkin_Datasuite.git</url>
+        <tag>v@{project.version}</tag>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/main/assembly/zip.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

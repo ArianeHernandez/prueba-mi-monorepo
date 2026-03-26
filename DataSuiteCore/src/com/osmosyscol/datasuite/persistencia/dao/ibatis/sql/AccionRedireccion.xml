@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccionRedireccion">
+
+	<typeAlias alias="accionRedireccion" type="com.osmosyscol.datasuite.logica.dto.AccionRedireccion" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_accion_redireccion') as id from dual
+	</select>
+	
+	<select id="obtenerAccionRedireccionPorId" parameterClass="java.lang.Integer" resultClass="accionRedireccion">
+		select * from dst_accion_redireccion where id_accion_redireccion = #id_accion_redireccion#
+	</select>
+	
+	<select id="obtenerAccionesRedireccionPorInstancia" parameterClass="java.lang.Integer" resultClass="accionRedireccion">
+		select * from dst_accion_redireccion where id_instancia=#id_instancia# order by id_accion_redireccion
+	</select>
+	
+	<insert id="insertarAccionRedireccion" parameterClass="accionRedireccion">
+		insert into dst_accion_redireccion (id_accion_redireccion, id_instancia, nombre, endpoint)
+		values (#id_accion_redireccion#,#id_instancia#,#nombre#,#endpoint#)
+	</insert>
+
+	<update id="actualizarAccionRedireccion" parameterClass="accionRedireccion">
+		update dst_accion_redireccion set nombre=#nombre#, endpoint=#endpoint# where id_accion_redireccion=#id_accion_redireccion#
+	</update>
+	
+	<delete id="borrarAccionRedireccion" parameterClass="java.lang.Integer">
+		delete from dst_accion_redireccion where id_accion_redireccion=#id_accion_redireccion#
+	</delete>
+
+</sqlMap>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<json-services>
+		
+	<service urn="formatoServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.CampoJSONServicio"/>
+	<service urn="datosServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.DatosJSONServicio"/>
+	<service urn="usuarioNegocioServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.UsuarioNegocioJsonServicio"/>
+	<session-service urn="ipServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.IpJsonServicio"/>
+	<service urn="horarioServicio" class="com.osmosyscol.datasuite.logica.servicios.json.HorarioJSONServicio"/>
+	<service urn="usuarioServicio" class="com.osmosyscol.datasuite.logica.servicios.json.UsuarioJSONServicio"/>
+	<service urn="parametrizacionClienteServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ParametrizacionClienteJSONServicio"/>
+	<service urn="cuentaJSONServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.CuentaJSONServicio"/>
+	<service urn="contenido" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ContenidoJSONServicio"/>
+	
+	<service urn="politicaSeguridadPublicoServicio" class="com.osmosyscol.datasuite.logica.servicios.json.PoliticaSeguridadPublicoJsonServicio"/>
+
+	<session-service urn="accesoRolServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccesoRolJsonServicio"/>
+
+	<session-service urn="ejecucionServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.EjecucionJsonServicio"/>
+	<session-service urn="servFirmaJson" class="com.itosmosys.firmadigital.json.servicios.FirmaJsonServicio"/>
+	
+	<session-service urn="procesoJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ProcesoJsonServicio"/>
+	<session-service urn="validarIPJsonServicio" class="com.osmosyscol.datasuite.logica.servicios.json.ValidarIPJsonServicio"/>
+	<session-service urn="notasJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.NotasJsonServicio"/>
+	<session-service urn="archivosAdjJsonServicio" class="com.osmosyscol.datasuite.logica.servicios.json.ArchivoAdjJsonServicio"/>
+	<session-service urn="reporteServicio" class="com.osmosyscol.datasuite.logica.servicios.json.ReporteDimJsonServicio"/>
+	<session-service urn="cargaRelacionada" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.CargaRelacionadaJsonServicio"/>
+	<session-service urn="administrativoJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AdministrativoJsonServicio"/>
+	<session-service urn="procesoAdminJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ProcesoAdminJsonServicio"/>
+	<session-service urn="instanciaJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.InstanciaJsonServicio"/>
+	<session-service urn="accionJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccionJsonServicio"/>
+	<session-service urn="notificacionAccionJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.NotificacionAccionJsonServicio"/>
+	<session-service urn="personaServicio" class="com.osmosyscol.datasuite.logica.servicios.json.PersonaJSONServicio"/>
+	<session-service urn="notificacionServicio" class="com.osmosyscol.datasuite.logica.servicios.json.NotificacionJsonServicio"/>
+	<session-service urn="cargaServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.CargaJsonServicio"/>
+	<session-service urn="listaDinamicaServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ListaDinamicaCampoJsonServicio"/>
+	<session-service  urn="formatoBaseServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.FormatoJSONServicio"/>
+	<session-service  urn="credencialJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.CredencialJsonServicio"/>
+	<session-service  urn="cargaArchivosJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.CargaArchivosJsonServicio"/>
+	<session-service urn="reporteAdminJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ReporteAdminJsonServicio"/>
+	<session-service urn="asignacionReporteJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AsignacionReporteJsonServicio"/>
+	<session-service urn="ftpUsuarioServicio" class="com.osmosyscol.datasuite.logica.servicios.json.FtpUsuarioJsonServicio"/>
+	<session-service urn="ftpUsuarioCorreoServicio" class="com.osmosyscol.datasuite.logica.servicios.json.FtpUsuarioCorreoJsonServicio"/>
+	<session-service urn="infoServicio" class="com.osmosyscol.datasuite.logica.servicios.json.InfoJsonServicio"/>
+	
+	<session-service  urn="atributoJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AtributoJsonServicio"/>
+	<session-service  urn="valorAtributoJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ValorAtributoJsonServicio"/>
+	<session-service  urn="parametroJsonServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ParametroJsonServicio"/>
+	
+	<session-service urn="tipoArchivoServicio" class="com.osmosyscol.datasuite.logica.servicios.json.TipoArchivoJsonServicio"/>
+		
+	<!-- PAGOS -->
+	<session-service urn="salidaSistemaExterno" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.SalidaCoreCorrevalJsonServicio"/>
+	<session-service urn="progresoArchivoExterno" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.ProgresoArchivoExternoJsonServicio"/>
+	<session-service urn="grupoGiroServicio" class="com.osmosyscol.datasuite.webdata.correval.grupogiro.GrupoGiroJsonServicio"/>
+	<session-service urn="beneficiarioServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.BeneficiarioJsonServicio"/>
+	<session-service urn="retirosServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.RetirosJsonServicio"/>
+	<session-service urn="bancosServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.BancoJsonServicio"/>
+	<session-service urn="soportePagoServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.SoportePagoJsonServicio"/>	
+	<session-service urn="FTPServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.FTPJsonServicio"/>
+	<session-service urn="SambaServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.SambaJsonServicio"/>
+	<session-service urn="ordenesPagoServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.OrdenesPagoJsonServicio"/>
+	<session-service urn="cuentaServicio" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.CuentaJsonServicio"/>
+	<session-service urn="edicionGrupo" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.EdicionGrupoJsonServicio"/>
+	<session-service urn="accionOperacionInterna" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccionOperacionIntJsonServicio"/>
+
+	<session-service urn="accionInfoAdicionalServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccionInfoAdicionalJsonServicio"/>
+	<session-service urn="accionResponsableServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccionResponsableJsonServicio"/>
+	
+	<session-service urn="confCuentaACH" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.ConfCuentaACHJsonServicio"/>
+	<session-service urn="productoCuentas" class="com.osmosyscol.datasuite.webdata.correval.servicios.json.ProductoCuentasJsonServicio"/>
+	<session-service urn="reporteTipoNegocio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ReporteTipoNegocioJson"/>
+	
+	<session-service urn="FormatoHTS" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.DownloadFormatoHTSJsonServicio"/>
+	
+	<session-service urn="ordenPagoServicio" class="com.osmosyscol.datasuite.pagos.services.OrdenPagoJsonServicio"/>
+	
+	<service urn="solicitudEnrolamiento" 				class="com.osmosyscol.datasuite.webdata.logica.servicios.json.SolicitudEnrolamientoJsonServicio"/>
+	<session-service urn="RadicacionAutoOficioServicio" 				class="com.osmosyscol.datasuite.mein.servicios.json.RadicacionAutoOficioJsonServicio"/>
+	<session-service urn="solicitudEnrolamientoLiberador" 	class="com.osmosyscol.datasuite.webdata.logica.servicios.json.SolicitudEnrolamientoLiberadorJsonServicio"/>
+	
+	<session-service urn="solicitudNearSociedadServicio" 	class="com.osmosyscol.datasuite.mein.servicios.json.SolicitudNearSociedadJsonServicio"/>
+	<session-service urn="generadorFormularioServicio" 	class="com.osmosyscol.datasuite.mein.servicios.json.GeneradorFormularioJsonServicio"/>
+	<session-service urn="signAppServicio" 	class="com.osmosyscol.datasuite.mein.servicios.json.SignAppJsonServicio"/>
+	<session-service urn="correoServicio" 	class="com.osmosyscol.datasuite.mein.servicios.json.CorreoJsonServicio"/>
+	
+	<service urn="cambioPin" class="com.osmosyscol.datasuite.logica.servicios.json.CambioPinJsonServicio"/>
+	
+	<session-service urn="reporteSolicitudNEAR" class="com.osmosyscol.datasuite.near.servicios.json.ReporteSolicitudNEARJsonServicio"/>
+	
+	<session-service urn="accionRedireccionServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.AccionRedireccionJsonServicio"/>
+	
+	<service urn="configuracionServicio" class="com.osmosyscol.datasuite.webdata.logica.servicios.json.ConfiguracionJsonServicio"/>
+	
+	<session-service  urn="historialConsultaServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.HistorialConsultaJSONServicio"/>
+	
+	<session-service urn="respuestaRequerimientoServicio" class="com.osmosyscol.datasuite.mein.servicios.json.RespuestaRequerimientoJsonServicio"/>
+	<session-service urn="notificacionMIServicio" class="com.osmosyscol.datasuite.mein.servicios.json.NotificacionJsonServicio"/>
+	
+	<service urn="S3Servicio" class="com.osmosyscol.datasuite.logica.servicios.json.S3JsonServicio"/>
+
+</json-services>

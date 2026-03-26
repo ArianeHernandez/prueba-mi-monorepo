@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:osm-session-request name="id_negocio"/>
+    	<id_negocio><xsp-session:get-attribute name="var.id_negocio"/></id_negocio>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/administrador/actualizarActivoAdministrador.ser</cinclude:src>
+    		 <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_administrador</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_administrador"/></cinclude:value>
+                </cinclude:parameter>
+    		 	<cinclude:parameter>
+                    <cinclude:name>activo</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="activo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/negocio/obtenerNegocio.ser</cinclude:src>
+    		 <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_negocio</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_negocio"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	
+    	<cinclude:includexml> 
+    		<cinclude:src>cocoon:/modelatos/administrador/obtenerAdministradoresPorNegocio.ser</cinclude:src>
+    		<cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_negocio</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_negocio"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

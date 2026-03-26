@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://test.datasuite.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://test.datasuite.com" xmlns:intf="http://test.datasuite.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://test.datasuite.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="operacion">
+    <complexType/>
+   </element>
+   <element name="operacionResponse">
+    <complexType>
+     <sequence>
+      <element name="operacionReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="operacionResponse">
+
+      <wsdl:part element="impl:operacionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="operacionRequest">
+
+      <wsdl:part element="impl:operacion" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="Servicio">
+
+      <wsdl:operation name="operacion">
+
+         <wsdl:input message="impl:operacionRequest" name="operacionRequest"/>
+
+         <wsdl:output message="impl:operacionResponse" name="operacionResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ServicioSoapBinding" type="impl:Servicio">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="operacion">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="operacionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="operacionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ServicioService">
+
+      <wsdl:port binding="impl:ServicioSoapBinding" name="Servicio">
+
+         <wsdlsoap:address location="http://localhost:8080/WebService/services/Servicio"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

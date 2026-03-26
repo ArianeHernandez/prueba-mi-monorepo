@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Datasuite__Commons" default="_war">
+	<import file="build.xml"/>
+
+	<!-- Tareas para generar war-->
+	<property name="target.war.dir" value="target/deploy/${env.CLIENTE}" />
+	<property name="target.war.name" value="${target.war.dir}/${project.name}.war" />
+	<property name="target.warcontent" value="target/WarContent" />
+	<property name="target.war.tmpdir" value="${target.war.dir}/TMP_WAR_${project.name}.war" />
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<property name="minify.dir" location="minified" />
+	<property name="minify.sourcedir" location="${env.TOMCAT}/webapps/${project.name}/resources/" />
+	<property name="osmlibs.dir" location="../OsmoCore/librerias" />
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="_war" description="permite generar un war compatible con weblogic app server 11g (10.3.3) (requiere que se hayan ejecutado las tareas para generar el war en modo deflated)" depends="subirCompleto">
+
+		<tstamp>
+			<format property="DATE" pattern="yyyy.MM.dd-HH.mm" locale="es,ES" />
+		</tstamp>
+
+		<delete dir="${target.war.dir}" />
+
+		<echo message="${DATE}: (begin) war generation ..." />
+
+		<mkdir dir="${target.war.dir}" />
+		<mkdir dir="${target.war.tmpdir}" />
+
+		<!-- -->
+		<antcall target="PrepareProductionWar"/>
+
+		<echo message="Copiando contenido del war" />
+		<copy todir="${target.war.tmpdir}" description="realizar reemplazos en directorio temporal">
+			<fileset dir="${env.TOMCAT}/webapps/${project.name}" >
+				<exclude name="**/postgresql.jar"/>
+				<exclude name="**/mysql-connector*.jar"/>
+				<exclude name="**/hsqldb*.jar"/>
+				<exclude name="**/jdbcdrv*.jar"/>
+			</fileset>
+		</copy>
+
+		<echo message="Generando war ${target.war.name}" />
+		<zip destfile="${target.war.name}" description="empaquetar como war">
+			<zipfileset dir="${target.war.tmpdir}">
+				<include name="**/*.*" />
+			</zipfileset>
+		</zip>
+
+		<delete dir="${target.war.tmpdir}" description="eliminar directorio temporal de trabajo" />
+
+	</target>
+
+	<target name="isProductionMode">
+		<echo message="Validando si se encuentra activo el modo producción (production=true)" />
+		<condition property="local.productionmode">
+			<istrue value="${env.production}" />
+		</condition>
+	</target>
+
+	<target name="PrepareProductionWar" depends="isProductionMode" if="local.productionmode">
+		
+		<echo message="Ejecutando tareas adicionales para producción"/>
+		
+		<antcall target="ComprimirRecursos" />
+
+		<echo message="Copiando archivos fijos de la carpeta ${target.warcontent}" />
+		<!-- Copia contenido definido en la carpeta  target.warcontent-->
+		<copy todir="${target.war.tmpdir}" description="realizar reemplazos en directorio temporal" overwrite="true">
+			<fileset dir="${target.warcontent}" />
+		</copy>
+
+
+	</target>
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="css.minify">
+
+		<echo message="Creando directorio temporal ${minify.dir} (si no existe aún)..." />
+		<mkdir dir="${minify.dir}" />
+
+		<echo message="Borrando versión anterior de la carpeta temporal ${minify.dir}/css-min/..." />
+		<delete dir="${minify.dir}/css-min/" />
+		<echo message="Creando carpeta temporal ${minify.dir}/css-min/..." />
+		<mkdir dir="${minify.dir}/css-min/" />
+
+		<echo message="Copiando estructura de ${web.dir}/resources/styles/ en carpeta temporal..." />
+		<copy todir="${minify.dir}/css-min/">
+			<fileset dir="${minify.sourcedir}/styles/">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<echo message="Borrando los CSS copiados a la carpeta temporal..." />
+		<delete>
+			<fileset dir="${minify.dir}/css-min/">
+				<include name="**/*.css" />
+			</fileset>
+		</delete>
+
+		<echo message="Comprimiendo y Ofuscando CSS!!!..." />
+		<apply executable="java" parallel="false" dest="${minify.dir}/css-min/" force="true">
+			<fileset dir="${minify.sourcedir}/styles">
+				<include name="**/*.css" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${osmlibs.dir}/yui_compressor/yuicompressor-2.4.7.jar" />
+			<!--arg line="- -line-break 0" /-->
+			<arg line="--type css" />
+			<arg line="--charset ISO-8859-1" />
+			<!--<arg line="- -nomunge" /> -->
+			<!--arg line="- -verbose"/-->
+			<srcfile />
+			<arg line="-o" />
+			<mapper type="glob" from="*.css" to="*.css" />
+			<targetfile />
+		</apply>
+
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="js.minify">
+
+		<echo message="Creando directorio temporal ${minify.dir} (si no existe aún)..." />
+		<mkdir dir="${minify.dir}" />
+
+		<echo message="Borrando versión anterior de la carpeta temporal ${web.dir}/resources/js-min/..." />
+		<delete dir="${minify.dir}/js-min/" />
+		<echo message="Creando carpeta temporal ${web.dir}/resources/js-min/ ..." />
+		<mkdir dir="${minify.dir}/js-min/" />
+
+		<echo message="Copiando estructura de ${web.dir}/resources/scripts/ en carpeta temporal..." />
+		<copy todir="${minify.dir}/js-min/">
+			<fileset dir="${minify.sourcedir}/scripts/">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<echo message="Borrando los JS copiados a la carpeta temporal..." />
+		<delete>
+			<fileset dir="${minify.dir}/js-min/">
+				<include name="**/*.js" />
+			</fileset>
+		</delete>
+
+		<echo message="Comprimiendo y Ofuscando JS!!!..." />
+		<apply executable="java" parallel="false" dest="${minify.dir}/js-min/" force="true">
+			<fileset dir="${minify.sourcedir}/scripts">
+				<include name="**/*.js" />
+				<exclude name="**/*.min.js"/>
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${osmlibs.dir}/yui_compressor/yuicompressor-2.4.7.jar" />
+			<!--arg line="- -line-break 0" /-->
+			<arg line="--type js" />
+			<arg line="--charset ISO-8859-1" />
+			<!--<arg line="- -nomunge" /> -->
+			<!--arg line="- -verbose"/-->
+			<srcfile />
+			<arg line="-o" />
+			<mapper type="glob" from="*.js" to="*.js" />
+			<targetfile />
+		</apply>
+
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<target name="checkTomcatHome">
+		<echo message="Validating tomcat on path: ${env.TOMCAT} " />
+		<condition property="local.tomcathome.exists">
+			<available file="${env.TOMCAT}" type="dir" />
+		</condition>
+	</target>
+
+	<target name="js.minified.subir" depends="checkTomcatHome" if="local.tomcathome.exists">
+		<echo message="El servidor Tomcat destino existe, copiando archivos 'encogidos' a  ${env.TOMCAT}/webapps/${project.name}/resources/scripts..." />
+		<copy todir="${env.TOMCAT}/webapps/${project.name}/resources/scripts" overwrite="yes">
+			<fileset dir="${minify.dir}/js-min/">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="css.minified.subir" depends="checkTomcatHome" if="local.tomcathome.exists">
+		<echo message="El servidor Tomcat destino existe, copiando archivos 'encogidos' a  ${env.TOMCAT}/webapps/${project.name}/resources/styles..." />
+		<copy todir="${env.TOMCAT}/webapps/${project.name}/resources/styles" overwrite="yes">
+			<fileset dir="${minify.dir}/css-min/">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="css.minified.process">
+		<echo message="Reduciendo el tamaño de los archivos CSS..." />
+		<antcall target="css.minify" />
+
+		<echo message="Cargando los archivos CSS..." />
+		<antcall target="css.minified.subir" />
+
+		<echo message="Borrando la carpeta temporal..." />
+		<delete dir="${minify.dir}" />
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="js.minified.process">
+		<echo message="Reduciendo el tamaño de los archivos JS..." />
+		<antcall target="js.minify" />
+
+		<echo message="Cargando los archivos JS..." />
+		<antcall target="js.minified.subir" />
+
+		<echo message="Borrando la carpeta temporal..." />
+		<delete dir="${minify.dir}" />
+	</target>
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<target name="ComprimirRecursos">
+		<antcall target="css.minified.process" />
+		<antcall target="js.minified.process" />
+	</target>
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<target name="ActualizarVersion">
+		<tstamp>
+			<format property="DATE" pattern="yyyyMMdd.HHmm" locale="es,ES" />
+		</tstamp>
+		<replaceregexp file="${web.dir}/WEB-INF/actions.xml" 
+			match='version=\"V.*[0-9]+\"' 
+			replace='version="V ${env.version} ${DATE}"' />
+	</target>
+
+</project>

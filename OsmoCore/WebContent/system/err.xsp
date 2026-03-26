@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:ex="http://apache.org/cocoon/exception/1.0"
+>
+
+<ex:exception-report></ex:exception-report>
+	
+</xsp:page>

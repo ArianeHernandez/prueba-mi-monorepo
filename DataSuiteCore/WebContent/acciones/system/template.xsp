@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+>
+    <OSM-ACCION>
+    	
+    	<PAGINA_SIMPLE><xsp-request:get-parameter name="PAGINA_SIMPLE" /></PAGINA_SIMPLE>
+    	
+
+    </OSM-ACCION>
+	
+</xsp:page>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Carga</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>obtenerCarga</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerCarga>
+
+</xsp:page>

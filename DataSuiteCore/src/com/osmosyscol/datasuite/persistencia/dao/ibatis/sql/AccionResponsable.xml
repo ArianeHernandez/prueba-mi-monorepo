@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccionResponsable">
+
+	<typeAlias alias="rol" type="com.osmosyscol.datasuite.logica.dto.Rol" />
+	<typeAlias alias="persona" type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	
+	<select id="obtenerRolesActivosDisponiblesAccion" parameterClass="java.lang.Integer" resultClass="rol">
+		select r.* from dst_rol r 
+		where r.activo = 'S'
+		and r.id_rol not in (select ar.id_rol from dst_accion_rol ar where ar.id_accion = #id_accion# )
+		order by r.nombre_rol
+	</select>
+	
+	<select id="obtenerRolesPorAccion" parameterClass="java.lang.Integer" resultClass="rol">
+		select r.* from dst_rol r 
+		inner join dst_accion_rol ar on r.id_rol = ar.id_rol
+		where ar.id_accion = #id_accion#
+	</select>
+	
+	<delete id="borrarAccionRol" parameterClass="java.util.Map">
+		delete from DST_ACCION_ROL where id_accion=#id_accion# and id_rol = #id_rol#
+	</delete>
+	
+	<insert id="insertarAccionRol" parameterClass="java.util.Map">
+		insert into DST_ACCION_ROL (id_accion, id_rol)
+		values (#id_accion#, #id_rol#)
+	</insert>
+	
+	<insert id="guardarAccionResponsable" parameterClass="java.util.Map">
+		insert into DST_CARGA_RESPONSABLE (id_carga, id_instancia, id_persona)
+		values (#id_carga#, #id_instancia#, #id_persona#)
+	</insert>
+	
+	<insert id="actualizarResponsable" parameterClass="java.util.Map">
+		update DST_CARGA_RESPONSABLE set id_persona = #id_persona#
+		where id_carga = #id_carga#
+		and id_instancia = #id_instancia#
+	</insert>
+	
+	<select id="obtenerListaResponsablesPorAccion" parameterClass="java.lang.Integer" resultClass="persona">
+		select p.* from dst_persona p 
+		inner join dst_administrativo a on p.id_persona = a.id_persona
+		inner join dst_administrativo_rol ar on  a.id_administrativo = ar.id_administrativo
+		inner join dst_rol r on r.id_rol = ar.id_rol
+		where r.id_rol in (select id_rol from dst_accion_rol where id_accion = #id_accion#)
+	</select>
+	
+	<select id="obtenerResponsableAdmin" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select a.id_administrativo from dst_carga_responsable cr
+		inner join dst_administrativo a on cr.id_persona = a.id_persona 
+		where cr.id_instancia = #id_instancia#
+		and cr.id_carga = #id_carga#
+	</select>	
+	
+	<select id="obtenerResponsable" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+        select distinct cr.id_persona from dst_carga_responsable cr
+        inner join dst_accion_instancia ai on ai.id_instancia_destino = cr.id_instancia 
+        where ai.id_accion = #id_accion#
+		and cr.id_carga = #id_carga#
+	</select>
+	
+	<select id="obtenerResponsablesPorCarga" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select id_persona 
+		from dst_carga_responsable
+		where id_carga = #id_carga#
+		order by fecha_creacion desc
+	</select>
+</sqlMap>

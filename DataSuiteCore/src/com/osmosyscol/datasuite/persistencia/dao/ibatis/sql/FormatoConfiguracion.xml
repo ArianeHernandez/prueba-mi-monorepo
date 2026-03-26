@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="FormatoConfiguracion">
+
+	<typeAlias alias="formatoConfiguracion" type="com.osmosyscol.datasuite.logica.dto.FormatoConfiguracion"/>
+
+	<select id="obtenerConfiguracionesFormato" parameterClass="java.lang.Integer" resultClass="formatoConfiguracion">
+		select * from dst_formato_configuracion
+		where id_formato = #id_formato#
+	</select>
+
+	<select id="obtenerConfiguracionFormato" parameterClass="java.util.Map" resultClass="formatoConfiguracion">
+		select * from dst_formato_configuracion
+		where id_formato = #id_formato#
+		and tipo = #tipo#
+	</select>
+
+</sqlMap>

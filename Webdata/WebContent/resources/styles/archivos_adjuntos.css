@@ -1,0 +1,262 @@
+.bloque_archivo {
+	position: relative;	
+	margin: 15px;
+	padding: 15px;
+	border-bottom: 1px solid #CCC;
+}
+
+.bloque_archivo .registro{
+}
+
+.col-sm-8.file-uploader {
+	display: flex;
+}
+
+span#file-name {
+	max-width: 80% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-left: unset;
+}
+
+.bloque_titulo_adjuntos {
+	display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-color: #eff2f7;
+    font-size: 14px !important;
+    font-weight: 200;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    margin: 10px 0;
+}
+
+.bloque_archivo .registro_item{
+	font-weight: bold;
+}
+
+.titulo_archivo {
+	font-size: 13px;
+	margin-bottom: 2px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
+.sub_titulo_archivo {
+	color: black;
+}
+
+.parrafo_descripcion {
+	padding: 0;
+	margin: 5px;
+}
+
+.bloque_parrafo_descripcion {
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+.bloqueestilo_imagen {
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    padding-left: 70px !important;
+    background-size: 40px auto;
+}
+
+.bloqueestilo_imagen pre{
+	background-color: transparent !important;
+	border: none !important;
+	font-family: inherit;
+	white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    padding: 0px !important;
+}
+
+
+#caja_archivo_adjunto{
+	margin-bottom: 15px;
+	width: 100%;
+	padding: 3px;
+}
+
+.mtop{
+	margin-bottom: 15px
+}
+
+.interno_S{
+    font-size: 10px !important;
+    padding: 5px 8px !important;
+}
+
+.interno_N {
+	display: none !important;
+}
+
+.bloqueestilo_bmp {
+	background-image: url("../images/tipoarchivo/bmp.png");
+}
+
+.bloqueestilo_doc {
+	background-image: url("../images/tipoarchivo/doc.png");
+}
+
+.bloqueestilo_docx {
+	background-image: url("../images/tipoarchivo/docx.png");
+}
+
+.bloqueestilo_exe {
+	background-image: url("../images/tipoarchivo/exe.png");
+}
+
+.bloqueestilo_jpeg {
+	background-image: url("../images/tipoarchivo/jpeg.png");
+}
+
+.bloqueestilo_jpg {
+	background-image: url("../images/tipoarchivo/jpg.png");
+}
+
+.bloqueestilo_js {
+	background-image: url("../images/tipoarchivo/js.png");
+}
+
+.bloqueestilo_mp3 {
+	background-image: url("../images/tipoarchivo/mp3.png");
+}
+
+.bloqueestilo_none {
+	background-image: url("../images/tipoarchivo/none.png");
+}
+
+.bloqueestilo_pdf {
+	background-image: url("../images/tipoarchivo/pdf.png");
+}
+
+.bloqueestilo_png {
+	background-image: url("../images/tipoarchivo/png.png");
+}
+
+.bloqueestilo_ppt {
+	background-image: url("../images/tipoarchivo/ppt.png");
+}
+
+.bloqueestilo_pptx {
+	background-image: url("../images/tipoarchivo/pptx.png");
+}
+
+.bloqueestilo_rar {
+	background-image: url("../images/tipoarchivo/rar.png");
+}
+
+.bloqueestilo_sql {
+	background-image: url("../images/tipoarchivo/sql.png");
+}
+
+.bloqueestilo_txt {
+	background-image: url("../images/tipoarchivo/txt.png");
+}
+
+.bloqueestilo_vcard {
+	background-image: url("../images/tipoarchivo/vcard.png");
+}
+
+.bloqueestilo_xls {
+	background-image: url("../images/tipoarchivo/xls.png");
+}
+
+.bloqueestilo_xlsx {
+	background-image: url("../images/tipoarchivo/xlsx.png");
+}
+
+.bloqueestilo_zip {
+	background-image: url("../images/tipoarchivo/zip.png");
+}
+
+.adj_instancia{
+	font-size: 18px;
+	font-weight: bold;
+	color: orange;
+	text-transform: uppercase;
+}
+
+.adj_gestion{
+	display: none;
+}
+
+.adj_cliente_S{
+}
+
+.adj_gestion_true .adj_gestion_C{
+	display: block !important;
+}
+
+.bloque_archivo_C{
+	background-color: transparent;
+	background-image: url("../images/tipoarchivo/nuevo.png");
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: auto 150px; 
+}
+
+.bloque_archivo_A{
+	background-color: transparent;
+	background-image: url("../images/tipoarchivo/autorizado.png");
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: auto 150px; 
+}
+
+.bloque_archivo_D{
+	background-color: #f1f1f1;
+	background-image: url("../images/tipoarchivo/descartado.png");
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: auto 150px;
+	opacity: 0.6;
+}
+
+.adj_cliente_S .bloque_archivo_A{
+	background-image: url("../images/tipoarchivo/usuario.png") !important;
+}
+
+
+.adj_cliente_N{
+}
+
+.adj_cliente_S .nuevo_adjunto, .adj_cliente_N + .adj_cliente_N .nuevo_adjunto{
+	display: none
+}
+
+.nuevo_adjunto{
+	margin-top: 90px !important;
+}
+i{
+	cursor: pointer;
+	color: #3f6ad8;
+}
+
+.item_adjunto {
+	word-break: break-all;
+}
+
+.seccion_archivos {
+	border: solid 1px #ccc;
+	border-radius: 7px;
+}
+
+.bloque_contenido_titulo.titulo_seccion {
+	font-weight: bold !important;
+}
+
+.inner_area_ayuda pre {
+    word-break: break-word;
+}

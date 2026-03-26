@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerUsuarioPorIdentificacionNegocio>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Usuario</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.UsuarioServicio</service>
+   			<operation>obtenerUsuarioPorIdentificacionNegocio</operation>
+   			<parameters>
+   				<parameter>tipo_persona</parameter>
+   				<parameter>identificacion</parameter>
+   				<parameter>id_negocio</parameter>
+   				<parameter>tipo_documento</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+
+	</obtenerUsuarioPorIdentificacionNegocio>
+
+
+</xsp:page>

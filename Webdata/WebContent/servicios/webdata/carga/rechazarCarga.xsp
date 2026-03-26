@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<rechazarCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.FlujoCargaServicio</service>
+   			<operation>rechazarCarga</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>id_persona</parameter>
+   				<parameter>motivo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</rechazarCarga>
+
+</xsp:page>

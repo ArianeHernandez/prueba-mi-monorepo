@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:util="http://apache.org/xsp/util/2.0"
+>
+
+	<xsp:structure>
+		<xsp:include>com.osmosyscol.commons.servicio.InfoTransaccionServicio</xsp:include>
+	</xsp:structure> 
+
+    <OSM_PAGE>
+    	
+    	<xsp:logic>
+    		com.osmosyscol.commons.servicio.AccionCoreServicio.accionPage(request, response, this.objectModel, parameters, this.manager, this.resolver, this.contentHandler);
+    		
+    		InfoTransaccionServicio.getInstance().borrarInfoTransaccion();
+    	</xsp:logic>
+    	
+    </OSM_PAGE>
+
+</xsp:page>

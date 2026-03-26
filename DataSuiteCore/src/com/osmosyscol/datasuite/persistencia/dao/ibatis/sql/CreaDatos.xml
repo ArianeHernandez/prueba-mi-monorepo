@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CreaDatos">
+
+	<select id="existeTabla" resultClass="java.lang.Integer" parameterClass="java.lang.String" >
+		select count(*) as existe from ALL_TABLES where 
+		TABLE_NAME = upper(#idtabla#)
+	</select>
+	
+	<update id="crearTabla" parameterClass="java.util.Map">
+		create table $tablename$ ( ID $NUMBER_TYPE$, IDCARGA $NUMBER_TYPE$, IDELEMENTOCARGA $NUMBER_TYPE$, ESTADO $CHAR_TYPE$(1), NREG $NUMBER_TYPE$) 
+	</update>
+	
+	<update id="crearIdTabla" parameterClass="java.util.Map">
+		alter table $tablename$
+  		add constraint pk_$tablename$ primary key (ID)
+	</update>
+	
+	<update id="crearTablaLista" parameterClass="java.util.Map">
+		create table $tablename$ ( ID $tipocampo$, NOMBRE $VARCHAR2_TYPE$(4000), COLORLETRA $VARCHAR2_TYPE$(500), COLORFONDO $VARCHAR2_TYPE$(500), ESTADO $VARCHAR2_TYPE$(1) ) 
+	</update>
+	
+	<update id="crearIdTablaLista" parameterClass="java.lang.String">
+		alter table $tablename$
+  		add constraint pk_$tablename$ primary key (ID)
+	</update>
+
+	<select id="existeCampo" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) as existe from ALL_TAB_COLUMNS where 
+		TABLE_NAME = upper(#idTabla#)
+		and COLUMN_NAME = upper(#idCampo#)
+	</select>
+	
+	<update id="crearCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		add $id_campo$ $tipo$
+	</update>
+	
+	<update id="actualizarCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		$MODIFY$ $id_campo$ $SET$ $tipo$
+	</update>
+
+	<update id="modificarNotNullCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		$MODIFY$ $id_campo$ $SET$ not null
+	</update>
+	
+	<update id="modificarNullCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		$MODIFY$ $id_campo$ $SET_NULL$
+	</update>
+	
+	<update id="modificarIsUnico" parameterClass="java.util.Map">
+		alter table $tablename$
+  		add constraint UK_$id_campo$ unique ($id_campo$, idcarga)
+	</update>
+	
+	<update id="modificarIsUnicoMultiple" parameterClass="java.util.Map">
+		alter table $tablaRel$
+  		add constraint UK_ID_V unique (ID_V, idcarga)
+	</update>
+	
+	<update id="modificarsNotUnico" parameterClass="java.util.Map">
+		alter table $tablename$
+  		drop constraint UK_$id_campo$ cascade
+	</update>
+
+	<update id="eliminarCampo" parameterClass="java.util.Map">
+		alter table $tablename$
+		drop column $id_campo$
+	</update>
+
+	<update id="crearLlaveForanea" parameterClass="java.util.Map">
+		alter table $tablename$
+  		add constraint FK_$tablename$$id_campo$ foreign key ($id_campo$)
+  		references $llave_foranea$ (ID)
+	</update>
+
+	<update id="crearTablaRelacion" parameterClass="java.util.Map">
+		create table $tablaRel$
+		(
+		  id   $NUMBER_TYPE$,
+		  id_p $NUMBER_TYPE$,
+		  id_v $tipo$,
+		  idcarga $NUMBER_TYPE$,
+		  estado $CHAR_TYPE$(1)
+		)
+	</update>
+
+	<update id="crearLlaveForaneaRelacionP1" parameterClass="java.util.Map">
+		alter table $tablaRel$
+  		add constraint FK_$tablaRel$Cid_p foreign key (id_p)
+  		references $tablename$ (ID)
+	</update>
+
+	<update id="crearLlaveForaneaRelacionP2" parameterClass="java.util.Map">
+		alter table $tablaRel$
+  		add constraint FK_$tablaRel$Cid_v foreign key (id_v)
+  		references $llave_foranea$ (ID)
+	</update>
+	
+	<select id="campoisnull" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		Select count(*) from all_tab_columns
+		where COLUMN_NAME = upper(#id_campo#)
+		and TABLE_NAME = upper(#tablename#)
+		and nullable = 'Y'
+	</select>
+	
+	<select id="campoisunique" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		SELECT count(*)
+		FROM user_constraints WHERE TABLE_NAME = upper(#tablename#)
+		and constraint_name = upper(#constraint#)
+	</select>	
+	
+	<update id="crearPKUnique" parameterClass="java.util.Map">
+		ALTER TABLE $tablename$
+		ADD CONSTRAINT uk_pk_$tablename$
+		UNIQUE $campos$
+	</update>
+	
+	<update id="eliminarPKUnique" parameterClass="java.lang.String">
+		ALTER TABLE $tablename$
+		DROP CONSTRAINT uk_pk_$tablename$ CASCADE
+	</update>
+	
+	<!--********************************************************* -->
+	<update id="createSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<update id="dropSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<update id="updateSQL" parameterClass="java.lang.String">
+		$sql$
+	</update>
+	
+	<insert id="insertSQL" parameterClass="java.lang.String">
+		$sql$
+	</insert>
+
+</sqlMap>

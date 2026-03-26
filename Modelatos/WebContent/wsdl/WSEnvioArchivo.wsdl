@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://mtom.serviciosweb.logica.modelatos.datasuite.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://mtom.serviciosweb.logica.modelatos.datasuite.osmosyscol.com" xmlns:intf="http://mtom.serviciosweb.logica.modelatos.datasuite.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://mtom.serviciosweb.logica.modelatos.datasuite.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="enviarAdjuntosCarga">
+    <complexType>
+     <sequence>
+      <element name="idCarga" type="xsd:int"/>
+      <element name="creationUser" type="xsd:string"/>
+      <element name="description" type="xsd:string"/>
+      <element name="p_Oper" type="xsd:long"/>
+      <element name="p_Fide" type="xsd:long"/>
+      <element name="p_TpOp" type="xsd:string"/>
+      <element name="p_Usua" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="enviarAdjuntosCargaResponse">
+    <complexType>
+     <sequence>
+      <element name="enviarAdjuntosCargaReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="enviarAdjuntosCargaRequest">
+
+      <wsdl:part element="impl:enviarAdjuntosCarga" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="enviarAdjuntosCargaResponse">
+
+      <wsdl:part element="impl:enviarAdjuntosCargaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSEnvioArchivo">
+
+      <wsdl:operation name="enviarAdjuntosCarga">
+
+         <wsdl:input message="impl:enviarAdjuntosCargaRequest" name="enviarAdjuntosCargaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:enviarAdjuntosCargaResponse" name="enviarAdjuntosCargaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSEnvioArchivoSoapBinding" type="impl:WSEnvioArchivo">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="enviarAdjuntosCarga">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="enviarAdjuntosCargaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="enviarAdjuntosCargaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSEnvioArchivoService">
+
+      <wsdl:port binding="impl:WSEnvioArchivoSoapBinding" name="WSEnvioArchivo">
+
+         <wsdlsoap:address location="http://localhost:8080/WebServiceArchivos/services/WSEnvioArchivo"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

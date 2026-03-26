@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HistorialConsulta">
+
+	
+	<typeAlias alias="historialConsulta"  type="com.osmosyscol.datasuite.modelatos.logica.dto.HistorialConsulta"/>
+	<typeAlias alias="historialConsultaConf"  type="com.osmosyscol.datasuite.modelatos.logica.dto.HistorialConsultaConf"/>
+	<typeAlias alias="historialConsultaDetalle"  type="com.osmosyscol.datasuite.modelatos.logica.dto.HistorialConsultaDetalle"/>
+	<typeAlias alias="historialConsultaRol"  type="com.osmosyscol.datasuite.modelatos.logica.dto.HistorialConsultaRol"/>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerConsultas" resultClass="historialConsulta">
+		select * from dst_historial_consulta
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerConsultasConf" resultClass="historialConsultaConf">
+		select * from dst_historial_consulta_conf order by posicion asc
+	</select>
+	
+	<select id="obtenerConsultasConfVis" resultClass="historialConsultaConf">
+		select * from dst_historial_consulta_conf where mostrar = 1 order by posicion asc
+	</select>
+	
+	<select id="obtenerConsultasConfFiltro" resultClass="historialConsultaConf">
+		select * from dst_historial_consulta_conf where filtrar = 1 order by posicion asc
+	</select>
+	
+	<select id="obtenerConsultasConfExcel" resultClass="historialConsultaConf">
+		select * from dst_historial_consulta_conf where excel = 1 order by posicion asc
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerConsultasRol" resultClass="historialConsultaRol">
+		select * from dst_historial_consulta_rol
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerConsultaDetalle" resultClass="historialConsultaDetalle" parameterClass="java.lang.String">
+		select column_name as columna, data_type as tipo_dato
+		from user_tab_columns
+		where table_name = #nombre_tabla#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerConsultasId" resultClass="historialConsulta" parameterClass="java.lang.Integer">
+		select * from dst_historial_consulta where id_historial = #id_historial#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerConsultasConfId" resultClass="historialConsultaConf" parameterClass="java.lang.Integer">
+		select * from dst_historial_consulta_conf where id_historial_consulta_conf = #id_historial_consulta_conf#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarConsultas" parameterClass="historialConsulta">
+		insert into dst_historial_consulta 
+		      (id_historial, descripcion, consulta, filtro)
+		values
+		      (#id_historial#, #descripcion#, #consulta#, #filtro#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarConsultasConf" parameterClass="historialConsultaConf">
+		insert into dst_historial_consulta_conf 
+		      (nombre_columna, etiqueta_columna, mostrar, excel, filtrar, posicion, tipo_dato)
+		values
+		      (#nombre_columna#, #etiqueta_columna#, #mostrar#, #excel#, #filtrar#, #posicion#, #tipo_dato#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="guardarConsultasRol" parameterClass="historialConsultaRol">
+		insert into dst_historial_consulta_rol 
+		      (nombre_columna, rol, valor)
+		values
+		      (#nombre_columna#, #rol#, #valor#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarConsulta" parameterClass="historialConsulta">
+	  update dst_historial_consulta set 
+	  descripcion = #descripcion#, 
+	  consulta = #consulta#, 
+	  filtro = #filtro# 
+	  where id_historial = #id_historial#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarConsultaConf" parameterClass="historialConsultaConf">
+	  update dst_historial_consulta_conf set 
+	  nombre_columna = #nombre_columna#, 
+	  etiqueta_columna = #etiqueta_columna#, 
+	  mostrar = #mostrar#, 
+	  excel = #excel#, 
+	  filtrar = #filtrar#, 
+	  posicion = #posicion#, 
+	  tipo_dato = #tipo_dato#
+	  where id_historial_consulta_conf = #id_historial_consulta_conf#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarConsultaRol" parameterClass="historialConsultaRol">
+	  update dst_historial_consulta_rol set 
+	  nombre_columna = #nombre_columna#, 
+	  rol = #rol#, 
+	  valor = #valor#
+	  where id_historial_consulta_rol = #id_historial_consulta_rol#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<delete id="eliminarConsultaRol" parameterClass="java.lang.Integer">
+		delete from dst_historial_consulta_rol where id_historial_consulta_rol = #id_historial_consulta_rol#
+	</delete>
+</sqlMap>
+

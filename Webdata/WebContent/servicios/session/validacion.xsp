@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+		  xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+
+<xsp:structure>
+	<xsp:include>com.osmosyscol.datasuite.logica.servicios.NegocioServicio</xsp:include>
+	<xsp:include>com.osmosyscol.datasuite.logica.dto.Negocio</xsp:include>
+	<xsp:include>com.osmosyscol.commons.utils.StringUtils</xsp:include>
+	<xsp:include>com.osmosyscol.persistencia.dao.ibatis.core.ParametrosInicio</xsp:include>
+</xsp:structure> 
+	
+   <OSM-VALIDACION>
+   	
+   		<xsp:logic>
+   			String seleccion_negocio = request.getParameter("ID_NEGOCIO_SELECCIONADO");
+   			
+   			if(session.getAttribute("id_negocio_inicial")==null &amp;&amp; session.getAttribute("id_negocio") != null ){
+   				session.setAttribute("id_negocio_inicial", session.getAttribute("id_negocio"));
+   				seleccion_negocio = session.getAttribute("id_negocio").toString();
+   			}
+   			
+   			if(seleccion_negocio!=null){
+   				Negocio tmp_negocio = NegocioServicio.getInstance().obtenerNegocio(new Integer(seleccion_negocio));
+   				session.setAttribute("id_negocio", tmp_negocio.getId_negocio() );
+   				session.setAttribute("cod_negocio", tmp_negocio.getCod_negocio() );
+   				session.setAttribute("nombre_negocio", tmp_negocio.getNombre());
+   				session.setAttribute("id_modelo", tmp_negocio.getId_modelo());
+   			}
+   		</xsp:logic>
+   		
+	</OSM-VALIDACION>
+
+</xsp:page>

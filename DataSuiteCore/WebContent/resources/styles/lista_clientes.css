@@ -1,0 +1,139 @@
+a.enlace_busqueda,a.enlace_busqueda:hover {
+	font: normal normal normal 12px/ 14px Tahoma, Geneva, sans-serif;
+	margin: 2px 0px;
+	padding: 4px 3px;
+	padding-left: 18px;
+	color: #001188;
+}
+
+.btn_buscar {
+	float: left;
+	width: 20px;
+	height: 20px;
+	background-image: url("../images/general/search.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.btn_eliminar {
+	float: left;
+	width: 20px;
+	height: 20px;
+	background-image: url("../images/Eliminar.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.span_nom {
+	float: left;
+	width: 130px;
+	margin: 2px 0;
+	height: 13px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.caja_cliente{
+	position:relative;
+}
+.cuadro_info {
+	left:33.33%;
+	top:0px;
+	min-width: 270px;
+	background-color: #F6F6F6;
+	border: 1px solid #efefef;
+	padding: 5px;
+	float: left;
+	z-index: 10;
+	position: absolute;
+	display: none;
+}
+
+.cerrar {
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/Eliminar.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	float: right;
+}
+
+.agregar {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/add.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.cuadro_info_titulo {
+	position: relative;
+	display: block;
+	height: 45px;
+}
+
+.cuadro_info_titulo h1 {
+	display: inline;
+	padding: 0px;
+	margin: 0px;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000;
+	padding: 0px;
+}
+
+.cuadro_info_titulo input {
+	width: 200px;
+	padding: 3px;
+	margin-left: 20px;
+}
+
+.cuadro_fila {
+	cursor: pointer;
+}
+
+.cuadro_fila_item p {
+	height: 20px;
+	width: 270px;
+	overflow: hidden;
+}
+
+.cuadro_fila * {
+	cursor: pointer;
+}
+
+.cuadro_fila_hover {
+	background-color: #DEDEDE;
+}
+
+.cuadro_fila_item {
+	float: left;
+	height: 18px;
+	width: 320px;
+	overflow: hidden;
+}
+
+.cuadro_info_footer {
+	height: 40px;
+	border-top: 1px solid #CCCCCC;
+}
+
+.w20 {
+	width: 20px;
+}
+
+.w90 {
+	width: 90px;
+}
+
+.w220 {
+	width: 220px;
+}
+
+.clearing {
+	clear: both;
+}

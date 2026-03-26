@@ -1,0 +1,176 @@
+-injars 'jar/osmocommons_tmp.jar'
+-outjars 'jar/osmocommons.jar'
+
+-ignorewarnings
+
+-libraryjars '[:JRE_HOME:]/lib/rt.jar'
+-libraryjars 'WebContent/WEB-INF/lib/activation-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/annogen-0.1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/asm-2.2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/asm-util-2.2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/avalon-framework-api-4.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/avalon-framework-impl-4.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/avalon-logkit-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/axis.jar'
+-libraryjars 'WebContent/WEB-INF/lib/backport-util-concurrent-2.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/batik-all-1.6.jar'
+-libraryjars 'WebContent/WEB-INF/lib/bcmail-jdk16-141.jar'
+-libraryjars 'WebContent/WEB-INF/lib/bcprov-jdk16-141.jar'
+-libraryjars 'WebContent/WEB-INF/lib/beanaction.jar'
+-libraryjars 'WebContent/WEB-INF/lib/bsf-2.4.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-2.1.11-deprecated.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-2.1.11.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-batik-block.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-bsf-block.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-fop-block.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-poi-block.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-testcase.jar'
+-libraryjars 'WebContent/WEB-INF/lib/cocoon-xsp-block.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-beanutils-core-1.7.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-beanutils.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-cli-1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-codec-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-collections-3.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-digester.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-discovery-0.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-email-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-fileupload-1.1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-httpclient-3.0.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-jexl-1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-jxpath-1.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-lang-2.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-pool-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-validator.jar'
+-libraryjars 'WebContent/WEB-INF/lib/concurrent-1.3.4.jar'
+-libraryjars 'WebContent/WEB-INF/lib/DynamicJasper-2.0.8.jar'
+-libraryjars 'WebContent/WEB-INF/lib/ehcache-1.2.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-component-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-i18n-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-instrument-api-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-instrument-mgr-api-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-instrument-mgr-http-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-instrument-mgr-impl-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-logger-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-naming-1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-pool-api-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-pool-impl-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-pool-instrumented-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-sourceresolve-2.2.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-store-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/excalibur-xmlutil-2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/fop-0.20.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/geronimo-annotation_1.0_spec-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/geronimo-jms_1.1_spec-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/groovy-1.0-jsr-05.jar'
+-libraryjars 'WebContent/WEB-INF/lib/hsqldb.jar'
+-libraryjars 'WebContent/WEB-INF/lib/httpcore-4.0-alpha5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/httpcore-nio-4.0-alpha5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/httpcore-niossl-4.0-alpha5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/ibatis-common-2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/ibatis-dao-2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/ibatis-sqlmap-2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jakarta-oro.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jakarta-regexp-1.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jalopy-1.5rc3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/javacApi-0.9.jar'
+-libraryjars 'WebContent/WEB-INF/lib/javacImpl-0.9.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jaxb-api-2.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jaxb-impl-2.0.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jaxb-xjc-2.0.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jaxen-1.1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jaxrpc.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jcs-1.2.5-dev-20050313.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jdtcore-3.1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jettison-1.0-RC1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jibx-bind-1.1.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jibx-run-1.1.5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/js-1.6R5.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jta.jar'
+-libraryjars 'WebContent/WEB-INF/lib/juli-6.0.10.jar'
+-libraryjars 'WebContent/WEB-INF/lib/log4j-1.2.14.jar'
+-libraryjars 'WebContent/WEB-INF/lib/mail-1.4.jar'
+-libraryjars 'WebContent/WEB-INF/lib/mex-impl-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/mysql-connector-java-5.0.8-bin.jar'
+-libraryjars 'WebContent/WEB-INF/lib/neethi-2.0.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/ojdbc14.jar'
+-libraryjars 'WebContent/WEB-INF/lib/opencsv-1.8.jar'
+-libraryjars 'WebContent/WEB-INF/lib/opensaml-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/pizza-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/poi-3.0.2-FINAL-20080204.jar'
+-libraryjars 'WebContent/WEB-INF/lib/poi-contrib-3.0.2-FINAL-20080204.jar'
+-libraryjars 'WebContent/WEB-INF/lib/poi-scratchpad-3.0.2-FINAL-20080204.jar'
+-libraryjars 'WebContent/WEB-INF/lib/postgresql.jar'
+-libraryjars 'WebContent/WEB-INF/lib/quartz-1.6.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/rampart-core-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/rampart-policy-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/rampart-trust-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/saaj.jar'
+-libraryjars 'WebContent/WEB-INF/lib/servlet-api.jar'
+-libraryjars 'WebContent/WEB-INF/lib/soapmonitor-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/stax-api-1.0.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/tribes-6.0.10.jar'
+-libraryjars 'WebContent/WEB-INF/lib/woden-1.0-incubating-M7b.jar'
+-libraryjars 'WebContent/WEB-INF/lib/wsdl4j-1.6.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/wss4j-1.5.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/wstx-asl-3.2.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xalan-2.7.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xbean-2.2.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xercesImpl-2.9.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xml-apis-1.3.04.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xml-commons-resolver-1.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/XmlSchema-1.3.2.jar'
+-libraryjars 'WebContent/WEB-INF/lib/xmlsec-1.4.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/javacsv.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-io-1.3.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jasperreports-3.7.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jasperreports-chart-themes-3.7.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jasperreports-extensions-3.5.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jasperreports-fonts-3.7.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-javaflow-20060411.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-math-1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-vfs-1.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/iText-2.1.7.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jakarta-bcel-20050813.jar'
+-libraryjars 'WebContent/WEB-INF/lib/spring.jar'
+-libraryjars 'WebContent/WEB-INF/lib/osm_oraclepool.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-dbcp-1.3.jar'
+-libraryjars 'WebContent/WEB-INF/lib/axiom-api-1.2.8.jar'
+-libraryjars 'WebContent/WEB-INF/lib/axiom-dom-1.2.8.jar'
+-libraryjars 'WebContent/WEB-INF/lib/axiom-impl-1.2.8.jar'
+-libraryjars 'WebContent/WEB-INF/lib/commons-lang3-3.1.jar'
+-libraryjars 'WebContent/WEB-INF/lib/urlrewrite-4.0.0.jar'
+-libraryjars 'WebContent/WEB-INF/lib/jcl-over-slf4j-1.6.6.jar'
+-libraryjars 'WebContent/WEB-INF/lib/slf4j-api-1.6.6.jar'
+-libraryjars 'WebContent/WEB-INF/lib/slf4j-log4j12-1.6.6.jar'
+-libraryjars 'WebContent/WEB-INF/lib/antlr-2.7.7.jar'
+
+-renamesourcefileattribute SourceFile
+-keepattributes Exceptions,InnerClasses,Signature,Deprecated,
+                SourceFile,LineNumberTable,*Annotation*,EnclosingMethod
+
+-keep class * {
+    public protected *;
+}
+
+-keepclassmembernames class * {
+    java.lang.Class class$(java.lang.String);
+    java.lang.Class class$(java.lang.String, boolean);
+}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}

@@ -1,0 +1,26 @@
+.tooltip_estilo {
+  position: relative;
+  display: inline-block;
+  width: 80%;
+}
+
+.tooltiptext_estilo {
+  visibility: hidden;
+  width: 30%;
+  background-color: #aaa;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 2px;
+  font-size: 0.8em;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  left:100%;
+  top:0%;
+}
+
+.tooltip_estilo:hover .tooltiptext_estilo {
+  visibility: visible;
+}

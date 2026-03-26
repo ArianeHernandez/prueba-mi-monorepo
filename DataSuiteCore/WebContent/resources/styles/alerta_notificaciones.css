@@ -1,0 +1,74 @@
+.contenido_anotificacion{
+	position: absolute;
+	z-index: 30;
+	bottom: 0;
+	width: 305px;
+	height: 60px;
+	overflow: hidden;
+	border: 1px solid #ADADAD;
+	-ms-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-khtml-border-radius: 6px;
+	border-radius: 6px;
+	
+	background-image: url(../images/fondomsj.png);
+	background-color: #FFFFFF;
+	background-repeat: repeat-x;
+	background-position: bottom;
+	right: 20px;
+	font: 11px/14px "Trebuchet MS","Trebuchet MS",Arial,Helvetica,sans-serif;	
+	cursor: pointer;
+}
+.oculto_anotificacion{
+	display: none;
+}
+
+.fecha_anotificacion{
+	float: left;
+	width: 70px;
+	border-right: 1px dotted #C6C6C6; 
+	height: 30px;
+	background-color: transparent;
+	background-image: url(../images/mensaje.png);
+	background-position: top;
+	background-repeat: no-repeat;
+	text-align: center;
+	padding-top: 33px;
+	font: 9px/11px "Trebuchet MS","Trebuchet MS",Arial,Helvetica,sans-serif;
+	clear: both;
+}
+.cont_anotificacion{
+	float:left;
+	width: 218px;
+	padding-left: 8px;
+	padding-right: 2px;
+	height: 58px;
+}
+
+.titulo_anotificacion{
+	white-space: nowrap;
+	color: #015B41;
+	font-weight: bold; 
+	overflow: hidden;
+	width: 218px;
+	height: 15px;
+}
+.de_anotificacion{
+	display: inline;
+	color: #9AC16D;
+	font-weight: bold; 
+}
+.emisor_anotificacion{
+	display: inline;
+	overflow: hidden;
+}
+
+.msj_anotificacion{
+	overflow: hidden;
+	width: 218px;	
+	height: 15px;
+}
+.clear{
+	clear: both;
+}

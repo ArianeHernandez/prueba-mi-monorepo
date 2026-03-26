@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="HTSCommons" default="jar">
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="jar">
+
+		<delete file="dist/HTSCommons.jar"/>
+
+		<zip destfile="dist/HTSCommons.jar" description="create jar file">
+			<zipfileset dir="bin">
+				<include name="**/*.*" />
+			</zipfileset>
+		</zip>
+		
+	</target>
+
+
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarParametrosFormato>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Formato</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.FormatoServicio</service>
+   			<operation>guardarParametrosFormato</operation>
+   			<parameters>
+   				<parameter>Formato</parameter>
+   				<parameter>Destino</parameter>
+   				<parameter>id_persona</parameter>
+   				<parameter>ParametroCarga</parameter>
+   				<parameter>id_modelo</parameter>
+   				<parameter>id_negocio</parameter>
+   				<parameter>franjas</parameter>
+   				<parameter>listaDC</parameter>
+   				<parameter>estructurasAplicar</parameter>
+   				<parameter>FormatoEstilo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarParametrosFormato>
+
+
+</xsp:page>

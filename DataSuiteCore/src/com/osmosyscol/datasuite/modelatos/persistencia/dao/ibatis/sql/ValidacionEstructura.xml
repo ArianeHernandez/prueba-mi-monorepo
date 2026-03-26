@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ValidacionEstructura">
+
+	<typeAlias alias="validacionEstructura" type="com.osmosyscol.datasuite.modelatos.logica.dto.ValidacionEstructura"/>
+	<typeAlias alias="validacionCampo" type="com.osmosyscol.datasuite.modelatos.logica.dto.ValidacionCampo"/>
+	<typeAlias alias="tipoValidacion" type="com.osmosyscol.datasuite.modelatos.logica.dto.TipoValidacion"/>
+	<typeAlias alias="resultadovalidacion" type="com.osmosyscol.datasuite.modelatos.logica.dto.ResultadoValidacion"/>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerRegistrosDeEstructuraPorCarga" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+		select * from T$estructura$ 
+		where idcarga=#id_carga#
+	</select>
+	
+	<select id="obtenerRegistrosDeEstructuraPorCargaVista" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+		select id_carga idcarga, V$estructura$.* from V$estructura$ 
+		where id_carga=#id_carga#
+	</select>
+
+	<select id="obtenerValidacionesPorEstructura" parameterClass="java.lang.Integer" resultClass="validacionEstructura" >
+		select t1.*, t2.descripcion nombre_tipovalidacion, t2.requiere_primer_valor requiere_primer_valor, t2.requiere_segundo_valor requiere_segundo_valor 
+		from dst_validacion_estructura t1, dst_tipovalidacion t2
+		where t1.id_estructura=#id_estructura#
+		and t1.id_tipovalidacion = t2.id_tipovalidacion
+	</select>
+	
+	<select id="obtenerValidacionCampoPorValidacion" parameterClass="java.lang.Integer" resultClass="validacionCampo">
+		select val_campo.* from dst_validacion_estructura val_est, dst_validacion_campo val_campo  
+		where val_est.id_validacion_estructura=#id_validacion_estructura#
+		and val_est.id_validacion_estructura = val_campo.id_validacion_estructura
+	</select>
+	
+	<select id="totalRegistrosRepetidosPorCargaParaEstructuraCampo" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		$sql$
+	</select>
+	
+	
+	<select id="obtenerTiposDeValidacion" resultClass="tipoValidacion">
+		select * from dst_tipovalidacion
+		
+	</select>
+	
+	<select id="obtenerTipoDeValidacion" parameterClass="java.lang.String" resultClass="tipoValidacion">
+		select * from dst_tipovalidacion
+		where id_tipovalidacion = #id_tipovalidacion#
+		
+	</select>
+	
+	<insert id="crearValidacionPorEstructura" parameterClass="validacionEstructura">
+		insert into dst_validacion_estructura
+		( id_validacion_estructura, id_estructura ,id_tipovalidacion, descripcion )
+		values (#id_validacion_estructura#, #id_estructura#,  #id_tipovalidacion#, #descripcion#)
+	</insert>
+	
+	<update id="actualizarValidacionPorEstructura" parameterClass="validacionEstructura">
+		update dst_validacion_estructura
+		set id_tipovalidacion =#id_tipovalidacion#, 
+		descripcion = #descripcion#,
+		enlinea = #enlinea#
+		where id_validacion_estructura = #id_validacion_estructura#
+		and id_estructura = #id_estructura#
+	</update>
+	
+	<insert id="crearRelacionCampoValidacion" parameterClass="validacionCampo">
+		insert into dst_validacion_campo
+		( id_validacion_estructura, id_campo , primer_valor , segundo_valor )
+		values ( #id_validacion_estructura#, #id_campo# , #primer_valor# , #segundo_valor# )
+	</insert>
+	
+	<select id="obtenerSiguienteIDValidacionEstructura"  resultClass="java.lang.Integer">
+		select nextvalue('dss_validacion_estructura') from dual
+		
+	</select>
+	
+	<delete id="eliminarTodasLasRelacionCampoValidacion" parameterClass="java.lang.Integer">
+		delete from dst_validacion_campo
+		where id_validacion_estructura = #id_validacion_estructura# 
+		
+	</delete>
+	
+	<delete id="eliminarValidacionPorEstructura" parameterClass="java.lang.Integer">
+		delete from dst_validacion_estructura
+		where id_validacion_estructura = #id_validacion_estructura# 
+		
+	</delete>
+	
+	<select id="obtenerValidacionPorEstructura" parameterClass="java.lang.Integer" resultClass="validacionEstructura">
+		select t1.*, t2.descripcion nombre_tipovalidacion, t2.requiere_primer_valor requiere_primer_valor, t2.requiere_segundo_valor requiere_segundo_valor 
+		from dst_validacion_estructura t1, dst_tipovalidacion t2
+		where t1.id_validacion_estructura=#id_validacion_estructura#
+		and t1.id_tipovalidacion = t2.id_tipovalidacion
+	</select>
+	
+	<!-- *********************************************************************************  -->
+	
+	<delete id="borrarResultadoValidacion" parameterClass="java.lang.Integer">
+		delete from dst_resultadovalidacion
+		where id_carga = #id_carga#
+	</delete>
+
+	<insert id="guardarResultadoValidacion" parameterClass="java.util.Map">
+		INSERT INTO dst_resultadovalidacion(id_carga, id_registro, id_validacion) 
+	    VALUES(#id_carga#, #id_registro#, #id_validacion#)
+	</insert>
+	
+	<!-- *********************************************************************************  -->
+	
+	<select id="obtenerResultadoValidacion" parameterClass="java.lang.Integer" resultClass="resultadovalidacion">
+		select * from dst_resultadovalidacion where id_carga = #id_carga#
+	</select>
+	
+
+</sqlMap>

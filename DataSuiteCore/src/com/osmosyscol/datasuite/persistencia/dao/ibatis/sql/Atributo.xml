@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Atributo">
+
+	<typeAlias alias="Atributo" type="com.osmosyscol.datasuite.logica.dto.Atributo" />
+	
+	<insert id="crearAtributo" parameterClass="java.util.Map">
+		insert into dst_atributo (id_atributo,nombre,id_usuario) 
+			values (#id_atributo#,#nombre#,#id_usuario#)
+	</insert>
+	
+	<update id="actualizarAtributo" parameterClass="java.util.Map">
+		update dst_atributo set 
+			nombre = #nombre#,
+			id_usuario = #id_usuario#
+			where id_atributo = #id_atributo#
+	</update>
+	
+	<delete id="eliminarAtributo" parameterClass="java.lang.Integer">
+		delete from dst_atributo where id_atributo=#id_atributo#
+	</delete>
+	
+	<select id="obtenerAtributo" parameterClass="java.lang.Integer" resultClass="Atributo">
+		SELECT *
+		    FROM dst_atributo
+			where id_atributo = #id_atributo#
+	</select>
+	
+	<select id="obtenerAtributosUsuario" parameterClass="java.lang.Integer" resultClass="Atributo">
+		SELECT *
+		    FROM dst_atributo
+			where id_usuario = #id_usuario#
+	</select>
+	
+	<select id="obtenerIdSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_atributo') as id from dual
+	</select>
+	
+</sqlMap>

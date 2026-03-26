@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://actualizarRol.servicioweb.osmoautenticador.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WSActualizarRol" targetNamespace="http://actualizarRol.servicioweb.osmoautenticador.osmosyscol.com">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://actualizarRol.servicioweb.osmoautenticador.osmosyscol.com">
+      <xsd:element name="crearRol">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="rolDto" type="tns:TipoRolDto"/>
+          	<xsd:element maxOccurs="unbounded" minOccurs="0" name="servicioDto" type="tns:TipoServicioDto"/>
+          	<xsd:element name="naturaleza" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="crearRolResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="modificarRol">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idRol" type="xsd:int"/>
+      			<xsd:element maxOccurs="unbounded" minOccurs="0" name="servicioDto" type="tns:TipoServicioDto"/>
+      			<xsd:element name="naturaleza" type="xsd:string"/>
+      			<xsd:element name="accion" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="modificarRolResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element maxOccurs="unbounded" minOccurs="0" name="out" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+    
+      <xsd:complexType name="TipoRolDto">
+      	<xsd:sequence>
+      		<xsd:element name="idRol" type="xsd:int"/>
+      		<xsd:element name="idAplicacion" type="xsd:int"/>
+      		<xsd:element name="nombre" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="TipoServicioDto">
+      	<xsd:sequence>
+      		<xsd:element name="idServicio" type="xsd:int"/>
+      		<xsd:element name="idRol" type="xsd:int"/>
+      		<xsd:element name="nombre" type="xsd:string"/>
+      		<xsd:element name="activo" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="crearRolRequest">
+    <wsdl:part element="tns:crearRol" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="crearRolResponse">
+    <wsdl:part element="tns:crearRolResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="modificarRolRequest">
+  	<wsdl:part element="tns:modificarRol" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="modificarRolResponse">
+  	<wsdl:part element="tns:modificarRolResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="WSActualizarRol">
+    <wsdl:operation name="crearRol">
+      <wsdl:input message="tns:crearRolRequest"/>
+      <wsdl:output message="tns:crearRolResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="modificarRol">
+    	<wsdl:input message="tns:modificarRolRequest"/>
+    	<wsdl:output message="tns:modificarRolResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSActualizarRolSOAP" type="tns:WSActualizarRol">
+  	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  	<wsdl:operation name="crearRol">
+  		<soap:operation soapAction="http://actualizarRol.servicioweb.osmoautenticador.osmosyscol.com/crearRol"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  	<wsdl:operation name="modificarRol">
+  		<soap:operation soapAction="http://actualizarRol.servicioweb.osmoautenticador.osmosyscol.com/modificarRol"/>
+  		<wsdl:input>
+  			<soap:body use="literal"/>
+  		</wsdl:input>
+  		<wsdl:output>
+  			<soap:body use="literal"/>
+  		</wsdl:output>
+  	</wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSActualizarRol">
+    <wsdl:port binding="tns:WSActualizarRolSOAP" name="WSActualizarRolSOAP">
+      <soap:address location="http://localhost:9090/OsmoAutenticador/services/WSActualizarRolSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

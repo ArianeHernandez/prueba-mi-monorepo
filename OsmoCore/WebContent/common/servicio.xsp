@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:util="http://apache.org/xsp/util/2.0"
+>
+
+<xsp:structure>
+	<xsp:include>com.osmosyscol.commons.servicio.AutenticacionServicio</xsp:include>
+	<xsp:include>com.osmosyscol.commons.log.SimpleLogger</xsp:include>
+</xsp:structure> 
+	
+    <OSM_SERVICE>
+		<xsp:logic>
+		
+    		long timeservice_osmcoresystem = System.currentTimeMillis();
+		
+			String serverRequest = <util:get-sitemap-parameter name="page"/>;
+	    
+			if(0>request.getRequestURI().indexOf(serverRequest)){
+			
+		        String osm_tmp_type = serverRequest.substring(serverRequest.lastIndexOf("."));
+		        
+		        if(osm_tmp_type.indexOf(".ser")>=0){ osm_tmp_type = ".ser"; }
+		        String type_action = osm_tmp_type + "_action";
+		        
+		        String osm_url_page = "cocoon:" + serverRequest.substring(0,serverRequest.indexOf(".")) + type_action;
+		        
+		        String cacheId = AutenticacionServicio.getInstance().getCacheId(request, serverRequest);
+		        
+	        	String osm_contentpage = null;
+	        	
+	        	if(request.getSession(false) !=null &amp;&amp; cacheId!=null)
+	        	{
+	        		if(request.getSession().getAttribute(cacheId)!=null)
+	        		{
+	        			osm_contentpage = request.getSession().getAttribute(cacheId).toString();
+	        		}
+	        		else
+	        		{
+	        			osm_contentpage = XSPUtil.getSourceContents(osm_url_page, this.resolver);
+	        			request.getSession().setAttribute(cacheId, osm_contentpage);
+	        			com.osmosyscol.commons.log.SimpleLogger.setInfo("Guardando Cache: " + osm_url_page);
+	        		}
+	        	}
+	        	else{
+	        		osm_contentpage = XSPUtil.getSourceContents(osm_url_page, this.resolver);
+	        	}
+	        	
+	        	XSPUtil.includeString(osm_contentpage, this.manager, this.contentHandler);
+		        
+		        timeservice_osmcoresystem = System.currentTimeMillis() - timeservice_osmcoresystem;
+				AutenticacionServicio.addLogPage(serverRequest, timeservice_osmcoresystem);
+			}else{
+				<NO-INCLUDE-SERVICE/>
+			}
+			
+	    </xsp:logic>
+    	
+    </OSM_SERVICE>
+
+</xsp:page>

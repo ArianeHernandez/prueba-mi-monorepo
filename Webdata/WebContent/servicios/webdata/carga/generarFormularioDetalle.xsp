@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<generarFormularioDetalle>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.mein.servicios.GeneradorFormularioServicio</service>
+   			<operation>generarFormulario</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</generarFormularioDetalle>
+
+</xsp:page>

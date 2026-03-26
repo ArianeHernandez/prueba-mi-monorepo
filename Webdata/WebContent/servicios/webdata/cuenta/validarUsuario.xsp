@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<validarUsuario>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Respuesta</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.CuentaServicio</service>
+   			<operation>validarUsuario</operation>
+   			<parameters>
+   				<parameter>login</parameter>
+   				<parameter>id_cliente</parameter>
+   				<parameter>clave</parameter>
+   				<parameter>session</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</validarUsuario>
+
+
+</xsp:page>

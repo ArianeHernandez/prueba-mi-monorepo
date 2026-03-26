@@ -1,0 +1,17 @@
+# -------------------------------------------------------------------
+# Copiar este archivo como build.properties y ajustar las rutas locales
+# -------------------------------------------------------------------
+
+TOMCAT          /ruta/a/tu/tomcat
+production      true
+
+# -------------------------------------------------------------------
+# Seleccionar el cliente/skin descomentando UNA línea
+# Para insolvencia usar: mein, near o supersociedades
+# -------------------------------------------------------------------
+
+#CLIENTE         mein
+#CLIENTE         near
+CLIENTE          mein
+
+# -------------------------------------------------------------------

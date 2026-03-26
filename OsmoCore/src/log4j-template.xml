@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- 
+	purpose: 	Act as configuration template for applications.
+				Application should be using slf4j+log4j
+				For compatibility, a special appender has been created.
+-->				
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%X{ip}-%X{host}] [%t] %5p %c{1} %m%n"/>
+            <!-- The default pattern: Date Priority [Category] Message\n 
+            	pattern1: %d{HH:mm:ss,SSS} %-5p %t %c{6} \- %m%n
+            	pattern2: %d{HH:mm:ss,SSS} %-5p %t %c - %m%n 
+            	-->
+        </layout>
+    </appender>
+  
+    <appender name="SIMPLELOGGER" class="com.osmosyscol.commons.log.log4j.SimpleLoggerAdapterAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="applicationName" value="OSMOCORE"/>
+            <param name="ConversionPattern" value="%d{ISO8601} [%X{ip}-%X{host}] [%t] %5p %c{1} %m%n"/>
+        </layout>
+    </appender>
+        
+	 <appender name="ROLLINGFILE" class="org.apache.log4j.RollingFileAppender"> 
+	 <!-- 
+	    <param name="file" value="example.log"/>
+	 -->
+	    <param name="file" value="logs/log_osmocore.log"/>
+	    <param name="MaxFileSize" value="5000KB"/>
+	    <param name="MaxBackupIndex" value="100" />
+	    <layout class="org.apache.log4j.PatternLayout"> 
+	      <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %t %c - %m%n"/> 
+	    </layout> 
+	  </appender> 
+	
+	<!-- ####################### category  interop :: synapse ############################# -->
+	
+	<category name="com.osmosyscol.datapi" additivity="false">
+		<priority value="WARN" />
+		<appender-ref ref="SIMPLELOGGER" />
+	</category>		
+	<category name="com.osmosyscol.commons" additivity="false">
+		<priority value="WARN" />
+		<appender-ref ref="SIMPLELOGGER" />
+	</category>		
+	<category name="com.osmosyscol.persistencia.dao.ibatis.core" additivity="false">
+		<priority value="WARN" />
+		<appender-ref ref="SIMPLELOGGER" />
+	</category>		
+	
+    <!-- ####################### category custom ::  ########################## -->
+
+	<!-- ####################### category root ::  ########################## -->	
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="CONSOLE" />
+    </root>
+    
+
+	
+</log4j:configuration>

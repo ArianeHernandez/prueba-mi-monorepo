@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+#  oracle-db:
+#    image: oracleinanutshell/oracle-xe-11g
+#    ports:
+#      - 1521:1521
+#      - 5500:5500
+
+  tomcat:
+    image: tomcat:7-jre7
+    ports:
+      - 9090:8080
+      - 5002:5002
+    volumes:
+      - ../../../target/OsmoAutenticador.war:/usr/local/tomcat/webapps/OsmoAutenticador.war
+      - ../../../logs/actiiva/OSMOAUTENTICADOR_HOME:/usr/local/tomcat/OSMOAUTENTICADOR_HOME
+    entrypoint: "catalina.sh jpda run"
+    environment:
+      - OSMOAUTENTICADOR_HOME=/usr/local/tomcat/OSMOAUTENTICADOR_HOME
+      - JPDA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5002"
+#    depends_on:
+#      - oracle-db

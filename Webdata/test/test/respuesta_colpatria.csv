@@ -1,0 +1,4 @@
+Tipo Cuenta;No.Cuenta;Nit Titular;Cuenta Proveedor;Identificación Proveedor;Proveedor;Banco Destino;Valor Pago;Fecha Pago;Número de Seguimiento;Estado;Desc. Estado;Fecha Rechazo;Motivo Rechazo;,
+(1)Pago Empresarial;***************0198;09001246401;******2236;20537554;MICHELSEN BEATRIZ;;5000000,00;2017/11/03;2;ABONO CTA COLPATRIA;Abono Cuenta Colpatria;0000/00/00;;
+(2)Pago Empresarial;***************0198;09001246401;******5615;80082040;ALEJANDRO ENRIQUE RODR;;4000000,00;2017/11/08;3;ABONO CTA COLPATRIA;Abono Cuenta Colpatria;0000/00/00;;
+(3)Pago Empresarial;***************0198;09001246401;******6855;20729404;FORERO GUTIERREZ JUDIT;;8150031,00;2017/11/15;4;ABONO CTA COLPATRIA;Abono Cuenta Colpatria;0000/00/00;;

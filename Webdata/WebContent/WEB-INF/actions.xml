@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<actions app="webdata" version="V.5.2.9.S.61.MEIN.60"> 
+
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Servicios en Cache  -->
+
+	<action url="/menu/acciones.cpt" cache="no"/>
+	
+	<action url="/webdata/validacioncarga/verificarValidacionesPorCarga.ser" cache="yes">
+		<parameter name="id_carga"/>
+		<parameter name="id_formato_salida"/>
+	</action>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- Servicios Transaccionales -->
+
+	<action url="/carga_informacion/interactivo/1.1.1.do" transactional="yes" cache="no"/>
+	<action url="/carga_informacion/lotes/1.2.2.do" transactional="yes" cache="no"/>
+	<action url="/salida_sistemas_externos/35.2.do" transactional="yes" cache="no"/>
+	<action url="/revisiones/11.4.do" transactional="yes" cache="no"/>
+	<action url="/liberacion/15.4.do" transactional="yes" cache="no"/>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<init>
+		<PAGINA_INICIO>/inicio/0.pub</PAGINA_INICIO>
+		<PAGINA_ACCESODENEGADO>/inicio/0.pub?failed</PAGINA_ACCESODENEGADO>
+		<PAGINA_ERRORINESPERADO>/inicio/0.pub?error</PAGINA_ERRORINESPERADO>
+		<PAGINA_SALIDA>/inicio/0.pub?logout</PAGINA_SALIDA>
+		<PAQUETE_VALIDACION>com.osmosyscol.datasuite.webdata.validacion.accion</PAQUETE_VALIDACION>
+	</init>
+	
+	
+	<!-- thread class="com.osmosyscol.datasuite.correval.thread.ListaCautela"/ -->
+	<!-- thread class="com.osmosyscol.datasuite.correval.thread.ActualizadorCRL"/ -->
+	<!-- thread class="com.osmosyscol.datasuite.correval.thread.ActualizadorEstadoRetiro"/-->
+	<!-- thread class="com.osmosyscol.datasuite.correval.thread.OrdenesPago"/-->
+	
+	<!-- Solo para symplifica -->
+	<!-- thread class="com.osmosyscol.datasuite.correval.thread.AgruparGirosAutomatico" / -->
+
+</actions>
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	 <LISTA_RESPUESTA_BANCOS><osm-utils:get-session-attribute name="listaRespuestaBancos"/></LISTA_RESPUESTA_BANCOS>
+    	 <respuesta><xsp-request:get-parameter name="ans"/></respuesta>
+    	 <total_registros_para_actualizar><xsp-request:get-parameter name="all"/></total_registros_para_actualizar>
+    	 <total_registros_actualizados><xsp-request:get-parameter name="act"/></total_registros_actualizados>
+    	  
+    </OSM-ACCION>
+	
+</xsp:page>

@@ -1,0 +1,258 @@
+
+<HTML>
+	<HEAD>
+		<title></title>
+		
+<title> Banco Davivienda </title>
+<script language="JavaScript" src="/PSB/Davivienda/GRAL/appfront/js/estilos.js"></script>
+<script language="JavaScript" src="/PSB/Davivienda/GRAL/appfront/js/valid.js"></script>
+<script language="JavaScript" src="/PSB/Davivienda/GRAL/appfront/js/validadores.js"></script>
+<script language="JavaScript" src="/PSB/Davivienda/GRAL/appfront/js/validaciones.js"></script>
+<script language="JavaScript">
+<!--
+function openwin(theURL,winName,caracteristicas) { //v2.0
+	window.open(theURL,winName,caracteristicas);
+}
+
+function MM_swapImgRestore() { //v3.0
+var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.Codebehind=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v3.0
+var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+	for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); return x;
+}
+
+function MM_swapImage() { //v3.0
+var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oCodebehind=x.src; x.Codebehind=a[i+2];}
+}
+
+//-->
+</script>
+
+
+
+        <script language="javascript" >
+            var Session = 'dd0accz4mssisvh44gidhrkc';
+            var CustomerID = '7ab6bf5d-f962-41a0-bbe6-480466946b25';
+        </script>
+        <script language="javascript" type="text/javascript" src="/PSB/Davivienda/GRAL/appBack/js/SnippetCliente.js"> 
+        </script>
+	    <script language="javascript">
+	        snippet();
+        
+
+if (window.focus) {
+ self.focus();
+}
+
+
+function beforeprint() {
+  document.all.idPrint.style.display = "none";
+  document.all.idCerrar.style.display = "none";
+}
+
+function afterprint() {
+  document.all.idPrint.style.display = "";
+  document.all.idCerrar.style.display = "";
+}
+
+		</script>
+	</HEAD>
+	<body onafterprint="afterprint()" onbeforeprint="beforeprint()">
+		<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  </head>
+  <body bottommargin="0" leftmargin="0">
+    <br>
+    <table cellspacing="0" cellpadding="0" width="100%" border="0">
+      <tr>
+        <td colspan="5">
+        </td>
+      </tr>
+    </table>
+    <br>
+    <table cellspacing="0" cellpadding="0" width="100%" border="1">
+      <tr>
+        <td bgColor="#cccccc" colspan="4">
+          <STRONG>Encabezado Proceso de Pago</STRONG>
+        </td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc" width="25%">
+          <STRONG>Nombre Proceso de Pago</STRONG>
+        </td>
+        <td>2ADMONMAY2617</td>
+        <td bgColor="#cccccc" width="21%">
+          <STRONG>Estado Proceso</STRONG>
+        </td>
+        <td width="29%">Pagado</td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc" width="21%">
+          <STRONG>No. Proceso de Pago</STRONG>
+        </td>
+        <td colspan="3"> 26038311</td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc" width="21%">
+          <STRONG>Origen de los Fondos</STRONG>
+        </td>
+        <td colspan="3">CORPORATIVA - 560482869999466</td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc">
+          <STRONG>Fecha de Creacion</STRONG>
+        </td>
+        <td>26/05/2017</td>
+        <td bgColor="#cccccc">
+          <STRONG>Fecha de Pago</STRONG>
+        </td>
+        <td>26/05/2017</td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc">
+          <STRONG>Total de Registros</STRONG>
+        </td>
+        <td>7</td>
+        <td bgColor="#cccccc">
+          <STRONG>Monto Total</STRONG>
+        </td>
+        <td>13512251,29</td>
+      </tr>
+      <tr>
+        <td bgColor="#cccccc">
+          <STRONG>Registros Ingresados</STRONG>
+        </td>
+        <td>7</td>
+        <td bgColor="#cccccc">
+          <STRONG>Monto Ingresado</STRONG>
+        </td>
+        <td>13512251,29</td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <table cellspacing="0" cellpadding="0" width="100%" border="1">
+      <tr>
+        <td colspan="8" align="center" width="100%">
+          <STRONG>Detalle de Pagos</STRONG>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="8">
+        </td>
+      </tr>
+      <tr>
+        <td width="10%" bgColor="#cccccc">
+          <STRONG>Nit Destino</STRONG>
+        </td>
+        <td width="10%" bgColor="#cccccc">
+          <STRONG>Referencia</STRONG>
+        </td>
+        <td width="15%" bgColor="#cccccc">
+          <STRONG>Tipo Producto o Servicio Destino</STRONG>
+        </td>
+        <td width="15%" bgColor="#cccccc">
+          <STRONG>Producto o Servicio Destino</STRONG>
+        </td>
+        <td width="35%" bgColor="#cccccc">
+          <STRONG>Entidad Destino</STRONG>
+        </td>
+        <td width="10%" bgColor="#cccccc">
+          <STRONG>Valor</STRONG>
+        </td>
+        <td width="20%" bgColor="#cccccc">
+          <STRONG>Estado</STRONG>
+        </td>
+        <td width="20%" bgColor="#cccccc">
+          <STRONG>Motivo Rechazo</STRONG>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>8301351862</td>
+        <td>0000000000000000</td>
+        <td>Corriente</td>
+        <td>1072793465</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>2320429,69</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>8600412270</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>8900018592</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>168135,00</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>9004166032</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>450600105305</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>1777832,16</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>79783776</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>9970023926</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>6267600,00</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>9004214661</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>5000198597</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>895680,00</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>9006992699</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>457200116285</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>1455480,00</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td nowrap>9004093630</td>
+        <td>0000000000000000</td>
+        <td>Ahorros</td>
+        <td>5000260223</td>
+        <td>DAVIVIENDA                              </td>
+        <td align="right" nowrap>627094,44</td>
+        <td>Pago Exitoso</td>
+        <td></td>
+      </tr>
+      <br>
+    </table>
+  </body>
+</html>
+		
+<script language="javascript">
+	
+</script>
+	</body>
+</HTML>

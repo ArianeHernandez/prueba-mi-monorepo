@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+
+    	<VERSION_APLICACION><xsp:expr>com.osmosyscol.commons.servicio.AutenticacionServicio.VERSION_APLICACION</xsp:expr></VERSION_APLICACION>
+    	    	
+    	<osm-utils:servicio-java>
+   			<name>info</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.InfoServicio</service>
+   			<operation>infoSQL</operation>
+   		</osm-utils:servicio-java>
+    	
+    	
+    	<sql><xsp-request:get-parameter name="sql"/></sql>
+		<pool><xsp-request:get-parameter name="pool"/></pool>
+    	<crypto><xsp-request:get-parameter name="crypto"/></crypto>
+
+		<osm-utils:exist-parameter name="sql">    	
+    		<xsp:logic>
+
+				String login = request.getSession().getAttribute("login").toString();
+				String ip = request.getRemoteHost();
+
+   				Object data = com.osmosyscol.datasuite.logica.servicios.InfoServicio.getInstance().exe(request.getParameter("sql"),
+					    																			   request.getParameter("pool"),
+					    																			   request.getParameter("crypto"),
+					    																			   login,
+					    																			   ip);
+    			
+   				JavaToXML.include("EXE", data, this.manager, this.contentHandler);
+    			
+    		</xsp:logic>
+		</osm-utils:exist-parameter>
+    	
+    </OSM-ACCION>
+	
+	
+</xsp:page>

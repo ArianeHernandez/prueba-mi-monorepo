@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerFormatosFiltro>
+   		
+   		<osm-utils:servicio-java isname="false">
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>obtenerFormatosFiltro</operation>
+   			<parameters>
+   				<parameter>id_formatosalida</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerFormatosFiltro>
+
+</xsp:page>

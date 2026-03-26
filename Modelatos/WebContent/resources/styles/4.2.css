@@ -1,0 +1,48 @@
+.eliminar {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/Eliminar.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.cuadro_fila {
+	height: 22px;
+	width: 330px;
+	overflow: hidden;
+}
+
+.cuadro_fila_item {
+	display: block;
+	float: left;
+	height: 22px;
+}
+
+.cuadro_info_footer {
+	height: 40px;
+	border-top: 1px solid #CCCCCC;
+}
+
+.cuadro_info_footer select {
+	padding: 3px;
+	width: 300px;
+	margin: 8px auto auto 10px;
+	height: auto;
+}
+
+.w20 {
+	width: 20px;
+}
+
+.w90 {
+	width: 90px;
+}
+
+.w220 {
+	width: 220px;
+}
+

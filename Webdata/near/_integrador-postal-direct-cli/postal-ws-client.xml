@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main" basedir=".">
+
+<echo message="pulling in property files"/>
+	
+<property file="postal-ws-client.properties"/>
+<echo message="axis.home:${axis.home}"/>
+	
+<path id="axis.classpath">
+  <fileset dir="${axis.home}/lib">
+    <include name="**/*.jar" />
+  </fileset>
+</path>
+<taskdef resource="axis-tasks.properties"
+  classpathref="axis.classpath" />
+
+ <target name="main" >
+ 	
+ 	<echo message="calling the web services generation ant task: axis_client"/>
+  	<axis-wsdl2java
+	  output="${generated.dir}"
+	  testcase="false"
+	  verbose="true"
+	  url="${local.wsdl}" >
+	    <mapping
+	      namespace="http://tempuri.org/"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+	    <mapping
+	      namespace="http://schemas.datacontract.org/2004/07/System"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+	    <mapping
+	      namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+	    <mapping
+	      namespace="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+	    <mapping
+	      namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+	    <mapping
+	      namespace="http://schemas.microsoft.com/2003/10/Serialization/"
+	      package="com.osmosyscol.datasuite.near.interop.postal" />
+  		
+  		
+  		
+  		
+	  </axis-wsdl2java>
+ 
+  	 <!-- wsgen/-->
+  </target>
+  
+</project>

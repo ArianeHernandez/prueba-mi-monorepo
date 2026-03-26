@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FtpUsuario">
+
+	<typeAlias alias="ftpUsuario" type="com.osmosyscol.datasuite.logica.dto.FtpUsuario" />
+
+	
+	<insert id="insertarFtpUsuario" parameterClass="ftpUsuario">
+		insert into dst_ftp_usuario
+			(id_ftp_usuario, id_usuario, host, puerto, nombre_usuario, clave,
+			 carpeta_transito, carpeta_procesados, carpeta_fallidos,
+			 carpeta_bk_transito, carpeta_bk_procesados, carpeta_bk_fallidos,
+			 encripcion, clave_encripcion, llave_privada, dias_validacion,
+			 nombre_configuracion, id_proceso, dominio)
+		values
+			(#id_ftp_usuario#, #id_usuario#, #host#, #puerto#, #nombre_usuario#, #clave#,
+			 #carpeta_transito#, #carpeta_procesados#, #carpeta_fallidos#,
+			 #carpeta_bk_transito#, #carpeta_bk_procesados#, #carpeta_bk_fallidos#,
+			 #encripcion#, #clave_encripcion#, #llave_privada#, #dias_validacion#,
+			 #nombre_configuracion#, #id_proceso#, #dominio#)
+	</insert>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		 select nextvalue('dss_ftp_usuario') as id from dual
+	</select>	
+	
+	<select id="obtenerFtpUsuario" parameterClass="java.lang.Integer" resultClass="ftpUsuario">
+		select * from dst_ftp_usuario where id_ftp_usuario = #id_ftp_usuario#
+	</select>
+	
+	<select id="obtenerFtpUsuarioPorUsuario" parameterClass="java.lang.Integer" resultClass="ftpUsuario">
+		select * from dst_ftp_usuario where id_usuario = #id_usuario#
+	</select>
+	
+	<delete id="borrarFtpUsuario" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario where id_ftp_usuario = #id_ftp_usuario#
+	</delete>
+	
+	<delete id="borrarFtpUsuarioPorUsuario" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario where id_usuario = #id_usuario#
+	</delete>
+	
+	<update id="actualizarFtpUsuario" parameterClass="ftpUsuario">
+		update dst_ftp_usuario set
+			id_ftp_usuario = #id_ftp_usuario#,
+			id_usuario = #id_usuario#,
+			host = #host#,
+			puerto = #puerto#,
+			nombre_usuario = #nombre_usuario#,
+			clave = #clave#,
+			carpeta_transito = #carpeta_transito#,
+			carpeta_procesados = #carpeta_procesados#,
+			carpeta_fallidos = #carpeta_fallidos#,
+			carpeta_bk_transito = #carpeta_bk_transito#,
+			carpeta_bk_procesados = #carpeta_bk_procesados#,
+			carpeta_bk_fallidos = #carpeta_bk_fallidos#,
+			encripcion = #encripcion#,
+			clave_encripcion = #clave_encripcion#,
+			llave_privada = #llave_privada#,
+			dias_validacion = #dias_validacion#,
+			nombre_configuracion = #nombre_configuracion#, 
+			id_proceso = #id_proceso#,
+			dominio = #dominio#
+		where id_ftp_usuario = #id_ftp_usuario#
+	</update>
+	
+	<update id="guardarConfiguracionCliente" parameterClass="ftpUsuario">
+		update dst_ftp_usuario set
+			frecuencia_lectura = #frecuencia_lectura#,
+			id_horario = #id_horario#
+		where id_ftp_usuario = #id_ftp_usuario#
+	</update>
+	
+	<select id="obtenerFtpUsuarioActivos" resultClass="ftpUsuario">
+		select * from dst_ftp_usuario
+		where id_proceso is not null
+	</select>
+</sqlMap>

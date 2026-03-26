@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TipoCampo">
+
+	<typeAlias alias="tipocampo" type="com.osmosyscol.datasuite.modelatos.logica.dto.TipoCampo" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerTipoCampos" resultClass="tipocampo">
+		select * from dst_tipocampo
+	</select>
+	
+	<select id="obtenerTipoCampoPorId" resultClass="tipocampo" parameterClass="java.lang.Integer">
+		select * from dst_tipocampo
+		where id_tipocampo = #id_tipocampo#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</sqlMap>

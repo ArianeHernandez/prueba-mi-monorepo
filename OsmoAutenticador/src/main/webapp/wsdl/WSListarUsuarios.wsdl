@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://listarusuarios.servicioweb.osmoautenticador.osmosyscol.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://listarusuarios.servicioweb.osmoautenticador.osmosyscol.com" xmlns:intf="http://listarusuarios.servicioweb.osmoautenticador.osmosyscol.com" xmlns:tns1="http://dominio.osmoautenticador.osmosyscol.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://listarusuarios.servicioweb.osmoautenticador.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://dominio.osmoautenticador.osmosyscol.com"/>
+   <element name="listarUsuarios">
+    <complexType>
+     <sequence>
+      <element name="login" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarUsuariosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarUsuariosReturn" type="tns1:Usuario"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://dominio.osmoautenticador.osmosyscol.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="Usuario">
+    <sequence>
+     <element name="clave" nillable="true" type="xsd:string"/>
+     <element name="clave2" nillable="true" type="xsd:string"/>
+     <element name="id_usuario" type="xsd:int"/>
+     <element name="login" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="listarUsuariosResponse">
+
+      <wsdl:part element="impl:listarUsuariosResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarUsuariosRequest">
+
+      <wsdl:part element="impl:listarUsuarios" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WSListarUsuarios">
+
+      <wsdl:operation name="listarUsuarios">
+
+         <wsdl:input message="impl:listarUsuariosRequest" name="listarUsuariosRequest"/>
+
+         <wsdl:output message="impl:listarUsuariosResponse" name="listarUsuariosResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WSListarUsuariosSoapBinding" type="impl:WSListarUsuarios">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="listarUsuarios">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarUsuariosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarUsuariosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WSListarUsuariosService">
+
+      <wsdl:port binding="impl:WSListarUsuariosSoapBinding" name="WSListarUsuarios">
+
+         <wsdlsoap:address location="http://localhost:8080/OsmoAutenticador/services/WSListarUsuarios"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

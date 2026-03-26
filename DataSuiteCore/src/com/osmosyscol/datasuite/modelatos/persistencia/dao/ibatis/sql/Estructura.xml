@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Estructura">
+
+	<typeAlias alias="persona"     type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	<typeAlias alias="grupo"       type="com.osmosyscol.datasuite.modelatos.logica.dto.Grupo"/>
+	<typeAlias alias="estructura"  type="com.osmosyscol.datasuite.modelatos.logica.dto.Estructura"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructuras" resultClass="estructura">
+		select * from dst_estructura where estado = 'A'
+		order by id_estructura
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="contarCamposPorEstructura" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(*) from dst_campo where ID_ESTRUCTURA = #id_estructura#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerEstructurasPorPersona" resultClass="estructura" parameterClass="java.util.Map" >
+		select distinct es.*
+		from dst_estructura es
+		where es.id_modelo = #id_modelo#
+		and es.estado = 'A'
+		order by es.nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="totalEstructurasPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+		from (
+			select distinct es.*
+				from dst_estructura es
+				where es.id_modelo = #id_modelo#
+				and es.estado = 'A'
+		) DD
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerEstructurasAccesiblesPorPersona" resultClass="estructura" parameterClass="java.util.Map" >
+		select distinct es.*
+		from dst_estructura es
+		where es.id_modelo = #id_modelo#
+		and es.estado = 'A'
+		and es.accesible = 'S'
+		<isNotEmpty property="filtro" prepend="and">
+			lower(es.nombre) like '%' || lower(#filtro#) || '%'
+		</isNotEmpty>
+		order by es.nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="totalEstructurasAccesiblesPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*)
+		from (
+			select distinct es.*
+				from dst_estructura es
+				where es.id_modelo = #id_modelo#
+				and es.estado = 'A'
+				and es.accesible = 'S'
+				<isNotEmpty property="filtro" prepend="and">
+					lower(es.nombre) like '%' || lower(#filtro#) || '%'
+				</isNotEmpty>
+		) DD
+	</select>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerEstructurasPorGrupo" resultClass="estructura" parameterClass="grupo">
+		select es.id_estructura, es.id_modelo, es.nombre, es.descripcion, es.estado, es.bloqueo_edicion, es.bloqueo_datos, es.accesible, ge.xpos, ge.ypos
+		from dst_estructura es, dst_grupo_estructura ge
+		where es.id_estructura = ge.id_estructura
+		and es.estado = 'A'
+		and ge.id_grupo = #id_grupo#
+		order by es.id_estructura
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerEstructura" resultClass="estructura" parameterClass="estructura">
+		select *
+		from dst_estructura
+		where id_estructura = #id_estructura#
+		and estado = 'A'
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="siguienteId" resultClass="java.lang.Integer">
+		select nextvalue('dss_estructura') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="guardarEstructura" parameterClass="estructura">
+		insert into dst_estructura(id_estructura, id_modelo, nombre, descripcion, estado) 
+    	values (#id_estructura#, #id_modelo#, #nombre#, #descripcion#, 'A') 
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<update id="actualizarEstructura" parameterClass="estructura">
+		update dst_estructura set id_modelo=#id_modelo# , nombre=#nombre#, descripcion=#descripcion# 
+    	where id_estructura = #id_estructura# 
+	</update>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="siguienteID_Objeto" resultClass="java.lang.Integer">
+		select nextvalue('dss_id') as id from dual
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructurasPadre" resultClass="estructura" parameterClass="java.lang.Integer">
+		select distinct est.*, cmp.id_campo as id_campo_relacionado
+		from dst_estructura est, dst_campo cmp 
+		where 
+		cmp.id_estructurarelacionada = #id_estructura# 
+		and cmp.id_estructura =est.id_estructura
+		and est.estado = 'A'
+		order by est.id_estructura
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructurasRelacionadas" resultClass="estructura" parameterClass="java.lang.Integer">
+		select distinct est.*, cmp.id_campo as id_campo_relacionado
+		from dst_estructura est, dst_campo cmp 
+		where 
+		cmp.id_estructurarelacionada = #id_estructura# 
+		and cmp.id_estructura =est.id_estructura
+		order by est.id_estructura
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="eliminarEstructura" parameterClass="java.lang.Integer">
+		update dst_estructura set estado= 'E'  
+    	where id_estructura = #id_estructura# 
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructuraPorNombre" resultClass="estructura" parameterClass="java.util.Map">
+		select * from dst_estructura est
+		where est.nombre = #nombreEstructura# 
+		and est.id_modelo = #id_modelo#
+		and est.estado = 'A'
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructurasPorEstado" resultClass="estructura" parameterClass="java.lang.String">
+		    select es.*
+    		from dst_estructura es
+    		where es.estado = #estado#
+    		order by es.id_estructura
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerEstructurasPorFormatoDeSalida" resultClass="estructura" parameterClass="java.lang.Integer">
+		    select distinct estructura.* from dst_campo campo, dst_estructura estructura
+			where campo.id_campo in ( select id_campo from dst_formato_campo
+                    				  where id_formato = #id_formato_salida#  )
+			and (campo.id_estructura = estructura.id_estructura
+			or campo.id_estructurarelacionada = estructura.id_estructura)
+	</select>
+	
+	
+	<update id="actualizarPosicion" parameterClass="java.util.Map">
+		
+		update dst_estructura set xpos = #xpos#, ypos = #ypos# where id_estructura = #id_estructura#
+		
+	</update>
+	
+
+	<update id="actualizarPosicionGrupo" parameterClass="java.util.Map">
+		
+		update dst_grupo_estructura set xpos = #xpos#, ypos = #ypos# where id_estructura = #id_estructura# and id_grupo = #id_grupo#
+		
+	</update>
+	
+	<select id="buscarNombresEstructurasAccesibles" parameterClass="string" resultClass="string">
+		select distinct es.nombre
+		from dst_estructura es
+		where es.id_modelo = 1
+		and es.estado = 'A'
+		and es.accesible = 'S'
+		and lower(es.nombre) like '%' || lower(#filtro#) || '%'
+	</select>	
+	
+</sqlMap>

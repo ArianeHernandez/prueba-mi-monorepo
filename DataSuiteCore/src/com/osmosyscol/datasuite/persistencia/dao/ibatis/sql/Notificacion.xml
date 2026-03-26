@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Notificacion">
+
+	<typeAlias alias="notificacion" type="com.osmosyscol.datasuite.logica.dto.Notificacion" />
+
+	<sql id="sqlNotificacion">
+		SELECT id_notificacion, titulo, contenido, fecha_envio, leida, id_administrativo, emisor
+	    FROM dst_notificacion
+	</sql>
+	
+	<select id="obtenerNotificacionesAdministrativo" parameterClass="java.lang.Integer" resultClass="notificacion">
+		<include refid="sqlNotificacion"/>
+			where id_administrativo = #id_administrativo#
+			order by fecha_envio desc, id_notificacion, leida desc
+	</select>
+	
+	<select id="contarNotificacionesAdministrativo" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(1) from (
+			<include refid="sqlNotificacion"/>
+			where id_administrativo = #id_administrativo#
+		) t
+	</select>
+	
+	<select id="obtenerNotificacionesSinLeerAdministrativo" parameterClass="java.lang.Integer" resultClass="notificacion">
+		<include refid="sqlNotificacion"/>
+			where id_administrativo = #id_administrativo#
+			and leida = 'N'
+			order by fecha_envio desc, titulo	
+	</select>
+	
+	<select id="contarNotificacionesSinLeerAdministrativo" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count (1) 
+		from (<include refid="sqlNotificacion"/>
+				where id_administrativo = #id_administrativo#
+				and leida = 'N') t
+	</select>
+	
+	<select id="obtenerNotificacion" parameterClass="java.lang.Integer" resultClass="notificacion">
+		<include refid="sqlNotificacion"/>
+		where id_notificacion = #id_notificacion#
+	</select>
+	
+	<update id="marcarNotificacionLeida" parameterClass="java.util.Map">
+		UPDATE dst_notificacion 
+		    SET leida=#leida#,
+		    nueva='N'
+		    WHERE id_notificacion = #id_notificacion#
+	</update>
+	
+	<select id="obtenerPosicion" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		SELECT count(id_notificacion) + 1 posicion
+	    	FROM dst_notificacion
+			where id_notificacion > #id_notificacion# 
+	</select>
+
+	<select id="obtenerNotificacionesNuevas" parameterClass="java.lang.Integer" resultClass="notificacion">
+		<include refid="sqlNotificacion"/>
+		where id_administrativo = #id_administrativo#
+			and nueva = 'S'
+	</select>
+	
+	<update id="marcarNotificacionNueva" parameterClass="java.util.Map">
+		UPDATE dst_notificacion 
+		    SET nueva = #nueva#
+		    WHERE id_notificacion = #id_notificacion#
+	</update>
+	
+	<insert id="guardarNotificacion" parameterClass="notificacion">
+		insert into dst_notificacion (id_notificacion, titulo, contenido, fecha_envio, leida, id_administrativo, emisor, nueva)
+		values (nextvalue('dss_notificacion'), #titulo#, #contenido#, #fecha_envio#, #leida#, #id_administrativo#, #emisor#, #nueva#)
+	</insert>
+	
+</sqlMap>
+

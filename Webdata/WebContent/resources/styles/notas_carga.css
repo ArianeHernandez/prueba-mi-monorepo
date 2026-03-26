@@ -1,0 +1,37 @@
+.input_nota {
+	width: 300px;
+}
+
+.titulo_nota {
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+.bloque_nota {
+	border: 1px solid #E7E3E7;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	overflow: hidden;
+}
+
+.parrafo_nota {
+	padding: 0;
+	margin: 5px;
+	margin-left: 20px;
+}
+
+.bloque_parrafo_nota {
+	margin-bottom: 10px;
+	margin-top: 5px;
+	margin-left: 0;
+}
+
+.w180 {	width: 180px;}
+
+.p100{width:100%;}
+
+
+.bloque_comp_nota{
+	float: left;
+	margin-bottom: 5px;
+}

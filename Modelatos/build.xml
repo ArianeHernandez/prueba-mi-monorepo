@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Modelatos" default="ml_subir">
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<property name="project.name" value="Modelatos" />
+
+	<property prefix="env" file="build.properties" />
+	
+	<property name="skin.name" value="${env.CLIENTE}" />
+	<property name="cskin.dir" location="../OsmoSkin_Datasuite/${skin.name}" />
+	
+	<property name="src.dir" location="src" />
+	<property name="web.dir" location="WebContent" />
+	<property name="lib.dir" location="${web.dir}/WEB-INF/lib" />
+	<property name="bin.dir" location="${web.dir}/WEB-INF/classes" />
+
+	<property name="cweb.dir" location="../OsmoCore/WebContent" />
+	<property name="clib.dir" location="${cweb.dir}/WEB-INF/lib" />
+	<property name="cjar.dir" location="../OsmoCore/jar" />
+
+	<property name="dweb.dir" location="../DataSuiteCore/WebContent" />
+	<property name="dlib.dir" location="${dweb.dir}/WEB-INF/lib" />
+	<property name="djar.dir" location="../DataSuiteCore/jar" />
+
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<path id="project.classpath">
+		<pathelement location="${src.dir}" />
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${clib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${dlib.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${cjar.dir}">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${djar.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="ml_subir">
+		
+		<copy todir="${env.TOMCAT}/webapps/${project.name}">
+			<fileset dir="${cweb.dir}">
+				<include name="**/*.*" />
+				<exclude name="**/*.class" />
+				<exclude name="**/web.xml" />
+				<exclude name="**/weblogic.xml" />
+				<exclude name="**/servlet-api.jar" />
+				<exclude name="**/groovy-1.0-jsr-05.jar"/>
+				<exclude name="**/bcmail-jdk16-141.jar"/>
+				<exclude name="**/bcprov-jdk16-141.jar"/>
+				<exclude name="**/poi-3.0.2-FINAL-20080204.jar"/>
+				<exclude name="**/poi-contrib-3.0.2-FINAL-20080204.jar"/>
+				<exclude name="**/poi-scratchpad-3.0.2-FINAL-20080204.jar"/>
+			</fileset>
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+			<fileset dir="${dweb.dir}">
+				<include name="**/*.*" />
+				<exclude name="**/*.class" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${env.TOMCAT}/webapps/${project.name}" overwrite="yes">
+			<fileset dir="${cskin.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+			
+		<copy todir="${env.TOMCAT}/webapps/${project.name}/WEB-INF/classes">
+			<fileset dir="${bin.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${env.TOMCAT}/webapps/${project.name}/WEB-INF/lib">
+			<fileset dir="${cjar.dir}">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir="${djar.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+		
+			<replace dir="${env.TOMCAT}/webapps/${project.name}" propertyFile="${cskin.dir}/resources/color.properties">
+				 
+				<include name="**/*.css"/>
+				<include name="**/email.xsl"/>
+				
+				<replacefilter token="#color01#" property="color01"/>
+				<replacefilter token="#color02#" property="color02"/>
+				<replacefilter token="#color03#" property="color03"/>
+				<replacefilter token="#color04#" property="color04"/>
+				<replacefilter token="#color05#" property="color05"/>
+				<replacefilter token="#color06#" property="color06"/>
+				<replacefilter token="#color07#" property="color07"/>
+				<replacefilter token="#color08#" property="color08"/>
+				<replacefilter token="#color09#" property="color09"/>
+				<replacefilter token="#color10#" property="color10"/>
+				<replacefilter token="#color11#" property="color11"/>
+				<replacefilter token="#color12#" property="color12"/>
+				<replacefilter token="#color13#" property="color13"/>
+				<replacefilter token="#color14#" property="color14"/>
+				<replacefilter token="#color15#" property="color15"/>
+				<replacefilter token="#color16#" property="color16"/>
+				<replacefilter token="#color17#" property="color17"/>
+				<replacefilter token="#color18#" property="color18"/>
+				<replacefilter token="#color19#" property="color19"/>
+				<replacefilter token="#color20#" property="color20"/>
+				<replacefilter token="#color21#" property="color21"/>
+				<replacefilter token="#color22#" property="color22"/>
+				<replacefilter token="#color23#" property="color23"/>
+				<replacefilter token="#color24#" property="color24"/>
+				<replacefilter token="#color25#" property="color25"/>
+				<replacefilter token="#color26#" property="color26"/>
+				<replacefilter token="#color27#" property="color27"/>
+				<replacefilter token="#color28#" property="color28"/>
+				<replacefilter token="#color29#" property="color29"/>
+				<replacefilter token="#color30#" property="color30"/>
+				<replacefilter token="#color31#" property="color31"/>
+				<replacefilter token="#color32#" property="color32"/>
+				<replacefilter token="#color33#" property="color33"/>
+				<replacefilter token="#color34#" property="color34"/>
+				<replacefilter token="#color35#" property="color35"/>
+				<replacefilter token="#color36#" property="color36"/>
+				<replacefilter token="#color37#" property="color37"/>
+				<replacefilter token="#color38#" property="color38"/>
+				<replacefilter token="#color39#" property="color39"/>
+				<replacefilter token="#color40#" property="color40"/>
+				<replacefilter token="#color41#" property="color41"/>
+				<replacefilter token="#color42#" property="color42"/>
+				<replacefilter token="#color43#" property="color43"/>
+				
+			</replace>
+		
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	
+	<target name="ml_subirCompleto">
+			<delete dir="${env.TOMCAT}/work" />
+			<delete dir="${env.TOMCAT}/webapps/${project.name}" />
+			<delete file="${env.TOMCAT}/webapps/${project.name}.war" />
+			<antcall target="ml_subir" />
+			
+			<zip destfile="${env.TOMCAT}/webapps/${project.name}.war" basedir="${env.TOMCAT}/webapps/${project.name}"/>
+			<!--<delete dir="${env.TOMCAT}/webapps/${project.name}" />-->
+
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+</project>

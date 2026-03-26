@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<actualizarActivoNegocio>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.NegocioServicio</service>
+   			<operation>actualizarActivoNegocio</operation>
+   			<parameters>
+   				<parameter>id_negocio</parameter>
+   				<parameter>activo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</actualizarActivoNegocio>
+
+
+</xsp:page>

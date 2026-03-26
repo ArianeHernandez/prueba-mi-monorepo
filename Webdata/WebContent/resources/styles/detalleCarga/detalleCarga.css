@@ -1,0 +1,14 @@
+.bloque-seccion-estructura{
+	box-shadow: rgb(0 0 0 / 6%) 0px 4px 10px 0px;
+    border-radius: 12px;
+    background-color: rgb(255, 255, 255);
+}
+
+.divider {
+    width: calc(100%-30px);
+    height: 2px;
+    background-color: lightgray;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}

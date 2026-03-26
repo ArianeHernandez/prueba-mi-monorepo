@@ -1,0 +1,558 @@
+================================================================================================================================================================================
+ PROYECTO OSMOCORE
+================================================================================================================================================================================
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	[FECHA]		[AUTOR]		[ARCHIVO]		[DESCRIPCION]
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS v_3_5 (201201__)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120117: 	jfernandez					Se incluye cambio en pipeline para adicionar transformador i18n [JF]
+ * 20120118: 	oaortizs 	core.js  		Se modifica funcion osm_setValor, solo debe cambiar objetos html cuyo id corresponda al parámetro [OO]
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS v_3_5_2 (20120124)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120124: 	mamojica					Se incluye control para que la versión que se envía a producción no muestre los detalles de error http. 
+ 											Para producción se debe enviar esta versión; para desarrollo descomentar temporalmente las l´neas que permiten la depuración
+ 											
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_3 (20120127)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120124: 	oaortiz		AutenticacionServicio 	Se debe evitar que se envien dos peticiones con el mismo token a G3A
+ * 20120131: 	ahurtado	BUG11991-fidupopular	boton no redirecciona al site principal cuando el recurso no existe
+ * 20120201: 	oaortiz		BUG-preventas			Falla al cargar jsonrpc del osmocore para validar correo, si falla la conexión se valida con regex
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_4 (20120209)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120209: 	jamartinez	CryptoTest 	Se agrega test para Crypto
+ * 20120209: 	jamartinez	Crypto	 	Se encripción 4 que es igual a la 3 excepto porque maneja mas precisión para los Float, Double y BigInteger
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_5 (20120209)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120209: 	efperez		AutenticacionServicio 	Se agrega Flag para activar/desactivar la ejecucion de Hilos definidos en el action.xml
+ * 20120216: 	oaortiz		JavaToXML 				Mejoras de rendimiento
+ * 20120227: 	efperez		JavaToXML            	Ajuste en funcion createObjectRequest para soporte de listas
+ * 20120706: 	wahurtado	SkipJsessionidUrlRewriteFilter 	Se adiciona filtro que permite eliminar el jessionid de las peticiones 
+ * 20120706: 	wahurtado	slf4j,urlrewrite 				Se adiciona api url-rewrrite, como opcion al filtro de jsessionid; 
+ 															Sin embargo al parecer deben incluirse algunos caracteres de escape para que este ultimo api funcione 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_7
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120229		ahurtado	WSServicio,ManejadorConsultas	Adicion soporte clob en llamado a stored procedure
+ * 20120301		efperez		sitemap.xmap, osm_html.xsl		Se cambia el serializador de xhtml a org.apache.cocoon.serialization.HTMLSerializer y el transformador para evitar el uso de &#160;
+ * 20120308		jamartinez	ParseUtils, ParseUtils_Test		Se añaden metodos parseInt, ParseDouble, ParseFloat
+ * 20120308     laquinonez  sitemap.xmap					Se agregan pipelines para: xdo.pdf, xxdo.pdf, xdo.xls y xxdo.xls
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_8
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * 20120321		efperez		ManejadorConsultas				Ajuste en funcion ejecutarConsulta para soporte de tipos en los parametros.
+ * 20120321		oaortiz		ManejadorConsultas				Se ajusta el MimeType de la tuberia **.do_pdf.
+
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_9
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120416		ahurtadoh	VariablesAplicacion				Ajuste compatibilidad checkstyle
+* 20120425	 	jloterob	ConstantesLog 					Se agrega clase para manejar todas las constantes que se enecesitan para generar log de suditoria
+* 20120426		oaortiz		LoggingProcessor, LoggingService, ConstantesLog			Se trae versión del branch V_3_5_5_P1_T1
+* 20120502		oaortiz		ManejadorConsultas.java			Se mejora consulta de metadata de los datapi
+
+ --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_10
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120504		hjdiaz		ManejadorConsultas				Se agrega Long a los tipos de datos para parametros y resultados
+* 20120507		fyospina	ManejadorConsultas,				Se agrega funcion que permite hacer precarga de metadatos
+* 20120507		fyospina	ServicioDataPiBuilder			Se hace llamado de la funcion ManejadorConsultas.precargaMetadataProcedimientos(), en loadServices. 
+* 20120507		efperez 	ServicioDataPiBuilder			Se define propiedad "datapi.precarga" para realizar la precarga de Datapi. por defecto es true.
+* 20120507		efperez 	AutenticacionaServicio			Se crea mapa para mantener los resultados de autorizacion en sesion.
+* 20120509		hjdiaz		ParametroServicio				Se crea el servicio para obtener los tipos de datos disponibles para los datapi
+* 20120509		jamartinez	ManejadorConsultas				Se cambia el formato con el que se imprimen los timestamp que van dentro de un cursor (antes: dd/MM/yyyy ahora yyyy-MM-dd'T'HH:mm:ss)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_11
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120511		jesalazar	ManejadorConsultas				Se crean las constantes, (DATE_FORMAT_HOUR = new SimpleDateFormat("HH:mm:ss.S") , DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd"),
+															DATE_FORMAT_FULL = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").
+* 20120511		jesalazar	ManejadorConsultas				Se modifica el metodo recorrerResultSet, se agrega una validacion con expresiones regulares, antes de obtener la fecha.
+* 20120511		efperez 	autorizacion.xsp, accion.xsp, AutenticacionServicio, AccionCoreServicio			Se pasa la logica del xsp a Java
+* 20120514		efperez 	AutenticacionServicio, AccionCoreServicio			Se ajusta para que las paginas transacciones y de cache guarden el resultado de validacion.
+* 20120514		efperez 	INFO.xsl						Ajuste grafico.
+* 20120514		efperez 	ServletUtils					Se ajusta para que la redireccion sea relativa y no absoluta.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_12
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120514		efperez 	WSServicio					    Se ajusta funcion toNumber
+* 20120523		hjdiaz		sitemap.xmap					Se agregan pipelines para formatos de audio (mp3, m4a, ogg), para que no sean tratados como "application/octet-stream"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_13
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120530		fyospina 	INFO.xsl					    Grafico consumo de memoria
+* 20120530		jesalazar	ManejadorConsultas				Se cambia el formato con el que se imprimen los timestamp que van dentro de un cursor (antes: yyyy-MM-dd'T'HH:mm:ss ahora yyyy-MM-dd HH:mm:ss)
+* 20120531		hjdiaz		EnviaMails						Se agrega un try-catch al método enviar para imprimir en el log las causas del error y propagar la excepción
+* 20120531		fyospina 	INFO.xsl					    Grafico sesiones activas, se debe agregar el listener (com.osmosyscol.commons.servlet.SessionListener) en las aplicaciones para su funcionamiento.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_14
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120601		oaortiz		commons-lang3-3.1.jar			Se incluye nueva versión de la librería commons-lang.
+* 20120601		oaortiz		AutenticacionServicio.java		Se incluye opción para ver debug de páginas .do.pdf
+* 20120604		hjdiaz		core.js							Las animaciones de jquery sólo se desactivan para versiones de IE menores a la 9.0
+* 20120614		hjdiaz		FileUtils						Se agrega el método copy que permite copiar los contenidos de un archivo a otro
+* 20120615		ahurtadoh	AutenticacionServicioG3A		Adicion verbosity consulta aplicaciones
+* 20120622		ahurtadoh	AutenticacionServicio   		Modificacion forma de obtener osm_ticket, dado que devolvía un Vector en algunos casos.
+* 20120625		hjdiaz		StringUtils						Se agrega el método removeLeadingZeros para eliminar los ceros con los que comience una cadena.
+* 20120625		hjdiaz		INFO.xsl, systemInfo.js			Cambio en el título de las sesiones activas y en los textos de las horas para que salga "23:00" y no "23:0"
+* 20120628		hjdiaz		systemInfo.js					Se centra el texto de las horas en las gráficas de memoria utilizada y sesiones activas
+* 20120703		hjdiaz		systemInfo.js					Se agrega el radix al llamado de parseInt, para que tome el número en base 10 y no como octal
+* 20120704		oaortiz		AutenticacionServicio.java		Se ajusta validación de sesión.
+* 20120704		oaortiz		DaoConfig.java					Password vacío en conexiones de bd.
+* 20120704: 	fyospina	JSONCallBackAutorizacion     	Se agrega clase para manejar la validacion de JSONRPC contra el osmoautenticador
+* 20120704: 	fyospina	AutenticacionServicio	    	Se instancia lJSONCallBackAutorizacion para registrar callBack en Json_Bridge
+* 20120704: 	jamartinez	AutenticacionServicio,JSONCallBackAutorizacion    		Se encapsula el cache de autorización en un metodo, se usa ese metodo para el JSONCallBackAutorizacion
+* 20120706: [m] wahurtado	SkipJsessionidUrlRewriteFilter 	Se adiciona filtro que permite eliminar el jessionid de las peticiones [MERGED]
+* 20120706: [m] wahurtado	slf4j,urlrewrite 				Se adiciona api url-rewrrite, como opcion al filtro de jsessionid; [MERGED]
+ 															Sin embargo al parecer deben incluirse algunos caracteres de escape para que este ultimo api funcione 
+* 20120710:		hjdiaz		core.js							Se agrega el radix al llamado de parseInt, para que tome el número en base 10 y no como octal
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_15
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20120717:     wahurtado	WSServicio 						Mensajes de logging modificados para manejar el nivel trace. Por defecto se escribe menos verbosity en level=debug, para 
+															optimizar la escritura en consola. 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_16
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20120718:		jamartinez	CocoonUtils						Se agrega funcion para obtener la sesion de cocoon a partir de la http
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_17
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20120723:		efperez		AutenticacionServicio			Se ajusta funcionalidad re redireccionamiento... que afectaba el salto de aplicacion de G3A
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_18
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120723:		jamartinez	AutenticacionServicio			Se agrega funcion registrarJsonCallback para registrar callbacks en la aplicacion, esto debe ser hecho en el InitApp correspondiente
+* 20120725:		efperez		Core_JsonServicio				Se eliminan metodos innecesarios que presentan informacion interna del servidor.
+* 20120725:		efperez		INFO.xsl						Se eliminan servicios json.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_19
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120725:		hjdiaz		core.js							Se agrega el método osm_round para redondear decimales ya que Math.round().toFixed(x) no es un método confiable
+* 20120726:		efperez		AutenticacionServicio			Se elimina el uso de la CollectionUtils.
+* 20120726:		efperez		AutenticacionServicio, AutenticacionServicioG3A, TicketMessage					Se agrega campo browserUsuario para validar la ip y el navegador utilizado por el cliente.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_20
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120726:		efperez		sitemap.xml						Se ajusta xsl de error
+* 20120801:		hjdiaz		JSONRPCResult					Cambio para propagar la excepción generada
+* 20120801:		hjdiaz		JavaToXML						Se agrega el método createObjectRequestAttributes para crear objetos a partir de atributos y no parametros del request
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_21
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120802:		oaortiz		selectAC.js						Se crea librerìa selectAC.js. Convierte un objeto select en un input autocomplete.
+* 20120802:		efperez		JSONCallBackAutorizacion		Se agrega validacion de tiempo de inactividad.
+* 20120802:		efperez		AutenticacionServicio			Se agrega validacion de tiempo de inactividad.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_22
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120802:		efperez		AutenticacionServicio			Aguste de validacion de tiempo de inactividad.
+* 20120802:		efperez		publico.xsp						Se agrega header no cache para las paginas publicas.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_23
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120809:		hjdiaz		core.js							Se agrega el parametro "currency" a la función osm_formatoMoneda para poder utilizar otros símbolos de moneda aparte del "$"
+* 20120809:		hjdiaz		core.js							Se agrega el parametro "places" a la función osm_validarDecimal para validar que el decimal no tenga más de n decimales
+* 20120810		oaortiz		ContextInfo.java				Ajuste de clase para el logger
+* 20120810		oaortiz		SimpleLogger.java				Se agrega funcionalidad para permitir el uso de log4j.
+* 20120810		oaortiz		jquery.timers.js				Se elimina caracter no identificado.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_24
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120816:		efperez		ServletUtils.java				Se ajusta metodo sendRedirect.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_25
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120817		hjdiaz		AutenticacionServicio.java		Se elimina la validación del osm_ticket cuando la petición es del mismo servidor 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_26
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120821:		efperez		FilterServlet.java				Se agrega bloqueo de los metodos OPTIONS y TRACE
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_27
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120822:		hjdiaz		StringUtils.java				Se ajusta el método toString para que los objetos de tipo Double no salgan con formato X.YYYYYYYYEZ
+* 20120822:		hjdiaz		JavaToXML.java					Se ajusta el método exe para utilizar el método toString de StringUtils y no el del objeto
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_28
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120824:		hjdiaz		StringUtils.java				Se ajusta el método toDate para validar que la cadena de entrada "strdate" cumpla con alguno de los formatos de fecha válidos especificados
+															en el mapa dateFormatRegEx para llamar el método parse de la clase SimpleDateFormat.
+* 20120828:		hjdiaz		StringUtils.java				Se agrega el overloading del método toDate que recibe los parámetros "strdate" y "format"
+* 20120828:		jamartinez	JavaToXML.java					Se arregla para que tome los atributos de las superclases tambien
+* 20120828:		hjdiaz		sitemap.xml						Se ajusta xsl de error
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_29
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120828:		jamartinez	JavaToXML.java					Se arregla para que tome los Character y char y en caso de que la clase no esté soportada por JavaToXML imprime toString()
+* 20120904:		oaortiz		ManejadorConsultas.java			Para pruebas: Se mejora precarga de metadatos de los procedimientos datapi, se carga por procedimiento y se separa desde la clase.
+* 20120904:		oaortiz		ParametrosInicio.java			Se incluye metodo para cargar propiedades sin cargar el grafico del sistema, evitar problemas en test unitarios.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_30
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20120828:		jamartinez	JavaToXML.java					Se ajusta para soportar polimorfismo en el createObject, se debe incluir una entrada en el mapa con un "atributo" class
+															Se arregla para soportar los Character en create Object 
+* 20120911:		oaortiz		core.js							Se agregar funcion osm_trimToEmpty
+* 20120828:		jamartinez	core.js							Se modifica el osm_construirHTML para que reciba tambien hashtables donde la key es un string, la key es tal cual como aparece en la plantilla, sin [  ].
+* 20120925:		efperez		Crypto.java						Se separa la encripción 4 de la 3
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_31
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20120911:		efperez		core.js							Se cambia a utilizar jquery para ejecutar la funcion osm_onloadwindow.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_32
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20121004:		oaortiz		DaoConfig.java					Se cambia valor por defecto del parámetro database.maxWait. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_33
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20121009:		efperez		GraficoSystemInfoServicio.java		Se agrega return en caso de excepcion
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_34
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20121012:		hjdiaz		core.js							Se agrega el método osm_esVerdad
+* 20121024:		efperez		ManejadorConsultas.java			Se ajusta la verificacion del usuario dueño del paquete a ejecutar.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_35
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121025:		efperez		infoTransaccion.java, infoTransaccionBuilder.java, infoTransaccionServicio.java, accion.xsp,autorizacion.xsp, publico.xsp		Almacena la informacion del usuario en session y la relaciona con el hilo de ejecucion con el fin de obtener la informacion del usuario en cualquier parte del codigo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_36
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121025:		efperez		infoTransaccionServicio.java	Se agrega sincronizacion sobre mapa de Informacion	
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_37
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121116:		hjdiaz		core.js							Se agrega el radix a los llamado de parseInt, para que tome el número en base 10 y no como octal 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_38
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121123:		efperez		publico.xsp				Se cambia la manera de obtener el valor de BASEPATH
+* 20121123:		efperez		CoreRequest				Se crea objeto de request que se crea a partir del Request (Cocoon) o de HttpServletRequest
+* 20121123:		efperez		InfoTransaccionServicio, JSONRPCServlet     	Se agrega soporte de infoTransaccion para los servicios JSON
+* 20121123:		efperez		AutenticacionServicio     	Se agrega parametro para parametrizar el tipo de redireccion (absoluta o relativa).. por defecto relativa.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_5_39
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121123:		efperez		InfoTransaccionServicio     	Se agrega metodo guardarInfoSession()
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_0
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20121129:		hjdiaz		ListUtils				Se extiende la clase org.apache.commons.collections.ListUtils para agregar el método partition, que permite dividir una lista en sublistas de tamaño n 
+* 20121130:		oaortiz		core.js     		    Ajustes para IE 8 cuando un div no tiene html
+* 20121130:		hjdiaz		ListUtils				Se agrega el método sort para ordenar listas de objetos
+* 20121130:		efperez		--     					SE ajustan Imports y se eliminan metodos main
+* 20121130:		efperez		--     					Se cambia el uso de Random a la clase SecureRandom
+* 20121130:		efperez		--     					Se agregan mensajes de log en bloques catch
+* 20121130:		efperez		StringUtils				Se cambia implementacion de las funciones de escapado por las StringEscapeUtils
+* 20121130:		efperez		--						Se elimina paquete de test
+* 20121130:		efperez		--						Se cambian preferencia de java 1.5 a 1.6
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121204:		hjdiaz		ManejadorConsultas		Se ajustan los tipos de datos Int para el método ejecutarProcedimiento, en entradas tipo tabla.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_2
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121130:		efperez		StringUtils				Ajuste a funcion de validacion de correo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_3
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121130:		oachaparro		--					Agregar flag de activacion de validacion de cambio de ip.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_4
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20121227:		efperez		ManejadorConsultas		 Se cambian la los getDouble por getBigDecimal para evitar imprecision de datos.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_5
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130108:		efperez		--						Se agrega soporte para la generacion del jar con proguard
+* 20130108:		efperez		StringUtils				Se agrega funcion de cifrado SHA512
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_6
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130118:		efperez		CoreRSA, ClaveCoreRSA		Se cambia el uso de las clases RSAPrivateCrtKeyImpl y RSAPublicKeyImpl, por las interfaces correspondientes PrivateKey y PublicKey
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_7
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20130123:		efperez		StringUtils       Ajustes menores.		
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_8
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20130123:		efperez		ClaveCoreRSA		Se agregan metodos getModulus, getPublicExponent
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_6_9
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20120123:		hjdiaz		SimpleLogger		Se aumenta el maxsize de los mensajes en el simplelogger
+* 20130123:		efperez		ClaveCoreRSA		Se cambia para siempre utilizar provider de sun.  
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_0
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130211:		jacortes	build.xml			Se hace el borrado del bin.dir en la tarea ant
+* 20130212:		efperez		ValidarTipoDato		Se agrega funcionalidar de validacion de Campos.
+* 20130212:		efperez		core.js				Se cambia la funcionalidad para la generacion de numeros aleatorios seguros.
+* 20130212:		efperez		*.java				En las clases que obtienen valores del request se agrega validacion de tipo de dato y longitud
+* 20130212:		efperez		osm-utils			Se agrega en template para obtener valores del request con validaciones.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+* 20130213:		efperez		JSONRPCResult.java			se elimina la traza del error en la respuesta de los json. Se visualiza error en el log
+* 20130213:		efperez		Core_JsonServicio.java		Se agrega metodo calcularDigitoVerificacion
+* 20130213:		efperez		ValidarTipoDato.java		Se agrega registro de log al momento de no realizar una validacion.
+* 20130213:		efperez		core.js						SE agrega funcion osm_calcularDigitoVerificacion
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_2
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130214:		efperez		ValidarTipoDato.java		Ajuste de la expresion regular de validar nombre.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_3
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130214:		efperez		build.xml		Se agregan archivos de la carpeta src (no .java) en el jar.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_4
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130226:		efperez		ValidacionUtils		Se agrega clase utilitaria para utilizar en los servicios de validacion.
+* 20130226:		efperez		AutenticacionExternaServicio, RespuestaAutenticacionExterna		SE cambia el objeto de respuesta "Mensaje" por uno especifico "RespuestaAutenticacionExterna".
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_5
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130227:		efperez		InfoTransaccion, CoreRequest		S agrega campo URL
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_6
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130301:		oaortiz   	ManejadorConsultas, WSServicio			Mejora en manejo de decilmales en consultas. Se ajusta separador de decimales al enviar consultas a la bd. El primer parametro de DecimalFormat no asegura el separador de decimales como punto.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_7
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130305:		oaortiz   	ParametrosInicio				Se ajusta lectura de parametro system.debug_maxsize
+* 20130306:		oaortiz   	SimpleLogger					Si esta activo el modo log4j se envía el mensaje de log sin cambiar a log4j.
+* 20130306:		mamojica	PROGUARD						Se adicona properties para configiracionde PROGUARD para la generacion del jar de forma segura y se modifica el ant para que se use este archivo.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_8
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130409:		raduarte   	AutenticacionServicio			Se aumenta tamaño de UserAgent a 400 en una constante USER_AGENT_SIZE
+* 20130409:		raduarte   	AccionCoreServicio				Se agrega comprobación de IP ingreso, para la actualización de la variable client-ip
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_9
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130412:		raduarte   	osm_html.xsl					Se cambio metodo substring a $(this).attr('maxlength' debido a errores en Internet Explorer
+ 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_10
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130409:		efperez   	AccionCoreServicio				Se elimina ajuste realizado en V_3_7_8 dado que deberia ser propio de la aplicación.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_11
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130409:		efperez   	ValidarTipoDato				    Se agrega la Ñ en la validacion alpha
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_12
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130507      efperez     StringUtils, CoreRSA            Se agrega la funcion decodeBase64 y se utiliza en la funcionalidades de CoreRSA.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_13
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130521      efperez     --                              Se implementa el uso del header "REMOTE_HOST", se crea funcion para cambiar el uso de request.remoteAddr
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_14
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130521      efperez     Crypto                          Se implementa el metodo de cifrado 0.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_15
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130521      ahurtado     ManejadorConsulta              Modificaciones para soportar datasource de weblogic
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_16
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130521      efperez     RespuestaAutenticacionExterna   Se agrega propiedad hostid
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_17
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130521      efperez     --                              Ajuste menor del NativeJdbcExtractor
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_18
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130827      efperez     ClaveCoreRSA, CoreRSA           Se cambia el uso de DatatypeConverter.printBase64Binary por StringUtils.encodeBase64 (basado en sun.misc.BASE64Encoder)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_19
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20130903      efperez     AccionCoreServicio              Presenta en log la traza de error en caso de no poder cargar el contenido xml de la pagina.
+* 20130903      efperez     ValidarTipoDato                 Se agrega detalle en caso de no cumpir con la validacion.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_20
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 201301011      mamojica     AutenticacionServicio         Se unifico la medida de la validacion del tamaño esperdo en la data del header del exporador.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_21
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 201301016      mamojica     FilterServlet                 Se realiza un ajuste apra obtener la direccion ip de donde se realiza la peticion y no la ip de la ultima maquina que redirecciona
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_22
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 201301107      mamojica     FilterServlet                 Se realiza un ajuste de manejador de consultas para control de respuesta nula.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_23
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20131115      efperez     ValidacionUtils                 Se agrega validacion en el metodo "addParametersToRequest"
+* 20131115      efperez     *				                Se cambian algunos mensaje de log de info a debug.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_24
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20131129      efperez     --                              Se ajusta tarea de generacion de jar seguro.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_25
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20131206      jamartinez   Crypto                         Se ajusta clase Crypto por problemas de concurrencia (No usar HashMap en procesos concurrentes)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_26
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20131206      efperez      DaoConfig                      Se cambia metodo getDao para que no se tenga necesidad de realizar cast
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_27
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20131217      jamartinez   AutenticacionServicio          Se crea cliente para la validación de segunda clave (clave transaccional CTX)
+                             ClaveTransaccionalServicio
+* 20131224      jamartinez   InfoTransaccion				se agrega metodo getAttribute para poder usar los atributos guardados
+* 20140102      efperez      ClaveTrabsaccionalServicio     se cambia funcion requiereClaveTransaccional para verificar si utiliza el osmoautenticador.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_28
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140102      efperez      core.js					    se cambia funcion osm_ocultarSelects por problemas de compatibilidad con IE
+* 20140102      efperez      osm_html.xsl				    se agrega metodo onsubmit.. por defecto con "return false" para prevenir envio automatico.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_29
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140102      efperez      ValidationUtils				Se agrega funcion requestParametersToAttributes para adicionar los parametros de request como atributos. Similar a <osm-utils:osm-get-request/>
+* 20140102      efperez      AutenticacionServicio, AccionCoreServicio, DefaultBaseAccion, accionbase.xsp			Se agrega funcionalidad para evitarse la creacion de un archivo xsp para paginas ".do"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_30
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140117      efperez      autenticacion.externa			Se eliminan paquetes para validacion de token. ( Se mueven a g3a ); 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_31
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140121      jamartinez   ContextInfo                    Se agrega funcion getRealPath sin parámetros ya que no los necesita.
+* 20140121      efperez      StringUtils                    Se agrega validacion en caso de null en funcion encodeURIComponent
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_32
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140210      efperez      AutenticacionServicio, ClaveTransaccionalServicio            Se ajusta validacion de solicitar clave transaccional
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_33
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140210      efperez      --            Se agrega propiedad obligatorio para los parametros del modulo datapi
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_34
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140225      efperez      --            Se agrega soporte para tipo long 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_35
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140227      jamartinez   ParseUtils    Se agrega soporte para tipo long 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_36
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140312      efperez     ValidarTipoDato      Se adiciona el soporte de ".-" a la validacion de texto. 
+* 20140312      efperez     cocoon.xconf            Se modifica para evitar la recarga del sitemap.xmap y recompilacion de XSP
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	CAMBIOS V_3_7_37
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* 20140407      efperez     CoreThread        se crea objeto para creacion de hilos y soporte de infotransaccion. 
+

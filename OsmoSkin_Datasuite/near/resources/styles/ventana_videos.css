@@ -1,0 +1,95 @@
+/* -------------------------------------------ESTILOS PARA VENTANA */
+.bloqueo_ventana {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	z-index: 1000;
+}
+
+.bloqueo_ventana_fondo {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	/*filter: alpha(opacity = 60);
+	opacity: .60;*/
+}
+
+.bloqueo_ventana_base {
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	margin: 0px;
+	margin-left: -25%;
+	width: 50%;
+	min-height: 200px;
+	/* border: 1px solid #ccc; */
+	background-color: #fff;
+	padding: 0px;
+	border-radius: 6px;
+}
+
+.ventana_titulo {
+	/* top: 0px; */
+	/* left: 0px; */
+	position: relative;
+	cursor: default;
+	background: #002d6a;
+	border: 1px solid #002d6a;
+	color: #fff;
+}
+
+.ventana_titulo h1 {
+	position: relative;
+	color: #fff;
+	font-weight: normal;
+	font-size: 13px;
+	padding: 0px;
+	margin: 0;
+	cursor: default;
+	background-position: bottom left;
+}
+
+.contenido_ventana {
+	/* background-color: #fff; */
+	/*padding: 15px;*/
+	position: relative;
+	/* top: 0px; */
+	/* left: 0px; */
+	/* width: auto; */
+	border: none;
+	border-radius: 6px;
+	padding-left: 20px !important;
+	padding-right: 20px !important;
+}
+
+.contenido_ventana .form-horizontal {
+	width: 100%;
+	margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+  h3.titulo-ventana {
+    font-size: 18px;
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  div.bloqueo_ventana_base {
+    left: 25%;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  iframe {
+    width: 100%;
+    height: 200px;
+  }
+}
+

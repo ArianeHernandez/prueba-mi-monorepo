@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ArchivoAdjunto">
+
+	<typeAlias alias="archivoAdjunto" type="com.osmosyscol.datasuite.logica.dto.ArchivoAdjunto"/>
+	<typeAlias alias="grupoArchivo" type="com.osmosyscol.datasuite.logica.dto.GrupoArchivoAdjunto"/>
+	
+	
+	<insert id="agregarArchivoAdjunto" parameterClass="archivoAdjunto">
+		insert into dst_archivo_adjunto 
+		(id_archivo_adjunto,ruta,id_carga,nombre_archivo,
+		extension_archivo,fecha_subida, descripcion, resumen_hash, long_bytes, interno, id_persona, nombre_instancia, estado
+		, radicado, id_tipo_archivo)
+		values 
+		(#id_archivo_adjunto#,#ruta#,#id_carga#,#nombre_archivo#,
+		#extension_archivo#,#fecha_subida#,#descripcion#, #resumen_hash#,#long_bytes#, #interno#, #id_persona#, #nombre_instancia#, #estado#
+		, #radicado#, #id_tipo_archivo#)
+	</insert>
+	
+	<select id="obtenerSiguiente" resultClass="java.lang.Integer">
+		select nextvalue('dss_archivo_adjunto') from dual
+	</select>
+
+	<select id="contarArchivosAdjuntosPorCarga" resultClass="java.lang.Long"  parameterClass="java.util.Map">
+		select count(1) 
+		  from dst_archivo_adjunto a, dst_persona per
+		 where id_carga=#id_carga#
+		   and per.id_persona = a.id_persona
+		<isEqual property="internas" compareValue="N">
+		   and interno = 'N'
+		   and estado = 'A'
+		</isEqual>
+		<isNotNull property="id_tipo_archivo">
+			and a.id_tipo_archivo	= #id_tipo_archivo#
+		</isNotNull>
+	</select>
+	
+	<select id="obtenerArchivosAdjuntosPorCarga" resultClass="archivoAdjunto"  parameterClass="java.util.Map">
+		select a.*, per.nombre, per.apellido, ta.nombre etiqueta 
+		  from dst_archivo_adjunto a
+          inner join dst_persona per on per.id_persona = a.id_persona 
+		  left join dst_tipo_archivo ta on ta.id_tipo_archivo = a.id_tipo_archivo
+		where id_carga=#id_carga#
+		<isEqual property="internas" compareValue="N">
+			and interno = 'N'
+			and estado = 'A'
+		</isEqual>
+		<isNotNull property="id_tipo_archivo">
+			and a.id_tipo_archivo	= #id_tipo_archivo#
+		</isNotNull>
+		order by id_archivo_adjunto
+	</select>
+
+	<update id="actualizarArchivoAdjunto" parameterClass="archivoAdjunto">
+		update dst_archivo_adjunto set
+			nombre_archivo = #nombre_archivo#,
+			extension_archivo = #extension_archivo#,
+			descripcion = #descripcion#,
+			resumen_hash = #resumen_hash#,
+			long_bytes = #long_bytes#,
+			estado = #estado#,
+			interno = #interno#,
+			id_persona = #id_persona#,
+			id_tipo_archivo = #id_tipo_archivo#
+		where id_archivo_adjunto = #id_archivo_adjunto#
+	</update>
+
+	<update id="actualizarEstado" parameterClass="java.util.Map">
+		update dst_archivo_adjunto set estado=#estado# where id_archivo_adjunto=#id_archivo_adjunto# 
+	</update>
+		
+	<select id="obtenerArchivoAdjunto" resultClass="archivoAdjunto" parameterClass="java.lang.Integer">
+		select a.*, per.nombre, per.apellido, ta.nombre etiqueta 
+		  from dst_archivo_adjunto a
+          inner join dst_persona per on per.id_persona = a.id_persona 
+		  left join dst_tipo_archivo ta on ta.id_tipo_archivo = a.id_tipo_archivo
+		where id_archivo_adjunto=#id_archivo_adjunto#
+		  and per.id_persona = a.id_persona
+	</select>
+	
+	<update id="actualizarDescripcion" parameterClass="java.util.Map">
+		update dst_archivo_adjunto set descripcion=#descripcion# where id_archivo_adjunto=#id_archivo_adjunto# 
+	</update>
+	
+	<delete id="borrarArchivo" parameterClass="java.lang.Integer">
+		delete from dst_archivo_adjunto where id_archivo_adjunto=#id_archivo_adjunto#
+	</delete>
+	
+	<delete id="borrarAdjuntos" parameterClass="java.lang.Integer">
+		delete from dst_archivo_adjunto where id_carga=#id_carga#
+	</delete>
+	
+	<update id="actualizarRadicado" parameterClass="java.util.Map">
+		update dst_archivo_adjunto set radicado=#radicado# , estado = #estado#
+		where id_archivo_adjunto=#id_archivo_adjunto# 
+	</update>
+	
+	<update id="actualizarRadicadoAdjuntosSegunTipologia" parameterClass="java.util.Map">
+		update dst_archivo_adjunto 
+		   set radicado=#radicado# , estado = #estado#
+		 where id_carga=#id_carga#
+		   and id_tipo_archivo=#id_tipo_archivo#
+		  <isEqual property="internas" compareValue="N">
+			and interno = 'N'
+		  </isEqual>
+	</update>
+	
+	<select id="obtenerAdjuntosSegunTipologia" resultClass="archivoAdjunto"  parameterClass="java.util.Map">
+		select a.*, per.nombre, per.apellido, ta.nombre etiqueta 
+		  from dst_archivo_adjunto a
+          inner join dst_persona per on per.id_persona = a.id_persona 
+		  left join dst_tipo_archivo ta on ta.id_tipo_archivo = a.id_tipo_archivo
+		 where a.id_carga=#id_carga#
+		   and a.id_tipo_archivo=#id_tipo_archivo#
+		<isEqual property="internas" compareValue="N">
+			and interno = 'N'
+			and estado = 'A'
+		</isEqual>
+		order by fecha_subida
+	</select>
+	<select id="obtenerRadicadoAdjuntosSegunTipologia" resultClass="java.lang.String"  parameterClass="java.util.Map">
+		select a.radicado 
+		  from dst_archivo_adjunto a, dst_persona per
+		 where id_carga=#id_carga#
+		   and per.id_persona = a.id_persona
+		   and id_tipo_archivo=#id_tipo_archivo#
+		<isEqual property="internas" compareValue="N">
+			and interno = 'N'
+			and estado = 'A'
+		</isEqual>
+		order by fecha_subida
+	</select>
+
+	<select id="obtenerArchivosAdjuntosPorCargaTipo" resultClass="archivoAdjunto" parameterClass="java.util.Map">
+		select *
+			from dst_archivo_adjunto a
+		where id_carga = #id_carga#
+			and id_tipo_archivo = #id_tipo_archivo#
+		order by fecha_subida
+	</select>
+	
+	<update id="actualizarResumenHash" parameterClass="java.util.Map">
+		update dst_archivo_adjunto
+			set resumen_hash = #resumen_hash#
+		where id_archivo_adjunto = #id_archivo_adjunto#
+	</update>
+	
+	<update id="actualizarTipoArchivo" parameterClass="java.util.Map">
+		update dst_archivo_adjunto
+			set id_tipo_archivo = #id_tipo_archivo_nuevo#
+		where id_carga = #id_carga#
+			and id_tipo_archivo = #id_tipo_archivo_actual#
+	</update>
+	
+	<update id="actualizarDocumentosSalidaInterno" parameterClass="java.util.Map">
+		update dst_archivo_adjunto
+			set interno = 'N'
+		where interno = 'S'
+			and id_tipo_archivo in ( 3, 4, 5 )
+			and trunc(#fecha#) >= trunc(fecha_subida)
+	</update>
+	
+	<select id="obtenerGruposArchivoPorCarga" resultClass="grupoArchivo">
+		select  distinct ga.*
+		  from dst_archivo_adjunto a
+		  left join dst_tipo_archivo ta on ta.id_tipo_archivo = a.id_tipo_archivo
+		  left join dst_grupo_archivo ga on ga.id_grupo_archivo = ta.id_grupo_archivo
+		where id_carga=#id_carga#
+		order by ga.id_grupo_archivo NULLS first
+	</select>
+	
+	<select id="obtenerArchivosPorGrupoCarga" resultClass="archivoAdjunto" parameterClass="java.util.Map">
+		select a.*, per.nombre, per.apellido, ta.nombre etiqueta 
+		  from dst_archivo_adjunto a
+          inner join dst_persona per on per.id_persona = a.id_persona 
+		  left join dst_tipo_archivo ta on ta.id_tipo_archivo = a.id_tipo_archivo
+		where id_carga=#id_carga#
+		<isEqual property="internas" compareValue="N">
+			and interno = 'N'
+			and estado = 'A'
+		</isEqual>
+		<isNotNull property="id_grupo_archivo">
+			and ta.id_grupo_archivo	= #id_grupo_archivo#
+		</isNotNull>
+		<isNull property="id_grupo_archivo">
+			and ta.id_grupo_archivo	is null
+		</isNull>
+		order by id_archivo_adjunto
+	</select>
+	
+</sqlMap>

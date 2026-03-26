@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearReporte>
+   		
+   		<osm-utils:servicio-java>
+   			<name>ReporteDinamico</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.ReporteDimServicio</service>
+   			<operation>crearReporte</operation>
+   			<parameters>
+   				<parameter>id</parameter>
+   				<parameter>request</parameter>
+   				<parameter>session</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</crearReporte>
+
+</xsp:page>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- CVS $Id$ -->
+<actions app="osmoautenticador" version="v_3_5_0">
+	<init>
+		<PAGINA_INICIO>/inicio/0.pub</PAGINA_INICIO>
+		<PAGINA_ACCESODENEGADO>/inicio/0.pub?failed</PAGINA_ACCESODENEGADO>
+		<PAGINA_ERRORINESPERADO>/inicio/0.pub?error</PAGINA_ERRORINESPERADO>
+		<PAGINA_SALIDA>/inicio/0.pub?logout</PAGINA_SALIDA>
+	</init>
+</actions>

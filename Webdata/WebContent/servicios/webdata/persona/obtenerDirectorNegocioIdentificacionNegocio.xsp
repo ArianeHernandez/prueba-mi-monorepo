@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerDirectorNegocioIdentificacionNegocio>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Objeto</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.AdministradorServicio</service>
+   			<operation>obtenerDirectorNegocioIdentificacionNegocio</operation>
+   			<parameters>
+   				<parameter>identificacion</parameter>
+   				<parameter>tipo_persona</parameter>
+   				<parameter>id_negocio</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerDirectorNegocioIdentificacionNegocio>
+
+
+</xsp:page>

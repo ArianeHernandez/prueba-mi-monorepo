@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Conexion">
+
+	<typeAlias alias="conexionDTO" type="com.osmosyscol.datasuite.logica.dto.ConexionDTO"/>
+	
+	<parameterMap class="conexionDTO" id="conexionMap">
+		<parameter property="driver" mode="IN"/>
+		<parameter property="url" mode="IN"/>
+		<parameter property="usuario" mode="IN"/>
+		<parameter property="clave" mode="IN"/>
+		<parameter property="name" mode="IN"/>
+	</parameterMap>
+
+	<select id="obtenerTodos" resultClass="conexionDTO">
+		select id,driver,url,usuario,clave,name from DST_CONEXION
+	</select>
+	
+	<select id="obtenerUNO" parameterClass="int" resultClass="conexionDTO">
+		select id,driver,url,usuario,clave,name from DST_CONEXION where id=#id#
+	</select>
+	
+	<insert id="insertar" parameterClass="conexionDTO">
+		<selectKey resultClass="int" keyProperty="id">
+			select nextvalue('DSS_CONEXION') as id from dual
+		</selectKey>
+		INSERT INTO DST_CONEXION(ID, DRIVER, URL, USUARIO, CLAVE, NAME) 
+    	VALUES(#id#, #driver#, #url#, #usuario#, #clave#, #name#)
+	</insert>
+	
+	<update id="actualizar" parameterClass="conexionDTO">
+		UPDATE DST_CONEXION 
+	    SET DRIVER=#driver#, URL=#url#, USUARIO=#usuario#, CLAVE=#clave#, NAME=#name#
+	    WHERE ID = #id#
+	</update>
+	
+
+
+	
+</sqlMap>

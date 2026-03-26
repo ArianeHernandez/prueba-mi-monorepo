@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/estructura/obtenerEstructurasPorPersona.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_modelo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_modelo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+     	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/estructura/obtenerEstructura.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_estructura</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_estructura"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/tipocampo/obtenerTipoCampos.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/campo/obtenerCamposPorEstructura.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_estructura</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_estructura"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>    	
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/listavalores/obtenerListaValoresPorPersona.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_modelo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_modelo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/estructura/obtenerEstructurasPadres.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_estructura</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_estructura"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/formato/obtenerFormatosPorEstructura.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_estructura</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_estructura"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/tipoarchivo/obtenerTiposArchivo.ser</cinclude:src>
+        </cinclude:includexml>
+    	
+    	<!-- - - - - - - - - - - - - - - - - - - - - - - - -->
+    	
+    	<osm-utils:ciclo>
+    		<osm-utils:repeticiones>50</osm-utils:repeticiones>
+    		<osm-utils:contenido>
+    			<num_elemento/>
+    		</osm-utils:contenido>
+    	</osm-utils:ciclo>
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

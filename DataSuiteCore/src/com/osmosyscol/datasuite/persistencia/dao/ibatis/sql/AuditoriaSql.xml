@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AuditoriaSql">
+
+	<typeAlias alias="AuditoriaSql" type="com.osmosyscol.datasuite.logica.dto.AuditoriaSql" />
+
+	<insert id="insertarAuditoria" parameterClass="AuditoriaSql">
+		insert into DST_AUDITORIA_SQL (id_auditoria, login, fecha, sql, nro_reg_afectados, excepciones, ip)
+		values (#id_auditoria_Sql#, #login#, #fecha#, #sql#, #nro_registros_afectados#, #excepciones#, #ip#)
+	</insert>
+	
+	<select id="obtenerSiguienteIdAuditoriaSql" resultClass="java.lang.Integer">
+		 select nextvalue('DSS_AUDITORIA_SQL') as id from dual
+	</select>
+</sqlMap>

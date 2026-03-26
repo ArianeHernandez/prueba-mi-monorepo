@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<xsp:logic>
+    		request.getSession().setAttribute("var.id_formato","-50");
+    	</xsp:logic>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/cargue_plano/cargarRetiros.ser</cinclude:src>
+    		 <cinclude:parameters>
+			 	<cinclude:parameter>
+	                <cinclude:name>desc_banco</cinclude:name>
+	                <cinclude:value>BANCOLOMBIA PAB</cinclude:value>
+	            </cinclude:parameter>
+	            <cinclude:parameter>
+	                <cinclude:name>id_proceso</cinclude:name>
+	                <cinclude:value><xsp-session:get-attribute name="id_proceso" /></cinclude:value>
+	            </cinclude:parameter>
+	        </cinclude:parameters>
+        </cinclude:includexml>
+        
+        <ID_CARGA><xsp-session:get-attribute name="id_carga"/></ID_CARGA>
+		
+    </OSM-ACCION>
+	
+</xsp:page>

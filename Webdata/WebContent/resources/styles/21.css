@@ -1,0 +1,29 @@
+.contenido_oculto{
+	display: none;
+}
+.tabla_fila{
+	border-bottom: none;
+}
+.tabla_fila td{
+	border-width: 0;
+}
+.enc_msj{
+	border-top: 1px dotted #87C11F;
+	color:#006600;
+}
+.enc_msj td{
+	padding-top: 5px;
+}
+
+.ico_msj{
+	width: 20px;
+	background:url("images/general/down.gif") no-repeat scroll 4px 2px transparent;
+}
+
+.sinleer_notificacion{
+	background-color: #E6E5E6;
+}
+
+.sinleer_notificacion td{
+	font-weight: bold;
+}

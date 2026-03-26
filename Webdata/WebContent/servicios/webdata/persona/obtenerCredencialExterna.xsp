@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerCredencialExterna>
+   		
+   		<osm-utils:servicio-java>
+   			<name>login</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.PersonaServicio</service>
+   			<operation>obtenerCredencialExterna</operation>
+   			<parameters>
+   				<parameter>identificacion</parameter>
+   				<parameter>tipo_documento</parameter>
+   				<parameter>id_usuario</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerCredencialExterna>
+
+
+</xsp:page>

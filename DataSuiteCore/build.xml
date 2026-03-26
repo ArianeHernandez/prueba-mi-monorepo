@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="DataSuiteCore" default="Preparar-JAR">
+	<property name="src.dir" location="src" />
+	<property name="lib.dir" location="WebContent/WEB-INF/lib" />
+	<property name="bin.dir" location="WebContent/WEB-INF/classes" />
+	<property environment="env" />
+	<property name="project.name" value="pruebaweb" />
+	<path id="project.classpath">
+		<pathelement location="${src.dir}" />
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Crear JAR -->
+
+	<target name="Preparar-JAR">
+		
+		<delete file="jar/datasuite.jar"/>
+		
+		<zip destfile="jar/datasuite.jar">
+			<zipfileset dir="${bin.dir}">
+				<include name="**/*.*" />
+			</zipfileset>
+		</zip>
+	</target>
+</project>

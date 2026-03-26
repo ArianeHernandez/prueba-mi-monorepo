@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="OsmoCore" default="Preparar-JAR">
+    <property name="src.dir" location="src"/>
+    <property name="web.dir" location="WebContent"/>
+    <property name="lib.dir" location="${web.dir}/WEB-INF/lib"/>
+    <property name="bin.dir" location="c_bin"/>
+    <property environment="env"/>
+	<property  prefix="local" file="build.properties"/>
+    <property name="project.name" value="pruebaweb"/>
+    
+	<path id="project.classpath">
+        <pathelement location="${src.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    
+	<!-- Crear JAR -->
+    <target name="Preparar-JAR">
+    	
+    	<delete dir="${bin.dir}" failonerror="false"/>
+    	<delete file="jar/osmocommons.jar"/>		
+    	<mkdir dir="${bin.dir}"/>
+    	
+    	<copy todir="${bin.dir}">
+    	   <fileset dir="${src.dir}">
+    	      <exclude name="**/*.java"/>
+    	   </fileset>
+    	</copy>
+    	
+        <javac srcdir="${src.dir}" destdir="${bin.dir}" debug="true">
+            <classpath refid="project.classpath"/>
+        </javac>
+		
+        <zip destfile="jar/osmocommons.jar">
+            <zipfileset dir="${bin.dir}">
+                <include name="**/*.*"/>
+            </zipfileset>
+        </zip>
+            	
+    	<delete dir="${bin.dir}"/>
+    	
+    </target>
+	
+	<target name="Preparar-JAR-Secure">
+		
+		<delete dir="${bin.dir}" failonerror="false"/>
+    	<delete file="jar/osmocommons.jar"/>		
+    	<mkdir dir="${bin.dir}"/>	
+		
+		<copy todir="${bin.dir}">
+		   <fileset dir="${src.dir}">
+		      <exclude name="**/*.java"/>
+		   </fileset>
+		</copy>
+	    	
+    	<javac srcdir="${src.dir}" destdir="${bin.dir}">
+            <classpath refid="project.classpath"/>
+        </javac>
+        
+    	<delete file="jar/osmocommons_tmp.jar"/>
+        
+    	<zip destfile="jar/osmocommons_tmp.jar">
+            <zipfileset dir="${bin.dir}">
+                <include name="**/*.*"/>
+            </zipfileset>
+        </zip>
+		
+		<copyfile dest="config_tmp.pro" src="config.pro"/>
+		
+		<replace file="config_tmp.pro" propertyFile="build.properties">
+			<include name="**/*.xml"/>
+			<replacefilter token="[:JRE_HOME:]" property="JRE_HOME"/>
+		</replace>
+    	
+    	<java jar="${local.PROGUARD_HOME}/lib/proguard.jar" fork="true" failonerror="true">
+    		<arg value="@config_tmp.pro -verbose"/>
+    	</java>
+    	
+		<delete file="config_tmp.pro"/>
+		
+    	<delete file="jar/osmocommons_tmp.jar"/>
+		
+		<delete dir="${bin.dir}" failonerror="false"/>
+    	
+    </target>
+</project>

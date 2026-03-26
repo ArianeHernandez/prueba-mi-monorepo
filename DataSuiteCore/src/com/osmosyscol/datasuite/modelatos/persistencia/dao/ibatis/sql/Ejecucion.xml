@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Ejecucion">
+
+	<typeAlias alias="ejecucion" type="com.osmosyscol.datasuite.modelatos.logica.dto.Ejecucion"/>
+	<typeAlias alias="ejelog" type="com.osmosyscol.datasuite.modelatos.logica.dto.Log"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+	<select id="obtenerEjecucionesPorCarga" resultClass="ejecucion" parameterClass="java.lang.Integer">
+		select * from dst_ejecucion
+		where id_carga=#id_carga#
+		order by id_ejecucion
+	</select>
+	
+	<select id="obtenerLogEjecucionesCarga" resultClass="ejelog" parameterClass="java.lang.Integer">
+		select * from log where id_carga=#id_carga#
+		order by id_log
+	</select>
+
+	<select id="obtenerLogErrorEjecucionesCarga" resultClass="ejelog" parameterClass="java.lang.Integer">
+		select * from log 
+		where id_carga=#id_carga# 
+			and ( cod_error != 0 or cod_error is null)
+		order by id_log
+	</select>
+	
+	<select id="obtenerLogEjecucion" resultClass="ejelog" parameterClass="java.lang.Integer">
+		select * from log where id_ejecucion=#id_ejecucion#
+		order by id_log
+	</select>
+	
+	<select id="obtenerSiguienteID" resultClass="java.lang.Integer">
+		select nextvalue('dss_ejecucion') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="crearEjecucion" parameterClass="java.util.Map">
+		insert into dst_ejecucion (ID_EJECUCION, ID_CARGA, ID_DESTINO, ESTADO, FECHA_INICIO, FECHA_FINAL, LOGIN)
+		values (#id_ejecucion#, #id_carga#, #id_destino#, #estado#, #fecha_inicio#, #fecha_final#, upper(#login#))
+	</insert>
+	
+	<update id="actualizarEjecucion" parameterClass="java.util.Map">
+		update dst_ejecucion set id_carga = #id_carga#, 
+		id_destino = #id_destino#, estado = #estado#, fecha_inicio = #fecha_inicio#, fecha_final = #fecha_final#,login = upper(#login#)
+		where id_ejecucion = #id_ejecucion#
+		and estado = 'NO INICIADO'
+	</update>
+	
+	<select id="obtenerEjecucion" resultClass="ejecucion" parameterClass="java.lang.Integer">
+		select * from dst_ejecucion
+			where id_ejecucion=#id_ejecucion#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+</sqlMap>

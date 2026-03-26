@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE daoConfig
+    PUBLIC "-//ibatis.apache.org//DTD DAO Configuration 2.0//EN"
+    "http://ibatis.apache.org/dtd/dao-2.dtd">
+
+<daoConfig>
+
+	<context>
+
+		<transactionManager type="SQLMAP">
+			<property name="SqlMapConfigResource" value="com/osmosyscol/osmoautenticador/persistencia/dao/ibatis/config/sql-map-config.xml" />
+		</transactionManager>
+
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.UsuarioDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.UsuarioDaoImp" />
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.AdministracionDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.AdministracionDaoImp" />
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.RolDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.RolDaoImp" />
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.ServicioDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.ServicioDaoImp" />
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.RolExDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.RolExDaoImp" />
+		<dao interface="com.osmosyscol.osmoautenticador.persistencia.dao.ServicioExDao" implementation="com.osmosyscol.osmoautenticador.persistencia.dao.ibatis.ServicioExDaoImp" />
+		<!-- [DAO] -->
+
+	</context>
+
+</daoConfig>

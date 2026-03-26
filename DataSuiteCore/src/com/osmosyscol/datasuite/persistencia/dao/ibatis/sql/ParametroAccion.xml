@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ParametroAccion">
+
+	<typeAlias alias="ParametroAccion"      type="com.osmosyscol.datasuite.reportedim.dto.ParametroAccion" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerParametroAccion" resultClass="ParametroAccion" parameterClass="java.lang.Integer">
+		select *
+		from DST_REP_PARAMETRO_ACCION
+		where id_parametro_accion = #id_parametro_accion#
+	</select>
+	
+	<select id="totalParametrosAccion" resultClass="java.lang.Integer" >
+		select count(*) from DST_REP_PARAMETRO_ACCION
+	</select>
+	
+	<select id="obtenerSiguienteParametroAccionId" resultClass="java.lang.Integer">
+		select nextvalue('dss_rep_parametro_accion')  from dual
+	</select>
+	
+	<insert id="crearParametroAccion" parameterClass="java.util.Map">
+		insert into DST_REP_PARAMETRO_ACCION (id_parametro_accion,nombre,tipo,encriptado,valor,id_reporte,id_navegacion)
+		values (#id_parametro_accion#, #nombre#,#tipo#,#encriptado#,#valor#,#id_reporte#, #id_navegacion#)
+	</insert>
+	
+	<update id="actualizarParametroAccion" parameterClass="ParametroAccion">
+		update DST_REP_PARAMETRO_ACCION
+		set nombre = #nombre#, tipo = #tipo#, encriptado = #encriptado#, valor = #valor#, id_reporte = #id_reporte#
+		where id_parametro_accion = #id_parametro_accion#
+	</update>
+	
+	<delete id="eliminarParametroAccion" parameterClass="java.lang.Integer">
+		delete from DST_REP_PARAMETRO_ACCION
+		where id_parametro_accion = #id_parametro_accion#
+	</delete>
+	
+	<select id="obtenerParametrosByAccion" parameterClass="java.lang.String" resultClass="ParametroAccion" >
+		select *
+		from DST_REP_PARAMETRO_ACCION
+		where id_reporte = #id_reporte#
+	</select>	
+	
+	<select id="obtenerParametrosByNavegacion" parameterClass="java.lang.Integer" resultClass="ParametroAccion" >
+		select *
+		from DST_REP_PARAMETRO_ACCION
+		where id_navegacion=#id_navegacion#
+	</select>
+	
+</sqlMap>

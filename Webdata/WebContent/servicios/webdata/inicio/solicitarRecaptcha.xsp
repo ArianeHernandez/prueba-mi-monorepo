@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+
+   	<solicitarRecaptcha>
+   		<osm-utils:servicio-java>
+   			<name>Object</name>
+   			<service>com.osmosyscol.commons.servicio.AutenticacionServicio</service>
+   			<operation>solicitarRecaptchaHost</operation>
+   			<parameters>
+   				<parameter>ip_host</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   	</solicitarRecaptcha>
+
+</xsp:page>

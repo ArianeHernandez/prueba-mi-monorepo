@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE daoConfig
+    PUBLIC "-//ibatis.apache.org//DTD DAO Configuration 2.0//EN"
+    "http://ibatis.apache.org/dtd/dao-2.dtd">
+
+<daoConfig>
+
+	<context id="estandar">
+		<transactionManager type="SQLMAP">
+			<property name="SqlMapConfigResource" value="com/osmosyscol/datasuite/persistencia/dao/ibatis/config/sql-map-config.xml" />
+		</transactionManager>
+
+		<!-- - - - - - Datasuite Core - - - - - -->
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.SQLDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.SQLDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ConexionDao" interface="com.osmosyscol.datasuite.persistencia.dao.ConexionDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.PersonaDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.PersonaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.NegocioDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.NegocioDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.UsuarioDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.UsuarioDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AdministradorDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AdministradorDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.CreaDatosDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.CreaDatosDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FranjaDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.FranjaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.HorarioDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.HorarioDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ProcesoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ProcesoDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.LiberadorDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.LiberadorDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.PreparadorDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.PreparadorDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.RevisorDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.RevisorDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.RevisionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.RevisionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.IpDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.IpDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ArchivoAdjuntoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ArchivoAdjuntoDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.TipoArchivoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.TipoArchivoDao" />
+		
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ComponenteDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ComponenteDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.RolDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.RolDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ProcesoAdminDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ProcesoAdminDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.InstanciaDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.InstanciaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AccionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AccionDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.OperacionInternaDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.OperacionInternaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.NotificacionAccionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.NotificacionAccionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.NotificacionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.NotificacionDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.FormatoDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.FormatoDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.ListaValoresDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.ListaValoresDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.ListaDinamicaDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.ListaDinamicaDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.CampoDaoImp"      interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.CampoDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.EstructuraDaoImp" interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.EstructuraDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.GrupoDaoImp"      interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.GrupoDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.TipoCampoDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.TipoCampoDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.VariableDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.VariableDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.UriDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.UriDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.DestinoDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.DestinoDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.EjecucionDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.EjecucionDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.ParametroCargaDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.ParametroCargaDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.ValidacionEstructuraDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.ValidacionEstructuraDao" />
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.TipoEstiloDaoImp"  interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.TipoEstiloDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.DatosEstructuraDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.DatosEstructuraDao" />
+		
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.CargaInstanciaDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.CargaInstanciaDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AdministrativoDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.AdministrativoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ContenidoDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.ContenidoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ListaDinamicaCampoDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.ListaDinamicaCampoDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.TipoDocumentoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.TipoDocumentoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ConfiguracionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ConfiguracionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AccionFilaDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AccionFilaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ParametroAccionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ParametroAccionDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ParametroReporteDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ParametroReporteDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ReporteDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ReporteDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ResultadoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.ResultadoDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.NavegacionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.NavegacionDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AsignacionReporteDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AsignacionReporteDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FormatoOperacionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.FormatoOperacionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AuditoriaDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AuditoriaDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.MenuDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.MenuDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AplicacionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AplicacionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FtpUsuarioDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.FtpUsuarioDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FtpUsuarioCorreoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.FtpUsuarioCorreoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FtpUsuarioArchivoDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.FtpUsuarioArchivoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.PluginDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.PluginDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.FormatoConfiguracionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.FormatoConfiguracionDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.CargaDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.CargaDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.HistorialDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.HistorialDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.AccesoRolDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.AccesoRolDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.EstadoDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.EstadoDao" />
+
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.FirmaDigitalDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.FirmaDigitalDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AtributoDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.AtributoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.ValorAtributoDaoImp"  interface="com.osmosyscol.datasuite.persistencia.dao.ValorAtributoDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AccionResponsableDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AccionResponsableDao" />
+		
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AccionRedireccionDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AccionRedireccionDao" />
+				
+		<!-- - - - - - Webdata - - - - - -->
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.NotaDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.NotaDao" />
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.ParametrizacionClienteDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.ParametrizacionClienteDao" />
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.HistorialSobreflexDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.HistorialSobreflexDao" />
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.SalidaCoreCorrevalDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.SalidaCoreCorrevalDao" />
+		<dao implementation="com.osmosyscol.datasuite.webdata.persistencia.dao.ibatis.TipoCargaDaoImp"  interface="com.osmosyscol.datasuite.webdata.persistencia.dao.TipoCargaDao" />
+		<dao implementation="com.osmosyscol.datasuite.persistencia.dao.ibatis.AuditoriaSqlDaoImp" interface="com.osmosyscol.datasuite.persistencia.dao.AuditoriaSqlDao" />
+		
+		<!-- - - - - - MEIN - - - - - - -->
+		<dao implementation="com.osmosyscol.datasuite.mein.persistencia.dao.ibatis.ProcesoPasanteDaoImp"  interface="com.osmosyscol.datasuite.mein.persistencia.dao.ProcesoPasanteDao" />
+		
+		
+		<dao implementation="com.osmosyscol.datasuite.modelatos.persistencia.dao.ibatis.HistorialConsultaImp"      interface="com.osmosyscol.datasuite.modelatos.persistencia.dao.HistorialConsultaDao" />
+	</context>
+
+</daoConfig>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings useStatementNamespaces="true" />
+
+	<transactionManager type="JDBC">
+		<dataSource type="DBCP">
+			<!-- LEGACY SETTINGS
+			<property name="JDBC.Driver" value="${database.driver}" />
+			<property name="JDBC.ConnectionURL" value="${database.url}" />
+			<property name="JDBC.Username" value="${database.user}" />
+			<property name="JDBC.Password" value="${database.password}" />
+			<property name="Pool.MaximumActiveConnections" value="50" />
+			<property name="Pool.MaximumIdleConnections" value="10" />
+			<property name="Pool.MaximumWait" value="80000" />
+			<property name="Driver.DriverSpecificProperty" value="SomeValue" />
+			<property value="select 1 from dual" name="Pool.ValidationQuery"/>
+			<property value="true" name="Pool.testWhileIdle"/>
+			<property value="600000" name="Pool.timeBetweenEvictionRunsMillis"/>
+			-->
+			
+			<property name="driverClassName" value="${database.driver}" />
+			<property name="url" value="${database.url}" />
+			<property name="username" value="${database.user}" />
+			<property name="password" value="${database.password}" />
+			<!-- OPTIONAL FROM HERE -->
+			<property name="maxActive" value="${database.maxActive}" />
+			<property name="maxIdle" value="${database.maxIdle}" />
+			<property name="maxWait" value="${database.maxWait}" />
+			
+			<property value="${database.validationQuery}" name="validationQuery"/>
+			<property value="${database.testWhileIdle}" name="testWhileIdle"/>
+			<property value="${database.testOnBorrow}" name="testOnBorrow"/>
+			<property value="${database.timeBetweenEvictionRunsMillis}" name="timeBetweenEvictionRunsMillis"/>
+			
+			<property name="initialSize" value="${database.initialSize}" />
+		</dataSource>
+	</transactionManager>
+
+	<sqlMap resource="com/osmosyscol/persistencia/dao/ibatis/config/Dummy.xml" />	
+	
+</sqlMapConfig>

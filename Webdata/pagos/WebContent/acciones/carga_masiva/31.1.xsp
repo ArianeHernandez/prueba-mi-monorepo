@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:exist-parameter name="idCargue">
+    		
+    		<ID_CARGUE_MASIVO><xsp-request:get-parameter name="idCargue"/></ID_CARGUE_MASIVO>
+    		
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/carga_masiva/obtenerRespuestas.ser</cinclude:src>
+	    		 <cinclude:parameters>
+				 	<cinclude:parameter>
+		                <cinclude:name>idCargue</cinclude:name>
+		                <cinclude:value><xsp-request:get-parameter name="idCargue"/></cinclude:value>
+		            </cinclude:parameter>
+		        </cinclude:parameters>
+	        </cinclude:includexml>
+        </osm-utils:exist-parameter>
+
+    </OSM-ACCION>
+	
+</xsp:page>

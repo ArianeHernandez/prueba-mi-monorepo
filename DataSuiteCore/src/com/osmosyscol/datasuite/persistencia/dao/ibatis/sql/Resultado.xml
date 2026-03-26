@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Resultado">
+
+	<typeAlias alias="Resultado"      type="com.osmosyscol.datasuite.reportedim.dto.Resultado" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerResultado" resultClass="Resultado" parameterClass="java.lang.Integer">
+		select *
+		from DST_REP_RESULTADO
+		where id_resultado=#id_resultado#
+	</select>
+	
+	<select id="totalResultados" resultClass="java.lang.Integer" >
+		select count(*) from DST_REP_RESULTADO
+	</select>
+	
+	<insert id="crearResultado" parameterClass="java.util.Map">
+		insert into DST_REP_RESULTADO (id_resultado,titulo,nombre,tipo,orden,encriptado,oculto, id_reporte)
+		values (#id_resultado#, #titulo#, #nombre#,#tipo#,#orden#,#encriptado#,#oculto#, #id_reporte#)
+	</insert>
+	
+	<select id="obtenerSiguienteResultadoId" resultClass="java.lang.Integer">
+		select nextvalue('dss_rep_resultado') from dual
+	</select>
+	
+	<update id="actualizarResultado" parameterClass="Resultado">
+		update DST_REP_RESULTADO
+		 set titulo=#titulo#, nombre=#nombre#,tipo=#tipo#,orden=#orden#,encriptado=#encriptado#,oculto=#oculto#
+		  where id_resultado=#id_resultado#
+	</update>
+	
+	<delete id="eliminarResultado" parameterClass="java.lang.Integer">
+		delete from DST_REP_RESULTADO
+		where id_resultado = #id_resultado#
+	</delete>	
+	
+	<select id="obtenerResultadosByReporte" parameterClass="java.lang.String" resultClass="Resultado" >
+		select *
+		from DST_REP_RESULTADO
+		where id_reporte=#id_reporte#
+	</select>	
+	
+</sqlMap>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<crearArchivoParaRetirosPorComandos>
+   		
+   		<osm-utils:servicio-java>
+   			<name>exitoso</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.siforion.salida.SalidaCoreCorrevalServicio</service>
+   			<operation>crearArchivoParaRetirosPorComandos</operation>
+   			<parameters>
+   				<parameter>comandos</parameter>
+   				<parameter>tipo_archivo</parameter>
+   				<parameter>session</parameter>
+   			</parameters>
+   			
+   		</osm-utils:servicio-java>
+   		
+	</crearArchivoParaRetirosPorComandos>
+
+
+</xsp:page>

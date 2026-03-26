@@ -1,0 +1,117 @@
+/* ------------------------------------------ */
+
+
+
+.dotted{
+	clear:left;
+	border-bottom:1px dotted #1D3666;
+}
+
+.resumen_rcargas_pendientes_adminhijo {
+font-size: 11px;
+margin: 0px 0px 10px 0px;
+padding: 5px 0px 5px 0px;
+}
+.titulo_rcargas_pendientes_adminhijo {
+font: normal normal normal 10px/1.4em Arial, Helvetica, sans-serif;
+color: #666;
+}
+.titulo_rcargas_pendientes_adminhijo {
+font-weight: bold;
+margin: 0px 5px 10px;
+}
+.frgt {
+float: right;
+}
+.link_rcargas_pendientes_adminhijo {
+color: #3B5998;
+}
+.link_rcargas_pendientes_adminhijo:hover {
+text-decoration: underline;
+}
+.lista_rcargas_pendientes_adminhijo {
+margin: 5px 8px 5px;
+font-size: 10px !important;
+}
+.oculto_rcargas_pendientes_adminhijo {
+display: none;
+}
+.item_rcargas_pendientes_adminhijo {
+padding: 2px 0px;
+/* border-top: dotted 2px #999;
+width: 190px;*/
+
+}
+.item_rcargas_pendientes_adminhijo span {
+display:inline-block;
+width:54%;
+height:20px;
+overflow:hidden;
+cursor: pointer;
+margin: 2px 0;
+padding:0 1%;
+font: normal normal normal 10px/20px Tahoma, Geneva, sans-serif;
+background-color: #F1F1F1;
+}
+.item_rcargas_pendientes_adminhijo span.titulo_rsemaforo_adminhijo,.item_rcargas_pendientes_adminhijo span.titulo_rsemaforo_adminhijo:hover {
+text-decoration:underline;
+text-transform:uppercase;
+/* background: url(../images/general/arrow_right.png) 0px 6px no-repeat;*/
+color:#1D3666;
+border: none;
+}
+.item_rcargas_pendientes_adminhijo span:hover,.item_rcargas_pendientes_adminhijo span.titulo_rsemaforo_adminhijo:hover{
+ background:#1D3666;
+ color: #fff;
+ text-decoration:none;
+}
+.item_rcargas_pendientes_adminhijo span.titulo_rsemaforo_adminhijo sup {
+float: right;
+font: normal normal normal 10px/1.4em Tahoma, Geneva, sans-serif;
+text-transform: none;
+padding: 2px 5px;
+color: #060;
+background: #f7f7f7;
+}
+.item_rcargas_pendientes_adminhijo span.titulo_rsemaforo_adminhijo b {
+display: block;
+text-transform: none;
+}
+
+.fnt10 {
+font-size: 10px;
+}
+.clearfix {
+display: block;
+}
+table.intervalos_adminhijo {
+position:relative;
+float:right;
+width:44%;
+height:20px;
+/* width: 100%;*/
+text-align: center;
+margin: 2px 0;
+border-collapse:collapse;
+$top:-26px;
+}
+.intervalos_adminhijo td {
+font: normal normal normal 10px/20px Tahoma, Geneva, sans-serif;
+text-align: center;
+}
+.intervaloCero {
+color: #000;
+background-color: #BDBDBD;
+}
+.intervaloUno {
+color: #060;
+background-color: #C4DBAE;
+}
+.intervaloDos {
+color: #C60;
+background-color: #E9D3AD;
+}
+.intervaloFinal {
+color: #900;
+background-color: #EBB9B4;
+}

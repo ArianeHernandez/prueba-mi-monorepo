@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerRespuestas>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Objeto</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.cargaexcel.CargaExcelServicio</service>
+   			<operation>obtenerRespuestas</operation>
+   			<parameters>
+   				<parameter>idCargue</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerRespuestas>
+
+
+</xsp:page>

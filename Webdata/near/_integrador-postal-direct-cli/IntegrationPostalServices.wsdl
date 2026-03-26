@@ -1,0 +1,1895 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="IntegrationPostalServices" targetNamespace="http://tempuri.org/" 
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+    xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" 
+    xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" 
+    xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" 
+    xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" 
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+    xmlns:tns="http://tempuri.org/" 
+    xmlns:wsa10="http://www.w3.org/2005/08/addressing" 
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <wsdl:types>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+            <xs:import namespace="http://schemas.microsoft.com/Message"/>
+            <xs:element name="RadicarEntrada">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacionEntrada" nillable="true" type="q1:RadicacionEntrada" 
+                            xmlns:q1="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RadicarEntradaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RadicarEntradaResult" nillable="true" type="q2:iBPMWSDevolucionClass" 
+                            xmlns:q2="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RadicarSalida">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacionSalida" nillable="true" type="q3:RadicacionSalida" 
+                            xmlns:q3="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RadicarSalidaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RadicarSalidaResult" nillable="true" type="q4:iBPMWSDevolucionClass" 
+                            xmlns:q4="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RadicarInterna">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacionInterna" nillable="true" type="q5:RadicacionInterna" 
+                            xmlns:q5="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RadicarInternaResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RadicarInternaResult" nillable="true" type="q6:iBPMWSDevolucionClass" 
+                            xmlns:q6="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SubirArchivoDesdeProcesoBPM">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RefBase" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="NombreTermino" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="Radicacion" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SubirArchivoDesdeProcesoBPMResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="SubirArchivoDesdeProcesoBPMResult" nillable="true" type="q7:iBPMWSDevolucionClass" 
+                            xmlns:q7="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RecuperarDocumentos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RefBase" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="IdTerminoBiblioteca" type="xs:int"/>
+                        <xs:element minOccurs="0" name="NumeroRadicado" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="Todos" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RecuperarDocumentosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="RecuperarDocumentosResult" nillable="true" type="q8:iBPMWSDevolucionClass" 
+                            xmlns:q8="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VerificarDocumentoPrincipal">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="NumeroRadicado" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VerificarDocumentoPrincipalResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="VerificarDocumentoPrincipalResult" nillable="true" type="q9:iBPMWSDevolucionClass" 
+                            xmlns:q9="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ContarPaginasDocPrincipal">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="NombreBiblioteca" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ContarPaginasDocPrincipalResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ContarPaginasDocPrincipalResult" nillable="true" type="q10:iBPMWSDevolucionClass" 
+                            xmlns:q10="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ActualizarFoliosRadicacion">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Radicado" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="NumeroFolios" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ActualizarFoliosRadicacionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ActualizarFoliosRadicacionResult" nillable="true" type="q11:iBPMWSDevolucionClass" 
+                            xmlns:q11="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EnrutarRadicacion">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacionNumero" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="usuarioEnrutaCodigo" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="dependenciaDestinoCodigo" type="xs:long"/>
+                        <xs:element minOccurs="0" name="usuarioDestinoCodigo" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="asunto" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EnrutarRadicacionResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="EnrutarRadicacionResult" nillable="true" type="q12:iBPMWSDevolucionClass" 
+                            xmlns:q12="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ObtenerPorCodigo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codigoCarta" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ObtenerPorCodigoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ObtenerPorCodigoResult" nillable="true" type="q13:CartaModelo" 
+                            xmlns:q13="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ObtenerTodos">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ObtenerTodosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="ObtenerTodosResult" nillable="true" type="q14:ArrayOfCartaModelo" 
+                            xmlns:q14="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ActualizarFechaCorte">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="numero" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fechaCorte" type="xs:dateTime"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ActualizarFechaCorteResponse">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ObtenerDigitalizacionEstado">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="numero" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ObtenerDigitalizacionEstadoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Perfil_ObtenerDigitalizacionEstadoResult" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ObtenerDocumentos">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="numero" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Perfil_ObtenerDocumentosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Perfil_ObtenerDocumentosResult" nillable="true" type="q15:ArrayOfDocumento" 
+                            xmlns:q15="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Archivo_Bajar">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacion" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Archivo_BajarResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Archivo_BajarResult" type="q16:StreamBody" 
+                            xmlns:q16="http://schemas.microsoft.com/Message"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ArchivoUploadDto">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Archivo" type="xs:string" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Extension" nillable="true" type="xs:string"/>
+            <xs:element name="Radicacion" nillable="true" type="xs:string"/>
+            <xs:element name="TipoDocumento" nillable="true" type="xs:string"/>
+            <xs:element name="Radicacion_Anular">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="observacion" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_AnularResponse">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_Modificar">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="request" nillable="true" type="q18:Radicacion" 
+                            xmlns:q18="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_ModificarResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Radicacion_ModificarResult" nillable="true" type="q19:Radicacion" 
+                            xmlns:q19="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_Obtener">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="numero" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_ObtenerResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Radicacion_ObtenerResult" nillable="true" type="q20:Radicacion" 
+                            xmlns:q20="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_Radicar">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="request" nillable="true" type="q21:Radicacion" 
+                            xmlns:q21="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Radicacion_RadicarResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Radicacion_RadicarResult" nillable="true" type="q22:Radicacion" 
+                            xmlns:q22="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerHabilitados">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerHabilitadosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="MedioEnvio_ObtenerHabilitadosResult" nillable="true" type="q23:ArrayOfMedioDeEnvio" 
+                            xmlns:q23="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerHabilitadosPorRadicacionTipo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="radicacionTipo" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerHabilitadosPorRadicacionTipoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="MedioEnvio_ObtenerHabilitadosPorRadicacionTipoResult" nillable="true" type="q24:ArrayOfMedioDeEnvio" 
+                            xmlns:q24="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerPorId">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerPorIdResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="MedioEnvio_ObtenerPorIdResult" nillable="true" type="q25:MedioDeEnvio" 
+                            xmlns:q25="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerPorCodigo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="codigo" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerPorCodigoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="MedioEnvio_ObtenerPorCodigoResult" nillable="true" type="q26:MedioDeEnvio" 
+                            xmlns:q26="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerTodos">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MedioEnvio_ObtenerTodosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="MedioEnvio_ObtenerTodosResult" nillable="true" type="q27:ArrayOfMedioDeEnvio" 
+                            xmlns:q27="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoDocumental_ObtenerPorCodigo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoDocumental_ObtenerPorCodigoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoDocumental_ObtenerPorCodigoResult" nillable="true" type="q28:TipoDocumental" 
+                            xmlns:q28="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoDocumental_ObtenerTodos">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoDocumental_ObtenerTodosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoDocumental_ObtenerTodosResult" nillable="true" type="q29:ArrayOfTipoDocumental" 
+                            xmlns:q29="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Tramite_ObtenerPorCodigo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="code" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Tramite_ObtenerPorCodigoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Tramite_ObtenerPorCodigoResult" nillable="true" type="q30:Tramite" 
+                            xmlns:q30="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerHabilitados">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerHabilitadosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoSeguridad_ObtenerHabilitadosResult" nillable="true" type="q31:ArrayOfDocumentoTipoSeguridad" 
+                            xmlns:q31="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerPorCodigo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="code" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerPorCodigoResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoSeguridad_ObtenerPorCodigoResult" nillable="true" type="q32:DocumentoTipoSeguridad" 
+                            xmlns:q32="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerPorId">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" type="xs:long"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerPorIdResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoSeguridad_ObtenerPorIdResult" nillable="true" type="q33:DocumentoTipoSeguridad" 
+                            xmlns:q33="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerTodos">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TipoSeguridad_ObtenerTodosResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="TipoSeguridad_ObtenerTodosResult" nillable="true" type="q34:ArrayOfDocumentoTipoSeguridad" 
+                            xmlns:q34="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RequestDocumentoDTO">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Archivo" type="q35:StreamBody" 
+                            xmlns:q35="http://schemas.microsoft.com/Message"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RespuestaDTO">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Documento_Borrar">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="nombre" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Documento_BorrarResponse">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:element name="anyType" nillable="true" type="xs:anyType"/>
+            <xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+            <xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+            <xs:element name="boolean" nillable="true" type="xs:boolean"/>
+            <xs:element name="byte" nillable="true" type="xs:byte"/>
+            <xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+            <xs:element name="decimal" nillable="true" type="xs:decimal"/>
+            <xs:element name="double" nillable="true" type="xs:double"/>
+            <xs:element name="float" nillable="true" type="xs:float"/>
+            <xs:element name="int" nillable="true" type="xs:int"/>
+            <xs:element name="long" nillable="true" type="xs:long"/>
+            <xs:element name="QName" nillable="true" type="xs:QName"/>
+            <xs:element name="short" nillable="true" type="xs:short"/>
+            <xs:element name="string" nillable="true" type="xs:string"/>
+            <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+            <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+            <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+            <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+            <xs:element name="char" nillable="true" type="tns:char"/>
+            <xs:simpleType name="char">
+                <xs:restriction base="xs:int"/>
+            </xs:simpleType>
+            <xs:element name="duration" nillable="true" type="tns:duration"/>
+            <xs:simpleType name="duration">
+                <xs:restriction base="xs:duration">
+                    <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+                    <xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+                    <xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="guid" nillable="true" type="tns:guid"/>
+            <xs:simpleType name="guid">
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:attribute name="FactoryType" type="xs:QName"/>
+            <xs:attribute name="Id" type="xs:ID"/>
+            <xs:attribute name="Ref" type="xs:IDREF"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos">
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+            <xs:complexType name="RadicacionEntrada">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="tns:RadicacionBase">
+                        <xs:sequence/>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="RadicacionEntrada" nillable="true" type="tns:RadicacionEntrada"/>
+            <xs:complexType name="RadicacionBase">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="AnexosFisicos" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaCiudadCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="AplicaDepartamentoCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="AplicaDireccion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaEmail" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaIdentificacion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaNombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaPaisCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="AplicaTelefono" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaTipoIdentificacionId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="AplicaTipoIdentificacionNombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="CodigoMedioEnvio" type="xs:int"/>
+                    <xs:element minOccurs="0" name="CodigoTipoSeguridad" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="CuadernoTipoId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="DependenciaId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="DependenciaNombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="DocumentalTipoId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="EntregaFisica" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="ExtensionArchivo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="FoliosNumero" type="xs:int"/>
+                    <xs:element minOccurs="0" name="LoginUsuario" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularCiudadCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="ParticularDepartamentoCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="ParticularDireccion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularEmail" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularIdentificacion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularNombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularPaisCodigo" type="xs:int"/>
+                    <xs:element minOccurs="0" name="ParticularTelefono" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ParticularTipoIdentificacionId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="ParticularTipoIdentificacionNombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="RadicacionAnterior" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ReferenciaExterna" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TramiteId" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="RadicacionBase" nillable="true" type="tns:RadicacionBase"/>
+            <xs:complexType name="iBPMWSDevolucionClass">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="CodigoDevolucion" type="xs:int"/>
+                    <xs:element minOccurs="0" name="MensajeAdicional" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="MensajeDevolucion" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="iBPMWSDevolucionClass" nillable="true" type="tns:iBPMWSDevolucionClass"/>
+            <xs:complexType name="RadicacionSalida">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="tns:RadicacionBase">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="DependenciaAsignadaId" type="xs:long"/>
+                            <xs:element minOccurs="0" name="DependenciaAsignadaNombre" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="FuncionarioAsignadoId" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="FuncionarioId" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="RadicacionSalida" nillable="true" type="tns:RadicacionSalida"/>
+            <xs:complexType name="RadicacionInterna">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="tns:RadicacionBase">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="DependenciaAsignadaId" type="xs:long"/>
+                            <xs:element minOccurs="0" name="DependenciaAsignadaNombre" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="FuncionarioAsignadoId" nillable="true" type="xs:string"/>
+                            <xs:element minOccurs="0" name="FuncionarioId" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="RadicacionInterna" nillable="true" type="tns:RadicacionInterna"/>
+            <xs:complexType name="CartaModelo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CartaModelo" nillable="true" type="tns:CartaModelo"/>
+            <xs:complexType name="ArrayOfCartaModelo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="CartaModelo" nillable="true" type="tns:CartaModelo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfCartaModelo" nillable="true" type="tns:ArrayOfCartaModelo"/>
+            <xs:complexType name="ArrayOfDocumento">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Documento" nillable="true" type="tns:Documento"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfDocumento" nillable="true" type="tns:ArrayOfDocumento"/>
+            <xs:complexType name="Documento">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Extension" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Documento" nillable="true" type="tns:Documento"/>
+            <xs:complexType name="Radicacion">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="AnexosFisicos" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="AplicaA" nillable="true" type="tns:Particular"/>
+                    <xs:element minOccurs="0" name="Corresponsal" nillable="true" type="tns:Corresponsal"/>
+                    <xs:element minOccurs="0" name="Dependencia" nillable="true" type="tns:Dependencia"/>
+                    <xs:element minOccurs="0" name="DependenciaAsignada" nillable="true" type="tns:Dependencia"/>
+                    <xs:element minOccurs="0" name="DocumentoPrincipal" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="DocumentosAnexos" nillable="true" type="q1:ArrayOfstring" 
+                        xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                    <xs:element minOccurs="0" name="EntregaFisica" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="Estado" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="Folios" type="xs:int"/>
+                    <xs:element minOccurs="0" name="Funcionario" nillable="true" type="tns:Funcionario"/>
+                    <xs:element minOccurs="0" name="FuncionarioAsignado" nillable="true" type="tns:Funcionario"/>
+                    <xs:element minOccurs="0" name="MedioDeEnvio" nillable="true" type="tns:MedioDeEnvio"/>
+                    <xs:element minOccurs="0" name="Multa" type="xs:decimal"/>
+                    <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="RadicacionAnteriorNumero" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="ReferenciaExterna" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TerminoDias" type="xs:int"/>
+                    <xs:element minOccurs="0" name="TerminoFecha" nillable="true" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TipoCuaderno" nillable="true" type="tns:TipoCuaderno"/>
+                    <xs:element minOccurs="0" name="TipoDocumental" nillable="true" type="tns:TipoDocumental"/>
+                    <xs:element minOccurs="0" name="TipoDocumentalConsecutivo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TipoSeguridad" nillable="true" type="tns:DocumentoTipoSeguridad"/>
+                    <xs:element minOccurs="0" name="Tramite" nillable="true" type="tns:Tramite"/>
+                    <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Radicacion" nillable="true" type="tns:Radicacion"/>
+            <xs:complexType name="Particular">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Ciudad" nillable="true" type="tns:Ciudad"/>
+                    <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Identificacion" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="TipoIdentificacion" nillable="true" type="tns:TipoIdentificacion"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Particular" nillable="true" type="tns:Particular"/>
+            <xs:complexType name="Ciudad">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="tns:CiudadId"/>
+                    <xs:element minOccurs="0" name="Departamento" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Ciudad" nillable="true" type="tns:Ciudad"/>
+            <xs:complexType name="CiudadId">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="CiudadCodigo" type="xs:long"/>
+                    <xs:element minOccurs="0" name="DepartamentoCodigo" type="xs:long"/>
+                    <xs:element minOccurs="0" name="PaisCodigo" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CiudadId" nillable="true" type="tns:CiudadId"/>
+            <xs:complexType name="TipoIdentificacion">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="TipoIdentificacion" nillable="true" type="tns:TipoIdentificacion"/>
+            <xs:complexType name="Corresponsal">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Dependencia" nillable="true" type="tns:Dependencia"/>
+                    <xs:element minOccurs="0" name="Particular" nillable="true" type="tns:Particular"/>
+                    <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Corresponsal" nillable="true" type="tns:Corresponsal"/>
+            <xs:complexType name="Dependencia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Dependencia" nillable="true" type="tns:Dependencia"/>
+            <xs:complexType name="Funcionario">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Apellido" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Id" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Nemotecnico" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Funcionario" nillable="true" type="tns:Funcionario"/>
+            <xs:complexType name="MedioDeEnvio">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="MedioDeEnvio" nillable="true" type="tns:MedioDeEnvio"/>
+            <xs:complexType name="TipoCuaderno">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="TipoCuaderno" nillable="true" type="tns:TipoCuaderno"/>
+            <xs:complexType name="TipoDocumental">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="TipoDocumental" nillable="true" type="tns:TipoDocumental"/>
+            <xs:complexType name="DocumentoTipoSeguridad">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="DocumentoTipoSeguridad" nillable="true" type="tns:DocumentoTipoSeguridad"/>
+            <xs:complexType name="Tramite">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Proceso" nillable="true" type="tns:Proceso"/>
+                    <xs:element minOccurs="0" name="Termino" nillable="true" type="tns:Termino"/>
+                    <xs:element minOccurs="0" name="TipoSeguridad" nillable="true" type="q2:ArrayOfKeyValueOfstringDocumentoTipoSeguridadUMuZ5csI" 
+                        xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Tramite" nillable="true" type="tns:Tramite"/>
+            <xs:complexType name="Proceso">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Codigo" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Id" type="xs:long"/>
+                    <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Proceso" nillable="true" type="tns:Proceso"/>
+            <xs:complexType name="Termino">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Dias" type="xs:int"/>
+                    <xs:element minOccurs="0" name="EsModificable" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Termino" nillable="true" type="tns:Termino"/>
+            <xs:complexType name="ArrayOfMedioDeEnvio">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="MedioDeEnvio" nillable="true" type="tns:MedioDeEnvio"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfMedioDeEnvio" nillable="true" type="tns:ArrayOfMedioDeEnvio"/>
+            <xs:complexType name="ArrayOfTipoDocumental">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="TipoDocumental" nillable="true" type="tns:TipoDocumental"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfTipoDocumental" nillable="true" type="tns:ArrayOfTipoDocumental"/>
+            <xs:complexType name="ArrayOfDocumentoTipoSeguridad">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="DocumentoTipoSeguridad" nillable="true" type="tns:DocumentoTipoSeguridad"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfDocumentoTipoSeguridad" nillable="true" type="tns:ArrayOfDocumentoTipoSeguridad"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.ServiceModel" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.datacontract.org/2004/07/System.ServiceModel">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/System"/>
+            <xs:complexType name="FaultException">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="tns:CommunicationException"/>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="FaultException" nillable="true" type="tns:FaultException"/>
+            <xs:complexType name="CommunicationException">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="q1:SystemException" 
+                        xmlns:q1="http://schemas.datacontract.org/2004/07/System"/>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="CommunicationException" nillable="true" type="tns:CommunicationException"/>
+            <xs:complexType name="ArrayOfFaultException.FaultCodeData">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultException.FaultCodeData" nillable="true" type="tns:FaultException.FaultCodeData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfFaultException.FaultCodeData" nillable="true" type="tns:ArrayOfFaultException.FaultCodeData"/>
+            <xs:complexType name="FaultException.FaultCodeData">
+                <xs:sequence>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                    <xs:element name="ns" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="FaultException.FaultCodeData" nillable="true" type="tns:FaultException.FaultCodeData"/>
+            <xs:complexType name="FaultException.FaultReasonData">
+                <xs:sequence>
+                    <xs:element name="text" nillable="true" type="xs:string"/>
+                    <xs:element name="xmlLang" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="FaultException.FaultReasonData" nillable="true" type="tns:FaultException.FaultReasonData"/>
+            <xs:complexType name="ArrayOfFaultException.FaultReasonData">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="FaultException.FaultReasonData" nillable="true" type="tns:FaultException.FaultReasonData"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfFaultException.FaultReasonData" nillable="true" type="tns:ArrayOfFaultException.FaultReasonData"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.datacontract.org/2004/07/System" 
+            xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/">
+            <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+            <xs:complexType name="SystemException">
+                <xs:complexContent mixed="false">
+                    <xs:extension base="tns:Exception"/>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:element name="SystemException" nillable="true" type="tns:SystemException"/>
+            <xs:complexType name="Exception">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##local" processContents="skip"/>
+                </xs:sequence>
+                <xs:attribute ref="ser:FactoryType"/>
+            </xs:complexType>
+            <xs:element name="Exception" nillable="true" type="tns:Exception"/>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/Message" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.microsoft.com/Message">
+            <xs:simpleType name="StreamBody">
+                <xs:restriction base="xs:base64Binary"/>
+            </xs:simpleType>
+        </xs:schema>
+        <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" 
+            xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+            xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+            <xs:import namespace="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+            <xs:complexType name="ArrayOfstring">
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring"/>
+            <xs:complexType name="ArrayOfKeyValueOfstringDocumentoTipoSeguridadUMuZ5csI">
+                <xs:annotation>
+                    <xs:appinfo>
+                        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+                    </xs:appinfo>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringDocumentoTipoSeguridadUMuZ5csI">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Key" nillable="true" type="xs:string"/>
+                                <xs:element name="Value" nillable="true" type="q1:DocumentoTipoSeguridad" 
+                                    xmlns:q1="http://schemas.datacontract.org/2004/07/InteropSuper.Modelos"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ArrayOfKeyValueOfstringDocumentoTipoSeguridadUMuZ5csI" nillable="true" type="tns:ArrayOfKeyValueOfstringDocumentoTipoSeguridadUMuZ5csI"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IIntegrationPostalServices_RadicarEntrada_InputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarEntrada"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarEntrada_OutputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarEntradaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarEntrada_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q1:FaultException" 
+            xmlns:q1="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarSalida_InputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarSalida"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarSalida_OutputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarSalidaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarSalida_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q2:FaultException" 
+            xmlns:q2="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarInterna_InputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarInterna"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarInterna_OutputMessage">
+        <wsdl:part name="parameters" element="tns:RadicarInternaResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RadicarInterna_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q3:FaultException" 
+            xmlns:q3="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_InputMessage">
+        <wsdl:part name="parameters" element="tns:SubirArchivoDesdeProcesoBPM"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_OutputMessage">
+        <wsdl:part name="parameters" element="tns:SubirArchivoDesdeProcesoBPMResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q4:FaultException" 
+            xmlns:q4="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RecuperarDocumentos_InputMessage">
+        <wsdl:part name="parameters" element="tns:RecuperarDocumentos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RecuperarDocumentos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:RecuperarDocumentosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_RecuperarDocumentos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q5:FaultException" 
+            xmlns:q5="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_VerificarDocumentoPrincipal_InputMessage">
+        <wsdl:part name="parameters" element="tns:VerificarDocumentoPrincipal"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_VerificarDocumentoPrincipal_OutputMessage">
+        <wsdl:part name="parameters" element="tns:VerificarDocumentoPrincipalResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_VerificarDocumentoPrincipal_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q6:FaultException" 
+            xmlns:q6="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ContarPaginasDocPrincipal_InputMessage">
+        <wsdl:part name="parameters" element="tns:ContarPaginasDocPrincipal"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ContarPaginasDocPrincipal_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ContarPaginasDocPrincipalResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ContarPaginasDocPrincipal_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q7:FaultException" 
+            xmlns:q7="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ActualizarFoliosRadicacion_InputMessage">
+        <wsdl:part name="parameters" element="tns:ActualizarFoliosRadicacion"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ActualizarFoliosRadicacion_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ActualizarFoliosRadicacionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ActualizarFoliosRadicacion_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q8:FaultException" 
+            xmlns:q8="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_EnrutarRadicacion_InputMessage">
+        <wsdl:part name="parameters" element="tns:EnrutarRadicacion"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_EnrutarRadicacion_OutputMessage">
+        <wsdl:part name="parameters" element="tns:EnrutarRadicacionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_EnrutarRadicacion_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q9:FaultException" 
+            xmlns:q9="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerPorCodigo_InputMessage">
+        <wsdl:part name="parameters" element="tns:ObtenerPorCodigo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerPorCodigo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ObtenerPorCodigoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerPorCodigo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q10:FaultException" 
+            xmlns:q10="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerTodos_InputMessage">
+        <wsdl:part name="parameters" element="tns:ObtenerTodos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerTodos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:ObtenerTodosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_ObtenerTodos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q11:FaultException" 
+            xmlns:q11="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ActualizarFechaCorte_InputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ActualizarFechaCorte"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ActualizarFechaCorte_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ActualizarFechaCorteResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ActualizarFechaCorte_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q12:FaultException" 
+            xmlns:q12="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_InputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ObtenerDigitalizacionEstado"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ObtenerDigitalizacionEstadoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q13:FaultException" 
+            xmlns:q13="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDocumentos_InputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ObtenerDocumentos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDocumentos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Perfil_ObtenerDocumentosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Perfil_ObtenerDocumentos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q14:FaultException" 
+            xmlns:q14="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Archivo_Bajar_InputMessage">
+        <wsdl:part name="parameters" element="tns:Archivo_Bajar"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Archivo_Bajar_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Archivo_BajarResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Archivo_Bajar_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q15:FaultException" 
+            xmlns:q15="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="ArchivoUploadDto">
+        <wsdl:part name="parameters" element="tns:ArchivoUploadDto"/>
+    </wsdl:message>
+    <wsdl:message name="ArchivoUploadDto_Headers">
+        <wsdl:part name="Extension" element="tns:Extension"/>
+        <wsdl:part name="Radicacion" element="tns:Radicacion"/>
+        <wsdl:part name="TipoDocumento" element="tns:TipoDocumento"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Archivo_Subir_OutputMessage"/>
+    <wsdl:message name="IIntegrationPostalServices_Archivo_Subir_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q16:FaultException" 
+            xmlns:q16="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Anular_InputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_Anular"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Anular_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_AnularResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Anular_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q17:FaultException" 
+            xmlns:q17="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Modificar_InputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_Modificar"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Modificar_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_ModificarResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Modificar_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q18:FaultException" 
+            xmlns:q18="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Obtener_InputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_Obtener"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Obtener_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_ObtenerResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Obtener_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q19:FaultException" 
+            xmlns:q19="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Radicar_InputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_Radicar"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Radicar_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Radicacion_RadicarResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Radicacion_Radicar_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q20:FaultException" 
+            xmlns:q20="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_InputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerHabilitados"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerHabilitadosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q21:FaultException" 
+            xmlns:q21="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_InputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerHabilitadosPorRadicacionTipo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerHabilitadosPorRadicacionTipoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q22:FaultException" 
+            xmlns:q22="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorId_InputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerPorId"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorId_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerPorIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorId_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q23:FaultException" 
+            xmlns:q23="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_InputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerPorCodigo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerPorCodigoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q24:FaultException" 
+            xmlns:q24="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerTodos_InputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerTodos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerTodos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:MedioEnvio_ObtenerTodosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_MedioEnvio_ObtenerTodos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q25:FaultException" 
+            xmlns:q25="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoDocumental_ObtenerPorCodigo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoDocumental_ObtenerPorCodigoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q26:FaultException" 
+            xmlns:q26="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerTodos_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoDocumental_ObtenerTodos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerTodos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoDocumental_ObtenerTodosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoDocumental_ObtenerTodos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q27:FaultException" 
+            xmlns:q27="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Tramite_ObtenerPorCodigo_InputMessage">
+        <wsdl:part name="parameters" element="tns:Tramite_ObtenerPorCodigo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Tramite_ObtenerPorCodigo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Tramite_ObtenerPorCodigoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Tramite_ObtenerPorCodigo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q28:FaultException" 
+            xmlns:q28="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerHabilitados"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerHabilitadosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q29:FaultException" 
+            xmlns:q29="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerPorCodigo"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerPorCodigoResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q30:FaultException" 
+            xmlns:q30="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerPorId"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerPorIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q31:FaultException" 
+            xmlns:q31="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_InputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerTodos"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_OutputMessage">
+        <wsdl:part name="parameters" element="tns:TipoSeguridad_ObtenerTodosResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q32:FaultException" 
+            xmlns:q32="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="RequestDocumentoDTO">
+        <wsdl:part name="parameters" element="tns:RequestDocumentoDTO"/>
+    </wsdl:message>
+    <wsdl:message name="RequestDocumentoDTO_Headers">
+        <wsdl:part name="Extension" element="tns:Extension"/>
+    </wsdl:message>
+    <wsdl:message name="RespuestaDTO">
+        <wsdl:part name="parameters" element="tns:RespuestaDTO"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Documento_Subir_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q33:FaultException" 
+            xmlns:q33="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Documento_Borrar_InputMessage">
+        <wsdl:part name="parameters" element="tns:Documento_Borrar"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Documento_Borrar_OutputMessage">
+        <wsdl:part name="parameters" element="tns:Documento_BorrarResponse"/>
+    </wsdl:message>
+    <wsdl:message name="IIntegrationPostalServices_Documento_Borrar_FaultExceptionFault_FaultMessage">
+        <wsdl:part name="detail" element="q34:FaultException" 
+            xmlns:q34="http://schemas.datacontract.org/2004/07/System.ServiceModel"/>
+    </wsdl:message>
+    <wsdl:portType name="IIntegrationPostalServices">
+        <wsdl:operation name="RadicarEntrada">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarEntrada" message="tns:IIntegrationPostalServices_RadicarEntrada_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarEntradaResponse" message="tns:IIntegrationPostalServices_RadicarEntrada_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarEntradaFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_RadicarEntrada_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="RadicarSalida">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarSalida" message="tns:IIntegrationPostalServices_RadicarSalida_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarSalidaResponse" message="tns:IIntegrationPostalServices_RadicarSalida_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarSalidaFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_RadicarSalida_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="RadicarInterna">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarInterna" message="tns:IIntegrationPostalServices_RadicarInterna_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarInternaResponse" message="tns:IIntegrationPostalServices_RadicarInterna_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RadicarInternaFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_RadicarInterna_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="SubirArchivoDesdeProcesoBPM">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/SubirArchivoDesdeProcesoBPM" message="tns:IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/SubirArchivoDesdeProcesoBPMResponse" message="tns:IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/SubirArchivoDesdeProcesoBPMFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_SubirArchivoDesdeProcesoBPM_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="RecuperarDocumentos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RecuperarDocumentos" message="tns:IIntegrationPostalServices_RecuperarDocumentos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RecuperarDocumentosResponse" message="tns:IIntegrationPostalServices_RecuperarDocumentos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/RecuperarDocumentosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_RecuperarDocumentos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="VerificarDocumentoPrincipal">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/VerificarDocumentoPrincipal" message="tns:IIntegrationPostalServices_VerificarDocumentoPrincipal_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/VerificarDocumentoPrincipalResponse" message="tns:IIntegrationPostalServices_VerificarDocumentoPrincipal_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/VerificarDocumentoPrincipalFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_VerificarDocumentoPrincipal_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ContarPaginasDocPrincipal">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ContarPaginasDocPrincipal" message="tns:IIntegrationPostalServices_ContarPaginasDocPrincipal_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ContarPaginasDocPrincipalResponse" message="tns:IIntegrationPostalServices_ContarPaginasDocPrincipal_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ContarPaginasDocPrincipalFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_ContarPaginasDocPrincipal_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ActualizarFoliosRadicacion">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ActualizarFoliosRadicacion" message="tns:IIntegrationPostalServices_ActualizarFoliosRadicacion_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ActualizarFoliosRadicacionResponse" message="tns:IIntegrationPostalServices_ActualizarFoliosRadicacion_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ActualizarFoliosRadicacionFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_ActualizarFoliosRadicacion_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="EnrutarRadicacion">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/EnrutarRadicacion" message="tns:IIntegrationPostalServices_EnrutarRadicacion_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/EnrutarRadicacionResponse" message="tns:IIntegrationPostalServices_EnrutarRadicacion_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/EnrutarRadicacionFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_EnrutarRadicacion_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ObtenerPorCodigo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerPorCodigo" message="tns:IIntegrationPostalServices_ObtenerPorCodigo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerPorCodigoResponse" message="tns:IIntegrationPostalServices_ObtenerPorCodigo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerPorCodigoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_ObtenerPorCodigo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ObtenerTodos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerTodos" message="tns:IIntegrationPostalServices_ObtenerTodos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerTodosResponse" message="tns:IIntegrationPostalServices_ObtenerTodos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/ObtenerTodosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_ObtenerTodos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ActualizarFechaCorte">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ActualizarFechaCorte" message="tns:IIntegrationPostalServices_Perfil_ActualizarFechaCorte_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ActualizarFechaCorteResponse" message="tns:IIntegrationPostalServices_Perfil_ActualizarFechaCorte_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ActualizarFechaCorteFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Perfil_ActualizarFechaCorte_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ObtenerDigitalizacionEstado">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDigitalizacionEstado" message="tns:IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDigitalizacionEstadoResponse" message="tns:IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDigitalizacionEstadoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Perfil_ObtenerDigitalizacionEstado_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ObtenerDocumentos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDocumentos" message="tns:IIntegrationPostalServices_Perfil_ObtenerDocumentos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDocumentosResponse" message="tns:IIntegrationPostalServices_Perfil_ObtenerDocumentos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDocumentosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Perfil_ObtenerDocumentos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Archivo_Bajar">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_Bajar" message="tns:IIntegrationPostalServices_Archivo_Bajar_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_BajarResponse" message="tns:IIntegrationPostalServices_Archivo_Bajar_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_BajarFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Archivo_Bajar_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Archivo_Subir">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_Subir" name="ArchivoUploadDto" message="tns:ArchivoUploadDto"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_SubirResponse" message="tns:IIntegrationPostalServices_Archivo_Subir_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Archivo_SubirFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Archivo_Subir_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Anular">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_Anular" message="tns:IIntegrationPostalServices_Radicacion_Anular_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_AnularResponse" message="tns:IIntegrationPostalServices_Radicacion_Anular_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_AnularFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Radicacion_Anular_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Modificar">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_Modificar" message="tns:IIntegrationPostalServices_Radicacion_Modificar_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_ModificarResponse" message="tns:IIntegrationPostalServices_Radicacion_Modificar_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_ModificarFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Radicacion_Modificar_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Obtener">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_Obtener" message="tns:IIntegrationPostalServices_Radicacion_Obtener_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_ObtenerResponse" message="tns:IIntegrationPostalServices_Radicacion_Obtener_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_ObtenerFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Radicacion_Obtener_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Radicar">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_Radicar" message="tns:IIntegrationPostalServices_Radicacion_Radicar_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_RadicarResponse" message="tns:IIntegrationPostalServices_Radicacion_Radicar_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Radicacion_RadicarFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Radicacion_Radicar_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerHabilitados">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitados" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosResponse" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitados_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerHabilitadosPorRadicacionTipo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosPorRadicacionTipo" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosPorRadicacionTipoResponse" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosPorRadicacionTipoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerHabilitadosPorRadicacionTipo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerPorId">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorId" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorId_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorIdResponse" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorId_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorIdFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorId_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerPorCodigo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorCodigo" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorCodigoResponse" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorCodigoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerPorCodigo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerTodos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerTodos" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerTodos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerTodosResponse" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerTodos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerTodosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_MedioEnvio_ObtenerTodos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoDocumental_ObtenerPorCodigo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerPorCodigo" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerPorCodigoResponse" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerPorCodigoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerPorCodigo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoDocumental_ObtenerTodos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerTodos" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerTodos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerTodosResponse" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerTodos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerTodosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoDocumental_ObtenerTodos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Tramite_ObtenerPorCodigo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Tramite_ObtenerPorCodigo" message="tns:IIntegrationPostalServices_Tramite_ObtenerPorCodigo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Tramite_ObtenerPorCodigoResponse" message="tns:IIntegrationPostalServices_Tramite_ObtenerPorCodigo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Tramite_ObtenerPorCodigoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Tramite_ObtenerPorCodigo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerHabilitados">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerHabilitados" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerHabilitadosResponse" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerHabilitadosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerHabilitados_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerPorCodigo">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorCodigo" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorCodigoResponse" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorCodigoFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorCodigo_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerPorId">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorId" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorIdResponse" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorIdFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerPorId_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerTodos">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerTodos" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerTodosResponse" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerTodosFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_TipoSeguridad_ObtenerTodos_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Documento_Subir">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_Subir" name="RequestDocumentoDTO" message="tns:RequestDocumentoDTO"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_SubirResponse" name="RespuestaDTO" message="tns:RespuestaDTO"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_SubirFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Documento_Subir_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Documento_Borrar">
+            <wsdl:input wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_Borrar" message="tns:IIntegrationPostalServices_Documento_Borrar_InputMessage"/>
+            <wsdl:output wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_BorrarResponse" message="tns:IIntegrationPostalServices_Documento_Borrar_OutputMessage"/>
+            <wsdl:fault wsaw:Action="http://tempuri.org/IIntegrationPostalServices/Documento_BorrarFaultExceptionFault" name="FaultExceptionFault" message="tns:IIntegrationPostalServices_Documento_Borrar_FaultExceptionFault_FaultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_IIntegrationPostalServices" type="tns:IIntegrationPostalServices">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RadicarEntrada">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/RadicarEntrada" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RadicarSalida">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/RadicarSalida" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RadicarInterna">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/RadicarInterna" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SubirArchivoDesdeProcesoBPM">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/SubirArchivoDesdeProcesoBPM" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="RecuperarDocumentos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/RecuperarDocumentos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="VerificarDocumentoPrincipal">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/VerificarDocumentoPrincipal" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ContarPaginasDocPrincipal">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/ContarPaginasDocPrincipal" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ActualizarFoliosRadicacion">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/ActualizarFoliosRadicacion" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="EnrutarRadicacion">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/EnrutarRadicacion" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ObtenerPorCodigo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/ObtenerPorCodigo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ObtenerTodos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/ObtenerTodos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ActualizarFechaCorte">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Perfil_ActualizarFechaCorte" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ObtenerDigitalizacionEstado">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDigitalizacionEstado" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Perfil_ObtenerDocumentos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Perfil_ObtenerDocumentos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Archivo_Bajar">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Archivo_Bajar" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Archivo_Subir">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Archivo_Subir" style="document"/>
+            <wsdl:input name="ArchivoUploadDto">
+                <soap:header message="tns:ArchivoUploadDto_Headers" part="Extension" use="literal"/>
+                <soap:header message="tns:ArchivoUploadDto_Headers" part="Radicacion" use="literal"/>
+                <soap:header message="tns:ArchivoUploadDto_Headers" part="TipoDocumento" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Anular">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Radicacion_Anular" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Modificar">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Radicacion_Modificar" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Obtener">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Radicacion_Obtener" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Radicacion_Radicar">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Radicacion_Radicar" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerHabilitados">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitados" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerHabilitadosPorRadicacionTipo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerHabilitadosPorRadicacionTipo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerPorId">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorId" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerPorCodigo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerPorCodigo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="MedioEnvio_ObtenerTodos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/MedioEnvio_ObtenerTodos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoDocumental_ObtenerPorCodigo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerPorCodigo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoDocumental_ObtenerTodos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoDocumental_ObtenerTodos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Tramite_ObtenerPorCodigo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Tramite_ObtenerPorCodigo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerHabilitados">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerHabilitados" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerPorCodigo">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorCodigo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerPorId">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerPorId" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="TipoSeguridad_ObtenerTodos">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/TipoSeguridad_ObtenerTodos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Documento_Subir">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Documento_Subir" style="document"/>
+            <wsdl:input name="RequestDocumentoDTO">
+                <soap:header message="tns:RequestDocumentoDTO_Headers" part="Extension" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="RespuestaDTO">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="Documento_Borrar">
+            <soap:operation soapAction="http://tempuri.org/IIntegrationPostalServices/Documento_Borrar" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="FaultExceptionFault">
+                <soap:fault use="literal" name="FaultExceptionFault" namespace=""/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="IntegrationPostalServices">
+        <wsdl:port name="BasicHttpBinding_IIntegrationPostalServices" binding="tns:BasicHttpBinding_IIntegrationPostalServices">
+            <soap:address location="http://192.168.195.26/Interop/Services/IntegrationPostalServices.svc"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

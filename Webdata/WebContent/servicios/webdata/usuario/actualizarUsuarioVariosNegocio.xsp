@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<actualizarUsuarioVariosNegocio>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Valor</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.UsuarioServicio</service>
+   			<operation>actualizarUsuarioVariosNegocio</operation>
+   				<parameters>
+	   				<parameter>Usuario</parameter>
+	   				<parameter>Variables</parameter>
+	   				<parameter>Persona</parameter>
+   					<parameter>negocios</parameter>
+   					<parameter>Credencial</parameter>
+   					<parameter>resolver</parameter>
+   				</parameters>
+   		</osm-utils:servicio-java>
+
+	</actualizarUsuarioVariosNegocio>
+
+
+</xsp:page>

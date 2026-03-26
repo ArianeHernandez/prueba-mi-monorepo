@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from WSGuardarUsuarioService WSDL service -->
+
+  <service name="WSGuardarUsuario" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServiceElement" value="WSGuardarUsuarioService"/>
+      <parameter name="schemaQualified" value="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com"/>
+      <parameter name="wsdlServicePort" value="WSGuardarUsuario"/>
+      <parameter name="className" value="com.osmosyscol.osmoautenticador.servicioweb.guardarusuario.WSGuardarUsuario"/>
+      <parameter name="wsdlPortType" value="WSGuardarUsuario"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:retNS="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:rtns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" name="guardarUsuario" qname="operNS:guardarUsuario" returnQName="retNS:guardarUsuarioReturn" returnType="rtns:RespuestaGuardarUsuario" soapAction="">
+        <parameter xmlns:pns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:tns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" qname="pns:solicitudGuardarUsuario" type="tns:SolicitudGuardarUsuario"/>
+      </operation>
+      <parameter name="allowedMethods" value="guardarUsuario"/>
+
+      <typeMapping xmlns:ns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:SolicitudGuardarUsuario" type="java:com.osmosyscol.osmoautenticador.servicioweb.guardarusuario.SolicitudGuardarUsuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" qname="ns:RespuestaGuardarUsuario" type="java:com.osmosyscol.osmoautenticador.servicioweb.guardarusuario.RespuestaGuardarUsuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://guardarusuario.servicioweb.osmoautenticador.osmosyscol.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_int" type="java:int[]" innerType="cmp-ns:int" encodingStyle=""/>
+  </service>
+</deployment>

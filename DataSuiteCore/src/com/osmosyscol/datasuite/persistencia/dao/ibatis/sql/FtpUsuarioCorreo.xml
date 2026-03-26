@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="FtpUsuarioCorreo">
+
+	<typeAlias alias="ftpUsuarioCorreo" type="com.osmosyscol.datasuite.logica.dto.FtpUsuarioCorreo" />
+
+	
+	<insert id="insertarFtpUsuarioCorreo" parameterClass="ftpUsuarioCorreo">
+		insert into dst_ftp_usuario_correo
+  			(id_ftp_usuario_correo, id_ftp_usuario, correo, tipo)
+		values
+  			(#id_ftp_usuario_correo#, #id_ftp_usuario#, #correo#, #tipo#)
+	</insert>
+	
+	<select id="obtenerSiguienteId" resultClass="java.lang.Integer">
+		 select nextvalue('dss_ftp_usuario_correo') as id from dual
+	</select>	
+	
+	<select id="obtenerFtpUsuarioCorreo" parameterClass="java.lang.Integer" resultClass="ftpUsuarioCorreo">
+		select * from dst_ftp_usuario_correo where id_ftp_usuario_correo = #id_ftp_usuario_correo#
+	</select>
+	
+	<select id="obtenerFtpUsuarioCorreoPorFtpUsuario" parameterClass="java.lang.Integer" resultClass="ftpUsuarioCorreo">
+		select * from dst_ftp_usuario_correo where id_ftp_usuario = #id_ftp_usuario#
+	</select>
+	
+	<delete id="borrarFtpUsuarioCorreo" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario_correo where id_ftp_usuario_correo = #id_ftp_usuario_correo#
+	</delete>
+	
+	<delete id="borrarFtpUsuarioPorFtpUsuarioCorreo" parameterClass="java.lang.Integer">
+		delete from dst_ftp_usuario where id_ftp_usuario = #id_ftp_usuario#
+	</delete>
+	
+	<update id="actualizarFtpUsuarioCorreo" parameterClass="ftpUsuarioCorreo">
+		update dst_ftp_usuario_correo set
+       		id_ftp_usuario = #id_ftp_usuario#,
+       		correo = #correo#
+ 		where id_ftp_usuario_correo = #id_ftp_usuario_correo#
+	</update>
+	
+	<select id="obtenerFtpUsuarioCorreoPorFtpUsuarioTipo" parameterClass="java.util.Map" resultClass="ftpUsuarioCorreo">
+		select * from dst_ftp_usuario_correo
+		where id_ftp_usuario = #id_ftp_usuario#
+		and tipo = #tipo#
+	</select>
+	
+</sqlMap>

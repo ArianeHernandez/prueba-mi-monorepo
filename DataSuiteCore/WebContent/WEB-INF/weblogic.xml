@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<weblogic-web-app>
+
+	<container-descriptor>
+		<prefer-web-inf-classes>true</prefer-web-inf-classes>
+	</container-descriptor>
+	
+	<!-- DEFINICION DE RECURSOS -->
+	
+	<resource-description>
+		<res-ref-name>datasuite_1</res-ref-name>
+		<jndi-name>datasuite_1</jndi-name>
+	</resource-description>
+	
+	<resource-description>
+		<res-ref-name>datasuite_2</res-ref-name>
+		<jndi-name>datasuite_2</jndi-name>
+	</resource-description>
+	
+	
+</weblogic-web-app>

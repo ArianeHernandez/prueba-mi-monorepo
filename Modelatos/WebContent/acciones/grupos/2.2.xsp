@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:osm-session-request name="id_grupo"/>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/grupo/guardarGrupoEstructura.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_grupo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_grupo"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>id_estructura</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="id_estructura"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>accion</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="gruEstAccion"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/grupo/obtenerGrupo.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_grupo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_grupo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/estructura/obtenerEstructurasPorGrupo.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_grupo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_grupo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/estructura/obtenerEstructurasPorPersona.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_persona"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>id_modelo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_modelo"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+  
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

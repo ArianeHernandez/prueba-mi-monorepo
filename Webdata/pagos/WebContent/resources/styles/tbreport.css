@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+
+html, body{
+	padding: 0px;
+	margin: 0px;
+}
+
+.ctr {
+	text-align: center;
+}
+
+.boxreport {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 13px;
+	width: 600px;
+	padding: 10px 40px;
+	margin: 0 auto;
+	background-color: white;
+	background-image: url(../images/general/vigilado.jpg);
+	background-position: 5px 80%;
+	background-repeat: no-repeat;
+	border: solid 1px #ccc;
+}
+img .imgreport{
+    vertical-align: middle;
+    height: 70px;
+}
+.boxreport .topreport {
+	display: block;
+	height: 80px;
+}
+
+.boxreport h1 {
+	text-align: center;
+	font-size: 18px;
+}
+
+.boxreport h2,table.tbreport .h2 {
+	background: #666;
+	color: #000;
+	text-align: center;
+	font-size: 13px;
+	padding: 5px;
+	margin: 0.3em 0;
+}
+
+table.tbreport .h2 {
+	margin: 0;
+}
+
+table.tbreport {
+	width: 100%;
+	margin: 5px 0 10px;
+	border: solid 1px #efefef;
+	background: #fff;
+	text-align: left;
+	font-size: 11px;
+	border-collapse: collapse;
+}
+
+.tbreport th {
+	
+}
+
+.tbreport td,.tbreport th {
+	border-collapse: collapse;
+	padding: 4px 1%;
+	width: 48%;
+	border: solid 1px #efefef;
+}
+
+.tbreport .par td,.tbreport .par th {
+	background-color: #efefef;
+}
+
+.boxreport p.footer {
+	text-align: center;
+	color: #999;
+	font-size: 12px;
+	margin-top: 20px;
+}
+
+.boxreport p.footer a {
+	color: #006225;
+}
+
+.boxreport p.footer a:hover {
+	color: #999;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerNotificacionesAdministrativoPagNotificacion>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Mapa</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.NotificacionServicio</service>
+   			<operation>obtenerNotificacionesAdministrativoPagNotificacion</operation>
+   			<parameters>
+   				<parameter>id_administrativo</parameter>
+   				<parameter>id_notificacion</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerNotificacionesAdministrativoPagNotificacion>
+
+
+</xsp:page>

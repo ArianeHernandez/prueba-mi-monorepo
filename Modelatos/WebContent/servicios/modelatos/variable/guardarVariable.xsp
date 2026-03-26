@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<guardarVariable>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Variable</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.VariableServicio</service>
+   			<operation>guardarVariable</operation>
+   			<parameters>
+   				<parameter>Variable</parameter>
+   				<parameter>id_modelo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</guardarVariable>
+
+
+</xsp:page>

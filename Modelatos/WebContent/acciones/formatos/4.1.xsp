@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+   		
+    	<osm-utils:osm-session-request name="_numeropagina_formatos" default="1"/>
+    	<numeroPagina><xsp-session:get-attribute name="var._numeropagina_formatos"/></numeroPagina>
+		
+    	<osm-utils:osm-session-request name="_id_negocio"/>
+    	    	
+    	<id_negocio_actual><xsp-session:get-attribute name="var._id_negocio"/></id_negocio_actual>
+    	<FILTRO><xsp-request:get-parameter name="filtro"/></FILTRO>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/formato/obtenerFormatosPorModeloFiltro.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_modelo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_modelo"/></cinclude:value>
+                </cinclude:parameter>
+            	<cinclude:parameter>
+                    <cinclude:name>numero_pagina</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var._numeropagina_formatos"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>filtro</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="filtro"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/formato/totalFormatosPorModeloFiltro.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_modelo</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="id_modelo"/></cinclude:value>
+                </cinclude:parameter>
+                <cinclude:parameter>
+                    <cinclude:name>filtro</cinclude:name>
+                    <cinclude:value><xsp-request:get-parameter name="filtro"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	 <cinclude:includexml>
+    		<cinclude:src>cocoon:/modelatos/formato/obtenerFormatoNegocioPorNegocio.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_negocio</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var._id_negocio"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>  
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/datasuite/negocio/obtenerListadoNegociosActivos.ser</cinclude:src>
+        </cinclude:includexml>  
+    	
+    	<CREDENCIAL>
+			<cinclude:includexml>
+				<cinclude:src>cocoon:/modelatos/persona/obtenerCredencialPersonaUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>id_persona</cinclude:name>
+			                <cinclude:value><xsp-session:get-attribute name="id_persona"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>id_usuario</cinclude:name>
+			                <cinclude:value></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+            </cinclude:includexml>
+		</CREDENCIAL>
+    </OSM-ACCION>
+	
+</xsp:page>

@@ -1,0 +1,29 @@
+
+.w10p{
+	width: 10%;
+}
+
+.w50p{
+	width: 50%;
+}
+
+.w20p{
+	width: 20%;
+}
+
+.cursor{
+	cursor:pointer;
+}
+
+.servicio{
+	background:url("images/general/down.gif") no-repeat scroll 2px 4px #E6E5E6;
+	cursor:pointer;
+	 	
+}
+
+.servicio td{
+	text-indent:25px;
+	color: #689D1B 
+}
+
+

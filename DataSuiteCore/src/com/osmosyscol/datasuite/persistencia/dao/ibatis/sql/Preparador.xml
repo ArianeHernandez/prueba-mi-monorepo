@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Preparador">
+
+	<typeAlias alias="preparador" type="com.osmosyscol.datasuite.logica.dto.Preparador" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<insert id="asociarPreparador" parameterClass="java.util.Map">
+		INSERT INTO dst_proceso_prepadador(id_proceso, id_preparador) 
+    	VALUES(#id_proceso#, #id_preparador#)
+	</insert>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<delete id="desasociarPreparador" parameterClass="java.lang.Integer">
+		delete from dst_proceso_prepadador where id_preparador = #id_preparador# 
+	</delete>
+	
+	<delete id="desasociarPreparadorPorProceso" parameterClass="java.util.Map">
+		delete from dst_proceso_prepadador where id_preparador = #id_preparador# 
+		 and  id_proceso=#id_proceso#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerPreparadores" parameterClass="java.util.Map" resultClass="preparador">
+		select * from dsv_preparador p where p.id_usuario = #id_usuario# 
+		<isNotNull property="id_tipo_proceso">
+		
+		and exists ( select 1 from DST_PREPARADOR_TIPO_PROCESO q where q.id_tipo_proceso = #id_tipo_proceso# and q.id_preparador = p.id_preparador)
+		order by nombre asc	
+		</isNotNull>
+		
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerPreparadoresPorProceso" parameterClass="java.lang.Integer" resultClass="preparador">
+		select p.* from dsv_preparador p, dst_proceso_prepadador pp
+		where p.id_preparador=pp.id_preparador
+		and pp.id_proceso=#id_proceso#
+	
+	</select>
+	
+</sqlMap>

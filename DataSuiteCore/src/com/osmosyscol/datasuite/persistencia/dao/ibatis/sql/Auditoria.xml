@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Auditoria">
+
+	<typeAlias alias="Auditoria" type="com.osmosyscol.datasuite.auditoria.dto.Auditoria" />
+
+	<insert id="insertarAuditoria" parameterClass="Auditoria">
+		insert into DST_AUDITORIA (id_auditoria, fecha_accion, codigo_accion, ip, usuario, target, nuevo_valor, estado)
+		values (#id_auditoria#, #fecha_accion#, #codigo_accion#, #ip#, #usuario#, #target#, #nuevo_valor#, #estado#)
+	</insert>
+	
+	<select id="obtenerSiguienteIdAuditoria" resultClass="java.lang.Integer">
+		 select nextvalue('DSS_AUDITORIA') as id from dual
+	</select>	
+	
+	<select id="obtenerAuditoria" parameterClass="java.lang.Integer" resultClass="Auditoria">
+		select * from DST_AUDITORIA where id_auditoria=#id_auditoria#
+	</select>	
+	
+	<select id="obtenerAuditoriasEspecificas" parameterClass="java.util.Map" resultClass="Auditoria">
+		select au.*, ac.descripcion, nvl(tt.nombre_usuario, 'system') nombre_usuario
+    	from DST_AUDITORIA au, DST_ACCION_AUDITABLE ac, ( select pe.nombre || ' ' || pe.apellido nombre_usuario, cr.login from DST_CREDENCIAL cr, DST_PERSONA pe where cr.id_persona = pe.id_persona ) tt
+    	where 
+    	au.codigo_accion = ac.codigo
+    	and upper(au.usuario) = upper(tt.login (+) )
+		and au.target = #target#
+		and au.codigo_accion in ($acciones$)
+		order by au.fecha_accion
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerAdministrativoPorID>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Administrativo</name>
+   			<service>com.osmosyscol.datasuite.logica.servicios.AdministrativoServicio</service>
+   			<operation>obtenerAdministrativoPorID</operation>
+   			<parameters>
+   				<parameter>id_administrativo</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerAdministrativoPorID>
+
+
+</xsp:page>

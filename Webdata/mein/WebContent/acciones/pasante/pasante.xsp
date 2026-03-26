@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:get-request-attribute name="rol_pasante"/>
+    	<osm-utils:get-request-attribute name="pasanteFront"/>
+    	<id_carga><xsp-request:get-parameter name="id_carga"/></id_carga>
+    	<id_instancia><xsp-request:get-parameter name="id_instancia"/></id_instancia>
+    	<id_administrativo><xsp-request:get-parameter name="id_administrativo"/></id_administrativo>
+    	<id_formato_salida><xsp-request:get-parameter name="id_formato_salida"/></id_formato_salida>
+    	<id_proceso_admin><xsp-request:get-parameter name="id_proceso_admin"/></id_proceso_admin>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/proceso_admin/obtenerAccionesConInstanciaDestinoPorInstanciaOrigen.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_instancia</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_instancia"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    </OSM-ACCION>
+	
+</xsp:page>

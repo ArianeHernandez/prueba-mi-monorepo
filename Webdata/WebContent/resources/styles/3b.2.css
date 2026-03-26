@@ -1,0 +1,50 @@
+
+
+.tabla_encabezado {
+	background: none !important;
+}
+
+.tabla_encabezado_1 .enc_1
+	{
+	width: 100px;
+}
+
+
+.tabla_encabezado_1 .enc_4,.tabla_encabezado_1 .enc_5
+	{
+	width: 90px;
+}
+
+.tabla_encabezado_1 .enc_3
+	{
+	width: 160px;
+}
+
+.tabla_encabezado_1 td {
+	border-bottom: 0px !important;
+}
+
+.tabla_1 {
+	border: 0px !important;
+}
+
+.tabla_1 .col_1 {
+	border-bottom: 1px dotted #ccc;
+	color: #003366;
+	font: 12px/1.3em Tahoma, Geneva, sans-serif;
+	padding: 8px 0;
+	text-indent: 30px;
+	background-image: url("../images/records/box.png");
+	background-repeat: no-repeat;
+	background-position: 0px 5px;
+}
+
+.tabla_1 .col_0{
+	font-size: 12px;
+	vertical-align: middle !important;
+}
+
+.tabla_1 .col_3,.tabla_1 .col_4,.tabla_1 .col_5 {
+	font-size: 12px;
+	text-align: center;
+}

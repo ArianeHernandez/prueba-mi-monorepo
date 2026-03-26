@@ -1,0 +1,231 @@
+.cuadro_proceso {
+	position: relative;
+	display: block;
+	width: 550px;
+	height: 205px;
+	background-color: #FFF;
+}
+
+.cuadro_imagen {
+	position: absolute;
+	display: block;
+	top: 0px;
+	left: 0px;
+	height: 145px;
+	width: 120px;
+	background-color: transparent;
+}
+
+.anadir {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/Anadir.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.eliminar {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/Eliminar.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.anadir {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 13px;
+	height: 13px;
+	background-image: url("../images/Anadir.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.cuadro_imagen .eliminar {
+	top: 9px;
+	left: 85px;
+}
+
+#box_preparadores .cuadro_imagen {
+	background-image: url("../images/Preparador.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.box_revision .cuadro_imagen {
+	background-image: url("../images/Revisor.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#box_liberadores .cuadro_imagen {
+	background-image: url("../images/Liberador.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.cuadro_boton {
+	position: absolute;
+	display: block;
+	top: 145px;
+	left: 0px;
+	height: 60px;
+	width: 120px;
+	background-image: url("../images/Flecha.png");
+	background-position: 20px 0px;
+	background-repeat: no-repeat;
+}
+
+.cuadro_boton input {
+	position: absolute;
+	display: block;
+	top: 12px;
+	left: 65px;
+	padding: 3px 5px;
+}
+
+.cuadro_info {
+	position: absolute;
+	display: block;
+	top: 10px;
+	left: 160px;
+	height: 180px;
+	width: 370px;
+	background-color: #F6F6F6;
+	border: 1px solid #CCCCCC;
+	padding: 5px;
+}
+
+.cuadro_info_cuerpo {
+	position: relative;
+	display: block;
+	height: 80px;
+	overflow: auto;
+}
+
+.cuadro_info_titulo {
+	position: relative;
+	display: block;
+	height: 45px;
+}
+
+.cuadro_info_titulo h1 {
+	display: inline; padding : 0px;
+	margin: 0px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000;
+	padding: 0px;
+}
+
+.cuadro_info_titulo input {
+	width: 200px;
+	padding: 3px;
+	margin-left: 20px;
+}
+
+.cuadro_fila {
+	/*height: 22px;
+	width: 360px;*/
+	overflow: hidden;
+}
+
+.cuadro_fila_item {
+	display: block;
+	float: left;
+	height: 22px;
+}
+
+.cuadro_info_footer {
+	height: 40px;
+	border-top: 1px solid #CCCCCC;
+}
+
+.cuadro_info_footer select {
+	padding: 3px;
+	width: 300px;
+	margin: 8px auto auto 10px;
+}
+
+.w20 {
+	width: 20px;
+}
+
+.w90 {
+	width: 90px;
+}
+
+.w220 {
+	width: 220px;
+}
+
+.w100p {
+	width: 100%;
+}
+
+.led {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	cursor: pointer;
+	width: 16px;
+	height: 98%;
+	background-position: left;
+	background-repeat: no-repeat;
+}
+
+.activo {
+	background-image: url("../images/on-16.png");
+}
+
+.inactivo {
+	background-image: url("../images/off-16.png");
+
+}
+.led p{
+	padding-left: 20px;
+}
+
+#area_configuracion_carga_automatica h3 {
+	display: inline; padding : 0px;
+	margin: 0px;
+	font-size: 13px;
+	font-weight: bold;
+	color: #333;
+	padding: 0px;
+}
+
+.w20 {
+	width: 20px;
+}
+
+.w90 {
+	width: 90px;
+}
+
+.w220 {
+	width: 220px;
+}
+
+.w100p {
+	width: 100%;
+}
+
+.w90p {
+	width: 90%;
+}
+
+.flft {
+	float: left;
+}

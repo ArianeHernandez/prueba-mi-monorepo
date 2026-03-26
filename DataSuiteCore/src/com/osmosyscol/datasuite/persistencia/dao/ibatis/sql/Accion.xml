@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Accion">
+
+	<typeAlias alias="accion" type="com.osmosyscol.datasuite.logica.dto.Accion" />
+	<typeAlias alias="instancia" type="com.osmosyscol.datasuite.logica.dto.Instancia" />
+	<typeAlias alias="listaDinamica" type="com.osmosyscol.datasuite.modelatos.logica.dto.ListaDinamica" />
+	<typeAlias alias="cargaAccionAutomatica" type="com.osmosyscol.datasuite.logica.dto.CargaAccionAutomatica" />
+
+	
+	<insert id="insertarAccion" parameterClass="java.util.Map">
+		insert into dst_accion (id_accion, nombre, id_instancia, oculto)
+		values (#id_accion#, #nombre#, #id_instancia#, #oculto#)
+	</insert>
+	
+	<select id="obtenerSiguienteIdAccion" resultClass="java.lang.Integer">
+		 select nextvalue('dss_accion') as id from dual
+	</select>	
+	
+	<select id="obtenerAccion" parameterClass="java.lang.Integer" resultClass="accion">
+		select * from dst_accion where id_accion=#id_accion#
+	</select>
+	
+	<select id="obtenerAccionesPorInstancia" parameterClass="java.lang.Integer" resultClass="accion">
+		select * from dst_accion where id_instancia=#id_instancia# order by id_accion
+	</select>
+	
+	<delete id="borrarAccion" parameterClass="java.lang.Integer">
+		delete from dst_accion where id_accion=#id_accion#
+	</delete>
+	
+	<update id="actualizarNombre" parameterClass="java.util.Map">
+		
+		update dst_accion set nombre=#nombre# where id_accion=#id_accion#
+	
+	</update>
+	
+	
+	<insert id="insertarInstaciaDestino" parameterClass="java.util.Map">
+		insert into dst_accion_instancia (id_accion, id_instancia_destino)
+		values (#id_accion#, #id_instancia_destino#)
+	</insert>
+	
+	<select id="obtenerInstanciaDestino" parameterClass="java.util.Map" resultClass="instancia">
+		select ins.* from dst_instancia ins, dst_accion_instancia accins
+		where ins.id_instancia=accins.id_instancia_destino
+		and accins.id_accion=#id_accion#
+		and accins.id_instancia_destino=#id_instancia_destino#
+	</select>
+	
+	<select id="obtenerIdInstanciasDestinoPorAccion" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select ins.id_instancia from dst_instancia ins, dst_accion_instancia accins
+		where ins.id_instancia=accins.id_instancia_destino
+		and accins.id_accion=#id_accion#
+	</select>
+	
+	<select id="obtenerInstanciasDestinoPorAccion" parameterClass="java.lang.Integer" resultClass="instancia">
+		select ins.* from dst_instancia ins, dst_accion_instancia accins
+		where ins.id_instancia=accins.id_instancia_destino
+		and accins.id_accion=#id_accion#
+	</select>
+	
+	<delete id="borrarInstanciaDestino" parameterClass="java.util.Map">
+		delete from dst_accion_instancia 
+		where id_accion=#id_accion#
+		and id_instancia_destino=#id_instancia_destino#
+	</delete>
+	
+	<select id="obtenerInstDisponiblesParaAsignar" parameterClass="java.util.Map" resultClass="instancia">
+		select * from dst_instancia 
+		where id_proceso_admin=#id_proceso_admin# 
+		and id_instancia not in 
+			(select id_instancia_destino from dst_accion_instancia where id_accion=#id_accion#)
+		order by nombre
+	</select>
+	
+	<select id="obtenerAccionesPorProceso" parameterClass="java.lang.Integer" resultClass="accion">
+		select acc.* from dst_accion acc, dst_instancia inst
+		where acc.id_instancia=inst.id_instancia
+		and inst.id_proceso_admin = #id_proceso_admin#
+	</select>
+	
+	<update id="actualizarOculto" parameterClass="java.util.Map">
+		
+		update dst_accion set oculto=#oculto# where id_accion=#id_accion#
+	
+	</update>
+	
+	<select id="obtenerAccionesConInstanciaDestinoPorInstanciaOrigen" parameterClass="java.lang.Integer" resultClass="accion">
+		select * from dst_accion a
+		where id_instancia = #id_instancia_origen# 
+		and id_accion in (select id_accion from dst_accion_instancia where id_accion= a.id_accion )
+		order by id_accion
+	</select>
+	
+	<select id="obtenerAccionAutomatica" parameterClass="java.lang.Integer" resultClass="listaDinamica">
+		select * from dst_lista_dinamica lista, dst_accion accion where accion.lista_dinamica = lista.id_lista_dinamica
+		and accion.id_accion = #id_accion# 
+	</select>
+	
+	<select id="obtenerListasDinamicas" parameterClass="java.lang.Integer" resultClass="listaDinamica">
+		select * from dst_lista_dinamica order by NOMBRE
+	</select>
+	
+	<update id="asignarListaDinamica" parameterClass="java.util.Map">
+		
+		update dst_accion set lista_dinamica=#id_lista_dinamica# where id_accion=#id_accion#
+	
+	</update>
+	
+	<select id="obtenerCargasAccionesAutomaticas" parameterClass="java.lang.Integer" resultClass="cargaAccionAutomatica">
+		select ci.id_carga, a.id_accion, ci.id_instancia, ld.id_lista_dinamica
+		from dst_accion a, dst_carga_instancia ci, dst_lista_dinamica ld, dst_carga c
+		where a.id_instancia = ci.id_instancia
+		and ci.fecha_salida is null
+		and ld.id_lista_dinamica = a.lista_dinamica
+        and c.id_carga = ci.id_carga
+        and c.estado != 'R'
+	</select>
+
+	<update id="actualizarMensajeEjecucion" parameterClass="java.util.Map">
+		update dst_accion set mensaje_ejecucion=#mensaje_ejecucion# where id_accion=#id_accion#
+	</update>
+	
+	<update id="actualizarAccion" parameterClass="accion">
+		update dst_accion set
+			nombre = #nombre#,
+			oculto = #oculto#,
+			lista_dinamica = #lista_dinamica#,
+			mensaje_ejecucion = #mensaje_ejecucion#
+		where id_accion = #id_accion#
+	</update>	
+	
+</sqlMap>

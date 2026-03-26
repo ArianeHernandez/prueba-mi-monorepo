@@ -1,0 +1,62 @@
+.tabla_encabezado_1, .tabla_encabezado_2{
+	display: none;
+}
+
+.tabla_1, .tabla_2, .tabla_1 td, .tabla_2 td{
+	border-width: 0px;
+	border-collapse: collapse;
+}
+
+.fila_1, .fila_2{
+	background-image: url("images/general/down.gif");
+	background-repeat: no-repeat;
+	background-color: #E6E5E6;
+	background-position: 5px 2px;
+	color:#006600;
+	text-decoration:none;
+}
+
+.fila_1 td, .fila_2 td{
+	padding: 3px 0px 3px 35px;
+	font: 14px Verdana,Tahoma,Geneva,sans-serif;
+	width: auto;
+}
+
+.fila_1 td:last-child{
+	width: 100px !important;
+}
+
+.fila_2 td:last-child{
+	width: 94px !important;
+}
+
+.fila_1:hover, fila_2:hover{
+	text-decoration: underline;
+}
+
+.tabla_1{
+	border: 0px !important;
+	background-color: #f1f1f1 !important;
+}
+
+.tabla_2{
+	border: 0px !important;
+	background-color: #fff !important;
+}
+
+
+.tabla_2, .tabla_3{
+	margin-left: 15px !important;
+}
+
+.titulo_reporte{
+	display:none;
+}
+
+.contfila{
+	background-color: transparent !important;
+}
+
+.money{
+	padding-right: 15px !important;
+}

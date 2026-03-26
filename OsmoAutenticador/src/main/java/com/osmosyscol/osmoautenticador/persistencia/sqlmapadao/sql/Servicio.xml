@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Servicio">
+
+	<typeAlias alias="servicioDto" type="com.osmosyscol.osmoautenticador.persistencia.dto.ServicioDto" />
+	<typeAlias alias="servicioExDto" type="com.osmosyscol.osmoautenticador.persistencia.dto.ServicioExDto" />
+		
+	<insert id="insertarServicioporRol" parameterClass="servicioDto" >
+		INSERT INTO oat_servicio_rol (id_servicio, id_rol) VALUES (#idServicio#, #idRol#)
+	</insert>
+	
+	<delete id="eliminarServicioporRol" parameterClass="java.lang.Integer" >
+		DELETE FROM oat_servicio_rol WHERE id_rol=#id_rol#
+	</delete>
+	
+	<!-- - - - - - -  Servicios Excluyentes - - - - - - - -->
+	
+	<select id="obtenerServiciosEx" parameterClass="servicioExDto" resultClass="servicioExDto">
+		select *
+		from oat_servicio_excluyente
+		where id_servicio = #id_servicio# and (naturaleza = #naturaleza# or naturaleza is null)
+	</select>
+	
+	<select id="obtenerServicio" parameterClass="servicioDto" resultClass="servicioDto">
+		select *
+		from oat_servicio
+		where id_servicio = #idServicio#
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,58 @@
+.cuadro_reporte {
+	background-color: #f7f7f7;
+	width: 100%;
+	height: 28px;
+	margin: 2px 0px;
+	cursor: pointer;
+	border-bottom: dotted 1px #ccc;
+	text-align: center;
+	font-weight:bold;
+}
+
+.bloqueestilo_columna {
+	background-color: #f7f7f7;
+	border-bottom: dotted 1px #ccc;
+	margin-bottom: 5px;
+	padding-bottom: 10px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.bloqueestilo_columna .bloque_contenido_titulo {
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+
+.bloqueestilo_columna .registro {
+	display: inline-block;
+	width: 45%;
+}
+
+.tabla_fila_duplicado {
+	color: red;
+	background-color: white;
+	border-bottom: 1px dotted #87C11F;
+	cursor: pointer;
+	padding: 3px;
+}
+
+.tabla_fila_duplicado td{
+	padding: 3px;
+	vertical-align: top;
+}
+
+.tabla_fila_duplicado:hover,  .tabla_fila:hover{
+	background-color: #ddd;
+}
+
+.rgh {
+	text-align: right;
+}
+
+#area_configuracion{
+	overflow: auto;
+}

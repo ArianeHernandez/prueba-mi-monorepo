@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	
+	<xsp:structure>
+		<xsp:include>com.osmosyscol.datasuite.logica.constantes.Constantes</xsp:include>
+	</xsp:structure>
+	
+    <OSM-ACCION>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/formato/obtenerFormato.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_formato</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_formato"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml> 
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/persona/obtenerPersona.ser</cinclude:src>
+            <cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_persona</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_persona"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/carga/obtenerCarga.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_carga</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+        </cinclude:includexml>
+    	
+    	
+    	<osm-utils:exist-parameter name="accionrechazar">
+    		<ESRECHAZADO/>
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/carga/cambiarEstado.ser</cinclude:src>
+	            <cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>id_carga</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_estado</cinclude:name>
+	                    <cinclude:value><xsp:expr>Constantes.CARGA_ESTADO_RECHAZADO</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>id_persona</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="id_persona"/></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+	   </osm-utils:exist-parameter>
+    	
+       <osm-utils:exist-parameter name="accionaprobar">
+	    	<ESAPROBADO/>
+       		<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/carga/cambiarEstado.ser</cinclude:src>
+	            <cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>id_carga</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_carga"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>id_estado</cinclude:name>
+	                    <cinclude:value><xsp:expr>Constantes.CARGA_ESTADO_APROBADO</xsp:expr></cinclude:value>
+	                </cinclude:parameter>
+	                <cinclude:parameter>
+	                    <cinclude:name>id_persona</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="id_persona"/></cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+       	
+       		<cinclude:includexml>
+	    		<cinclude:src>cocoon:/webdata/carga/guardarValoresLista.ser</cinclude:src>
+	            <cinclude:parameters>
+	                <cinclude:parameter>
+	                    <cinclude:name>id_formato</cinclude:name>
+	                    <cinclude:value><xsp-session:get-attribute name="var.id_formato"/></cinclude:value>
+	                </cinclude:parameter>
+	            	<cinclude:parameter>
+	                    <cinclude:name>sobreescribirValores</cinclude:name>
+	                    <cinclude:value>false</cinclude:value>
+	                </cinclude:parameter>
+	            </cinclude:parameters>
+	        </cinclude:includexml>
+       		
+	   </osm-utils:exist-parameter>
+	   
+	   <osm-utils:autorizado url="/administracion_carga/3b.do" />
+	   
+    </OSM-ACCION>
+	
+</xsp:page>

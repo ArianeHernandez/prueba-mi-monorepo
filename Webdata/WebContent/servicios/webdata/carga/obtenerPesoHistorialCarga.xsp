@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerPesoHistorialCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Peso</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.HistorialServicio</service>
+   			<operation>obtenerPesoHistorialCarga</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>estadoInicial</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerPesoHistorialCarga>
+
+</xsp:page>

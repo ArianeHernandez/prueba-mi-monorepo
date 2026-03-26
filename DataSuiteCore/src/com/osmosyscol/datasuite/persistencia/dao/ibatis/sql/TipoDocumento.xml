@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TipoDocumento">
+
+	<typeAlias alias="tipoDocumento" type="com.osmosyscol.datasuite.logica.dto.TipoDocumento" />
+	
+	<select id="buscarTipoDocumentoG3A" parameterClass="string" resultClass="tipoDocumento">
+		select * from dst_tipodocumento 
+			where id_g3a = #id_g3a#
+	</select>
+	
+	<select id="getNombreDocumento" parameterClass="integer" resultClass="string">
+		select nombre from dst_tipodocumento 
+			where id = #id#
+	</select>
+	
+	<select id="getListaTipoDocumento" resultClass="tipoDocumento">
+		select * from dst_tipodocumento 
+	</select>
+	
+	<select id="buscarTipoDocumentoCodigo" parameterClass="string" resultClass="tipoDocumento">
+		select * from dst_tipodocumento where prefijo = #codigo# 
+	</select>
+	
+</sqlMap>

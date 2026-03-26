@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerListaCarga>
+   		
+   		<osm-utils:servicio-java>
+   			<name>listado</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>obtenerListaCarga</operation>
+   			<parameters>
+   				<parameter>id_formato</parameter>
+   				<parameter>id_persona</parameter>
+   				<parameter>id_estado</parameter>
+   				<parameter>id_tipocarga</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerListaCarga>
+
+
+</xsp:page>

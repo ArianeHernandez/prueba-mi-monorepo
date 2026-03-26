@@ -1,0 +1,20 @@
+<div class="modal" id="sAlert" tabindex="-1" role="dialog" aria-labelledby="sAlertLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+	
+	<div class="modal-dialog">
+		<div class="modal-content" id="sAlert_mcontent">
+			<div class="modal-header">
+				<h4 class="modal-title" id="sAlertLabel"></h4>
+			</div>
+			<div class="modal-body bg_alert" id="sAlertContent">...</div>
+
+			<div class="modal-footer text-right" id="sAlertFooter">
+				<button type="button" id="btn_s_alert_no" class="btn btn-danger btn-sm"  onclick="s_alert_action(false)">NO</button>
+				<button type="button" id="btn_s_alert_si" class="btn btn-success btn-sm"  onclick="s_alert_action(true)">SI</button>
+				
+				<button type="button" id="btn_s_alert_cancel" class="btn btn-default btn-sm"  onclick="s_alert_action(false)">Cancelar</button>
+				<button type="button" id="btn_s_alert" class="btn btn-primary btn-sm"  onclick="s_alert_action(true)">Continuar</button>
+			</div>
+
+		</div>
+	</div>
+</div>

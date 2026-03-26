@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TipoArchivo">
+
+	<typeAlias alias="tipoArchivo" type="com.osmosyscol.datasuite.logica.dto.TipoArchivo"/>
+	<select id="obtenerTiposArchivo" resultClass="tipoArchivo">
+		select * from dst_tipo_archivo where activo = 'S'
+	</select>
+	
+	<select id="obtenerTodoTiposArchivo" resultClass="tipoArchivo">
+		select * from dst_tipo_archivo order by nombre
+	</select>
+	
+	<insert id="adicionarTipoArchivoAdjunto" parameterClass="java.util.Map">
+		insert into dst_tipo_archivo_adjunto (id_tipo_archivo_adjunto, id_tipo_archivo , id_archivo_adjunto)
+		values (dss_tipo_archivo_adjunto.nextval, #id_tipo_archivo# , #id_archivo_adjunto#)
+	</insert>
+	
+	<update id="actualizarTipoArchivo" parameterClass="tipoArchivo">
+		update dst_tipo_archivo 
+		set 
+			nombre=#nombre#,
+			activo=#activo# 
+    	where
+    		id_tipo_archivo = #id_tipo_archivo# 
+	</update>
+	
+	<insert id="guardarTipoArchivo" parameterClass="tipoArchivo">
+		insert into dst_tipo_archivo(id_tipo_archivo,nombre,activo) 
+		values(#id_tipo_archivo#,#nombre#,#activo#)
+	</insert>
+	
+	<select id="obtenerTipoArchivo" parameterClass="java.lang.Integer" resultClass="tipoArchivo">
+		select * from dst_tipo_archivo
+		where id_tipo_archivo = #id_tipo_archivo#
+	</select> 
+	
+	<select id="obtenerExtensionesPorTipoArchivo" parameterClass="java.lang.Integer" resultClass="java.lang.String">
+		select extension from dst_tipo_archivo_extension where id_tipo_archivo = #id_tipo_archivo#
+	</select>
+	
+</sqlMap>

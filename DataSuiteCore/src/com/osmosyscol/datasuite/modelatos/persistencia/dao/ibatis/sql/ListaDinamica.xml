@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ListaDinamica">
+
+	<typeAlias alias="listadinamica"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ListaDinamica"/>
+	<typeAlias alias="valorLista"  type="com.osmosyscol.datasuite.modelatos.logica.dto.ValorLista"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerListasDinamicas" resultClass="listadinamica">
+		select * from dst_lista_dinamica where estado = 'A'
+		order by nombre
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerListaDinamica"  resultClass="listadinamica" parameterClass="java.lang.Integer">
+		select * from dst_lista_dinamica where id_lista_dinamica = #id_lista_dinamica#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerSiguienteID" resultClass="java.lang.Integer">
+		select nextvalue('dss_lista_dinamica') as id from dual
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="creaListaDinamica" parameterClass="listadinamica">
+		INSERT INTO dst_lista_dinamica(id_lista_dinamica, nombre, descripcion, consulta, c_id, c_nombre, base_datos, servicio) 
+    	VALUES(#id_lista_dinamica#, #nombre#, #descripcion#, #consulta#, #c_id#, #c_nombre#, #base_datos#, #servicio#)
+	</insert>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<update id="actualizarListaDinamica" parameterClass="listadinamica">
+		UPDATE dst_lista_dinamica 
+	    SET nombre=#nombre#, descripcion=#descripcion#, consulta=#consulta#, c_id=#c_id#, c_nombre=#c_nombre#, base_datos = #base_datos#, estado=#estado#, servicio=#servicio#
+	    WHERE id_lista_dinamica=#id_lista_dinamica#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+</sqlMap>
+

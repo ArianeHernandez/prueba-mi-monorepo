@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+	xmlns:xscript="http://apache.org/xsp/xscript/1.0"
+>
+    <OSM-ACCION>
+    	<osm-utils:exist-parameter name="editar">
+    		<editar>SI</editar>
+    	</osm-utils:exist-parameter>
+    	
+    	<rol_actual><xsp-session:get-attribute name="var.rol"/></rol_actual>
+    	<id_usuario_actual><xsp-session:get-attribute name="id_usuario"/></id_usuario_actual>
+    	
+    	
+    	<xscript:variable scope="request" name="PERSONAS_INFO">
+	    		
+			<osm-utils:includexml>
+				<osm-utils:src>cocoon:/webdata/persona/obtenerPersonaPorIdentificacion.ser</osm-utils:src>
+		        <osm-utils:parameters>
+		            <osm-utils:parameter>
+		                <osm-utils:name>"tipo_persona"</osm-utils:name>
+		                <osm-utils:value>"N"</osm-utils:value>
+		            </osm-utils:parameter>
+		        	<osm-utils:parameter>
+		                <osm-utils:name>"identificacion"</osm-utils:name>
+		                <osm-utils:value><xsp-request:get-parameter name="identificacion"/></osm-utils:value>
+		            </osm-utils:parameter>
+		        	<osm-utils:parameter>
+	                    <osm-utils:name>"tipo_documento"</osm-utils:name>
+	                    <osm-utils:value><xsp-request:get-parameter name="tipo_documento"/></osm-utils:value>
+	                </osm-utils:parameter>
+		        </osm-utils:parameters>
+		    </osm-utils:includexml>
+			   
+		</xscript:variable>
+    	
+    	
+    	<osm-utils:exist-parameter name="identificacion">
+    		
+			
+			<INFOPERSONA>
+				<xscript:get scope="request" name="PERSONAS_INFO"/>
+			 </INFOPERSONA>
+		    		    
+    		<PERSONAUSUARIO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerPersonaUsuario.ser</cinclude:src>
+			        <cinclude:parameters>
+			        	 <cinclude:parameter>
+		                    <cinclude:name>id_usuario</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+		                </cinclude:parameter>
+			        	<cinclude:parameter>
+		                    <cinclude:name>rol</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="var.rol"/></cinclude:value>
+		                </cinclude:parameter>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+    		</PERSONAUSUARIO>
+    		
+    		<LIBERADORUSUARIO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/liberador/obtenerLiberadorPorIdentificacion.ser</cinclude:src>
+			        <cinclude:parameters>
+			        	 <cinclude:parameter>
+		                    <cinclude:name>id_usuario</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+		                </cinclude:parameter>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+    		</LIBERADORUSUARIO>
+    	    		
+	    </osm-utils:exist-parameter>
+    	<DATOS>
+	    	<IDENTIFICACION><xsp-request:get-parameter name="identificacion"/></IDENTIFICACION>
+	    	<TIPOPERSONA>N</TIPOPERSONA>
+    		<TIPODOCUMENTO>
+    			<cinclude:includexml>
+					<cinclude:src>cocoon:/webdata/persona/obtenerTipoDocumento.ser</cinclude:src>
+			        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>id_tipo_documento</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+			            </cinclude:parameter>
+			        </cinclude:parameters>
+			    </cinclude:includexml>
+		    </TIPODOCUMENTO>
+    	</DATOS>
+    	<LOGIN>
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/esLoginPorIdentificacion.ser</cinclude:src>
+		    </cinclude:includexml>
+    	</LOGIN>
+    	
+    	<CREDENCIAL>
+			<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/obtenerCredencialPersonaIDUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+			            <cinclude:parameter>
+			                <cinclude:name>tipo_persona</cinclude:name>
+			                <cinclude:value>N</cinclude:value>
+			            </cinclude:parameter>
+			        	<cinclude:parameter>
+			                <cinclude:name>identificacion</cinclude:name>
+			                <cinclude:value><xsp-request:get-parameter name="identificacion"/></cinclude:value>
+			            </cinclude:parameter>
+		        		<cinclude:parameter>
+		                    <cinclude:name>id_usuario</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+		                </cinclude:parameter>
+		        		<cinclude:parameter>
+		                    <cinclude:name>tipo_documento</cinclude:name>
+		                    <cinclude:value><xsp-request:get-parameter name="tipo_documento"/></cinclude:value>
+		                </cinclude:parameter>
+			        </cinclude:parameters>
+            </cinclude:includexml>
+		</CREDENCIAL>
+		
+		<TIPOPROCESO>
+			<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/obtenerTiposProcesosPorIdUsuario.ser</cinclude:src>
+		        <cinclude:parameters>
+		        		<cinclude:parameter>
+		                    <cinclude:name>id_usuario</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+		                </cinclude:parameter>
+			     </cinclude:parameters>
+            </cinclude:includexml>
+		</TIPOPROCESO>
+		
+		<TIPOPROCESOROL>
+			<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/obtenerTiposProcesoRol.ser</cinclude:src>
+		        <cinclude:parameters>
+		        		<cinclude:parameter>
+		                    <cinclude:name>id_persona</cinclude:name>
+		                    <cinclude:value><osm-utils:get-xpath-from-xscript name="PERSONAS_INFO" select="obtenerPersonaPorIdentificacion/Persona/id_persona"/></cinclude:value>
+		                </cinclude:parameter>
+		                <cinclude:parameter>
+		                    <cinclude:name>id_usuario</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="id_usuario"/></cinclude:value>
+		                </cinclude:parameter>
+		                <cinclude:parameter>
+		                    <cinclude:name>rol</cinclude:name>
+		                    <cinclude:value><xsp-session:get-attribute name="var.rol"/></cinclude:value>
+		                </cinclude:parameter>
+			     </cinclude:parameters>
+            </cinclude:includexml>
+		</TIPOPROCESOROL>
+		
+    	<TIPOREVISOR>
+	    	<cinclude:includexml>
+				<cinclude:src>cocoon:/webdata/persona/obtenerTiposRevisor.ser</cinclude:src>
+		    </cinclude:includexml>
+    	</TIPOREVISOR>
+		
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

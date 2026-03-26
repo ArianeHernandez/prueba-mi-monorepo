@@ -1,0 +1,226 @@
+.dv_servidor {
+	position: relative;
+	display: block;
+	background-color: white;
+	background-image: url("../images/Servidor.png");
+	background-repeat: no-repeat;
+	background-position: 30px 0px;
+	height: 50px; #
+	height: 80px;
+	padding-top: 30px;
+	padding-left: 90px;
+}
+
+.dv_servidor h3 {
+	position: relative;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.dv_servidor p {
+	position: relative;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.dv_internet {
+	position: relative;
+	display: block;
+	background-color: white;
+	background-image: url("../images/Internet.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 110px;
+}
+
+.diagrama_validacion {
+	margin-top: 30px;
+}
+
+b.r {
+	color: red;
+}
+
+#diagrama_validacion_B .dv_publicas_final {
+	display: block;
+	background-color: white;
+	background-image: url("../images/no_publicas.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	min-height: 76px;
+}
+
+#diagrama_validacion_N .dv_publicas_final {
+	display: block;
+	background-color: white;
+	background-image: url("../images/no_publicas_N.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	min-height: 76px;
+}
+
+.dv_add_ippublica {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 90px;
+	left: 20px;
+	cursor: pointer;
+	background-image: url("../images/add2.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.dv_del_ippublica {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 55px;
+	left: 28px;
+	cursor: pointer;
+	background-image: url("../images/del2.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.dv_edit_ippublica {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 36px;
+	left: 263px;
+	cursor: pointer;
+	background-image: url("../images/edit.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.dv_add_ipprivada {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 95px;
+	left: 303px;
+	cursor: pointer;
+	background-image: url("../images/add2.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.dv_ip_publica {
+	position: relative;
+	display: block;
+	background-color: white;
+	background-image: url("../images/ip_publica.png");
+	background-repeat: no-repeat;
+	background-position: 29px 0px;
+	min-height: 120px;
+}
+
+.dv_ip_publica_simple {
+	background-image: url("../images/ip_publica_simple.png") !important;
+	background-repeat: no-repeat;
+	background-position: 29px 0px;
+}
+
+.dv_ip_publica_simple:last-child {
+	background-image: url("../images/ip_publica_simple_last.png") !important
+}
+
+.dv_ip_publica:last-child {
+	background-image: url("../images/ip_publica_last.png");
+}
+
+.dv_ip_publica h3 {
+	position: relative;
+	display: block;
+	left: 70px !important;
+	top: 20px;
+	width: 200px;
+	height: auto;
+}
+
+.dv_input {
+	background-color: #EEEEEE;
+	background-image: url("../images/back/back_inputtext.png");
+	background-position: center top;
+	background-repeat: repeat-x;
+	border: 1px solid #CCCCCC;
+	width: 100px;
+	margin-right: 5px;
+}
+
+.dv_ip_publica p {
+	position: relative;
+	display: block;
+	left: 70px !important;
+	top: 20px;
+	width: 280px;
+	height: auto;
+}
+
+.dv_ip_privada {
+	position: relative;
+	display: block;
+	background-color: transparent;
+	background-image: url("../images/ip_privada.png");
+	background-repeat: no-repeat;
+	background-position: 298px 0px;
+	height: 88px;
+}
+
+.dv_ip_privada:first-child {
+	margin-top: 88px;
+}
+
+.dv_ip_privada:last-child {
+	background-image: url("../images/ip_privada_last.png");
+}
+
+.dv_ip_privada h3 {
+	position: relative;
+	display: block;
+	left: 350px !important;
+	top: 15px;
+	width: 200px;
+	height: auto;
+}
+
+.dv_ip_privada p {
+	position: relative;
+	display: block;
+	left: 350px !important;
+	top: 15px;
+	width: 280px;
+	height: auto;
+}
+
+.dv_del_ipprivada {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 45px;
+	left: 305px;
+	cursor: pointer;
+	background-image: url("../images/del2.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.dv_edit_ipprivada {
+	position: absolute;
+	display: block;
+	width: 20px;
+	height: 20px;
+	top: 26px;
+	left: 541px;
+	cursor: pointer;
+	background-image: url("../images/edit.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:osm-session-request name="id_proceso"/>
+    	
+    	<osm-utils:osm-session-request name="id_usuario"/>
+    	
+    	<xsp-session:set-attribute name="var.estransaccionmanual">true</xsp-session:set-attribute>
+    	
+    	<xsp-session:set-attribute name="var.esclientenatural">true</xsp-session:set-attribute>
+    	
+    	<xsp:logic>
+    		if(session.getAttribute("var.id_usuario")!=null){
+    			session.setAttribute("id_usuario", new Integer(session.getAttribute("var.id_usuario") + "") );
+    			session.setAttribute("IP_VALIDA","S");
+    		}
+    	</xsp:logic>
+    	
+    	<id_usuario_actual><xsp-session:get-attribute name="var.id_usuario"/></id_usuario_actual>
+    	
+    	<cinclude:includexml>
+    		<cinclude:src>cocoon:/webdata/usuario/obtenerUsuario.ser</cinclude:src>
+            <cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_usuario"/></cinclude:value>
+                </cinclude:parameter>
+			</cinclude:parameters>
+		</cinclude:includexml>
+		
+		<cinclude:includexml>
+			<cinclude:src>cocoon:/datasuite/negocio/obtenerNegociosPorUsuario.ser</cinclude:src>
+			<cinclude:parameters>
+            	<cinclude:parameter>
+                    <cinclude:name>id_usuario</cinclude:name>
+                    <cinclude:value><xsp-session:get-attribute name="var.id_usuario"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+	    </cinclude:includexml>
+	    
+    </OSM-ACCION>
+	
+</xsp:page>

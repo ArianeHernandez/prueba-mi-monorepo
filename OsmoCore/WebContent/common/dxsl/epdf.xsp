@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+		  xmlns:util="http://apache.org/xsp/util/2.0"
+>
+
+<xsp:structure>
+	<xsp:include>org.apache.cocoon.components.language.markup.xsp.XSPUtil</xsp:include>
+</xsp:structure> 
+	
+	
+    <OSM_EPDF>
+    
+    	<xsp:logic>
+    		
+    		String[] parametros = request.getParameter("code").split(":");
+    		
+    		String path = System.getenv(parametros[0]);
+    		for(int i=1; parametros.length > i; i++ ){
+    			path += "/" + parametros[i];		
+    		}
+    		
+    		XSPUtil.includeSource(path + ".xsl", null, this.resolver, this.contentHandler);
+    		
+    	</xsp:logic>
+    	
+    </OSM_EPDF>
+
+</xsp:page>

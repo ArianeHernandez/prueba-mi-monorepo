@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Franja">
+
+	<typeAlias alias="franja" type="com.osmosyscol.datasuite.logica.dto.Franja" />
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<delete id="eliminarFranjas" parameterClass="java.lang.Integer">
+		delete from dst_franja where id_horario = #id_horario#
+	</delete>
+	
+	<insert id="guardarFranja" parameterClass="franja">
+		INSERT INTO dst_franja(
+            id_franja, dia, hora_desde, hora_hasta, id_horario)
+    		VALUES (
+    		nextvalue('dss_franja'), #dia#, #hora_desde#, #hora_hasta#, #id_horario#)
+		
+	</insert>
+	
+	<select id="obtenerFranjas" parameterClass="java.lang.Integer" resultClass="franja">
+		select * from dst_franja 
+			where id_horario= #id_horario#
+	</select>
+	
+	
+	<select id="obtenerNumeroTotalFranjas" parameterClass="java.lang.Integer" resultClass="java.lang.Integer">
+		select count(*) from dst_franja 
+			where id_horario= #id_horario#
+	</select>
+	
+</sqlMap>

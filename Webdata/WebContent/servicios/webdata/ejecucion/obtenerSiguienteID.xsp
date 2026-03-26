@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerSiguienteID>
+   		
+   		<osm-utils:servicio-java>
+   			<name>value</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.EjecucionServicio</service>
+   			<operation>obtenerSiguienteID</operation>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerSiguienteID>
+
+
+</xsp:page>

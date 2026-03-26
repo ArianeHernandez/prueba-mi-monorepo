@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Grupo">
+
+	<typeAlias alias="persona"     type="com.osmosyscol.datasuite.logica.dto.Persona" />
+	<typeAlias alias="grupo"       type="com.osmosyscol.datasuite.modelatos.logica.dto.Grupo"/>
+	<typeAlias alias="estructura"  type="com.osmosyscol.datasuite.modelatos.logica.dto.Estructura"/>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerGruposPorPersona" resultClass="grupo" parameterClass="java.util.Map">
+		select distinct gr.id_grupo, gr.id_modelo, gr.nombre 
+	    from dst_grupo gr, dst_negocio em, dsv_persona_negocio pn, dst_persona per
+		where gr.id_modelo = em.id_modelo
+		and pn.id_negocio = em.id_negocio
+		and (per.id_persona = 1 or (
+			pn.id_persona = per.id_persona
+			and per.id_persona = #id_persona#
+			and em.id_negocio = #id_negocio#
+		) )
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="totalGruposPorPersona" resultClass="java.lang.Integer" parameterClass="java.util.Map">
+		select count(*) as cantidad  
+	    from (
+	    	select distinct gr.id_grupo, gr.id_modelo, gr.nombre 
+		    from dst_grupo gr, dst_negocio em, dsv_persona_negocio pn, dst_persona per
+			where gr.id_modelo = em.id_modelo
+			and pn.id_negocio = em.id_negocio
+			and (per.id_persona = 1 or (
+				pn.id_persona = per.id_persona
+				and per.id_persona = #id_persona#
+				and em.id_negocio = #id_negocio#
+			) )
+	    ) DD
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerGruposPorEstructura" resultClass="grupo" parameterClass="estructura">
+		select gr.id_grupo, gr.id_modelo, gr.nombre 
+		from dst_grupo gr, dst_grupo_estructura ge
+		where gr.id_grupo = ge.id_grupo
+		and ge.id_estructura = #id_estructura#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerGrupo" resultClass="grupo" parameterClass="grupo">
+		select id_grupo, id_modelo, nombre
+		from dst_grupo
+		where id_grupo = #id_grupo#
+	</select>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<insert id="insertarGrupo" parameterClass="grupo">
+	insert into dst_grupo
+	  (id_grupo, id_modelo, nombre)
+	values
+	  (nextvalue('dss_grupo'), #id_modelo#, #nombre#)
+	</insert>
+
+	<update id="actualizarGrupo" parameterClass="grupo">
+	  update dst_grupo
+	     set nombre = #nombre#
+	   where id_grupo = #id_grupo#
+	</update>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<delete id="eliminarGrupoEstructura" parameterClass="java.lang.Integer">
+		delete from dst_grupo_estructura where id_grupo = #id_grupo#
+	</delete>
+	
+	<delete id="eliminarGrupo" parameterClass="java.lang.Integer">
+		delete from dst_grupo where id_grupo = #id_grupo#
+	</delete>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<insert id="guardarGrupoEstructura" parameterClass="java.util.Map">
+		insert into dst_grupo_estructura 
+		      (id_grupo, id_estructura)
+		values
+		      (#id_grupo#, #id_estructura#)
+	</insert>
+	
+	<delete id="eliminarGrupoPorEstructura" parameterClass="java.util.Map">
+		delete from dst_grupo_estructura 
+		where id_grupo = #id_grupo# and id_estructura = #id_estructura#
+	</delete>
+	
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+	<select id="obtenerGrupoPorNombre" resultClass="grupo" parameterClass="java.util.Map">
+		select * from dst_grupo grp
+   		where grp.nombre = #nombreGrupo#
+    	and grp.id_modelo = #id_modelo#
+	</select>
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	
+</sqlMap>

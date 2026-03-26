@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerDatosCargaPorFormato>
+   		
+   		<osm-utils:servicio-java isname="false">
+   			<name>nodo</name>
+   			<service>com.osmosyscol.datasuite.webdata.logica.servicios.CargaServicio</service>
+   			<operation>obtenerDatosCargaPorFormato</operation>
+   			<parameters>
+   				<parameter>id_carga</parameter>
+   				<parameter>id_formatosalida</parameter>
+   				<parameter>ValorFiltro</parameter>
+   				<parameter>numero_pagina</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerDatosCargaPorFormato>
+
+</xsp:page>

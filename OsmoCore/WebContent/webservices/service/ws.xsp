@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0"
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+	xmlns:util="http://apache.org/xsp/util/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+	
+<xsp:structure>
+	<xsp:include>com.osmosyscol.commons.servicio.AutenticacionServicio</xsp:include>
+</xsp:structure> 
+	
+    <OSM-ACCION>
+
+    	<xsp:logic>
+    		String serverRequest = "/ws/" + <util:get-sitemap-parameter name="serviceName"/>;
+    		long timeservice_osmcoresystem = System.currentTimeMillis();
+    	</xsp:logic>
+    	
+		<osm-utils:osm-request-inputstream/>
+    	
+    	<cinclude:includexml>
+			<cinclude:src>cocoon:/datapi/ejecutarServicio.ser</cinclude:src>
+    		<cinclude:parameters>
+                <cinclude:parameter>
+                    <cinclude:name>nombreservicio</cinclude:name>
+                    <cinclude:value><util:get-sitemap-parameter name="serviceName"/></cinclude:value>
+                </cinclude:parameter>
+    			<cinclude:parameter>
+                    <cinclude:name>osm_prefix</cinclude:name>
+                    <cinclude:value>dpi</cinclude:value>
+                </cinclude:parameter>
+    			<cinclude:parameter>
+                    <cinclude:name>osm_one_prefix</cinclude:name>
+                    <cinclude:value><util:get-sitemap-parameter name="one_prefix"/></cinclude:value>
+                </cinclude:parameter>
+    			<cinclude:parameter>
+                    <cinclude:name>osm_uri</cinclude:name>
+                    <cinclude:value>http://www.itosmosys.com/datapi/servicios/<util:get-sitemap-parameter name="serviceName"/></cinclude:value>
+                </cinclude:parameter>
+            </cinclude:parameters>
+		</cinclude:includexml>
+    	
+    	<xsp:logic>
+    		timeservice_osmcoresystem = System.currentTimeMillis() - timeservice_osmcoresystem;
+			AutenticacionServicio.addLogPage(serverRequest, timeservice_osmcoresystem);
+		</xsp:logic>
+    	
+    </OSM-ACCION>
+</xsp:page>

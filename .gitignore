@@ -1,0 +1,44 @@
+# ==============================================================
+# Monorepo Insolvencia - .gitignore global
+# ==============================================================
+
+# --- Archivos de sistema ---
+.DS_Store
+*.log
+hs_err_pid*.log
+
+# --- IDE Eclipse ---
+# Los archivos .project, .classpath, .settings se INCLUYEN
+# porque son necesarios para que Eclipse funcione correctamente
+
+# --- Compilados y clases ---
+**/WebContent/WEB-INF/classes/
+**/bin/
+**/target/
+
+# --- JARs generados por Ant (se regeneran con build.xml) ---
+OsmoCore/jar/osmocommons.jar
+DataSuiteCore/jar/datasuite.jar
+
+# --- Build properties locales (rutas de cada máquina) ---
+Webdata/build.properties
+Modelatos/build.properties
+
+# --- OsmoSkin_Datasuite ---
+OsmoSkin_Datasuite/release.properties
+OsmoSkin_Datasuite/pom.xml.releaseBackup
+OsmoSkin_Datasuite/pom.pom.xml.next
+OsmoSkin_Datasuite/pom.pom.xml.tag
+
+# --- OsmoAutenticador ---
+OsmoAutenticador/.env
+OsmoAutenticador/target/
+
+# --- Webdata ---
+Webdata/logs/
+
+# --- Monorepo anterior (no necesario) ---
+soc-mi-monorepo/
+
+# --- Archivos zip sueltos ---
+*.zip

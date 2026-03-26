@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerRevisionPorId>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Revision</name>
+   			<service>com.osmosyscol.datasuite.modelatos.logica.servicios.RevisionServicio</service>
+   			<operation>obtenerRevision</operation>
+   			<parameters>
+   				<parameter>idRevision</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerRevisionPorId>
+
+
+</xsp:page>

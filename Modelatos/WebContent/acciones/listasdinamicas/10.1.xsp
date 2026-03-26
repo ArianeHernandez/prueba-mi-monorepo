@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<xsp:page language="java" 
+	xmlns:cinclude="http://apache.org/cocoon/include/1.0" 
+	xmlns:xsp="http://apache.org/xsp" 
+	xmlns:xsp-request="http://apache.org/xsp/request/2.0" 
+	xmlns:xsp-session="http://apache.org/xsp/session/2.0"
+	xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+    <OSM-ACCION>
+    	
+    	<osm-utils:exist-parameter name="guardar_listadinamica">
+    		
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/modelatos/listadinamica/guardarListaDinamica.ser</cinclude:src>
+	        </cinclude:includexml>
+    			   
+		</osm-utils:exist-parameter>
+    	
+    	<osm-utils:exist-parameter name="desactivar_listadinamica">
+    		    		
+	    	<cinclude:includexml>
+	    		<cinclude:src>cocoon:/modelatos/listadinamica/desactivarListaDinamica.ser</cinclude:src>
+	        </cinclude:includexml>
+	   
+		</osm-utils:exist-parameter>
+    	
+    	 <cinclude:includexml> 
+    		<cinclude:src>cocoon:/modelatos/listadinamica/obtenerListasDinamicas.ser</cinclude:src>
+        </cinclude:includexml> 
+    	
+    </OSM-ACCION>
+	
+</xsp:page>

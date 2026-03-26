@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<json-services>
+	
+
+	<service urn="formatoServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.CampoJSONServicio"/>
+	
+	<service urn="grupoServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.GrupoJSONServicio"/>
+	<service urn="negocioServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.NegocioJSONServicio"/>
+	<service urn="tareaServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.TareaJSONServicio"/>
+	<service urn="horarioServicio" class="com.osmosyscol.datasuite.logica.servicios.json.HorarioJSONServicio"/>
+	
+	<session-service urn="validacionEstructuraServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.ValidacionEstructuraJsonServicio"/>
+	<session-service urn="formatoBaseServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.FormatoJSONServicio"/>
+	<session-service urn="estructuraServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.EstructuraJSONServicio"/>
+	<session-service urn="estructuraExcelServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.EstructuraExcelJsonServicio"/>	
+	<session-service urn="personaServicio" class="com.osmosyscol.datasuite.logica.servicios.json.PersonaJSONServicio"/>
+	
+	<session-service  urn="historialConsultaServicio" class="com.osmosyscol.datasuite.modelatos.logica.servicios.json.HistorialConsultaJSONServicio"/>
+</json-services>

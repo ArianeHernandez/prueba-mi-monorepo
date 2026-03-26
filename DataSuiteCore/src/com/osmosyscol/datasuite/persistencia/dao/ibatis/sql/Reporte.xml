@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Reporte">
+
+	<typeAlias alias="Reporte"      type="com.osmosyscol.datasuite.reportedim.dto.ServicioReporteDim" />
+	
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+	<select id="obtenerReporte" resultClass="Reporte" parameterClass="java.lang.String">
+		select *
+		from DST_REPORTE
+		where id=#id#
+	</select>
+	
+	<select id="totalReportes" resultClass="java.lang.Integer" >
+		select count(*) from DST_REPORTE
+	</select>
+	
+	<insert id="crearReporte" parameterClass="java.util.Map">
+		insert into DST_REPORTE (id,consulta,nombre_conexion,nombre)
+		values (#id#, #consulta#, #nombre_conexion#,#nombre#)
+	</insert>
+	
+	<update id="actualizarReporte" parameterClass="Reporte">
+		update DST_REPORTE set consulta=#consulta#, nombre=#nombre#, nombre_conexion=#nombre_conexion# where id=#id#
+	</update>
+	
+	<delete id="eliminarReporte" parameterClass="java.lang.String">
+		delete from DST_REPORTE
+		where id = #id#
+	</delete>	
+	
+	<select id="obtenerReportes" resultClass="java.lang.String">
+		select id
+		from DST_REPORTE
+	</select>
+	
+	<select id="obtenerTodosReportes" resultClass="Reporte">
+		select *
+		from DST_REPORTE
+	</select>
+	
+</sqlMap>

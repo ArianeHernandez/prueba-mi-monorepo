@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<xsp:page language="java"
+          xmlns:xsp="http://apache.org/xsp"
+          xmlns:xsp-request="http://apache.org/xsp/request/2.0"
+		  xmlns:osm-utils="http://osmosyscol.com/logicsheets/osm-utils/1.0"
+>
+   	<obtenerSaldosProductoPorCliente>
+   		
+   		<osm-utils:servicio-java>
+   			<name>Listado</name>
+   			<service>com.osmosyscol.datasuite.webdata.correval.saldoproducto.SaldoProductoServicio</service>
+   			<operation>obtenerSaldosProductoPorCliente</operation>
+   			<parameters>
+   				<parameter>id_usuario</parameter>
+   			</parameters>
+   		</osm-utils:servicio-java>
+   		
+	</obtenerSaldosProductoPorCliente>
+
+
+</xsp:page>

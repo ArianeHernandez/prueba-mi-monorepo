@@ -1,0 +1,38 @@
+.item_lista {
+	padding: 2px 0px;
+	font-size: 12px;
+}
+
+.celdaFloat {
+	display: inline;
+	height: 34px;
+	margin: 0;
+	padding: 0px;
+	float: left;
+	width: 19%;
+	min-width: 170px;
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+.celdaFloatRight {
+	display: inline;
+	height: 34px;
+	margin: 0;
+	padding: 0px;
+	float: right;
+	width: 19%;
+	position: relative;
+}
+
+.tabla_encabezado_float {
+	background: #5b5b5b /*url(../images/back/bg-tittle.gif) 0 50% repeat-x*/;
+	border: 1px solid #ccc;
+	color: #fff;
+}
+
+.tabla_encabezado_float .celdaFloat, .celdaFloatRight {
+	font: bold 10px/17px Verdana, Geneva, sans-serif;
+	text-transform: uppercase;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="NotificacionAccion">
+
+	<typeAlias alias="notificacionAccion" type="com.osmosyscol.datasuite.logica.dto.NotificacionAccion" />
+	
+	<insert id="insertarNotificacionAccion" parameterClass="java.util.Map">
+		INSERT INTO dst_notificacion_accion(id_notificacion_accion, id_accion, tipo, correo, id_administrativo,mensaje)
+    	VALUES (#id_notificacion_accion#, #id_accion#, #tipo#, #correo#, #id_administrativo#, #mensaje#)
+	</insert>
+	
+	<select id="obtenerSiguienteIDNotificacionAccion" resultClass="java.lang.Integer">
+		select nextvalue('dss_notificacion_accion') as id from dual
+	</select>
+	
+	<delete id="borrarNotificacionAccion" parameterClass="java.lang.Integer">
+		DELETE FROM dst_notificacion_accion
+ 		WHERE id_notificacion_accion=#id_notificacion_accion#
+	</delete>
+	
+	<update id="actualizarNotificacionAccion" parameterClass="java.util.Map">
+		UPDATE dst_notificacion_accion
+		SET tipo=#tipo#, correo=#correo#, id_administrativo=#id_administrativo#, mensaje=#mensaje#
+		WHERE id_notificacion_accion=#id_notificacion_accion#
+	</update>
+	
+	<select id="obtenerNotificacionAccion" parameterClass="java.lang.Integer" resultClass="notificacionAccion">
+		SELECT * FROM dst_notificacion_accion
+		WHERE id_notificacion_accion=#id_notificacion_accion#
+	</select>
+	
+	<select id="obtenerNotificacionesAccPorAccion" parameterClass="java.lang.Integer" resultClass="notificacionAccion">
+		SELECT * FROM dst_notificacion_accion
+		WHERE id_accion=#id_accion# ORDER BY id_notificacion_accion
+	</select>
+
+</sqlMap>
+
